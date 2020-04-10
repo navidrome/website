@@ -1,11 +1,11 @@
 
 ---
-title: "Core Tasks"
-linkTitle: "Core Tasks"
+title: "Usage"
+linkTitle: "Usage"
 weight: 6
 date: 2017-01-05
 description: >
-  What can your user do with your project?
+  Configuration, transcoding, etc...
 ---
 
 {{% pageinfo %}}

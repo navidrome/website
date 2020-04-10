@@ -1,36 +1,25 @@
 ---
 title: "Getting Started"
 linkTitle: "Getting Started"
-weight: 2
+weight: 3
 description: >
-  What does your user need to know to try your project?
+  Already installed? Play us a song, Navidrome!
 ---
 
-{{% pageinfo %}}
-This is a placeholder page that shows you how to use this template site.
-{{% /pageinfo %}}
+After [installing](/docs/installation) Navidrome in your platform, you need to create your
+first user. This will be your admin user, a super user that can manage all aspects of Navidrome, 
+including the ability to manage other users. Just browse to Navidrome's homepage at 
+[http://localhost:4533](http://localhost:4533) and you will be greeted with a screen like this:
 
-Information in this section helps your user try your project themselves.
+<p align="center">
+<img width="500" src="/screenshots/create-first-user.png">
+</o>
 
-* What do your users need to do to start using your project? This could include downloading/installation instructions, including any prerequisites or system requirements.
+Just fill out the username and password you want to use, confirm the password and click on the 
+"Create Admin" button.
 
-* Introductory “Hello World” example, if appropriate. More complex tutorials should live in the Tutorials section.
+That's it! You should now be able to browse and listen to all your music. 
 
-Consider using the headings below for your getting started page. You can delete any that are not applicable to your project.
-
-## Prerequisites
-
-Are there any system requirements for using your project? What languages are supported (if any)? Do users need to already have any software or tools installed?
-
-## Installation
-
-Where can your user find your project code? How can they install it (binaries, installable package, build from source)? Are there multiple options/versions they can install and how should they choose the right one for them?
-
-## Setup
-
-Is there any initial setup users need to do after installation to try your project?
-
-## Try it out!
-
-Can your users test their installation, for example by running a commmand or deploying a Hello World example?
-
+**Note**: It usually take a couple of minutes for 
+your music to start appearing in Navidrome's UI. You can check the logs to see what is the scan 
+progress. If you see any errors, [reach out](/community) and we can help you
