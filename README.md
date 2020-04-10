@@ -9,7 +9,7 @@ npm install
 
 ## Running the website locally
 
-Once you've cloned the site repo, from the repo root folder, run:
+Once you've cloned this repository, from the repo's root folder, run:
 
 ```
 npm run dev
