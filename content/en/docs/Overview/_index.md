@@ -3,36 +3,49 @@ title: "Overview"
 linkTitle: "Overview"
 weight: 1
 description: >
-  Here's where your user finds out if your project is for them.
+  Learn more about Navidrome's features
 ---
 
-{{% pageinfo %}}
-This is a placeholder page that shows you how to use this template site.
-{{% /pageinfo %}}
+## Features
 
+- Handles very **large music collections**
+- Streams virtually **any audio format** available
+- Reads and uses all your beautifully curated **metadata**
+- **Multi-user**, each user has their own play counts, playlists, favourites, etc..
+- Very **low resource usage**
+- **Multi-platform**, runs on macOS, Linux and Windows. **Docker** images are also provided
+- Ready to use **Raspberry Pi** binaries available
+- Automatically **monitors your library** for changes, importing new files and reloading new metadata 
+- **Themeable**, modern and responsive **Web interface** based on [Material UI](https://material-ui.com)
+- **Compatible** with all Subsonic/Madsonic/Airsonic clients. See bellow for a list of tested clients
+- **Transcoding** on the fly. Can be set per user/player. **Opus encoding is supported**
 
-The Overview is where your users find out about your project. Depending on the size of your docset, you can have a separate overview page (like this one) or put your overview contents in the Documentation landing page (like in the Docsy User Guide). 
+## Apps
 
-Try answering these questions for your user in this page:
+Besides its own Web UI, Navidrome should be compatible with all Subsonic clients. The following clients are tested and confirmed to work properly:
+- iOS: [play:Sub](http://michaelsapps.dk/playsubapp/)
+- Android: [DSub](https://play.google.com/store/apps/details?id=github.daneren2005.dsub),
+[Ultrasonic](https://play.google.com/store/apps/details?id=org.moire.ultrasonic) and
+[Music Stash](https://play.google.com/store/apps/details?id=com.ghenry22.mymusicstash)
+- Web: [Jamstash](http://jamstash.com),
+[Aurial](http://shrimpza.github.io/aurial/),
+[Subfire](http://p.subfireplayer.net/) and 
+[Subplayer](https://github.com/peguerosdc/subplayer)
+    
+For more options, look at the [list of clients](https://airsonic.github.io/docs/apps/) maintained by 
+the Airsonic project. Please open an [issue](https://github.com/deluan/navidrome/issues) if you have any 
+trouble with the client of your choice.
 
-## What is it?
+## Road map
 
-Introduce your project, including what it does or lets you do, why you would use it, and its primary goal (and how it achieves it). This should be similar to your README description, though you can go into a little more detail here if you want.
+This project is being actively worked on. Expect a more polished experience and new features/releases 
+on a frequent basis. Some upcoming features planned: 
 
-## Why do I want it?
-
-Help your user know if your project will help them. Useful information can include: 
-
-* **What is it good for?**: What types of problems does your project solve? What are the benefits of using it?
-
-* **What is it not good for?**: For example, point out situations that might intuitively seem suited for your project, but aren't for some reason. Also mention known limitations, scaling issues, or anything else that might let your users know if the project is not for them.
-
-* **What is it *not yet* good for?**: Highlight any useful features that are coming soon.
-
-## Where should I go next?
-
-Give your users next steps from the Overview. For example:
-
-* [Getting Started](/getting-started/): Get started with $project
-* [Examples](/examples/): Check out some example code!
+- Improve WebUI
+- Last.FM integration
+- Smart/dynamic playlists (similar to iTunes)
+- Support for audiobooks (bookmarking)
+- Jukebox mode
+- Sharing links to albums/songs/playlists
+- Podcasts
 
