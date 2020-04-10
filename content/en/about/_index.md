@@ -18,29 +18,28 @@ layout: docs
 {{< /blocks/cover >}}
 
 
-{{% blocks/section type="section" color="primary" %}}
-# Features
 
-* Handles very large music collections
-* Streams virtually any audio format available
-* Reads and uses all your beautifully curated metadata (id3 tags)
-* Multi-user, each user has their own play counts, playlists, favourites, etc..
-* Very low resource usage: Ex: with a library of 300GB (~29000 songs), it uses less than 50MB of RAM
-* Multi-platform, runs on macOS, Linux and Windows. Docker images are also provided
-* Automatically monitors your library for changes, importing new files and reloading new metadata
-* Modern and responsive Web interface based on Material UI, to manage users and browse your library
-* Compatible with the huge selection of clients for Subsonic, Airsonic and Madsonic. See the complete list of available mobile and web apps
-* Transcoding/Downsampling on-the-fly (WIP. Experimental support is available)
-* Integrated music player (WIP)
+{{< blocks/section color="primary">}}
+### What exactly is Navidrome?
+It is a piece of software that allows you to listen to your own digital music in the same way you 
+would with services like Spotify, Apple Music and others. It also allows you to easily share 
+your music and playlists with your friends and family
 
-{{% /blocks/section %}}
+### How it works?
+After a simple installation, Navidrome indexes all digital music stored in your hard drive and makes
+it available through a nice web player and also by any Subsonic-API compatible mobile client. 
+Your music becomes searchable and you can create playlists, rate and "favourite" your loved tracks, 
+albums and artists
 
+<p align="center">
+    <br>
+    <br>
+    <br>
+    <img height="300" src="/screenshots/mobile-login.png">
+    <img height="300" src="/screenshots/light-albums-view.png">
+    <img height="300" src="/screenshots/dark-mobile-albums-view.png">
+    <img height="300" src="/screenshots/dark-album-view.png">
+</p>
 
-
-{{< blocks/section >}}
-
-<div class="col-12">
-<h1 class="text-center">This is another section</h1>
-</div>
 
 {{< /blocks/section >}}
