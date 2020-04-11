@@ -9,6 +9,12 @@ description: >
 Just head to the [releases page](https://github.com/deluan/navidrome/releases) and download the latest version for you 
 platform. There are builds available for Linux (amd64 and arm), Windows (32 and 64 bits) and macOS.
 
+For [Arch Linux](https://archlinux.org), you can install Navidrome via the
+[`navidrome-bin`](https://aur.archlinux.org/packages/navidrome-bin/) package in
+the [AUR](https://aur.archlinux.org/). Alternatively, you can install using the
+[`navidrome-git`](https://aur.archlinux.org/packages/navidrome-git/) package
+which will compile Navidrome from source.
+
 For [Raspberry Pi](https://www.raspberrypi.org), use the Linux arm builds. Tested with 
 [Raspbian](https://www.raspberrypi.org/downloads/raspbian) Buster on Pi 4
 
