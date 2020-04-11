@@ -19,7 +19,8 @@ available:
 | `ND_TRANSCODINGCACHESIZE` | Size of transcoding cache| 100MB |
 | `ND_IMAGECACHESIZE` | Size of image (art work) cache| 100MB |
 | `ND_SESSIONTIMEOUT` | How long Navidrome will wait before closing web ui idle sessions | 30m |
-| `ND_BASEURL` | Base URL to configure Navidrome behind a proxy (ex: /music) |  |
+| `ND_BASEURL` | Base URL to configure Navidrome behind a proxy (ex: /music) | _Empty_  |
+| `ND_UILOGINBACKGROUNDURL` | Change backaground image used in the Login page | https://source.unsplash.com/random/1600x900?music |
 
 **Note** durations are specified as a number and a unit suffix, such as "24h", "30s" or "1h10m". Valid 
 time units are "s", "m", "h".
