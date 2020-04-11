@@ -9,14 +9,13 @@ description: >
 If you can't find a [pre-built binary](/docs/installation/pre-built-binaries) for your platform, 
 you should open an [issue in the project's GitHub page](https://github.com/deluan/navidrome/issues).
 
-If you don't want to wait, you can try to benerate the binary yourself, with the following 
-simple steps.
+If you don't want to wait, you can try to generate the binary yourself, with the following steps.
 
 First, you will need to install [Go 1.14](https://golang.org/dl/) and 
 [Node 13.12.0](http://nodejs.org). The setup is very strict, and the steps bellow only work with 
 these specific versions (enforced in the Makefile) 
 
-After the prerequisites above are installed, clone this repository and build the application with:
+After the prerequisites above are installed, clone this repository and build Navidrome:
 
 ```shell script
 $ git clone https://github.com/deluan/navidrome
@@ -27,4 +26,5 @@ $ make buildall     # Build UI and server, generates a single executable
 
 This will generate the `navidrome` executable binary in the project's root folder. 
 
-**NOTE* You'll also need [ffmpeg](https://ffmpeg.org) installed in your system. 
+**NOTE:** Remember to install [ffmpeg](https://ffmpeg.org/download.html) in your system, a requirement for Navidrome to work 
+properly. You may find the latest static build for your platform here: https://johnvansickle.com/ffmpeg/ 
