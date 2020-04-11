@@ -1,0 +1,2 @@
+{{ $releaseJ := getJSON "https://api.github.com/repos/deluan/navidrome/releases/latest" }}
+{{ $releaseJ.tag_name }}
