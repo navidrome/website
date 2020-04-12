@@ -31,6 +31,7 @@ Besides its own Web UI, Navidrome should be compatible with all Subsonic clients
 [Aurial](http://shrimpza.github.io/aurial/),
 [Subfire](http://p.subfireplayer.net/) and 
 [Subplayer](https://github.com/peguerosdc/subplayer)
+- Desktop: [Sublime Music](https://sumner.gitlab.io/sublime-music) (Linux/macOS)
     
 For more options, look at the [list of clients](https://airsonic.github.io/docs/apps/) maintained by 
 the Airsonic project. Please open an [issue](https://github.com/deluan/navidrome/issues) if you have any 
