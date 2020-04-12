@@ -1,4 +1,4 @@
-baseURL = "/"
+baseURL = "https://www.navidrome.org"
 title = "Navidrome"
 
 enableRobotsTXT = true
