@@ -8,3 +8,6 @@
 
 [build.environment]
   HUGO_VERSION = "0.66.0"
+
+[context.production.environment]
+  HUGO_ENV = "production"
