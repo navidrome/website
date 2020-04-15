@@ -17,7 +17,7 @@ available:
 | `ND_LOGLEVEL`   | Log level. Useful for troubleshooting. Possible values: `error`, `info`, `debug`, `trace` | `info` |
 | `ND_PORT`          | HTTP port Navidrome will use | 4533 |
 | `ND_TRANSCODINGCACHESIZE` | Size of transcoding cache| 100MB |
-| `ND_IMAGECACHESIZE` | Size of image (art work) cache. seto to `0` to disable cache | 100MB |
+| `ND_IMAGECACHESIZE` | Size of image (art work) cache. set to `0` to disable cache | 100MB |
 | `ND_SESSIONTIMEOUT` | How long Navidrome will wait before closing web ui idle sessions | 30m |
 | `ND_BASEURL` | Base URL to configure Navidrome behind a proxy (ex: /music) | _Empty_  |
 | `ND_UILOGINBACKGROUNDURL` | Change backaground image used in the Login page | https://source.unsplash.com/random/1600x900?music |
