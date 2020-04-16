@@ -8,32 +8,49 @@ description: >
 
 
 [Docker images](https://hub.docker.com/r/deluan/navidrome) are available for _linux/amd64_ platform. 
-They include everything needed to run Navidrome. Example of usage with Docker Compose:
+They include everything needed to run Navidrome.
 
+
+### Using `docker-compose` :
+
+Create a `docker-compose.yml` file with the following content (or add the `navidrome` service 
+bellow to your existing file):
 ```yaml
-# This is just an example. Customize it to your needs.
-
 version: "3"
 services:
   navidrome:
     image: deluan/navidrome:latest
     ports:
       - "4533:4533"
+    restart: unless-stopped
     environment:
       # All options with their default values:
-      ND_MUSICFOLDER: /music
-      ND_DATAFOLDER: /data
       ND_SCANINTERVAL: 1m
       ND_LOGLEVEL: info  
-      ND_PORT: 4533
-      ND_TRANSCODINGCACHESIZE: 100MB
       ND_SESSIONTIMEOUT: 30m
       ND_BASEURL: ""
     volumes:
-      - "./data:/data"
+      - "/path/to/data:/data"
       - "/path/to/your/music/folder:/music:ro"
 ```
+Start it with `docker-compose up -d`
 
-Take a look here for more [configuration options](/docs/usage/configuration-options/)
 
-To get the cutting-edge, latest development version, use the image `deluan/navidrome:develop`
+### Using `docker` command line tool:
+```shell
+$ docker run -d \
+   --name navidrome \
+   --restart=unless-stopped \
+   -v /path/to/music:/music \
+   -v /path/to/data:/data \
+   -p 4533:4533 \ 
+   deluan/navidrome:latest
+```
+
+
+### Customization
+- Remeber to change the `volumes` paths to point to your local paths. `/data` is where Navidrome 
+will store its DB and cache, `/music` is where your music files are stored. 
+- [Configuration options](/docs/usage/configuration-options/) can be customized with environment 
+variables as needed. For `docker-compose` just add them to the `environment` section or the yml 
+file. For `docker` cli use the `-e` parameter. Ex: `-e ND_SESSIONTIMEOUT=24h`
