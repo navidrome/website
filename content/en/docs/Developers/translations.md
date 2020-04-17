@@ -53,7 +53,7 @@ translation, take a look at the existing translations in the
 You'll also need to add to the project a package with default base translations (error messages, 
 navigation labels) for the language your are adding. Ex: for Chinese:
 ```
-npm install --save ra-language-chinese
+cd ui; npm install --save ra-language-chinese
 ```
 
 {{% alert %}}
