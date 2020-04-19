@@ -8,12 +8,12 @@ description: >
 
 ###  Supported Subsonic API endpoints
 
-Navidrome is currently compatible with [Subsonic API](http://www.subsonic.org/pages/api.jsp) v1.8.0, with some exceptions.
+Navidrome is currently compatible with [Subsonic API](http://www.subsonic.org/pages/api.jsp) 
+v1.10.2, with some exceptions.
 
 This is an (almost) up to date list of all Subsonic API endpoints implemented by Navidrome. 
-Check the "Notes" column for limitations/missing behaviour. Also keep in mind these differences between 
-Navidrome and Subsonic:
-
+Check the "Notes" column for limitations/missing behaviour. Also keep in mind these differences 
+between Navidrome and Subsonic:
 * Right now, Navidrome only works with a single Music Library (Music Folder)
 * Navidrome does not mark songs as played by calls to `stream`, only when 
  `scrobble` is called with `submission=true`
@@ -37,12 +37,13 @@ Navidrome and Subsonic:
 
 | _Album/Songs Lists_    ||
 |------------------------|-|
-| `getAlbumList`         | `byYear` and `byGenre` are not implemented |
-| `getAlbumList2`        | `byYear` and `byGenre` are not implemented |
+| `getAlbumList`         | |
+| `getAlbumList2`        | |
 | `getStarred`           | |
 | `getStarred2`          | |
 | `getNowPlaying`        | |
-| `getRandomSongs`       | Ignores `fromYear` and `toYear` parameters |
+| `getRandomSongs`       | |
+| `getSongsByGenre`      | |
 
 | _Searching_            ||
 |------------------------|-|
