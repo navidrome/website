@@ -25,7 +25,8 @@ description: >
 Besides its own Web UI, Navidrome should be compatible with all Subsonic clients. The following clients are tested and confirmed to work properly:
 - iOS: [play:Sub](http://michaelsapps.dk/playsubapp/)
 - Android: [DSub](https://play.google.com/store/apps/details?id=github.daneren2005.dsub),
-[Ultrasonic](https://play.google.com/store/apps/details?id=org.moire.ultrasonic) and
+[Ultrasonic](https://play.google.com/store/apps/details?id=org.moire.ultrasonic),
+[Audinaut](https://github.com/nvllsvm/Audinaut) and
 [Music Stash](https://play.google.com/store/apps/details?id=com.ghenry22.mymusicstash)
 - Web: [Jamstash](http://jamstash.com),
 [Aurial](http://shrimpza.github.io/aurial/),
