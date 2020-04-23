@@ -7,8 +7,9 @@ description: >
 ---
 
 
-[Docker images](https://hub.docker.com/r/deluan/navidrome) are available for _linux/amd64_ platform. 
-They include everything needed to run Navidrome.
+[Docker images](https://hub.docker.com/r/deluan/navidrome) are available for the 
+_linux/amd64_, _linux/arm/v7_ and _linux/arm64_ platforms. They include everything needed to 
+run Navidrome.
 
 
 ### Using `docker-compose` :
