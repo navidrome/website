@@ -9,6 +9,8 @@ description: >
 
 ## Album cover art is not showing up
 
+__This issue was fixed in version 0.15.0, please upgrade!__
+
 You don't see any artwork in Navidrome's UI and in any Subsonic clients, and you are getting errors 
 in the logs like this:
 ```
