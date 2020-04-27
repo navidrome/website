@@ -22,5 +22,8 @@ available:
 | `ND_BASEURL` | Base URL to configure Navidrome behind a proxy (ex: /music) | _Empty_  |
 | `ND_UILOGINBACKGROUNDURL` | Change backaground image used in the Login page | https://source.unsplash.com/random/1600x900?music |
 
-**Note** durations are specified as a number and a unit suffix, such as "24h", "30s" or "1h10m". Valid 
+### Notes
+- Durations are specified as a number and a unit suffix, such as "24h", "30s" or "1h10m". Valid 
 time units are "s", "m", "h".
+- Sizes are specified as a number and an optional unit suffix, such as "1GB" or "150 MiB". Default 
+unit is bytes (i.e. "1KB" == "1000", "1KiB" == "1024")
