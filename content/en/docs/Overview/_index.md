@@ -17,7 +17,7 @@ description: >
 - Ready to use **Raspberry Pi** binaries available
 - Automatically **monitors your library** for changes, importing new files and reloading new metadata 
 - **Themeable**, modern and responsive **Web interface** based on [Material UI](https://material-ui.com)
-- **Compatible** with all Subsonic/Madsonic/Airsonic clients. See bellow for a list of tested clients
+- **Compatible** with all Subsonic/Madsonic/Airsonic clients. See below for a list of tested clients
 - **Transcoding** on the fly. Can be set per user/player. **Opus encoding is supported**
 
 ## Apps

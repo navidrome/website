@@ -15,7 +15,7 @@ run Navidrome.
 ### Using `docker-compose` :
 
 Create a `docker-compose.yml` file with the following content (or add the `navidrome` service 
-bellow to your existing file):
+below to your existing file):
 ```yaml
 version: "3"
 services:

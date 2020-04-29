@@ -70,7 +70,7 @@ Just `import` your new language file at the top, like the existing ones, and add
 // Import your new file at the top of the `index.js`
 import xx from './xx'
 
-// Add new languages to the object bellow
+// Add new languages to the object below
 addLanguages({ pt, xx })
 ```
 
