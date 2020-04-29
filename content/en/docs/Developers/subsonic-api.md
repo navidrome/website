@@ -1,7 +1,7 @@
 ---
 title: "Subsonic API Compatibility"
 linkTitle: "Subsonic API Compatibility"
-date: 2020-04-10
+weight: 30
 description: >
   Are you a Subsonic client developer? Check out the API features supported by Navidrome
 ---

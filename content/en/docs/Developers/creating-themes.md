@@ -1,7 +1,7 @@
 ---
 title: "Creating New Themes"
 linkTitle: "Creating New Themes"
-date: 2020-04-10
+weight: 10
 description: >
   How to create and contribute with new themes
 ---

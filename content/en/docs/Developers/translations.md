@@ -1,7 +1,7 @@
 ---
 title: "Translations"
 linkTitle: "Translations"
-date: 2020-04-10
+weight: 20
 description: >
   Learn how can you contribute with translations for the UI
 ---
