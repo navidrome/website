@@ -20,7 +20,7 @@ After the prerequisites above are installed, clone this repository and build Nav
 ```shell script
 $ git clone https://github.com/deluan/navidrome
 $ cd navidrome
-$ make setup        # Install tools required for Navidrome's development 
+$ make setup        # Install build dependencies
 $ make buildall     # Build UI and server, generates a single executable
 ```
 
