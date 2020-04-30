@@ -16,7 +16,7 @@ available:
 | `ND_SCANINTERVAL`   | How frequently to scan for changes in your music library  | 1m |
 | `ND_LOGLEVEL`   | Log level. Useful for troubleshooting. Possible values: `error`, `info`, `debug`, `trace` | `info` |
 | `ND_PORT`          | HTTP port Navidrome will use | 4533 |
-| `ND_ENABLETRANSCODINGCONFIG`* | Enables transcoding configuration in the UI | false |
+| `ND_ENABLETRANSCODINGCONFIG`[*](#-security-considerations) | Enables transcoding configuration in the UI | false |
 | `ND_TRANSCODINGCACHESIZE` | Size of transcoding cache| 100MB |
 | `ND_IMAGECACHESIZE` | Size of image (art work) cache. set to `0` to disable cache | 100MB |
 | `ND_SESSIONTIMEOUT` | How long Navidrome will wait before closing web ui idle sessions | 30m |
