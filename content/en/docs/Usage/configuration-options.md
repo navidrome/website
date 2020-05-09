@@ -6,30 +6,59 @@ description: >
   How to customize Navidrome to your environment
 ---
 
-Navidrome allows some customization using environment variables. These are the options
-available:
+Navidrome allows some customization using environment variables, loading from a configuration file
+or using command line arguments.
 
-| Option            | Description           | Default Value |
-|-------------------|-----------------|------|
-| `ND_MUSICFOLDER`   | Folder where your music libraryis stored. Can be read-only   | ./music |
-| `ND_DATAFOLDER`    | Folder to store application data (DB, cache...)     | ./data |
-| `ND_SCANINTERVAL`   | How frequently to scan for changes in your music library  | 1m |
-| `ND_LOGLEVEL`   | Log level. Useful for troubleshooting. Possible values: `error`, `info`, `debug`, `trace` | `info` |
-| `ND_PORT`          | HTTP port Navidrome will use | 4533 |
-| `ND_ENABLETRANSCODINGCONFIG`[*](#-security-considerations) | Enables transcoding configuration in the UI | false |
-| `ND_TRANSCODINGCACHESIZE` | Size of transcoding cache| 100MB |
-| `ND_IMAGECACHESIZE` | Size of image (art work) cache. set to `0` to disable cache | 100MB |
-| `ND_SESSIONTIMEOUT` | How long Navidrome will wait before closing web ui idle sessions | 30m |
-| `ND_BASEURL` | Base URL (only the `path` part) to configure Navidrome behind a proxy (ex: `/music`) | _Empty_  |
-| `ND_UILOGINBACKGROUNDURL` | Change backaground image used in the Login page | https://source.unsplash.com/random/1600x900?music |
+## Configuration File
 
-### Notes
+Navidrome tries to load the configuration from a `navidrome.toml` file in the current working 
+directory. Example of a configuration file:
+```toml
+LogLevel = "INFO"
+BaseURL = "/music"
+ScanInterval = "10s"
+TranscodingCacheSize = "15MB"
+MusicFolder = "/Media/Music"
+```
+
+You can also specify a different path for the configuration file, using the `-ConfigFile` option.
+Navidrome can load the configuration from `toml`, `json` and `yml` files. 
+
+Ex. of usage (Windows):
+```bash
+C:\> navidrome -configfile "c:\User\johndoe\navidrome.yml"
+```
+
+## Enviroment Variables
+
+Any configuration option can be set as an environment variable, just add a the prefix `ND_` and 
+make it all uppercase. Ex: `ND_LOGLEVEL=debug`. See below for all available options
+
+
+## Available Options
+
+| Option | Env var            | Description           | Default Value |
+|--------|-------------------|-----------------|------|
+| ConfigFile | `ND_CONFIGFILE` | Load configurations from an external config file | `./navidrome.tml` |
+| MusicFolder | `ND_MUSICFOLDER`   | Folder where your music libraryis stored. Can be read-only   | ./music |
+| DataFolder | `ND_DATAFOLDER`    | Folder to store application data (DB, cache...)     | ./data |
+| ScanInterval | `ND_SCANINTERVAL`   | How frequently to scan for changes in your music library  | 1m |
+| LogLevel | `ND_LOGLEVEL`   | Log level. Useful for troubleshooting. Possible values: `error`, `info`, `debug`, `trace` | `info` |
+| Port | `ND_PORT`          | HTTP port Navidrome will use | 4533 |
+| EnableTranscodingConfig[*](#security-considerations) | `ND_ENABLETRANSCODINGCONFIG` | Enables transcoding configuration in the UI | false |
+| TranscodingCacheSize | `ND_TRANSCODINGCACHESIZE` | Size of transcoding cache| 100MB |
+| ImageCacheSize | `ND_IMAGECACHESIZE` | Size of image (art work) cache. set to `0` to disable cache | 100MB |
+| SessionTimeout | `ND_SESSIONTIMEOUT` | How long Navidrome will wait before closing web ui idle sessions | 30m |
+| BaseUrl | `ND_BASEURL` | Base URL (only the `path` part) to configure Navidrome behind a proxy (ex: `/music`) | _Empty_  |
+| UiLoginBackgroundUrl | `ND_UILOGINBACKGROUNDURL` | Change backaground image used in the Login page | _random music image from Unsplash.com_ |
+
+#### Notes
 - Durations are specified as a number and a unit suffix, such as "24h", "30s" or "1h10m". Valid 
 time units are "s", "m", "h".
 - Sizes are specified as a number and an optional unit suffix, such as "1GB" or "150 MiB". Default 
 unit is bytes (i.e. "1KB" == "1000", "1KiB" == "1024")
 
-### * Security Considerations
+## Security Considerations
 To configure transcoding, Navidrome's WebUI provide a screen that allows you to edit existing 
 transcoding configurations and to add new ones. That is similar to other music servers available 
 in the market that provide transcoding on-demand. 
