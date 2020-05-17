@@ -55,7 +55,7 @@ between Navidrome and Subsonic:
 | `getPlaylists`         | `username` parameter is not implemented |
 | `getPlaylist`          | |
 | `createPlaylist`       | Return empty response on success |
-| `updatePlaylist`       | `comment` and `public` are not implemented. All playlists are public |
+| `updatePlaylist`       | |
 | `deletePlaylist`       | |
 
 | _Media Retrieval_      ||
