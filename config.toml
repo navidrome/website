@@ -150,7 +150,7 @@ no = 'Sorry to hear that. Please <a href="https://github.com/navidrome/website/i
         desc = "Development takes place here!"
 [[params.links.developer]]
 	name = "Discord"
-	url = "https://discordapp.com/channels/671335427726114836/671335427726114839"
+	url = "https://discord.gg/xh7j7yF"
 	icon = "fab fa-discord"
         desc = "Chat with other project developers"
 # Developer relevant links. These will show up on right side of footer and in the community page if you have one.
