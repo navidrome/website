@@ -32,7 +32,7 @@ The following steps have been tested on Ubuntu 18.04 and should work on all vers
 
 #### Update and Install Prerequisites
 
-Ensure your OS is up to date and install [ffmpeg](https://ffmpeg.org/download.html).
+Ensure your system is up to date and install [ffmpeg](https://ffmpeg.org/download.html).
 
 ```
 sudo apt update
@@ -64,14 +64,10 @@ sudo chown -R <user>:<group> /opt/navidrome
 In the working directory, `/var/lib/navidrome` create a new file named `navidrome.toml` with the following settings.
 
 ```
-LogLevel = "INFO"
-BaseURL = ""
-ScanInterval = "10s"
-TranscodingCacheSize = "15MB"
 MusicFolder = "<library_path>"
 ```
 
-See the [configuration options page](https://www.navidrome.org/docs/usage/configuration-options/) for a complete list of configuration options.
+For addition configuration options see the [configuration options page](https://www.navidrome.org/docs/usage/configuration-options/).
 
 #### Create a Systemd Unit
 
