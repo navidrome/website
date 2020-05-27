@@ -13,7 +13,7 @@ This is just a summary on how to get started. More information will soon be avai
 ### Getting started
 
 1. Install [GoLang 1.14](https://golang.org/dl/)
-2. Install [Node 13](http://nodejs.org/)
+2. Install [Node 14](http://nodejs.org/)
 3. Install development tools: `make setup-dev`
 4. Test installation: `make buildall`
 

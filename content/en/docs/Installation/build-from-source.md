@@ -12,7 +12,7 @@ you should open an [issue in the project's GitHub page](https://github.com/delua
 If you don't want to wait, you can try to generate the binary yourself, with the following steps.
 
 First, you will need to install [Go 1.14](https://golang.org/dl/) and 
-[Node 13](http://nodejs.org). The setup is very strict, and the steps below only work with 
+[Node 14](http://nodejs.org). The setup is very strict, and the steps below only work with 
 these versions (enforced in the Makefile) 
 
 After the prerequisites above are installed, clone this repository and build Navidrome:
