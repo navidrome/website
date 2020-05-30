@@ -48,7 +48,7 @@ make it all uppercase. Ex: `ND_LOGLEVEL=debug`. See below for all available opti
 | EnableTranscodingConfig[*](#security-considerations) | `ND_ENABLETRANSCODINGCONFIG` | Enables transcoding configuration in the UI | false |
 | TranscodingCacheSize | `ND_TRANSCODINGCACHESIZE` | Size of transcoding cache| 100MB |
 | ImageCacheSize | `ND_IMAGECACHESIZE` | Size of image (art work) cache. set to `0` to disable cache | 100MB |
-| SessionTimeout | `ND_SESSIONTIMEOUT` | How long Navidrome will wait before closing web ui idle sessions | 30m |
+| SessionTimeout | `ND_SESSIONTIMEOUT` | How long Navidrome will wait before closing web ui idle sessions | 24h |
 | BaseUrl | `ND_BASEURL` | Base URL (only the `path` part) to configure Navidrome behind a proxy (ex: `/music`) | _Empty_  |
 | UiLoginBackgroundUrl | `ND_UILOGINBACKGROUNDURL` | Change backaground image used in the Login page | _random music image from Unsplash.com_ |
 
