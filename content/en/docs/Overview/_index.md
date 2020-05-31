@@ -11,14 +11,16 @@ description: >
 - Handles very **large music collections**
 - Streams virtually **any audio format** available
 - Reads and uses all your beautifully curated **metadata**
+- Great support for **Box Sets** (multi-disc albums)
 - **Multi-user**, each user has their own play counts, playlists, favourites, etc..
 - Very **low resource usage**
 - **Multi-platform**, runs on macOS, Linux and Windows. **Docker** images are also provided
-- Ready to use **Raspberry Pi** binaries available
+- Ready to use **Raspberry Pi** binaries and Docker images available
 - Automatically **monitors your library** for changes, importing new files and reloading new metadata 
 - **Themeable**, modern and responsive **Web interface** based on [Material UI](https://material-ui.com)
 - **Compatible** with all Subsonic/Madsonic/Airsonic clients. See below for a list of tested clients
 - **Transcoding** on the fly. Can be set per user/player. **Opus encoding is supported**
+- Translated to various **9 languages** ([and counting](/docs/developers/translations/))
 
 ## Apps
 
