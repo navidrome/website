@@ -51,6 +51,7 @@ make it all uppercase. Ex: `ND_LOGLEVEL=debug`. See below for all available opti
 | SessionTimeout | `ND_SESSIONTIMEOUT` | How long Navidrome will wait before closing web ui idle sessions | 24h |
 | BaseUrl | `ND_BASEURL` | Base URL (only the `path` part) to configure Navidrome behind a proxy (ex: `/music`) | _Empty_  |
 | UiLoginBackgroundUrl | `ND_UILOGINBACKGROUNDURL` | Change backaground image used in the Login page | _random music image from Unsplash.com_ |
+| IgnoredArticles | `ND_IGNOREDARTICLES` | List of ignored articles when sorting/indexing artists | The El La Los Las Le Les Os As O A |
 
 #### Notes
 - Durations are specified as a number and a unit suffix, such as "24h", "30s" or "1h10m". Valid 
