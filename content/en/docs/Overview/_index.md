@@ -20,7 +20,7 @@ description: >
 - **Themeable**, modern and responsive **Web interface** based on [Material UI](https://material-ui.com)
 - **Compatible** with all Subsonic/Madsonic/Airsonic clients. See below for a list of tested clients
 - **Transcoding** on the fly. Can be set per user/player. **Opus encoding is supported**
-- Translated to various **9 languages** ([and counting](/docs/developers/translations/))
+- Translated to **9 languages** ([and counting](/docs/developers/translations/))
 
 ## Apps
 
