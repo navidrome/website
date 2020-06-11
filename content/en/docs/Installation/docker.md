@@ -25,10 +25,10 @@ services:
       - "4533:4533"
     restart: unless-stopped
     environment:
-      # All options with their default values:
+      # Put your config options customization here
       ND_SCANINTERVAL: 1m
       ND_LOGLEVEL: info  
-      ND_SESSIONTIMEOUT: 30m
+      ND_SESSIONTIMEOUT: 24h
       ND_BASEURL: ""
     volumes:
       - "/path/to/data:/data"
@@ -45,6 +45,7 @@ $ docker run -d \
    -v /path/to/music:/music \
    -v /path/to/data:/data \
    -p 4533:4533 \ 
+   -e ND_LOGLEVEL=info \
    deluan/navidrome:latest
 ```
 
