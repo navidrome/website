@@ -22,13 +22,13 @@ TranscodingCacheSize = "15MB"
 MusicFolder = "/Media/Music"
 ```
 
-You can also specify a different path for the configuration file, using the `-ConfigFile` option.
+You can also specify a different path for the configuration file, using the `-c` option.
 Navidrome can load the configuration from `toml`, `json` and `yml` files.
 
 Ex. of usage (Windows):
 
 ```bash
-C:\> navidrome -configfile "c:\User\johndoe\navidrome.yml"
+C:\> navidrome -c "c:\User\johndoe\navidrome.toml"
 ```
 
 ## Enviroment Variables
@@ -45,7 +45,7 @@ make it all uppercase. Ex: `ND_LOGLEVEL=debug`. See below for all available opti
 | DataFolder                                            | `ND_DATAFOLDER`              | Folder to store application data (DB, cache...)                                                                            | `"./data"`                               |
 | ScanInterval                                          | `ND_SCANINTERVAL`            | How frequently to scan for changes in your music library                                                                   | `"1m"`                                   |
 | LogLevel                                              | `ND_LOGLEVEL`                | Log level. Useful for troubleshooting. Possible values: `error`, `info`, `debug`, `trace`                                  | `"info"`                                 |
-| Port                                                  | `ND_PORT`                    | HTTP port Navidrome will use                                                                                               | `"4533"`                                 |
+| Port                                                  | `ND_PORT`                    | HTTP port Navidrome will use                                                                                               | `4533`                                 |
 | EnableTranscodingConfig[\*](#security-considerations) | `ND_ENABLETRANSCODINGCONFIG` | Enables transcoding configuration in the UI                                                                                | `false`                                  |
 | TranscodingCacheSize                                  | `ND_TRANSCODINGCACHESIZE`    | Size of transcoding cache                                                                                                  | `"100MB"`                                |
 | ImageCacheSize                                        | `ND_IMAGECACHESIZE`          | Size of image (art work) cache. set to `0` to disable cache                                                                | `"100MB"`                                |
@@ -54,15 +54,14 @@ make it all uppercase. Ex: `ND_LOGLEVEL=debug`. See below for all available opti
 | UiLoginBackgroundUrl                                  | `ND_UILOGINBACKGROUNDURL`    | Change backaground image used in the Login page                                                                            | _random music image from Unsplash.com_   |
 | IgnoredArticles                                       | `ND_IGNOREDARTICLES`         | List of ignored articles when sorting/indexing artists                                                                     | `"The El La Los Las Le Les Os As O A"`   |
 | CoverArtPriority                                      | `ND_COVERARTPRIORITY`        | Configure the order to look for cover art images. Use special `embedded` value to get embedded images from the audio files | `"embedded, cover.*, folder.*, front.*"` |
-
-<!-- | CoverJpegQuality                                      | `ND_COVERJPEGQUALITY`        | Set JPEG quality for resized cover art images                                                                              | `75`                                     | -->
+| CoverJpegQuality                                      | `ND_COVERJPEGQUALITY`        | Set JPEG quality for resized cover art images                                                                              | `75`                                     |
 
 #### Notes
 
 - Durations are specified as a number and a unit suffix, such as "24h", "30s" or "1h10m". Valid
   time units are "s", "m", "h".
 - Sizes are specified as a number and an optional unit suffix, such as "1GB" or "150 MiB". Default
-  unit is bytes (i.e. "1KB" == "1000", "1KiB" == "1024")
+  unit is bytes.  Note: "1KB" == "1000", "1KiB" == "1024"
 
 ## Security Considerations
 
