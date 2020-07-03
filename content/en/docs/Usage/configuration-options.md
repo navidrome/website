@@ -23,7 +23,7 @@ MusicFolder = "/Media/Music"
 ```
 
 You can also specify a different path for the configuration file, using the `-c` option.
-Navidrome can load the configuration from `toml`, `json` and `yml` files.
+Navidrome can load the configuration from `toml`, `json`, `yml` and `ini` files.
 
 Ex. of usage (Windows):
 
