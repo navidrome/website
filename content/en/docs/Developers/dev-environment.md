@@ -7,6 +7,7 @@ description: >
 ---
 
 {{% pageinfo %}}
+Currently these instructions only work for Unix-based systems (Linux, macOS, BSD, ...). 
 This is just a summary on how to get started. More information will soon be available.
 {{% /pageinfo %}}
 

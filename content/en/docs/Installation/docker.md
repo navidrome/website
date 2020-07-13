@@ -3,7 +3,7 @@ title: "Using Docker?"
 linkTitle: "Using Docker"
 date: 2017-01-05
 description: >
-  No problem! Actually even better ;)
+  No problem, we got you covered with official docker images
 ---
 
 

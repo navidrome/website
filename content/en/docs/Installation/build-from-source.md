@@ -6,17 +6,24 @@ description: >
   Can't find a build for your platform?
 ---
 
+{{% pageinfo %}}
+Currently these instructions only work for Unix-based systems (Linux, macOS, BSD, ...). If you are getting 
+trouble trying to build Navidrome in a Windows system, please join our [Discord server](https://discord.gg/xh7j7yF) 
+and ask for help, we will be glad to assist you
+{{% /pageinfo %}}
+
+
 If you can't find a [pre-built binary](/docs/installation/pre-built-binaries) for your platform,
 you should open an [issue in the project's GitHub page](https://github.com/deluan/navidrome/issues).
 
-If you don't want to wait, you can try to generate the binary yourself, with the following steps.
+If you don't want to wait, you can try to build the binary yourself, with the following steps.
 
 First, you will need to install [Go 1.14](https://golang.org/doc/install) and
 [Node 14](http://nodejs.org). The setup is very strict, and the steps below only work with
 these versions (enforced in the Makefile). Make sure to add `$GOPATH/bin` to your `PATH` as described
-in the [Go install instructions](https://golang.org/doc/install#install)
+in the [official Go site](https://golang.org/doc/gopath_code.html#GOPATH)
 
-After the prerequisites above are installed, clone this repository and build Navidrome:
+After the prerequisites above are installed, clone Navidrome's repository and build it:
 
 ```shell script
 $ git clone https://github.com/deluan/navidrome
