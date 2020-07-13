@@ -31,6 +31,17 @@ Ex. of usage (Windows):
 C:\> navidrome -c "c:\User\johndoe\navidrome.toml"
 ```
 
+## Command Line Arguments
+
+You can set most of the [config options below](#available-options) passing arguments to `navidrome` executable. Ex:
+```bash
+C:\> navidrome --musicfolder "c:\User\johndoe\Music"
+```
+
+Please note that options must be **all lowercase**. For a list of all available command line options, 
+just call `navidrome --help`.
+
+
 ## Enviroment Variables
 
 Any configuration option can be set as an environment variable, just add a the prefix `ND_` and
