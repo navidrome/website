@@ -67,7 +67,7 @@ make it all uppercase. Ex: `ND_LOGLEVEL=debug`. See below for all available opti
 | GATrackingID                                          | `ND_GATRACKINGID`            | Send basic info to your own Google Analytics account. Must be in the format `UA-XXXXXXXX` | _Empty_ (disabled)
 | IgnoredArticles                                       | `ND_IGNOREDARTICLES`         | List of ignored articles when sorting/indexing artists                                                                     | `"The El La Los Las Le Les Os As O A"`   |
 | CoverArtPriority                                      | `ND_COVERARTPRIORITY`        | Configure the order to look for cover art images. Use special `embedded` value to get embedded images from the audio files | `"embedded, cover.*, folder.*, front.*"` |
-| CoverJpegQuality                                      | `ND_COVERJPEGQUALITY`        | Set JPEG quality for resized cover art images                                                                              | `75`                                     |
+| CoverJpegQuality                                      | `ND_COVERJPEGQUALITY`        | Set JPEG quality percentage for resized cover art images                                                                              | `75`                                     |
 
 #### Notes
 
