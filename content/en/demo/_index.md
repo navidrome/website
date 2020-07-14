@@ -38,7 +38,7 @@ Not all features are enabled in the demo. For instance, settings and transcoding
 
 #### Demo server configuration
 
-The server is running on an [inexpensive OpenVZ VPS](https://www.vpscheap.net/pricing.aspx#budget-servers) with the following configuration:
+The server is running on an inexpensive OpenVZ VPS with the following configuration:
 * 2 Core Processor (shared)
 * 512MB Memory
 * 30GB HDD Disk Space
