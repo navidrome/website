@@ -67,7 +67,7 @@ In the working directory, `/var/lib/navidrome` create a new file named `navidrom
 MusicFolder = "<library_path>"
 ```
 
-For addition configuration options see the [configuration options page](https://www.navidrome.org/docs/usage/configuration-options/).
+For additional configuration options see the [configuration options page](https://www.navidrome.org/docs/usage/configuration-options/).
 
 #### Create a Systemd Unit
 

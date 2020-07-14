@@ -27,7 +27,7 @@ To login, use the following credentials:
 * User: demo
 * Password: demo
 
-The demo server works with all [Subsonic clients](/docs/overview/#apps), just use the server address https://demo.navidrome.org with the credentials above
+The demo server works with all [Subsonic clients](/docs/overview/#apps), just use the server address https://demo.navidrome.org with the credentials above.
 
 #### Demo limitations
 Not all features are enabled in the demo. For instance, settings and transcoding are disabled.
