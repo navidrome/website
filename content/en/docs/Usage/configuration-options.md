@@ -17,9 +17,10 @@ directory. Example of a configuration file:
 ```toml
 LogLevel = "INFO"
 BaseURL = "/music"
-ScanInterval = "10s"
-TranscodingCacheSize = "15MB"
-MusicFolder = "/Media/Music"
+Address = "127.0.0.1"
+ScanInterval = "90s"
+TranscodingCacheSize = "150MiB"
+MusicFolder = "/media/music"
 ```
 
 You can also specify a different path for the configuration file, using the `-c/--configfile` option.
