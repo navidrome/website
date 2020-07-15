@@ -12,7 +12,7 @@ or using command line arguments.
 ## Configuration File
 
 Navidrome tries to load the configuration from a `navidrome.toml` file in the current working
-directory. Example of a configuration file:
+directory. You can put any of the [configuration options below](#available-options) in this file. Example of a configuration file:
 
 ```toml
 LogLevel = "INFO"
