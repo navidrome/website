@@ -26,7 +26,7 @@ services:
       - "4533:4533"
     restart: unless-stopped
     environment:
-      # Put your config options customization here
+      # Optional: put your config options customization here. Examples:
       ND_SCANINTERVAL: 1m
       ND_LOGLEVEL: info  
       ND_SESSIONTIMEOUT: 24h
@@ -35,7 +35,8 @@ services:
       - "/path/to/data:/data"
       - "/path/to/your/music/folder:/music:ro"
 ```
-Start it with `docker-compose up -d`
+Start it with `docker-compose up -d`. Note that the environment variables above are just an example and are not required. The 
+values in the example are already the defaults
 
 
 ### Using `docker` command line tool:
@@ -59,3 +60,5 @@ will store its DB and cache, `/music` is where your music files are stored.
 - [Configuration options](/docs/usage/configuration-options/) can be customized with environment 
 variables as needed. For `docker-compose` just add them to the `environment` section or the yml 
 file. For `docker` cli use the `-e` parameter. Ex: `-e ND_SESSIONTIMEOUT=24h`
+- If you want to use a [configuration file](/docs/usage/configuration-options/#configuration-file) with Navidrome running in Docker, 
+you can create a `navidrome.toml` config file in the `/data` folder and set the the option `ND_CONFIGFILE=/data/navidrome.toml`
