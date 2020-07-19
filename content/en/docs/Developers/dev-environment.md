@@ -28,7 +28,7 @@ MusicFolder = "/path/to/music/folder"
 LogLevel = "debug"
 
 # This will always create an `admin` user with the specified password, so you don't have to 
-# create a user everytime you delete your dev database
+# create a user every time you delete your dev database
 DevAutoCreateAdminPassword = "password"
 
 # Move the data/DB folder to a different location

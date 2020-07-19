@@ -12,7 +12,7 @@ Navidrome is currently compatible with [Subsonic API](http://www.subsonic.org/pa
 v1.10.2, with some exceptions.
 
 This is an (almost) up to date list of all Subsonic API endpoints implemented by Navidrome. 
-Check the "Notes" column for limitations/missing behaviour. Also keep in mind these differences 
+Check the "Notes" column for limitations/missing behavior. Also keep in mind these differences 
 between Navidrome and Subsonic:
 * Right now, Navidrome only works with a single Music Library (Music Folder)
 * Navidrome does not mark songs as played by calls to `stream`, only when 
