@@ -15,8 +15,8 @@ needs read-only access to the Music Folder, and read-write permissions to the Da
 ## Network configuration
 
 Even though Navidrome comes with an embedded, full-featured HTTP server, you should seriously consider running it 
-behind a reverse proxy (Ex: Caddy, Nginx, Traefik, Apache), for added security. There are tons of good information 
-on the web on how to properly setup a reverse proxy.
+behind a reverse proxy (Ex: Caddy, Nginx, Traefik, Apache) for added security, including setting up SSL.
+There are tons of good resources on the web on how to properly setup a reverse proxy.
 
 When using Navidrome in such configuration, you may want to prevent Navidrome from listening to all IPs configured 
 in your computer, and only listen to `localhost`. This can be achieved by setting the `Address` flag to `localhost`
