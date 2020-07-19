@@ -143,16 +143,21 @@ no = 'Sorry to hear that. Please <a href="https://github.com/navidrome/website/i
 	url = "https://www.reddit.com/r/navidrome/"
 	icon = "fab fa-reddit"
         desc = "Discussion and help from your fellow users"
+[[params.links.user]]
+	name = "Discord"
+	url = "https://discord.gg/xh7j7yF"
+	icon = "fab fa-discord"
+        desc = "Chat with other users and project developers"
 [[params.links.developer]]
 	name = "GitHub"
 	url = "https://github.com/deluan/navidrome"
 	icon = "fab fa-github"
         desc = "Development takes place here!"
 [[params.links.developer]]
-	name = "Discord"
-	url = "https://discord.gg/xh7j7yF"
-	icon = "fab fa-discord"
-        desc = "Chat with other project developers"
+	name = "Donate"
+	url = "https://ko-fi.com/deluan"
+	icon = "fas fa-heart"
+        desc = "Want to thank the developer? Feel free to buy them a coffee ;)"
 # Developer relevant links. These will show up on right side of footer and in the community page if you have one.
 
 # background credit: Photo by Travis Yewell on Unsplash
