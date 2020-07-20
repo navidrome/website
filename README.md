@@ -20,4 +20,10 @@ Once you've setup your local environment as above, from the repo's root folder r
 hugo server
 ```
 
-This will start Hugo
+This will start Hugo and serve the site at http://localhost:1313
+
+## Credits
+
+Photos from Unsplash by:
+* [Travis Yewell](https://unsplash.com/@shutters_guild?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText)
+* [Florencia Viadana](https://unsplash.com/@florenciaviadana?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText")
