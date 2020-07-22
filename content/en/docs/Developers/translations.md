@@ -14,6 +14,7 @@ coordinating the translation efforts.
 
 <img alt="POEditor" src="https://img.shields.io/poeditor/progress/337783/en?style=flat-square&token=c17601dd8151b384e987d3aa33ea68ba">
 <img alt="POEditor" src="https://img.shields.io/poeditor/progress/337783/cs?style=flat-square&token=c17601dd8151b384e987d3aa33ea68ba">
+<img alt="POEditor" src="https://img.shields.io/poeditor/progress/337783/da?style=flat-square&token=c17601dd8151b384e987d3aa33ea68ba">
 <img alt="POEditor" src="https://img.shields.io/poeditor/progress/337783/de?style=flat-square&token=c17601dd8151b384e987d3aa33ea68ba">
 <img alt="POEditor" src="https://img.shields.io/poeditor/progress/337783/fr?style=flat-square&token=c17601dd8151b384e987d3aa33ea68ba">
 <img alt="POEditor" src="https://img.shields.io/poeditor/progress/337783/it?style=flat-square&token=c17601dd8151b384e987d3aa33ea68ba">
