@@ -41,4 +41,4 @@ don't forget to remove this option or set it to `false`.
 To protect against brute-force attacks, Navidrome is configured by default with a login rate limiter,
 It uses a [Sliding Window](https://blog.cloudflare.com/counting-things-a-lot-of-different-things/#slidingwindowstotherescue) 
 algorithm to block too many consecutive login attempts. This can be configured using the flags `AuthRequestLimit` and 
-`AuthWindowLength` and can be disabled setting `AuthRequestLimit` to `0`, though it is not recommended. 
+`AuthWindowLength` and can be disabled by setting `AuthRequestLimit` to `0`, though it is not recommended. 
