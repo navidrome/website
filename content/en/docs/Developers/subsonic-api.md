@@ -9,7 +9,7 @@ description: >
 ###  Supported Subsonic API endpoints
 
 Navidrome is currently compatible with [Subsonic API](http://www.subsonic.org/pages/api.jsp) 
-v1.10.2, with some exceptions.
+v1.12.0, with some exceptions.
 
 This is an (almost) up to date list of all Subsonic API endpoints implemented by Navidrome. 
 Check the "Notes" column for limitations/missing behavior. Also keep in mind these differences 
@@ -75,3 +75,11 @@ between Navidrome and Subsonic:
 | _User Management_      ||
 |------------------------|-|
 | `getUser`              | Hardcoded all roles, ignores `username` parameter|
+
+| _Bookmarks_            ||
+|------------------------|-|
+| `getBookmarks`         | |
+| `createBookmark`       | |
+| `deleteBookmark`       | |
+| `getPlayQueue`         | `current` is a string id, not `int` as it shows in the official Subsonic API documentation |
+| `savePlayQueue`        | |
