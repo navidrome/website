@@ -62,7 +62,7 @@ between Navidrome and Subsonic:
 |------------------------|-------|
 | `stream`               | |
 | `download`             | |
-| `getCoverArt`          | Only gets embedded artwork |
+| `getCoverArt`          | |
 | `getAvatar`            | Always returns the same image |
 
 | _Media Annotation_     ||
