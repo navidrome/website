@@ -62,6 +62,7 @@ make it all uppercase. Ex: `ND_LOGLEVEL=debug`. See below for all available opti
 | EnableTranscodingConfig[\*](/docs/usage/security#transcoding-configuration) | `ND_ENABLETRANSCODINGCONFIG` | Enables transcoding configuration in the UI                                                          | `false`                                  |
 | TranscodingCacheSize                                  | `ND_TRANSCODINGCACHESIZE`    | Size of transcoding cache. Set to `0` to disable cache                                                                     | `"100MB"`                                |
 | ImageCacheSize                                        | `ND_IMAGECACHESIZE`          | Size of image (art work) cache. Set to `0` to disable cache                                                                | `"100MB"`                                |
+| AutoImportPlaylists                                   | `ND_AUTOIMPORTPLAYLISTS`     | Enable/disable `.m3u` playlist auto-import                                                                                 | `true`                                   |
 | BaseUrl                                               | `ND_BASEURL`                 | Base URL (only the `path` part) to configure Navidrome behind a proxy (ex: `/music`)                                       | _Empty_                                  |
 | UILoginBackgroundUrl                                  | `ND_UILOGINBACKGROUNDURL`    | Change background image used in the Login page                                                                             | _random music image from Unsplash.com_   |
 | UIWelcomeMessage                                      | `ND_UIWELCOMEMESSAGE`        | Add a welcome message to the login screen                                                                                  | _Empty_                                  |
@@ -71,7 +72,7 @@ make it all uppercase. Ex: `ND_LOGLEVEL=debug`. See below for all available opti
 | CoverJpegQuality                                      | `ND_COVERJPEGQUALITY`        | Set JPEG quality percentage for resized cover art images                                                                   | `75`                                     |
 | SessionTimeout                                        | `ND_SESSIONTIMEOUT`          | How long Navidrome will wait before closing web ui idle sessions                                                           | `"24h"`                                  |
 | AuthRequestLimit[\*](/docs/usage/security#login-limit-rating)    | `ND_AUTHREQUESTLIMIT`        | How many login requests can be processed from a single IP during the `AuthWindowLength`. Set to `0` to disable the limit rater | `5`                       |
-| AuthWindowLength[\*](/docs/usage/security#login-limit-rating)    | `ND_AUTHWINDOWLENGTH`        | Window Length for the authentication rate limit                                                                 | `"20s"` |
+| AuthWindowLength[\*](/docs/usage/security#login-limit-rating)    | `ND_AUTHWINDOWLENGTH`        | Window Length for the authentication rate limit                                                                 | `"20s"`                                  |
 
 #### Notes
 
