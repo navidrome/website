@@ -7,7 +7,9 @@ description: >
 ---
 
 Navidrome can be used as a standalone server, that allows you to browse and listen to your music collection using a web browser. 
-It can also work as a lightweight Subsonic-API compatible server, that can be used with the any 
+
+
+It can also work as a lightweight Subsonic-API compatible server, that can be used with any 
 [Subsonic compatible client](/docs/overview/#apps).
 
 ## Features
