@@ -6,21 +6,36 @@ description: >
   Learn more about Navidrome's features
 ---
 
+Navidrome can be used as a standalone server, that allows you to browse and listen to your music collection using a web browser. 
+It can also work as a lightweight Subsonic-API compatible server, that can be used with the any 
+[Subsonic compatible client](/docs/overview/#apps).
+
 ## Features
 
+- Very **low resource usage**. Runs well even on simple Raspberry Pi3 and old hardware setups
 - Handles very **large music collections**
 - Streams virtually **any audio format** available
 - Reads and uses all your beautifully curated **metadata**
 - Great support for **compilations** (Various Artists albums) and **box sets** (multi-disc albums)
 - **Multi-user**, each user has their own play counts, playlists, favorites, etc..
-- Very **low resource usage**
 - **Multi-platform**, runs on macOS, Linux and Windows. **Docker** images are also provided
-- Ready to use **Raspberry Pi** binaries and Docker images available
+- Ready to use, official, **Raspberry Pi** binaries and Docker images available
 - Automatically **monitors your library** for changes, importing new files and reloading new metadata 
 - **Themeable**, modern and responsive **Web interface** based on [Material UI](https://material-ui.com)
 - **Compatible** with all Subsonic/Madsonic/Airsonic clients. See below for a list of tested clients
 - **Transcoding** on the fly. Can be set per user/player. **Opus encoding is supported**
-- Translated to **9 languages** ([and counting](/docs/developers/translations/))
+- Translated to **10 languages** ([and counting](/docs/developers/translations/))
+- Full support for **playlists**, with option to auto-import `.m3u` files and to keep them in sync
+
+### Features supported by the Subsonic API
+
+- Tag-based browsing/searching
+- Playlists
+- Bookmarks (for Audiobooks)
+- Starred Artists/Albums/Tracks
+- 5-Star Rating
+- Transcoding
+- Get/Save Play Queue (to continue listening in a different device)
 
 ## Apps
 
@@ -42,14 +57,11 @@ trouble with the client of your choice.
 
 ## Road map
 
-This project is being actively worked on. Expect a more polished experience and new features/releases 
+This project is in active development. Expect a more polished experience and new features/releases 
 on a frequent basis. Some upcoming features planned: 
 
-- Improve WebUI
-- Last.FM integration
+- Last.FM integration (for scrobbling and getting artist/album info)
 - Smart/dynamic playlists (similar to iTunes)
-- Support for audiobooks (bookmarking)
 - Jukebox mode
 - Sharing links to albums/songs/playlists
-- Podcasts
 
