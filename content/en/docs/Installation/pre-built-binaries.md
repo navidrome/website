@@ -51,7 +51,7 @@ sudo install -d -o <user> -g <group> /var/lib/navidrome
 
 #### Get Navidrome
 
-Download the latest release from the [releases page](https://github.com/deluan/navidrome/releases), extract the contents to the executable directory, and set the permissions for the files. (Replace the URL bellow with the one from the releases page):
+Download the latest release from the [releases page](https://github.com/deluan/navidrome/releases), extract the contents to the executable directory, and set the permissions for the files. (Replace the URL below with the one from the releases page):
 
 ```
 wget https://github.com/deluan/navidrome/releases/download/v0.XX.0/navidrome_0.XX.0_Linux_x86_64.tar.gz -O Navidrome.tar.gz
