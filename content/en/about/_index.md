@@ -27,7 +27,7 @@ your music and playlists with your friends and family
 
 ### How it works?
 After a simple [installation](/docs/installation), Navidrome indexes all digital music stored in your hard drive and makes
-it available through a nice web player and also by any 
+it available through a nice web player and also by using any 
 [Subsonic-API compatible mobile client](/docs/overview/#apps). 
 Your music becomes searchable and you can create playlists, rate and "favourite" your loved tracks, 
 albums and artists
