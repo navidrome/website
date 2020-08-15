@@ -103,7 +103,7 @@ ProtectKernelTunables=yes
 RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
 RestrictNamespaces=yes
 RestrictRealtime=yes
-SystemCallFilter=~@clock @debug @module @mount @obsolete @privileged @reboot @setuid @swap
+SystemCallFilter=~@clock @debug @module @mount @obsolete @reboot @setuid @swap
 ReadWritePaths=/var/lib/navidrome
 
 # You can uncomment the following line if you're not using the jukebox This
