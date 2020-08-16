@@ -39,7 +39,7 @@ You can set most of the [config options below](#available-options) passing argum
 C:\> navidrome --musicfolder "c:\User\johndoe\Music"
 ```
 
-Please note that options must be **all lowercase**. For a list of all available command line options, 
+Please note that command line arguments must be **all lowercase**. For a list of all available command line options, 
 just call `navidrome --help`.
 
 
