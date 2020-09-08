@@ -23,6 +23,11 @@ First, you will need to install [Go 1.14](https://golang.org/doc/install) and
 these versions (enforced in the Makefile). Make sure to add `$GOPATH/bin` to your `PATH` as described
 in the [official Go site](https://golang.org/doc/gopath_code.html#GOPATH)
 
+You'll also need to install the [TagLib](http://taglib.org) library:
+    - Debian/Ubuntu: `sudo apt install libtag1-dev`
+    - Arch Linux: `pacman -S taglib`
+    - macOS: `brew install taglib`
+
 After the prerequisites above are installed, clone Navidrome's repository and build it:
 
 ```shell script

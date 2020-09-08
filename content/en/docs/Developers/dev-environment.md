@@ -8,17 +8,23 @@ description: >
 
 {{% pageinfo %}}
 Currently these instructions only work for Unix-based systems (Linux, macOS, BSD, ...). 
-This is just a summary on how to get started. More information will soon be available.
+This is just a summary on how to get started. More information will soon be available. 
+If you are stuck or have any questions, please join our [Discord server](https://discord.gg/xh7j7yF) and 
+give us a shout on the `#dev` channel
 {{% /pageinfo %}}
 
 ### Getting started
 
 1. Install [GoLang 1.14](https://golang.org/doc/install). Make sure to add `$GOPATH/bin` to your `PATH`
 2. Install [Node 14](http://nodejs.org/)
-3. Clone the project from https://github.com/deluan/navidrome
-4. Install development tools: `make setup-dev`
-5. Test installation: `make buildall`. This command should create a `navidrome` executable in the project's folder
-6. Create a `navidrome.toml` config file in the project's folder with the following options:
+3. Install [TagLib](http://taglib.org)
+    - Ubuntu: `sudo apt install libtag1-dev`
+    - macOS: `brew install taglib`
+
+4. Clone the project from https://github.com/deluan/navidrome
+5. Install development tools: `make setup-dev`
+6. Test installation: `make buildall`. This command should create a `navidrome` executable in the project's folder
+7. Create a `navidrome.toml` config file in the project's folder with the following options:
 ```toml
 # Set your music folder, preferable a specific development music library with few songs,
 # to make scan fast
