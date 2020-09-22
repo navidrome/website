@@ -13,6 +13,9 @@ If you are stuck or have any questions, please join our [Discord server](https:/
 give us a shout on the `#dev` channel
 {{% /pageinfo %}}
 
+### Docs Contributions
+If you're interested in contributing to this website, head over to [navidrome/website](https://github.com/navidrome/website) on GitHub!
+
 ### Getting started
 
 1. Install [GoLang 1.14](https://golang.org/doc/install). Make sure to add `$GOPATH/bin` to your `PATH`

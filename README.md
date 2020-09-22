@@ -12,6 +12,10 @@ npm install
 
 You'll need to install [Hugo](https://gohugo.io/) 0.66.0 or newer
 
+Note: For Windows users, you need to be sure to install the extended edition of Hugo.  
+
+This can be done via `choco install hugo-extended`
+
 ## Running the website locally
 
 Once you've setup your local environment as above, from the repo's root folder run:
