@@ -12,15 +12,14 @@ or using command line arguments.
 ## Configuration File
 
 Navidrome tries to load the configuration from a `navidrome.toml` file in the current working
-directory. You can put any of the [configuration options below](#available-options) in this file. Example of a configuration file:
+directory. You can put any of the [configuration options below](#available-options) in this file. 
+Example of a configuration file for Windows (should be similar for Linux, just use forward slashes for paths):
 
 ```toml
-LogLevel = "INFO"
-BaseURL = "/music"
-Address = "127.0.0.1"
-ScanInterval = "90s"
-TranscodingCacheSize = "150MiB"
-MusicFolder = "/media/music"
+LogLevel = 'DEBUG'
+ScanInterval = '90s'
+TranscodingCacheSize = '150MiB'
+MusicFolder = 'C:\Users\JohnDoe\Music' 
 ```
 
 You can also specify a different path for the configuration file, using the `-c/--configfile` option.
