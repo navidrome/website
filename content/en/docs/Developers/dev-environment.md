@@ -15,7 +15,7 @@ give us a shout on the `#dev` channel
 
 ### Getting started
 
-1. Install [GoLang 1.14](https://golang.org/doc/install). Make sure to add `$GOPATH/bin` to your `PATH`
+1. Install [GoLang 1.15](https://golang.org/doc/install). Make sure to add `$GOPATH/bin` to your `PATH`
 2. Install [Node 14](http://nodejs.org/)
 3. Install [TagLib](http://taglib.org)
     - Ubuntu: `sudo apt install libtag1-dev`
