@@ -12,15 +12,14 @@ or using command line arguments.
 ## Configuration File
 
 Navidrome tries to load the configuration from a `navidrome.toml` file in the current working
-directory. You can put any of the [configuration options below](#available-options) in this file. Example of a configuration file:
+directory. You can put any of the [configuration options below](#available-options) in this file. 
+Example of a configuration file for Windows (should be similar for Linux, just use forward slashes for paths):
 
 ```toml
-LogLevel = "INFO"
-BaseURL = "/music"
-Address = "127.0.0.1"
-ScanInterval = "90s"
-TranscodingCacheSize = "150MiB"
-MusicFolder = "/media/music"
+LogLevel = 'DEBUG'
+ScanInterval = '90s'
+TranscodingCacheSize = '150MiB'
+MusicFolder = 'C:\Users\JohnDoe\Music' 
 ```
 
 You can also specify a different path for the configuration file, using the `-c/--configfile` option.
@@ -74,6 +73,7 @@ make it all uppercase. Ex: `ND_LOGLEVEL=debug`. See below for all available opti
 | SessionTimeout                                        | `ND_SESSIONTIMEOUT`          | How long Navidrome will wait before closing web ui idle sessions                                                           | `"24h"`                                  |
 | AuthRequestLimit[\*](/docs/usage/security#login-limit-rating)    | `ND_AUTHREQUESTLIMIT`        | How many login requests can be processed from a single IP during the `AuthWindowLength`. Set to `0` to disable the limit rater | `5`                       |
 | AuthWindowLength[\*](/docs/usage/security#login-limit-rating)    | `ND_AUTHWINDOWLENGTH`        | Window Length for the authentication rate limit                                                                 | `"20s"`                                  |
+| Scanner.Extractor                                     | `ND_SCANNER_EXTRACTOR`       | Select metadata extractor implementation. Options: `taglib` or `ffmpeg`                                                    | `taglib`                                 |
 
 #### Notes
 

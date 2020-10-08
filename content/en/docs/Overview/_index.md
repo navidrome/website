@@ -14,7 +14,7 @@ It can also work as a lightweight Subsonic-API compatible server, that can be us
 
 ## Features
 
-- Very **low resource usage**. Runs well even on simple Raspberry Pi3 and old hardware setups
+- Very **low resource usage**. Runs well even on simple Raspberry Pi Zero and old hardware setups
 - Handles very **large music collections**
 - Streams virtually **any audio format** available
 - Reads and uses all your beautifully curated **metadata**
