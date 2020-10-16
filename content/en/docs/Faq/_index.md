@@ -31,3 +31,17 @@ docker-compose exec navidrome /app/navidrome scan [-f]
 ```
 
 An option to force scan via the UI is under development. More information can be found in [Issue #130](https://github.com/deluan/navidrome/issues/130#issuecomment-675684387).
+
+
+## Where are the logs?
+To achieve maximum compatibility with a great number of platforms, Navidrome follows the [Twelve Factor App](https://12factor.net/) methodology 
+as much as possible. Specifically in the case of [logs](https://12factor.net/logs), Navidrome does not try to do any storage or routing of 
+any log files, it only outputs all information to `stdout`, making it easy for the proper logging tools in each platform to handle them. 
+Some examples bellow:
+
+- **Linux**: if you installed Navidrome using the Systemd unit (as explained in the [install instructions](/docs/installation/pre-built-binaries/#create-a-systemd-unit)), you can see the logs using the [journalctl](https://manpages.debian.org/stretch/systemd/journalctl.1.en.html) tool: `journalctl -f -u navidrome.service`
+
+- **Docker**: you can use `docker logs` or `docker-compose logs` to retrieve/follow the logs.
+
+- **Windows**: if you install Navidrome as a service using [Shawl](https://github.com/mtkennerly/shawl), just check the `shawl_for_navidrome_*.log` files
+created in the same location as the Shawl executable
