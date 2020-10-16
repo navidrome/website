@@ -6,7 +6,7 @@ description: >
   Frequently Asked Questions
 ---
 
-### How can I edit my music metadata (id3 tags)? How can I rename/move my files?
+## How can I edit my music metadata (id3 tags)? How can I rename/move my files?
 With Navidrome you can't. Navidrome does not write to you music folder or the files by design. It may have capabilities to change/add 
 cover art for artists, albums and playlists in the future, but even then it won't write these images to your Music Folder or 
 embed them in the files.
@@ -18,7 +18,7 @@ There are many excellent "real" tag editors / music library managers out there t
 ex: [beets](https://beets.io), [Picard](https://picard.musicbrainz.org/) and [ExifTool](https://exiftool.org/)
 
 
-### How can I manually trigger a re-scan in Navidrome
+## How can I manually trigger a re-scan in Navidrome
 Currently rescanning must be done via the command line:
 ```bash
 navidrome scan --datafolder="C:\path\to\datafolder" [-f]
