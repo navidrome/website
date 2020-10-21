@@ -74,6 +74,11 @@ make it all uppercase. Ex: `ND_LOGLEVEL=debug`. See below for all available opti
 | AuthRequestLimit[\*](/docs/usage/security#login-limit-rating)    | `ND_AUTHREQUESTLIMIT`        | How many login requests can be processed from a single IP during the `AuthWindowLength`. Set to `0` to disable the limit rater | `5`                       |
 | AuthWindowLength[\*](/docs/usage/security#login-limit-rating)    | `ND_AUTHWINDOWLENGTH`        | Window Length for the authentication rate limit                                                                 | `"20s"`                                  |
 | Scanner.Extractor                                     | `ND_SCANNER_EXTRACTOR`       | Select metadata extractor implementation. Options: `taglib` or `ffmpeg`                                                    | `taglib`                                 |
+| LastFM.ApiKey                                         | `ND_LASTFM_APIKEY`           | Last.FM ApiKey                                                                                                             | _Empty_                                  |
+| LastFM.Secret                                         | `ND_LASTFM_SECRET`           | Last.FM Shared Secret                                                                                                      | _Empty_                                  |
+| LastFM.Language                                       | `ND_LASTFM_LANGUAGE`         | [Two letter-code for language](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) to be used to retrieve biographies from Last.FM                                               | `"en"`                                   |
+| Spotify.ID                                            | `ND_SPOTIFY_ID`              | Spotify Client ID                                                                                                          | _Empty_                                  |
+| Spotify.Secret                                        | `ND_SPOTIFY_SECRET`          | Spotify Client Secret                                                                                                      | _Empty_                                  |
 
 #### Notes
 

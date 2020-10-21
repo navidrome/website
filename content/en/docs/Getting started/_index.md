@@ -13,7 +13,7 @@ including the ability to manage other users. Just browse to Navidrome's homepage
 
 <p align="center">
 <img width="500" src="/screenshots/create-first-user.png">
-</o>
+</p>
 
 Just fill out the username and password you want to use, confirm the password and click on the 
 "Create Admin" button.
