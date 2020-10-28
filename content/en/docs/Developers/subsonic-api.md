@@ -9,11 +9,12 @@ description: >
 ###  Supported Subsonic API endpoints
 
 Navidrome is currently compatible with [Subsonic API](http://www.subsonic.org/pages/api.jsp) 
-v1.12.0, with some exceptions.
+v1.16.1, with some exceptions.
 
 This is an (almost) up to date list of all Subsonic API endpoints implemented by Navidrome. 
 Check the "Notes" column for limitations/missing behavior. Also keep in mind these differences 
 between Navidrome and Subsonic:
+* Navidrome will not implement any video related functionality, it is focus on Music only
 * Right now, Navidrome only works with a single Music Library (Music Folder)
 * Navidrome does not mark songs as played by calls to `stream`, only when 
  `scrobble` is called with `submission=true`
@@ -27,13 +28,18 @@ between Navidrome and Subsonic:
 | _Browsing_             ||
 |------------------------|-|
 | `getMusicFolders`      | Hardcoded to just one, set with ND_MUSICFOLDER configuration |
-| `getIndexes`           | Doesn't support shortcuts, nor direct children |
+| `getIndexes`           | Doesn't support `shortcuts`, nor direct children |
 | `getMusicDirectory`    | |
 | `getSong`              | |
 | `getArtists`           | |
 | `getArtist`            | |
 | `getAlbum`             | |
 | `getGenres`            | |
+| `getArtistInfo`        | Requires [Last.FM and Spotify integration](/docs/usage/external_integrations/) |
+| `getArtistInfo2`       | Requires [Last.FM and Spotify integration](/docs/usage/external_integrations/) |
+| `getTopSongs`          | Requires [Last.FM and Spotify integration](/docs/usage/external_integrations/) |
+| `getSimilarSongs`      | Requires [Last.FM and Spotify integration](/docs/usage/external_integrations/) |
+| `getSimilarSongs2`     | Requires [Last.FM and Spotify integration](/docs/usage/external_integrations/) |
 
 | _Album/Songs Lists_    ||
 |------------------------|-|
@@ -54,14 +60,14 @@ between Navidrome and Subsonic:
 |------------------------|-|
 | `getPlaylists`         | `username` parameter is not implemented |
 | `getPlaylist`          | |
-| `createPlaylist`       | Return empty response on success |
+| `createPlaylist`       | |
 | `updatePlaylist`       | |
 | `deletePlaylist`       | |
 
 | _Media Retrieval_      ||
 |------------------------|-------|
 | `stream`               | |
-| `download`             | |
+| `download`             | Accepts ids for Songs, Albums, Artists and Playlists|
 | `getCoverArt`          | |
 | `getAvatar`            | Always returns the same image |
 
@@ -74,7 +80,8 @@ between Navidrome and Subsonic:
 
 | _User Management_      ||
 |------------------------|-|
-| `getUser`              | Hardcoded all roles, ignores `username` parameter|
+| `getUser`              | Hardcoded all roles. Ignores `username` parameter, and returns the user identified in the authentication |
+| `getUsers`             | Returns only the user identified in the authentication |
 
 | _Bookmarks_            ||
 |------------------------|-|
@@ -83,3 +90,8 @@ between Navidrome and Subsonic:
 | `deleteBookmark`       | |
 | `getPlayQueue`         | `current` is a string id, not `int` as it shows in the official Subsonic API documentation |
 | `savePlayQueue`        | |
+
+| _Media library scanning_ ||
+|------------------------|-|
+| `getScanStatus`        | Also returns an extra `lastScan` field |
+| `startScan`            | Accepts an extra `fullScan` boolean param, to force a full scan |
