@@ -148,6 +148,11 @@ no = 'Sorry to hear that. Please <a href="https://github.com/navidrome/website/i
 	url = "https://discord.gg/xh7j7yF"
 	icon = "fab fa-discord"
         desc = "Chat with other users and project developers"
+[[params.links.user]]
+	name = "Twitter"
+	url = "https://twitter.com/navidrome"
+	icon = "fab fa-twitter"
+        desc = "Follow us on Twitter"
 [[params.links.developer]]
 	name = "GitHub"
 	url = "https://github.com/deluan/navidrome"
