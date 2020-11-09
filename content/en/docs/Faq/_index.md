@@ -37,5 +37,5 @@ Some examples bellow:
 
 - **Docker**: you can use `docker logs` or `docker-compose logs` to retrieve/follow the logs.
 
-- **Windows**: if you install Navidrome as a service using [Shawl](https://github.com/mtkennerly/shawl), just check the `shawl_for_navidrome_*.log` files
-created in the same location as the Shawl executable
+- **Windows**: if you installed Navidrome as a service using [Shawl](https://github.com/mtkennerly/shawl), just check the `shawl_for_navidrome_*.log` files
+created in the same location as the Shawl executable.
