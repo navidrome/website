@@ -142,7 +142,9 @@ sudo systemctl enable navidrome.service
 Since Navidrome needs to be run from the command line, it is suggested to use a service wrapper to make any executable into a service as it does not make sense to have a terminal window open whenever you want to use Navidrome.
 The examples below are for [Shawl](https://github.com/mtkennerly/shawl), [NSSM](http://nssm.cc/) and [WinSW](https://github.com/winsw/winsw).
 
-Keep in mind that the default account for new services is the `Local System` account, which has a different `PATH` environment variable than your user account. If you need to have access to your user account's `PATH` environment variables, the easiest way is to change the user account used by the service. To do so, open the Services management console (Win+R, then open `services.msc`), locate the Navidrome service, head to the `Log On` tab, and change it there.
+{{% alert title="Note" %}}The default account for new services is the `Local System` account, which has a different `PATH` environment variable than your user account.  
+If you need to have access to your user account's `PATH` environment variables, the easiest way is to change the user account used by the service. To do so, open the Services management console (Win+R, then open `services.msc`), locate the Navidrome service, head to the `Log On` tab, and change it there.{{% /alert %}}
+
 
 #### Using Shawl
 
@@ -150,15 +152,14 @@ Prebuilt binaries are available on the [releases page](https://github.com/mtkenn
 
 Here's how you create the service with Shawl, then start it. Note that this has to be run from an administrator command prompt.
 
-```
+```cmd
 shawl add --name Navidrome -- "C:\Services\navidrome\navidrome.exe" -c "C:\Services\navidrome\navidrome.toml"
 sc start Navidrome
 ```
 
 Shawl will then create a log file for the service in the same location as the Shawl executable.
 
-Note that when using Shawl, you have to use absolute paths when specifying folders/files as arguments to the navidrome binary and in the configuration file (remember to escape the backslashes in the configuration file). Refer to the [configuration options page](https://www.navidrome.org/docs/usage/configuration-options) for more information about the available options.
-
+{{% alert title="Note" %}}When using Shawl, you have to use absolute paths when specifying folders/files as arguments to the navidrome binary and in the configuration file (remember to escape the backslashes in the configuration file). Refer to the [configuration options page](https://www.navidrome.org/docs/usage/configuration-options) for more information about the available options.{{% /alert %}}
 
 #### Using NSSM
 
@@ -172,7 +173,7 @@ This opens a window where you can set the properties of the service; most notabl
 
 You can also bypass the GUI and install the service from the command line only. Below is an example:
 
-```
+```cmd
 nssm install Navidrome "C:\Services\navidrome\navidrome.exe"
 nssm set Navidrome AppDirectory "C:\Services\navidrome\"
 nssm set Navidrome DisplayName Navidrome
@@ -194,7 +195,7 @@ To use WinSW, download the WinSW binary from their [download page](https://githu
 
 A basic example (where both Navidrome and the WinSW configuration file are in the same directory) for Navidrome is down below:
 
-```
+```xml
 <service>
   <id>Navidrome</id>
   <name>Navidrome</name>
@@ -205,11 +206,11 @@ A basic example (where both Navidrome and the WinSW configuration file are in th
 </service>
 ```
 
-Note that when specifying files or folders in the WinSW configuration file, relative paths are resolved based on where the configuration file is located.
+{{% alert title="Note" %}}When specifying files or folders in the WinSW configuration file, relative paths are resolved based on where the configuration file is located.{{% /alert %}}
 
 Save this in a file named `navidrome.xml`. Then, run these commands from an administrator command prompt to install the service, start it and check its status:
 
-```
+```cmd
 winsw install navidrome.xml
 winsw start navidrome.xml
 winsw status navidrome.xml
