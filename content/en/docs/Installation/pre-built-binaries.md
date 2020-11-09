@@ -34,7 +34,7 @@ The following steps have been tested on Ubuntu 18.04 and should work on all vers
 
 Ensure your system is up to date and install [ffmpeg](https://ffmpeg.org/download.html).
 
-```
+```bash
 sudo apt update
 sudo apt upgrade
 sudo apt install vim ffmpeg
@@ -44,7 +44,7 @@ sudo apt install vim ffmpeg
 
 Create a directory to store the Navidrome executable and a working directory with the proper permissions.
 
-```
+```bash
 sudo install -d -o <user> -g <group> /opt/navidrome
 sudo install -d -o <user> -g <group> /var/lib/navidrome
 ```
@@ -53,7 +53,7 @@ sudo install -d -o <user> -g <group> /var/lib/navidrome
 
 Download the latest release from the [releases page](https://github.com/deluan/navidrome/releases), extract the contents to the executable directory, and set the permissions for the files. (Replace the URL below with the one from the releases page):
 
-```
+```bash
 wget https://github.com/deluan/navidrome/releases/download/v0.XX.0/navidrome_0.XX.0_Linux_x86_64.tar.gz -O Navidrome.tar.gz
 sudo tar -xvzf Navidrome.tar.gz -C /opt/navidrome/
 sudo chown -R <user>:<group> /opt/navidrome
@@ -63,7 +63,7 @@ sudo chown -R <user>:<group> /opt/navidrome
 
 In the working directory, `/var/lib/navidrome` create a new file named `navidrome.toml` with the following settings.
 
-```
+```yaml
 MusicFolder = "<library_path>"
 ```
 
@@ -73,7 +73,7 @@ For additional configuration options see the [configuration options page](https:
 
 Create a new file under `/etc/systemd/system/` named `navidrome.service` with the following data.
 
-```
+```yaml
 [Unit]
 Description=Navidrome Music Server and Streamer compatible with Subsonic/Airsonic
 After=remote-fs.target network.target
@@ -124,7 +124,7 @@ ProtectSystem=full
 
 Relaod the service daemon, start the newly create service, and verify it has started correctly.
 
-```
+```bash
 sudo systemctl daemon-reload
 sudo systemctl start navidrome.service
 sudo systemctl status navidrome.service
@@ -134,7 +134,7 @@ If the service has started correctly verify you can access `http://localhost:453
 
 #### Start Navidrome on Startup
 
-```
+```bash
 sudo systemctl enable navidrome.service
 ```
 ### Windows Installation
@@ -145,14 +145,13 @@ The examples below are for [Shawl](https://github.com/mtkennerly/shawl), [NSSM](
 {{% alert title="Note" %}}The default account for new services is the `Local System` account, which has a different `PATH` environment variable than your user account.  
 If you need to have access to your user account's `PATH` environment variables, the easiest way is to change the user account used by the service. To do so, open the Services management console (Win+R, then open `services.msc`), locate the Navidrome service, head to the `Log On` tab, and change it there.{{% /alert %}}
 
-
 #### Using Shawl
 
 Prebuilt binaries are available on the [releases page](https://github.com/mtkennerly/shawl/releases) of Shawl. It's portable, so you can simply download it and put it anywhere without going through an installer. Otherwise if you have Rust installed, you can run `cargo install shawl`.
 
 Here's how you create the service with Shawl, then start it. Note that this has to be run from an administrator command prompt.
 
-```cmd
+```bat
 shawl add --name Navidrome -- "C:\Services\navidrome\navidrome.exe" -c "C:\Services\navidrome\navidrome.toml"
 sc start Navidrome
 ```
@@ -165,7 +164,7 @@ Shawl will then create a log file for the service in the same location as the Sh
 
 No installation is required for NSSM. Just grab the latest release from their [download page](https://nssm.cc/download) and install the Navidrome service from an administrator command prompt using NSSM:
 
-```
+```bat
 nssm install Navidrome
 ```
 
@@ -173,7 +172,7 @@ This opens a window where you can set the properties of the service; most notabl
 
 You can also bypass the GUI and install the service from the command line only. Below is an example:
 
-```cmd
+```bat
 nssm install Navidrome "C:\Services\navidrome\navidrome.exe"
 nssm set Navidrome AppDirectory "C:\Services\navidrome\"
 nssm set Navidrome DisplayName Navidrome
@@ -210,7 +209,7 @@ A basic example (where both Navidrome and the WinSW configuration file are in th
 
 Save this in a file named `navidrome.xml`. Then, run these commands from an administrator command prompt to install the service, start it and check its status:
 
-```cmd
+```bat
 winsw install navidrome.xml
 winsw start navidrome.xml
 winsw status navidrome.xml
