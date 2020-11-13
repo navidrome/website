@@ -58,7 +58,7 @@ make it all uppercase. Ex: `ND_LOGLEVEL=debug`. See below for all available opti
 | LogLevel                                              | `ND_LOGLEVEL`                | Log level. Useful for troubleshooting. Possible values: `error`, `info`, `debug`, `trace`                                  | `"info"`                                 |
 | Port                                                  | `ND_PORT`                    | HTTP port Navidrome will use                                                                                               | `4533`                                   |
 | Address                                               | `ND_ADDRESS`                 | IP address the server will bind to                                                                                         | `0.0.0.0` (all IPs)                      |
-| EnableTranscodingConfig[\*](/docs/usage/security#transcoding-configuration) | `ND_ENABLETRANSCODINGCONFIG` | Enables transcoding configuration in the UI                                                          | `false`                                  |
+| EnableTranscodingConfig[\*][transcoding]              | `ND_ENABLETRANSCODINGCONFIG` | Enables transcoding configuration in the UI                                                          | `false`                                  |
 | TranscodingCacheSize                                  | `ND_TRANSCODINGCACHESIZE`    | Size of transcoding cache. Set to `0` to disable cache                                                                     | `"100MB"`                                |
 | ImageCacheSize                                        | `ND_IMAGECACHESIZE`          | Size of image (art work) cache. Set to `0` to disable cache                                                                | `"100MB"`                                |
 | AutoImportPlaylists                                   | `ND_AUTOIMPORTPLAYLISTS`     | Enable/disable `.m3u` playlist auto-import                                                                                 | `true`                                   |
@@ -71,12 +71,12 @@ make it all uppercase. Ex: `ND_LOGLEVEL=debug`. See below for all available opti
 | CoverArtPriority                                      | `ND_COVERARTPRIORITY`        | Configure the order to look for cover art images. Use special `embedded` value to get embedded images from the audio files | `"embedded, cover.*, folder.*, front.*"` |
 | CoverJpegQuality                                      | `ND_COVERJPEGQUALITY`        | Set JPEG quality percentage for resized cover art images                                                                   | `75`                                     |
 | SessionTimeout                                        | `ND_SESSIONTIMEOUT`          | How long Navidrome will wait before closing web ui idle sessions                                                           | `"24h"`                                  |
-| AuthRequestLimit[\*](/docs/usage/security#login-limit-rating)    | `ND_AUTHREQUESTLIMIT`        | How many login requests can be processed from a single IP during the `AuthWindowLength`. Set to `0` to disable the limit rater | `5`                       |
-| AuthWindowLength[\*](/docs/usage/security#login-limit-rating)    | `ND_AUTHWINDOWLENGTH`        | Window Length for the authentication rate limit                                                                 | `"20s"`                                  |
+| AuthRequestLimit[\*][limit-login-attempts]            | `ND_AUTHREQUESTLIMIT`        | How many login requests can be processed from a single IP during the `AuthWindowLength`. Set to `0` to disable the limit rater | `5`                       |
+| AuthWindowLength[\*][limit-login-attempts]            | `ND_AUTHWINDOWLENGTH`        | Window Length for the authentication rate limit                                                                 | `"20s"`                                  |
 | Scanner.Extractor                                     | `ND_SCANNER_EXTRACTOR`       | Select metadata extractor implementation. Options: `taglib` or `ffmpeg`                                                    | `taglib`                                 |
 | LastFM.ApiKey                                         | `ND_LASTFM_APIKEY`           | Last.FM ApiKey                                                                                                             | _Empty_                                  |
 | LastFM.Secret                                         | `ND_LASTFM_SECRET`           | Last.FM Shared Secret                                                                                                      | _Empty_                                  |
-| LastFM.Language                                       | `ND_LASTFM_LANGUAGE`         | [Two letter-code for language](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) to be used to retrieve biographies from Last.FM                                               | `"en"`                                   |
+| LastFM.Language                                       | `ND_LASTFM_LANGUAGE`         | [Two letter-code for language][language-codes] to be used to retrieve biographies from Last.FM                                               | `"en"`                                   |
 | Spotify.ID                                            | `ND_SPOTIFY_ID`              | Spotify Client ID                                                                                                          | _Empty_                                  |
 | Spotify.Secret                                        | `ND_SPOTIFY_SECRET`          | Spotify Client Secret                                                                                                      | _Empty_                                  |
 
@@ -86,3 +86,8 @@ make it all uppercase. Ex: `ND_LOGLEVEL=debug`. See below for all available opti
   time units are "s", "m", "h".
 - Sizes are specified as a number and an optional unit suffix, such as "1GB" or "150 MiB". Default
   unit is bytes.  Note: "1KB" == "1000", "1KiB" == "1024"
+
+
+[limit-login-attempts]: /docs/usage/security#limit-login-attempts  "Login Limit Rating"
+[transcoding]:          /docs/usage/security#transcoding-configuration "Transcoding configuration"
+[language-codes]:       https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes "List of language codes"

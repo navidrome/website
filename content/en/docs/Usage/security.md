@@ -36,7 +36,7 @@ configuration editing in the UI by default. If you need to edit it (add or chang
 start Navidrome with the `ND_ENABLETRANSCODINGCONFIG` set to `true`. After doing your changes,
 don't forget to remove this option or set it to `false`.
 
-## Login limit rating
+## Limit login attempts
 
 To protect against brute-force attacks, Navidrome is configured by default with a login rate limiter,
 It uses a [Sliding Window](https://blog.cloudflare.com/counting-things-a-lot-of-different-things/#slidingwindowstotherescue) 
