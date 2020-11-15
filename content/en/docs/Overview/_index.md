@@ -38,6 +38,8 @@ It can also work as a lightweight Subsonic-API compatible server, that can be us
 - 5-Star Rating
 - Transcoding
 - Get/Save Play Queue (to continue listening in a different device)
+- Artist Bio from [Last.FM](/docs/usage/external_integrations/#lastfm)
+- Artist Images from [Spotify](/docs/usage/external_integrations/#spotify)
 
 ## Apps
 
@@ -62,7 +64,7 @@ trouble with the client of your choice.
 This project is in active development. Expect a more polished experience and new features/releases 
 on a frequent basis. Some upcoming features planned: 
 
-- Last.FM integration (for scrobbling and getting artist/album info)
+- Last.FM scrobbling
 - Smart/dynamic playlists (similar to iTunes)
 - Jukebox mode
 - Sharing links to albums/songs/playlists
