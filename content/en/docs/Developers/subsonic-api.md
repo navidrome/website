@@ -93,5 +93,5 @@ between Navidrome and Subsonic:
 
 | _Media library scanning_ ||
 |------------------------|-|
-| `getScanStatus`        | Also returns an extra `lastScan` field |
+| `getScanStatus`        | Also returns the extra fields `lastScan` and `folderCount` |
 | `startScan`            | Accepts an extra `fullScan` boolean param, to force a full scan |
