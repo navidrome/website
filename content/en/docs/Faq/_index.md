@@ -18,21 +18,6 @@ There are many excellent "real" tag editors / music library managers out there t
 ex: [beets](https://beets.io), [Picard](https://picard.musicbrainz.org/) and [ExifTool](https://exiftool.org/)
 
 
-## How can I manually trigger a re-scan in Navidrome
-Currently rescanning must be done via the command line:
-```bash
-navidrome scan --datafolder="C:\path\to\datafolder" [-f]
-```
-The `datafolder` is where you can find the `navidrome.db` database. Use `-f` to scan all folders (not only the ones with detected changes)
-
-When using `docker-compose` with the official Docker build, the `datafolder` options is already set, you can use the following command:
-```bash
-docker-compose exec navidrome /app/navidrome scan [-f]
-```
-
-An option to force scan via the UI is under development. More information can be found in [Issue #130](https://github.com/deluan/navidrome/issues/130#issuecomment-675684387).
-
-
 ## Where are the logs?
 To achieve maximum compatibility with a great number of platforms, Navidrome follows the [Twelve Factor App](https://12factor.net/) methodology 
 as much as possible. Specifically in the case of [logs](https://12factor.net/logs), Navidrome does not try to do any storage or routing of 
