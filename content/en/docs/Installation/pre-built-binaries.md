@@ -6,17 +6,17 @@ description: >
   Ready to use binaries for all major platforms
 ---
 
-Just head to the [releases page](https://github.com/deluan/navidrome/releases) and download the latest version for you 
+Just head to the [releases page](https://github.com/deluan/navidrome/releases) and download the latest version for your
 platform. There are builds available for Linux (Intel and ARM, 32 and 64 bits), Windows (Intel 32 and 64 bits) and macOS (Intel 64 bits).
 
 For [Raspberry Pi](https://www.raspberrypi.org), use a suitable Linux ARM builds. Tested with 
-[Raspbian](https://www.raspberrypi.org/downloads/raspbian)
+[Raspbian](https://www.raspberrypi.org/downloads/raspbian).
 
 Remember to install [ffmpeg](https://ffmpeg.org/download.html) in your system, a requirement for Navidrome to work 
-properly. You may find the latest static build for your platform here: https://johnvansickle.com/ffmpeg/ 
+properly. You may find the latest static build for your platform here: https://johnvansickle.com/ffmpeg/.
 
 If you have any issues with these binaries, or need a binary for a different platform, please 
-[open an issue](https://github.com/deluan/navidrome/issues) 
+[open an issue](https://github.com/deluan/navidrome/issues).
 
 ### Arch Linux Packages
 
@@ -63,7 +63,7 @@ sudo chown -R <user>:<group> /opt/navidrome
 
 In the working directory, `/var/lib/navidrome` create a new file named `navidrome.toml` with the following settings.
 
-```yaml
+```toml
 MusicFolder = "<library_path>"
 ```
 
@@ -73,7 +73,7 @@ For additional configuration options see the [configuration options page](https:
 
 Create a new file under `/etc/systemd/system/` named `navidrome.service` with the following data.
 
-```yaml
+```toml
 [Unit]
 Description=Navidrome Music Server and Streamer compatible with Subsonic/Airsonic
 After=remote-fs.target network.target
@@ -130,7 +130,7 @@ sudo systemctl start navidrome.service
 sudo systemctl status navidrome.service
 ```
 
-If the service has started correctly verify you can access `http://localhost:4533`
+If the service has started correctly verify you can access [http://localhost:4533](http://localhost:4533).
 
 #### Start Navidrome on Startup
 
@@ -155,8 +155,6 @@ Here's how you create the service with Shawl, then start it. Note that this has 
 shawl add --name Navidrome -- "C:\Services\navidrome\navidrome.exe" -c "C:\Services\navidrome\navidrome.toml"
 sc start Navidrome
 ```
-
-Shawl will then create a log file for the service in the same location as the Shawl executable.
 
 {{% alert title="Note" %}}When using Shawl, you have to use absolute paths when specifying folders/files as arguments to the navidrome binary and in the configuration file (remember to escape the backslashes in the configuration file). Refer to the [configuration options page](https://www.navidrome.org/docs/usage/configuration-options) for more information about the available options.{{% /alert %}}
 
@@ -215,6 +213,4 @@ winsw start navidrome.xml
 winsw status navidrome.xml
 ```
 
-WinSW will then create a log file in the same directory as the WinSW configuration file.
-
-Verify that the service has started as expected by navigating to `http://localhost:4533`, by checking the Services management console or by checking the log file that the service wrapper created.
+Verify that the service has started as expected by navigating to [http://localhost:4533](http://localhost:4533), by checking the Services Management Console or by checking the log file that the service wrapper created.
