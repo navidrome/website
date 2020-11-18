@@ -15,7 +15,7 @@ The main reason for this is **security**: With an internet-facing software like 
 away from all their music getting deleted.
 
 There are many excellent "real" tag editors / music library managers out there to work with your music library, 
-ex: [beets](https://beets.io), [Picard](https://picard.musicbrainz.org/) and [ExifTool](https://exiftool.org/)
+ex: [beets](https://beets.io), [Picard](https://picard.musicbrainz.org/) and [ExifTool](https://exiftool.org/).
 
 
 ## How can I manually trigger a re-scan in Navidrome
@@ -23,7 +23,7 @@ Currently rescanning must be done via the command line:
 ```bash
 navidrome scan --datafolder="C:\path\to\datafolder" [-f]
 ```
-The `datafolder` is where you can find the `navidrome.db` database. Use `-f` to scan all folders (not only the ones with detected changes)
+The `datafolder` is where you can find the `navidrome.db` database. Use `-f` to scan all folders (not only the ones with detected changes).
 
 When using `docker-compose` with the official Docker build, the `datafolder` options is already set, you can use the following command:
 ```bash
@@ -39,9 +39,11 @@ as much as possible. Specifically in the case of [logs](https://12factor.net/log
 any log files, it only outputs all information to `stdout`, making it easy for the proper logging tools in each platform to handle them. 
 Some examples bellow:
 
-- **Linux**: if you installed Navidrome using the Systemd unit (as explained in the [install instructions](/docs/installation/pre-built-binaries/#create-a-systemd-unit)), you can see the logs using the [journalctl](https://manpages.debian.org/stretch/systemd/journalctl.1.en.html) tool: `journalctl -f -u navidrome.service`
+- **Linux**: if you installed Navidrome using the Systemd unit (as explained in the [install instructions](/docs/installation/pre-built-binaries/#create-a-systemd-unit)), you can see the logs using the [journalctl](https://manpages.debian.org/stretch/systemd/journalctl.1.en.html) tool: `journalctl -f -u navidrome.service`.
 
 - **Docker**: you can use `docker logs` or `docker-compose logs` to retrieve/follow the logs.
 
-- **Windows**: if you installed Navidrome as a service using [Shawl](https://github.com/mtkennerly/shawl), just check the `shawl_for_navidrome_*.log` files
-created in the same location as the Shawl executable.
+- **Windows**: depending on what you used to install Navidrome as a service, the logs will be in different locations by default:
+	- if you used [Shawl](https://github.com/mtkennerly/shawl), just check the `shawl_for_navidrome_*.log` files created in the same location as the Shawl executable.
+	- if you used [NSSM](http://nssm.cc/), the location of the logs are specified by the `AppStdout` attribute.
+	- if you used [WinSW](https://github.com/winsw/winsw), the log file is in the same directory as the WinSW configuration file for the Navidrome service.
