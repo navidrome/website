@@ -11,12 +11,21 @@ With Navidrome you can't. Navidrome does not write to you music folder or the fi
 cover art for artists, albums and playlists in the future, but even then it won't write these images to your Music Folder or 
 embed them in the files.
 
-The main reason for this is **security**: With an internet-facing software like Navidrome, users would only be one exploit 
+The main reason for this is **security**: With an internet-facing server like Navidrome, users would only be one exploit 
 away from all their music getting deleted.
 
-There are many excellent "real" tag editors / music library managers out there to work with your music library, 
-ex: [beets](https://beets.io), [Picard](https://picard.musicbrainz.org/) and [ExifTool](https://exiftool.org/)
+There are many excellent "real" tag editors / music library managers out there to work with your music library. 
 
+Navidrome recommends: [beets](https://beets.io) (Linux, macOS, Windows), [Picard](https://picard.musicbrainz.org/) (Linux, macOS, Windows), [ExifTool](https://exiftool.org/) (Linux, macOS, Windows)
+
+Others: [mp3tag](https://www.mp3tag.de/en/index.html) (Windows), [Yate](https://2manyrobots.com/yate/) (macOS), [foobar2000](https://www.foobar2000.org) (Windows, macOS), [MusicBee](https://getmusicbee.com/) (Windows), [Media Monkey] (https://www.mediamonkey.com) (Windows), Groove Music (Windows), Windows Media Player (Windows), Apple iTunes (Windows, macOS), Apple Music (macOS)
+
+## I have an album with tracks by different artists, why is it broken up into lots of separate albums, each with their own artist?
+Navidrome only organises music by tags, it will not automatically group a folder containing a bunch of songs with different artists into one album.
+
+For a "Various Artists" compilation, the `Part Of Compilation` tag (`TCMP` for id3, `COMPILATION` for FLAC) must be set, for all tracks.
+
+For a single-artist album with a different artist name for each track (for example "Alice feat. Bob" , "Alice feat. Carol"), the `Album Artist` tags must be the same ("Alice") for all tracks.
 
 ## Where are the logs?
 To achieve maximum compatibility with a great number of platforms, Navidrome follows the [Twelve Factor App](https://12factor.net/) methodology 
