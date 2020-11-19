@@ -18,7 +18,7 @@ There are many excellent "real" tag editors / music library managers out there t
 
 Navidrome recommends: [beets](https://beets.io) (Linux, macOS, Windows), [Picard](https://picard.musicbrainz.org/) (Linux, macOS, Windows), [ExifTool](https://exiftool.org/) (Linux, macOS, Windows)
 
-Others: [mp3tag](https://www.mp3tag.de/en/index.html) (Windows), [Yate](https://2manyrobots.com/yate/) (macOS), [foobar2000](https://www.foobar2000.org) (Windows, macOS), [MusicBee](https://getmusicbee.com/) (Windows), [Media Monkey] (https://www.mediamonkey.com) (Windows), Groove Music (Windows), Windows Media Player (Windows), Apple iTunes (Windows, macOS), Apple Music (macOS)
+Others: [mp3tag](https://www.mp3tag.de/en/index.html) (Windows), [Yate](https://2manyrobots.com/yate/) (macOS), [foobar2000](https://www.foobar2000.org) (Windows, macOS), [MusicBee](https://getmusicbee.com/) (Windows), [Media Monkey](https://www.mediamonkey.com) (Windows), Groove Music (Windows), Windows Media Player (Windows), Apple iTunes (Windows, macOS), Apple Music (macOS)
 
 ## I have an album with tracks by different artists, why is it broken up into lots of separate albums, each with their own artist?
 Navidrome only organises music by tags, it will not automatically group a folder containing a bunch of songs with different artists into one album.
