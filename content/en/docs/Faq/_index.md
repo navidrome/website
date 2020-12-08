@@ -7,7 +7,7 @@ description: >
 ---
 
 ## How can I edit my music metadata (id3 tags)? How can I rename/move my files?
-With Navidrome you can't. Navidrome does not write to you music folder or the files by design. It may have capabilities to change/add 
+With Navidrome you can't. Navidrome does not write to your music folder or the files by design. It may have capabilities to change/add 
 cover art for artists, albums and playlists in the future, but even then it won't write these images to your Music Folder or 
 embed them in the files.
 
