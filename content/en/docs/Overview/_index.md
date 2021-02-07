@@ -59,7 +59,7 @@ Besides its own Web UI, Navidrome should be compatible with all Subsonic clients
   - [Navidrome Kodi Plugin](https://github.com/BobHasNoSoul/plugin.audio.navidrome)
     
 For more options, look at the [list of clients](https://airsonic.github.io/docs/apps/) maintained by 
-the Airsonic project. Please open an [issue](https://github.com/deluan/navidrome/issues) if you have any 
+the Airsonic project. Please open an [issue](https://github.com/navidrome/navidrome/issues) if you have any 
 trouble with the client of your choice.
 
 ## Road map

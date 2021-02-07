@@ -14,7 +14,7 @@ and ask for help, we will be glad to assist you
 
 
 If you can't find a [pre-built binary](/docs/installation/pre-built-binaries) for your platform,
-you should open an [issue in the project's GitHub page](https://github.com/deluan/navidrome/issues).
+you should open an [issue in the project's GitHub page](https://github.com/navidrome/navidrome/issues).
 
 If you don't want to wait, you can try to build the binary yourself, with the following steps.
 
@@ -31,7 +31,7 @@ You'll also need to install the [TagLib](http://taglib.org) library:
 After the prerequisites above are installed, clone Navidrome's repository and build it:
 
 ```shell script
-$ git clone https://github.com/deluan/navidrome
+$ git clone https://github.com/navidrome/navidrome
 $ cd navidrome
 $ make setup        # Install build dependencies
 $ make buildall     # Build UI and server, generates a single executable

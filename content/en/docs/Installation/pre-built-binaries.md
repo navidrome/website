@@ -6,7 +6,7 @@ description: >
   Ready to use binaries for all major platforms
 ---
 
-Just head to the [releases page](https://github.com/deluan/navidrome/releases) and download the latest version for your
+Just head to the [releases page](https://github.com/navidrome/navidrome/releases) and download the latest version for your
 platform. There are builds available for Linux (Intel and ARM, 32 and 64 bits), Windows (Intel 32 and 64 bits) and macOS (Intel 64 bits).
 
 For [Raspberry Pi](https://www.raspberrypi.org), use a suitable Linux ARM builds. Tested with 
@@ -16,7 +16,7 @@ Remember to install [ffmpeg](https://ffmpeg.org/download.html) in your system, a
 properly. You may find the latest static build for your platform here: https://johnvansickle.com/ffmpeg/.
 
 If you have any issues with these binaries, or need a binary for a different platform, please 
-[open an issue](https://github.com/deluan/navidrome/issues).
+[open an issue](https://github.com/navidrome/navidrome/issues).
 
 ### Arch Linux Packages
 
@@ -51,10 +51,10 @@ sudo install -d -o <user> -g <group> /var/lib/navidrome
 
 #### Get Navidrome
 
-Download the latest release from the [releases page](https://github.com/deluan/navidrome/releases), extract the contents to the executable directory, and set the permissions for the files. (Replace the URL below with the one from the releases page):
+Download the latest release from the [releases page](https://github.com/navidrome/navidrome/releases), extract the contents to the executable directory, and set the permissions for the files. (Replace the URL below with the one from the releases page):
 
 ```bash
-wget https://github.com/deluan/navidrome/releases/download/v0.XX.0/navidrome_0.XX.0_Linux_x86_64.tar.gz -O Navidrome.tar.gz
+wget https://github.com/navidrome/navidrome/releases/download/v0.XX.0/navidrome_0.XX.0_Linux_x86_64.tar.gz -O Navidrome.tar.gz
 sudo tar -xvzf Navidrome.tar.gz -C /opt/navidrome/
 sudo chown -R <user>:<group> /opt/navidrome
 ```

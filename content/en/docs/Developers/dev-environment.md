@@ -21,7 +21,7 @@ give us a shout on the `#dev` channel
     - Ubuntu: `sudo apt install libtag1-dev`
     - macOS: `brew install taglib`
 
-4. Clone the project from https://github.com/deluan/navidrome
+4. Clone the project from https://github.com/navidrome/navidrome
 5. Install development tools: `make setup-dev`
 6. Test installation: `make buildall`. This command should create a `navidrome` executable in the project's folder
 7. Create a `navidrome.toml` config file in the project's folder with the following options:
