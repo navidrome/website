@@ -8,8 +8,8 @@ description: >
 
 Translations are currently managed in [POEditor](https://poeditor.com). 
 If you want to contribute new translations or help reviewing/proofreading any of the existing 
-ones, please join us on [Discord server](https://discord.gg/xh7j7yF) for 
-coordinating the translation efforts and get further instructions.
+ones, please join our [Discord server](https://discord.gg/xh7j7yF), channel `#translations`, for 
+translation efforts coordination and to get further instructions.
 
 Alternatively, you can submit a pull request with your proposed changes directly [to our project in GitHub](https://github.com/navidrome/navidrome/tree/master/resources/i18n).
 
