@@ -13,19 +13,20 @@ Navidrome started in Feburary 2016 as an modern and lightweight alternative to [
 written in [Go]( https://golang.org/ )/[React](https://reactjs.org/), implementing the [subsonic API]( http://www.subsonic.org/pages/api.jsp ) and thus compatible with all the [subsonic clients]( http://www.subsonic.org/pages/apps.jsp ) in the world, licensed under GPL3, … Being relatively young, it does come/use modern development practices like continuous integration, a comprehensive testsuite, a relatively clean codebase, automatic dependency upgrades, automatic linting/CI/static analysis/… on each pull-request, [comprehensive documentation]( https://www.navidrome.org/docs/ ) … It recently gained popularity due to the decay of [Subsonic](http://subsonic.org)/[Airsonic](http://airsonic.org), and currently has more than 4M download of its [docker image]( https://hub.docker.com/r/deluan/navidrome ), and had its binaries downloaded more than 10k times.
 
 <p align="left">
-<img width="600" src="/screenshots/gsoc-2021/ss-desktop-player.png">
+<img width="700" src="/screenshots/gsoc-2021/ss-desktop-player.png">
 </p>
 
 A demo version is available as well: https://demo.navidrome.org
 
-Mentors
--------
+Mentors and Contacts
+--------------------
 
-Feel free to reach out to any of them:
+We're using discord for communications, feel free to [join](https://discord.gg/sv3nB9Ytn2).
+
+As for the mentors:
 
 - Deluan Quintão ([ETZ](https://en.wikipedia.org/wiki/Eastern_Time_Zone)): deluan -- [@deluan](https://twitter.com/deluan)
 - Julien Voisin ([CET](https://en.wikipedia.org/wiki/Central_European_Time)): jvoisin -- [@dustriorg](https://twitter.com/dustriorg)
-
 
 Development methodology
 -----------------------
@@ -87,9 +88,11 @@ We would also need a standalone player similar to what is provided by Spotify wh
 - Implement the Subsonic API related endpoints: [getShares](http://subsonic.org/pages/api.jsp#getShares), [createShare](http://subsonic.org/pages/api.jsp#createShare), [updateShare](http://subsonic.org/pages/api.jsp#updateShare) and [deleteShare](http://subsonic.org/pages/api.jsp#deleteShare)
 - Add a standalone player (could be based on our current React Player)
 
-Skill level: Medium
-Required abilities: Go and willing to learn a bit of React
-Expected outcome: Ability to share music with friends.
+#### Details
+
+* Skill level: Medium
+* Required abilities: Go and willing to learn a bit of React
+* Expected outcome: Ability to share music with friends.
 
 #### Links and further reading
 
@@ -107,9 +110,11 @@ Some servers can be run in ["jukebox"]( http://www.subsonic.org/pages/features.j
 - Implementing the frontend part to select the jukebox mode and control the subsonic client
 - Implementing the Subsonic API's `jukeboxControl` endpoint
 
-Skill level: Hard
-Abilities: Go and React, a bit of UX would be nice
-Expected outcome: Ability to play music from the device running navidrome.
+#### Details
+
+* Skill level: Hard
+* Required abilities: Go and React, a bit of UX would be nice
+* Expected outcome: Ability to play music from the device running navidrome.
 
 #### Links and further reading
 
@@ -129,9 +134,11 @@ This task can be nicely paired with the jukebox one.
 - Implementing the glue between Alexa/Google home and the Subsonic API
 - Implementing the frontend part to configure this machinerie
 
-Skill level: Hard
-Required abilities: Go, having an Alexa/Google Home is a plus, but worse case we can send the student a device.
-Expected outcome: Ability to play/pause/next/previous the music via a home assistant
+#### Details
+
+* Skill level: Hard
+* Required abilities: Go, having an Alexa/Google Home is a plus, but worse case we can send the student a device.
+* Expected outcome: Ability to play/pause/next/previous the music via a home assistant
 
 #### Links and further reading
 
@@ -152,9 +159,11 @@ Some users want to use multiple libraries at the same time, for example to separ
 - Implement the `musicFolderId` attribute in most Subsonic API endpoints
 - Plus: Implement support to access remote libraries from the WebUI
 
-Skill level: Hard
-Required abilities: Go and SQL, and a teensy bit of react for the UX
-Expected outcome: Ability to use multiple libraries withint a single user account
+#### Details
+
+* Skill level: Hard
+* Required abilities: Go and SQL, and a teensy bit of react for the UX
+* Expected outcome: Ability to use multiple libraries withint a single user account
 
 #### Links and further reading
 
@@ -172,9 +181,11 @@ One search bar to search across the whole library, using proper [SQLite's Full T
 - Implement a Search Results page, with links to artists, albums, songs and playlists
 - Plus: integrate FTS5 with Spellfix1, to enable search for close matches. May not be supported by `go-sqlite3` library used by Navidrome
 
-Skill level: Medium
-Required abilities: Go and React.JS
-Expected outcome: Ability to have a single search field operating accross all the library
+#### Details
+
+* Skill level: Medium
+* Required abilities: Go and React.JS
+* Expected outcome: Ability to have a single search field operating accross all the library
 
 #### Links and further reading
 
@@ -191,9 +202,11 @@ Currently, navidrome is using pagination instead of providing a more convenient 
 
 - Implement a new List component for React-Admin, that does not use pagination. It should load new data on demand. This component should be usable in all places where we currently use React-Admin's List
 
-Skill level: Medium
-Required abilities: React.JS, with a bit of Go and SQL
-Expected outcome: Infinite scrolling is implemented and usable.
+#### Details
+
+* Skill level: Medium
+* Required abilities: React.JS, with a bit of Go and SQL
+* Expected outcome: Infinite scrolling is implemented and usable.
 
 #### Links and further reading
 
@@ -213,9 +226,11 @@ It would be nice for navidrome to support [LRC files]( https://en.wikipedia.org/
 - Implement Subsonic API's `getLyrics` endpoint
 - In the WebUI, when lyrics are available for the current song being played, set the appropriate attributes of the Reac Music Player used
 
-Skill level: Easy
-Required abilities: Go and React.JS
-Expected outcome: Ability to see lyrics in the WebUI or Subsonic client when playing a song
+#### Details
+
+* Skill level: Easy
+* Required abilities: Go and React.JS
+* Expected outcome: Ability to see lyrics in the WebUI or Subsonic client when playing a song
 
 #### Links and further reading
 
@@ -234,9 +249,11 @@ It would be nice if navidrome could perform audio normalization, to avoid having
 - Implement per-track normalization
 - Implement per-album normalization
 
-Skill level: Easy
-Required abilities: Go and React.JS
-Expected outcome: Ability to have constant volume output in navidrome
+#### Details
+
+* Skill level: Easy
+* Required abilities: Go and React.JS
+* Expected outcome: Ability to have constant volume output in navidrome
 
 #### Links and further reading
 
@@ -255,9 +272,11 @@ It would be nice to have something ressembling [Plex](https://www.plex.tv/)'s in
 - Implement asynchonous loading for the covers
 - Implement the fading in upon loading
 
-Skill level: Medium
-Required abilities: React.JS / Material-UI
-Expected outcome: Ability to have constant volume output in navidrome
+#### Details
+
+* Skill level: Medium
+* Required abilities: React.JS / Material-UI
+* Expected outcome: Ability to have constant volume output in navidrome
 
 #### Links and further reading
 
