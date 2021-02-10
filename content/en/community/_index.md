@@ -7,6 +7,11 @@ menu:
 
 {{< blocks/section type="section" color="white">}}
 
+{{% pageinfo %}}
+## Google Summer of Code 2021
+
+We intend to participate in GSoC 2021. See details [here](/docs/gsoc)
+{{% /pageinfo %}}
 ## Navidrome Articles
 Here are some articles written by and for members of the Navidrome community. If you write or find any interesting blog post about Navidrome, feel free to [add to this list](https://github.com/navidrome/website/edit/master/content/en/community/_index.md).
 
