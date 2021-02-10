@@ -26,7 +26,7 @@ It can also work as a lightweight Subsonic-API compatible server, that can be us
 - **Themeable**, modern and responsive **Web interface** based on [Material UI](https://material-ui.com)
 - **Compatible** with all Subsonic/Madsonic/Airsonic clients. See below for a list of tested clients
 - **Transcoding** on the fly. Can be set per user/player. **Opus encoding is supported**
-- Translated to **10 languages** ([and counting](/docs/developers/translations/))
+- Translated to **17 languages** ([and counting](/docs/developers/translations/))
 - Full support for **playlists**, with option to auto-import `.m3u` files and to keep them in sync
 
 ### Features supported by the Subsonic API
