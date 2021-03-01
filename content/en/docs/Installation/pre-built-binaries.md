@@ -220,11 +220,11 @@ Verify that the service has started as expected by navigating to [http://localho
 Navidrome can be ran by simply double-clicking the binary that has been downloaded from the [release page](https://github.com/navidrome/navidrome/releases/latest) or by running it in the command line. However, that will keep a terminal window open while Navidrome is running.
 
 To have Navidrome running in the background, we can run it as a service.
-We define a service as shown below and save that in a file named `org.navidrome.plist` in the `~/Library/LaunchAgents/` folder.
+We define a service as shown below and save that in a file named `navidrome.plist` in the `~/Library/LaunchAgents/` folder.
 
 The example shown assumes a few things:
 
-1. The binary has been downloaded and extracted to the `/opt/Navidrome` folder.
+1. The binary has been downloaded and extracted to the `/opt/navidrome` folder.
 2. A [configuration file](https://www.navidrome.org/docs/usage/configuration-options) for Navidrome has been created and is named `navidrome.toml` in that folder.
 3. A log file for Navidrome has been created and is named `navidrome.log` in that folder.
 
@@ -234,36 +234,36 @@ The example shown assumes a few things:
 <plist version="1.0">
     <dict>
         <key>Label</key>
-        <string>org.navidrome</string>
+        <string>navidrome</string>
         <key>ProgramArguments</key>
         <array>
-            <string>/opt/Navidrome/navidrome</string>
+            <string>/opt/navidrome/navidrome</string>
             <string>-c</string>
-            <string>/opt/Navidrome/navidrome.toml</string>
+            <string>/opt/navidrome/navidrome.toml</string>
         </array>
         <key>RunAtLoad</key>
         <true/>
         <key>StandardOutPath</key>
-        <string>/opt/Navidrome/navidrome.log</string>
+        <string>/opt/navidrome/navidrome.log</string>
         <key>StandardErrorPath</key>
-        <string>/opt/Navidrome/navidrome.log</string>
+        <string>/opt/navidrome/navidrome.log</string>
     </dict>
 </plist>
 ```
 
 Then to load the service, run:
 ```bash
-launchctl load ~/Library/LaunchAgents/org.navidrome.plist`
+launchctl load ~/Library/LaunchAgents/navidrome.plist`
 ```
 
 To start the service, run:
 ```bash
-launchctl start org.navidrome
+launchctl start navidrome
 ```
 
-You can verify that Navidrome has started by navigating to [http://localhost:4533](http://localhost:4533), by running `launchctl list | grep org.navidrome` or by checking the log file specified.
+You can verify that Navidrome has started by navigating to [http://localhost:4533](http://localhost:4533), by running `launchctl list | grep navidrome` or by checking the log file specified.
 
 To stop the service, run:
 ```bash
-launchctl stop org.navidrome
+launchctl stop navidrome
 ```
