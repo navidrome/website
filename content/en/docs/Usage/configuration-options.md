@@ -17,7 +17,7 @@ Example of a configuration file for Windows (should be similar for Linux, just u
 
 ```toml
 LogLevel = 'DEBUG'
-ScanInterval = '90s'
+ScanInterval = '1h'
 TranscodingCacheSize = '150MiB'
 MusicFolder = 'C:\Users\JohnDoe\Music' 
 ```
