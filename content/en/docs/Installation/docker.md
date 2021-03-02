@@ -1,14 +1,14 @@
 ---
-title: "Using Docker?"
-linkTitle: "Using Docker"
+title: "Docker"
+linkTitle: "Docker"
 date: 2017-01-05
 description: >
-  No problem, we got you covered with official docker images
+  Using the official docker images with Docker and Docker Compose
 ---
 
 
 [Docker images](https://hub.docker.com/r/deluan/navidrome) are available for the 
-_linux/amd64_, _linux/arm/v7_ and _linux/arm64_ platforms. They include everything needed to 
+_linux/amd64_, _linux/arm/v6_, _linux/arm/v7_ and _linux/arm64_ platforms. They include everything needed to 
 run Navidrome.
 
 
@@ -27,7 +27,7 @@ services:
     restart: unless-stopped
     environment:
       # Optional: put your config options customization here. Examples:
-      ND_SCANINTERVAL: 1m
+      ND_SCANINTERVAL: 1h
       ND_LOGLEVEL: info  
       ND_SESSIONTIMEOUT: 24h
       ND_BASEURL: ""
