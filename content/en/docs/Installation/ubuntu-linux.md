@@ -97,6 +97,9 @@ ProtectSystem=full
 # You can uncomment the following line if you don't have any media in /home/*.
 # This will prevent navidrome from ever reading/writing anything there.
 #ProtectHome=true
+
+# You can customize some Navidrome config options by setting environment variables here. Ex:
+#Environment=ND_BASEURL="/navidrome"
 ```
 
 ### Start the Navidrome Service
