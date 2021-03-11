@@ -94,7 +94,7 @@ ReadWritePaths=/var/lib/navidrome
 # /var/lib/navidrome.
 ProtectSystem=full
 
-# You can comment the following line if you don't have any media in /home/*.
+# You can uncomment the following line if you don't have any media in /home/*.
 # This will prevent navidrome from ever reading/writing anything there.
 #ProtectHome=true
 ```
