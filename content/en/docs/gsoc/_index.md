@@ -276,7 +276,7 @@ It would be nice to have something ressembling [Plex](https://www.plex.tv/)'s in
 
 * Skill level: Medium
 * Required abilities: React.JS / Material-UI
-* Expected outcome: Ability to have constant volume output in navidrome
+* Expected outcome: Have a plex-looking album grid, with fading, scaling and async loading
 
 #### Links and further reading
 
