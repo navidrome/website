@@ -9,7 +9,7 @@ description: >
 Introduction
 ------------
 
-Navidrome started in Feburary 2016 as an modern and lightweight alternative to [Subsonic](http://subsonic.org):
+Navidrome started in February 2016 as a modern and lightweight alternative to [Subsonic](http://subsonic.org):
 written in [Go]( https://golang.org/ )/[React](https://reactjs.org/), implementing the [subsonic API]( http://www.subsonic.org/pages/api.jsp ) and thus compatible with all the [subsonic clients]( http://www.subsonic.org/pages/apps.jsp ) in the world, licensed under GPL3, … Being relatively young, it does come/use modern development practices like continuous integration, a comprehensive testsuite, a relatively clean codebase, automatic dependency upgrades, automatic linting/CI/static analysis/… on each pull-request, [comprehensive documentation]( https://www.navidrome.org/docs/ ) … It recently gained popularity due to the decay of [Subsonic](http://subsonic.org)/[Airsonic](http://airsonic.org), and currently has more than 4M download of its [docker image]( https://hub.docker.com/r/deluan/navidrome ), and had its binaries downloaded more than 10k times.
 
 <p align="left">
@@ -37,7 +37,7 @@ The usual way to get code in is to submit a pull-request, which will be reviewed
 
 Instructions for students
 -------------------------
-Students willing to take part of the Google Summer of Code 2021 with navidrome should send a couple of pull-requests, to demonstrate that they're both motivated and capable of writing code and contributing to the project.
+Students willing to take part in the Google Summer of Code 2021 with navidrome should send a couple of pull-requests, to demonstrate that they're both motivated and capable of writing code and contributing to the project.
 
 
 Tech stack
@@ -54,7 +54,7 @@ Tech stack
 Recommended steps
 -----------------
 1. Read [Google's instructions for participating]( https://google.github.io/gsocguides/student/ )
-2. Grab any project from list of ideas that you're interested in (or even suggest your own!).
+2. Grab any project from the list of ideas that you're interested in (or even suggest your own!).
 3. Write a first draft proposal and ask one of the mentors to review it with you.
 4. Submit it using Google's web interface.
 
@@ -73,7 +73,7 @@ Ideas
 
 ### Media sharing
 
-One of the nice features of Subsonic is its [ability to generate a sharing link](http://www.subsonic.org/pages/features.jsp) for a track/album/artist/playlist to send to friends, so that they can listen/download the music without having an account on your instance. This is a nice replacement to alternative to youtube links to share music.
+One of the nice features of Subsonic is its [ability to generate a sharing link](http://www.subsonic.org/pages/features.jsp) for a track/album/artist/playlist to send to friends, so that they can listen/download the music without having an account on your instance. This is a nice replacement to an alternative to youtube links to share music.
 A nice way to implement this would be to have a table of shares, with a shorturl as ID. The table would store a reference to what is being shared.  This shorturl would be used by a public endpoint.
 We would also need a standalone player similar to what is provided by Spotify when you share music through their service. Ex:
 
@@ -132,12 +132,12 @@ This task can be nicely paired with the jukebox one.
 #### Steps
 
 - Implementing the glue between Alexa/Google home and the Subsonic API
-- Implementing the frontend part to configure this machinerie
+- Implementing the frontend part to configure this machinery
 
 #### Details
 
 * Skill level: Hard
-* Required abilities: Go, having an Alexa/Google Home is a plus, but worse case we can send the student a device.
+* Required abilities: Go, having an Alexa/Google Home is a plus, but in the worse case we can send the student a device.
 * Expected outcome: Ability to play/pause/next/previous the music via a home assistant
 
 #### Links and further reading
@@ -149,7 +149,7 @@ This task can be nicely paired with the jukebox one.
 
 ### Multiple libraries support
 
-Some users want to use multiple libraries at the same time, for example to separate lossy/lossless albums, one for official albums and an other for bootlegs/lives, or one ofr audiobooks, some are even dreaming about having remote ones to listen to their friend's music without leaving their navidrome instance!
+Some users want to use multiple libraries at the same time, for example to separate lossy/lossless albums, one for official albums and an other for bootlegs/lives, or one for audiobooks, some are even dreaming about having remote ones to listen to their friend's music without leaving their navidrome instance!
 
 #### Steps
 
@@ -163,7 +163,7 @@ Some users want to use multiple libraries at the same time, for example to separ
 
 * Skill level: Hard
 * Required abilities: Go and SQL, and a teensy bit of react for the UX
-* Expected outcome: Ability to use multiple libraries withint a single user account
+* Expected outcome: Ability to use multiple libraries within a single user account
 
 #### Links and further reading
 
@@ -185,7 +185,7 @@ One search bar to search across the whole library, using proper [SQLite's Full T
 
 * Skill level: Medium
 * Required abilities: Go and React.JS
-* Expected outcome: Ability to have a single search field operating accross all the library
+* Expected outcome: Ability to have a single search field operating across all the library
 
 #### Links and further reading
 
@@ -196,7 +196,7 @@ One search bar to search across the whole library, using proper [SQLite's Full T
 
 ### Infinite Scroll
 
-Currently, navidrome is using pagination instead of providing a more convenient infinite-scroll. The implementation isn't trivial because navidrome is using [react-admin](https://marmelab.com/react-admin/), which not only doesn't provide this feature out of the box, but make it non-trivial to implement.
+Currently, navidrome is using pagination instead of providing a more convenient infinite-scroll. The implementation isn't trivial because navidrome is using [react-admin](https://marmelab.com/react-admin/), which not only doesn't provide this feature out of the box, but makes it non-trivial to implement.
 
 #### Steps
 
@@ -224,7 +224,7 @@ It would be nice for navidrome to support [LRC files]( https://en.wikipedia.org/
 - Implement lyrics importing (from tags or external .lrc files)
 - Make navidrome library aware of the presence of lyrics
 - Implement Subsonic API's `getLyrics` endpoint
-- In the WebUI, when lyrics are available for the current song being played, set the appropriate attributes of the Reac Music Player used
+- In the WebUI, when lyrics are available for the current song being played, set the appropriate attributes of the React Music Player used
 
 #### Details
 
@@ -241,7 +241,7 @@ It would be nice for navidrome to support [LRC files]( https://en.wikipedia.org/
 
 ### Volume normalization
 
-It would be nice if navidrome could perform audio normalization, to avoid having to fiddle with the volume when listening to different trackes of various volumes.
+It would be nice if navidrome could perform audio normalization, to avoid having to fiddle with the volume when listening to different tracks of various volumes.
 
 #### Steps
 
@@ -264,12 +264,12 @@ It would be nice if navidrome could perform audio normalization, to avoid having
 
 ### New Album grid
 
-It would be nice to have something ressembling [Plex](https://www.plex.tv/)'s interface, with covert art fading in, as well as a *slider* to adjust their size.
+It would be nice to have something resembling [Plex](https://www.plex.tv/)'s interface, with covert art fading in, as well as a *slider* to adjust their size.
 
 #### Steps
 
 - Implement the slider for the covers
-- Implement asynchonous loading for the covers
+- Implement asynchronous loading for the covers
 - Implement the fading in upon loading
 
 #### Details
