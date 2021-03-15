@@ -48,7 +48,7 @@ Tech stack
 - Frontend (WebUI)
     -  [React.JS](https://reactjs.org/)
     -  [React Admin](https://marmelab.com/react-admin/)
-    -  [Meterial-UI](https://material-ui.com/)
+    -  [Material-UI](https://material-ui.com/)
 
 
 Recommended steps
