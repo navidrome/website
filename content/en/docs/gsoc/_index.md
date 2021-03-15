@@ -73,7 +73,7 @@ Ideas
 
 ### Media sharing
 
-One of the nice features of Subsonic is its [ability to generate a sharing link](http://www.subsonic.org/pages/features.jsp) for a track/album/artist/playlist to send to friends, so that they can listen/download the music without having an account on your instance. This is a nice replacement to an alternative to youtube links to share music.
+One of the nice features of Subsonic is its [ability to generate a sharing link](http://www.subsonic.org/pages/features.jsp) for a track/album/artist/playlist to send to friends, so that they can listen/download the music without having an account on your instance. This is a nice alternative to youtube links to share music.
 A nice way to implement this would be to have a table of shares, with a shorturl as ID. The table would store a reference to what is being shared.  This shorturl would be used by a public endpoint.
 We would also need a standalone player similar to what is provided by Spotify when you share music through their service. Ex:
 
@@ -137,7 +137,7 @@ This task can be nicely paired with the jukebox one.
 #### Details
 
 * Skill level: Hard
-* Required abilities: Go, having an Alexa/Google Home is a plus, but in the worse case we can send the student a device.
+* Required abilities: Go, having an Alexa/Google Home is a plus, but worse case we can send the student a device.
 * Expected outcome: Ability to play/pause/next/previous the music via a home assistant
 
 #### Links and further reading
