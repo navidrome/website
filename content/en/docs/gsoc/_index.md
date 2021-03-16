@@ -46,9 +46,10 @@ Tech stack
     -  [Go](https://golang.org)
     -  [SQLite3](https://www.sqlite.org/)
 - Frontend (WebUI)
-    -  [React.JS](https://reactjs.org/)
+    -  [React](https://reactjs.org/)
     -  [React Admin](https://marmelab.com/react-admin/)
     -  [Material-UI](https://material-ui.com/)
+    -  [Redux](https://redux.js.org/)
 
 
 Recommended steps
