@@ -7,8 +7,20 @@ description: >
 ---
 
 {{% pageinfo %}}
-Currently these instructions only work for Unix-based systems (Linux, macOS, BSD, ...). 
-This is just a summary on how to get started. More information will soon be available. 
+# For Windows users only:
+Project can be set up using [WSL](https://g.co/kgs/kcU41r) + [Visual Studio Code](https://g.co/kgs/tsCHLa)
+- Installing WSL
+  1. Make sure your Windows-10 is updated.
+  2. Go to Settings > Turn Windows feature on or off > Windows subsystem for Linux.
+  3. Go to Microsoft Store > download and install any Linux Distro you like e.g(Ubuntu, Kali-Linux).
+  4. open Downloded Linux Distro, add username and password and then update the app using - `sudo apt update && sudo apt upgrade -y`.
+  5. This will create an Linux terminal where you can excute any Linux commands.
+  <br/>
+- Visual Studio Code
+  1. Click on Extensions (present on leftmost coloumn) > install -Remote Development - extension > Reload Vscode.
+  2. View > Command Pallete or Ctrl + shift + p > Remote-WSL : new Window
+  3. This will connect your installed linux distro to Vscode.
+  4. And now you can excute all given below commands on Vscode terminal.
 If you are stuck or have any questions, please join our [Discord server](https://discord.gg/xh7j7yF) and 
 give us a shout on the `#dev` channel
 {{% /pageinfo %}}
