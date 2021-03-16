@@ -1,7 +1,7 @@
 ---
 title: "macOS Installation"
 linkTitle: "macOS"
-date: 2017-01-01
+date: 2017-01-04
 description: >
   Steps to install on macOS
 ---
