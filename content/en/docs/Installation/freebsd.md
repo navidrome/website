@@ -1,7 +1,7 @@
 ---
 title: "FreeBSD Install"
 linkTitle: "FreeBSD"
-date: 2020-03-14
+date: 2017-01-03
 description: >
   Steps to install on FreeBSD (using ports or package)
 ---
@@ -11,7 +11,7 @@ The following steps have been tested on FreeBSD 12 and 13.  They should work on 
 
 ### Install Using Package
 
-Use the package tool (pkg) to install Navidrome from a pre-build package.
+Use the package tool (pkg) to install Navidrome from a binary package.
 
 ```sh
 pkg install navidrome
@@ -19,7 +19,7 @@ pkg install navidrome
 
 Follow any on screen instructions to complete your installation.
 
-### Build & Install Using Port
+### Build & Install Using Ports
 
 Instead of using a binary package you can build from source.  Before you start, make sure your local ports tree is up to date.  Refer to the [FreeBSD Handbook](https://docs.freebsd.org/en/books/handbook/ports/#ports-using) on the recommended way to fetch or update your ports tree.
 
