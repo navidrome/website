@@ -14,10 +14,10 @@ Any IDE with good support for GoLang and JavaScript/Node can be used for Navidro
 
 ### Using VSCode + Dev Container (Docker)
 
-The project includes a [VSCode Dev Container](https://code.visualstudio.com/docs/remote/containers) configuration for using with [Docker](https://www.docker.com/products/docker-desktop). The Dev Container provides all dependencies out-of-the-box. If you prefer to install all dependencies yourself, or cannot/don't want to install Docker for any reason, see the other sections below for step by step instructions on your OS.
+The project includes a [VSCode Dev Container](https://code.visualstudio.com/docs/remote/containers) configuration for using with [Docker](https://www.docker.com/products/docker-desktop). The Dev Container provides all dependencies out-of-the-box. If you prefer to install all dependencies yourself, or cannot/don't want to install Docker for any reason, see the other sections below for step by step instructions for your OS.
 
 {{% alert title="Note" %}}
-Keep in mind that the overall experience when using Docker Desktop for development will be slower than normal, because access to the host OS filesystem is generally slower. If you want to have full performance, we recommend installing the dependencies in your system and skip using Docker for development.
+Keep in mind that the overall experience when using Docker Desktop for development will be slower than normal, because access to the host OS filesystem is generally slower. If you want to have full performance, we recommend installing the dependencies directly on your system and skip using Docker for development.
 {{% /alert %}}
 ### Unix-based systems (Linux, macOS, BSD, …)
 
@@ -40,8 +40,8 @@ MusicFolder = "/path/to/music/folder"
 # Make logging more verbose
 LogLevel = "debug"
 
-# This will always create an `admin` user with the specified password, so you don't have to 
-# create a user every time you delete your dev database
+# This option will always create an `admin` user with the specified password, so you don't
+# have to create a user every time you delete your dev database
 DevAutoCreateAdminPassword = "password"
 
 # Move the data/DB folder to a different location
