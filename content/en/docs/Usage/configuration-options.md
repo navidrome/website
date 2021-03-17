@@ -49,9 +49,9 @@ make it all uppercase. Ex: `ND_LOGLEVEL=debug`. See below for all available opti
 
 ## Available Options
 
-| Option                                      | Env var                      | Description                                                                                                                | Default Value                            |
+| Option in config file                       | Env var                      | Description                                                                                                                | Default Value                            |
 | --------------------------------------------| ---------------------------- | -------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------- |
-| ConfigFile                                  | `ND_CONFIGFILE`              | Load configurations from an external config file                                                                           | `"./navidrome.toml"`                     |
+|                                             | `ND_CONFIGFILE`              | Load configurations from an external config file                                                                           | `"./navidrome.toml"`                     |
 | MusicFolder                                 | `ND_MUSICFOLDER`             | Folder where your music library is stored. Can be read-only                                                                | `"./music"`                              |
 | DataFolder                                  | `ND_DATAFOLDER`              | Folder to store application data (DB, cache...)                                                                            | `"./data"`                               |
 | ScanInterval                                | `ND_SCANINTERVAL`            | How frequently to scan for changes in your music library. Set it to `0` to disable scans                                   | `"1m"`                                   |

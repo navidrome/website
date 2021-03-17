@@ -7,36 +7,31 @@ description: >
 ---
 
 {{% pageinfo %}}
-# For Windows users only:
-Project can be set up using [WSL](https://g.co/kgs/kcU41r) + [Visual Studio Code](https://g.co/kgs/tsCHLa)
-- Installing WSL
-  1. Make sure your Windows-10 is updated.
-  2. Go to Settings > Turn Windows feature on or off > Windows subsystem for Linux.
-  3. Go to Microsoft Store > download and install any Linux Distro you like e.g(Ubuntu, Kali-Linux).
-  4. open Downloded Linux Distro, add username and password and then update the app using - `sudo apt update && sudo apt upgrade -y`.
-  5. This will create an Linux terminal where you can excute any Linux commands.
-  <br/>
-- Visual Studio Code
-  1. Click on Extensions (present on leftmost coloumn) > install -Remote Development - extension > Reload Vscode.
-  2. View > Command Pallete or Ctrl + shift + p > Remote-WSL : new Window
-  3. This will connect your installed linux distro to Vscode.
-  4. And now you can excute all given below commands on Vscode terminal.
-If you are stuck or have any questions, please join our [Discord server](https://discord.gg/xh7j7yF) and 
-give us a shout on the `#dev` channel
+This is just a summary on how to get started. More information will soon be available. If you are stuck or have any questions, please join our [Discord server](https://discord.gg/xh7j7yF) and give us a shout on the `#dev` channel
 {{% /pageinfo %}}
 
-### Getting started
+Any IDE with good support for GoLang and JavaScript/Node can be used for Navidrome development. We suggest using [Visual Studio Code](https://code.visualstudio.com/), which has excellent support for both languages.
 
-1. Install [GoLang 1.16](https://golang.org/doc/install). Make sure to add `$GOPATH/bin` to your `PATH`
+### Using VSCode + Dev Container (Docker)
+
+The project includes a [VSCode Dev Container](https://code.visualstudio.com/docs/remote/containers) configuration for using with [Docker](https://www.docker.com/products/docker-desktop). The Dev Container provides all dependencies out-of-the-box. If you prefer to install all dependencies yourself, or cannot/don't want to install Docker for any reason, see the other sections below for step by step instructions on your OS.
+
+{{% alert title="Note" %}}
+Keep in mind that the overall experience when using Docker Desktop for development will be slower than normal, because access to the host OS filesystem is generally slower. If you want to have full performance, we recommend installing the dependencies in your system and skip using Docker for development.
+{{% /alert %}}
+### Unix-based systems (Linux, macOS, BSD, …)
+
+1. Install [GoLang 1.16](https://golang.org/doc/install)
 2. Install [Node 14](http://nodejs.org/)
 3. Install [TagLib](http://taglib.org)
     - Ubuntu: `sudo apt install libtag1-dev`
     - macOS: `brew install taglib`
+    - For other platforms check their [installation instructions](https://github.com/taglib/taglib/blob/master/INSTALL.md)
 
 4. Clone the project from https://github.com/navidrome/navidrome
-5. Install development tools: `make setup-dev`
+5. Install development tools: `make setup-dev`. This may take a while to complete
 6. Test installation: `make buildall`. This command should create a `navidrome` executable in the project's folder
-7. Create a `navidrome.toml` config file in the project's folder with the following options:
+7. Create a `navidrome.toml` config file in the project's folder with ([at least](/docs/usage/configuration-options/#available-options)) the following options:
 ```toml
 # Set your music folder, preferable a specific development music library with few songs,
 # to make scan fast
@@ -59,4 +54,27 @@ Address = "localhost"
 To start Navidrome in development mode, just run `make dev`. This will start both the backend
 and the frontend in "watch" mode, so any changes will automatically be reloaded.
 
-If you get errors on any of these steps, join [our chat](/community/) for support.
+### Windows (using WSL)
+
+Even though it is possible to setup a fully working Navidrome development environment in Windows, we currently don't provide instructions for that (feel free to contribute to these docs if you successfully set it up). 
+
+The (arguably better) alternative is to set up the project using [Visual Studio Code](https://code.visualstudio.com/) and [WSL](https://docs.microsoft.com/en-us/windows/wsl/), which effectively lets you develop in a Linux environment while still using your Windows system.
+
+#### Installing WSL
+  1. Make sure your Windows 10 is updated.
+  2. Go to _Settings > Turn Windows feature on or off > Windows subsystem for Linux_.
+  3. Go to Microsoft Store and download and install any Linux distro you like. For maximum compatibility, we recommend Ubuntu.
+  4. Open Downloaded Linux distro, add username and password and then update it using: `sudo apt update && sudo apt upgrade -y`.
+  5. This will create an Linux terminal where you can execute any Linux commands.
+
+Make sure you are using WSL 2.0
+
+#### Configuring Visual Studio Code
+  1. Click on Extensions (present on leftmost column), install _Remote Development_ extension and reload VSCode.
+  2. Press <kbd>F1</kbd>, execute _Remote-WSL: New Window_
+  3. This will connect your installed Linux distro to VSCode.
+  
+Now that you have a working instance of Linux running on your machine, follow the steps above for Unix-based system. For more information on working with VSCode+WSL, check their [documentation](https://code.visualstudio.com/docs/remote/wsl).
+
+
+
