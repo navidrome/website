@@ -71,10 +71,10 @@ Make sure you are using WSL 2.0
 
 #### Configuring Visual Studio Code
   1. Click on Extensions (present on leftmost column), install _Remote Development_ extension and reload VSCode.
-  2. Press <kbd>F1</kbd>, execute _Remote-WSL: New Window_
-  3. This will connect your installed Linux distro to VSCode.
+  2. Press <kbd>F1</kbd>, execute _Remote-WSL: New Window_. This will connect your installed Linux distro to VSCode.
+  3. Now you can open a VSCode terminal and you'll be able to run any Linux command.
   
-Now that you have a working instance of Linux running on your machine, follow the steps above for Unix-based system. For more information on working with VSCode+WSL, check their [documentation](https://code.visualstudio.com/docs/remote/wsl).
+Now that you have a working instance of Linux running on your machine, follow the steps above for Unix-based system, in the VSCode terminal. For more information on working with VSCode+WSL, check their [documentation](https://code.visualstudio.com/docs/remote/wsl).
 
 
 
