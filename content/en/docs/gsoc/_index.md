@@ -56,7 +56,7 @@ Recommended steps
 -----------------
 1. Read [Google's instructions for participating]( https://google.github.io/gsocguides/student/ )
 2. Grab any project from the list of ideas that you're interested in (or even suggest your own!).
-3. Write a first draft proposal and ask one of the mentors to review it with you.
+3. Write a [first draft proposal](https://docs.google.com/document/d/1kDPGgr_D5tQuYLQi_gEGlkuQ-DlU8GH5kDBqZbVSC7I/edit) and ask one of the mentors to review it with you.
 4. Submit it using Google's web interface.
 
 
