@@ -47,9 +47,9 @@ DevAutoCreateAdminPassword = "password"
 # Move the data/DB folder to a different location
 DataFolder = "./data"
 
-# If developing in macOS with the firewall enabled, this avoids having to accept incoming 
-# network connections every time the server restarts
-Address = "localhost"
+# If developing in macOS with the firewall enabled, uncomment the next line to avoids having to 
+# accept incoming network connections every time the server restarts:
+# Address = "localhost"
 ```
 To start Navidrome in development mode, just run `make dev`. This will start both the backend
 and the frontend in "watch" mode, so any changes will automatically be reloaded.
