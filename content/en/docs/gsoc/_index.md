@@ -72,7 +72,7 @@ Student proposal guidelines
 Ideas
 -----
 
-### Media sharing
+### 1. **Media sharing**
 
 One of the nice features of Subsonic is its [ability to generate a sharing link](http://www.subsonic.org/pages/features.jsp) for a track/album/artist/playlist to send to friends, so that they can listen/download the music without having an account on your instance. This is a nice alternative to youtube links to share music.
 A nice way to implement this would be to have a table of shares, with a shorturl as ID. The table would store a reference to what is being shared.  This shorturl would be used by a public endpoint.
@@ -100,7 +100,7 @@ We would also need a standalone player similar to what is provided by Spotify wh
 - https://github.com/deluan/navidrome/issues/748
 
 
-### Jukebox mode
+### 2. **Jukebox mode**
 
 Some servers can be run in ["jukebox"]( http://www.subsonic.org/pages/features.jsp ) mode where the music is played directly on the server's audio hardware, ex: mpd and Subsonic. A tricky part of this task might be to properly expose the "jukebox client" in the WebUI interface, as the current react-music-player used by Navidrome would have to somehow control the jukebox (via API) instead of the browser's Audio component.
 
@@ -124,7 +124,7 @@ Some servers can be run in ["jukebox"]( http://www.subsonic.org/pages/features.j
 - http://subsonic.org/pages/api.jsp#jukeboxControl
 
 
-### Google home/alexa integration
+### 3. **Google home/alexa integration**
 
 Nowadays, tech-oriented people tend to have a home assistant, and thus might want to be able to use it to control their subsonic instance. Since there is already the subsonic API to perform actions, this task on "only" a matter of writing the glue between Alexa/Google home and the API. Some *actions* might require a bit more than glue, for example, to play specific tracks/albums.
 
@@ -148,7 +148,7 @@ This task can be nicely paired with the jukebox one.
 - https://developer.amazon.com/en-US/alexa/alexa-skills-kit
 
 
-### Multiple libraries support
+### 4. **Multiple libraries support**
 
 Some users want to use multiple libraries at the same time, for example to separate lossy/lossless albums, one for official albums and an other for bootlegs/lives, or one for audiobooks, some are even dreaming about having remote ones to listen to their friend's music without leaving their navidrome instance!
 
@@ -171,7 +171,7 @@ Some users want to use multiple libraries at the same time, for example to separ
 - https://github.com/deluan/navidrome/issues/192
 - http://subsonic.org/pages/api.jsp#getMusicFolders
 
-### Omnisearch
+### 5. **Omnisearch**
 
 One search bar to search across the whole library, using proper [SQLite's Full Text Search]( https://www.sqlite.org/fts5.html ), instead of having one separate search field per domain (artist, album, …)
 
@@ -195,7 +195,7 @@ One search bar to search across the whole library, using proper [SQLite's Full T
 - https://www.sqlite.org/fts5.html
 - https://www.sqlite.org/spellfix1.html#overview
 
-### Infinite Scroll
+### 6. **Infinite Scroll**
 
 Currently, navidrome is using pagination instead of providing a more convenient infinite-scroll. The implementation isn't trivial because navidrome is using [react-admin](https://marmelab.com/react-admin/), which not only doesn't provide this feature out of the box, but makes it non-trivial to implement.
 
@@ -216,7 +216,7 @@ Currently, navidrome is using pagination instead of providing a more convenient 
 - https://marmelab.com/react-admin/List.html#uselistcontroller
 
 
-### Lyrics support
+### 7. **Lyrics support**
 
 It would be nice for navidrome to support [LRC files]( https://en.wikipedia.org/wiki/LRC_(file_format) ) to display lyrics. A possible stretch goal would be to implement lyrics fetching.
 
@@ -240,7 +240,7 @@ It would be nice for navidrome to support [LRC files]( https://en.wikipedia.org/
 - https://github.com/lijinke666/react-music-player
 
 
-### Volume normalization
+### 8. **Volume normalization**
 
 It would be nice if navidrome could perform audio normalization, to avoid having to fiddle with the volume when listening to different tracks of various volumes.
 
@@ -263,7 +263,7 @@ It would be nice if navidrome could perform audio normalization, to avoid having
 - https://trac.ffmpeg.org/wiki/AudioVolume
 
 
-### New Album grid
+### 9. **New Album grid**
 
 It would be nice to have something resembling [Plex](https://www.plex.tv/)'s interface, with covert art fading in, as well as a *slider* to adjust their size.
 
