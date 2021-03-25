@@ -1,5 +1,5 @@
 ---
-title: "macOS Installation"
+title: "macOS Install"
 linkTitle: "macOS"
 date: 2017-01-01
 description: >

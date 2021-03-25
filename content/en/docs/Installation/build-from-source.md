@@ -3,7 +3,7 @@ title: "Build from sources"
 linkTitle: "Build from sources"
 date: 2016-01-05
 description: >
-  Can't find a build for your platform?
+  Can't find a build for your platform? You can try to build it yourself
 ---
 
 {{% pageinfo %}}
@@ -13,7 +13,7 @@ and ask for help, we will be glad to assist you
 {{% /pageinfo %}}
 
 
-If you can't find a [pre-built binary](/docs/installation/pre-built-binaries) for your platform,
+If you can't find a [pre-built binary](https://github.com/navidrome/navidrome/releases) for your platform,
 you should open an [issue in the project's GitHub page](https://github.com/navidrome/navidrome/issues).
 
 If you don't want to wait, you can try to build the binary yourself, with the following steps.
@@ -27,6 +27,7 @@ You'll also need to install the [TagLib](http://taglib.org) library:
 - Debian/Ubuntu: `sudo apt install libtag1-dev`
 - Arch Linux: `pacman -S taglib`
 - macOS: `brew install taglib`
+- For other platforms check their [installation instructions](https://github.com/taglib/taglib/blob/master/INSTALL.md)
 
 After the prerequisites above are installed, clone Navidrome's repository and build it:
 

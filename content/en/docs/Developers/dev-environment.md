@@ -25,6 +25,7 @@ Keep in mind that the overall experience when using Docker Desktop for developme
 2. Install [Node 14](http://nodejs.org/)
 3. Install [TagLib](http://taglib.org)
     - Ubuntu: `sudo apt install libtag1-dev`
+    - Arch Linux: `pacman -S taglib`
     - macOS: `brew install taglib`
     - For other platforms check their [installation instructions](https://github.com/taglib/taglib/blob/master/INSTALL.md)
 
