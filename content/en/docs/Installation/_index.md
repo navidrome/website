@@ -27,6 +27,6 @@ properly. You may find the latest static build for your platform here: https://j
 If you have any issues with these binaries, or need a binary for a different platform, please 
 [open an issue](https://github.com/navidrome/navidrome/issues).
 
-### Finish Setup
+### Setup
 
 After downloading the [Navidrome binary](#download), follow the appropriate setup instructions for your platform:
