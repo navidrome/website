@@ -18,6 +18,7 @@ This is a list of currently known packages available, with links to where to dow
 | Cloudron               | https://www.cloudron.io/store/org.navidrome.cloudronapp.html |
 | Docker                 | [Official images](/docs/installation/docker)
 | Kubernets Chart        | https://artifacthub.io/packages/helm/k8s-at-home/navidrome | 
+| OpenMediaVault         | [See instructions here](https://forum.openmediavault.org/index.php?thread/36635-how-to-install-navidrome-using-docker-compose-an-airsonic-booksonic-alternative/) |
 | QNAP                   | https://www.qnapclub.eu/en/qpkg/958 |
 | Yunohost               | https://yunohost.org/en/app_navidrome |
 
