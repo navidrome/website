@@ -11,7 +11,7 @@ there are some packages created and maintained by the community, that could simp
 
 This is a list of currently known packages available, with links to where to download/install them:
 
-| _System_               | Information |
+| System               | Information |
 |------------------------|-|
 | Ansible Role           | https://github.com/zfuller/navidrome-role | 
 | Arch Linux             | You can install Navidrome via the [`navidrome-bin`](https://aur.archlinux.org/packages/navidrome-bin/) package in the [AUR](https://aur.archlinux.org/). <br/> Alternatively, you can install using the [`navidrome-git`](https://aur.archlinux.org/packages/navidrome-git/) package which will compile Navidrome from source. |
