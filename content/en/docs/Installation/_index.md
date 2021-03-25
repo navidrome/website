@@ -29,4 +29,4 @@ If you have any issues with these binaries, or need a binary for a different pla
 
 ### Finish Setup
 
-After downloading the [Navidrome binary](#download), follow the appropriate setup instructions for our platform:
+After downloading the [Navidrome binary](#download), follow the appropriate setup instructions for your platform:
