@@ -29,10 +29,11 @@ Keep in mind that the overall experience when using Docker Desktop for developme
     - macOS: `brew install taglib`
     - For other platforms check their [installation instructions](https://github.com/taglib/taglib/blob/master/INSTALL.md)
 
-4. Clone the project from https://github.com/navidrome/navidrome
-5. Install development tools: `make setup-dev`. This may take a while to complete
-6. Test installation: `make buildall`. This command should create a `navidrome` executable in the project's folder
-7. Create a `navidrome.toml` config file in the project's folder with ([at least](/docs/usage/configuration-options/#available-options)) the following options:
+4. Install `pkg-config`
+5. Clone the project from https://github.com/navidrome/navidrome
+6. Install development tools: `make setup-dev`. This may take a while to complete
+7. Test installation: `make buildall`. This command should create a `navidrome` executable in the project's folder
+8. Create a `navidrome.toml` config file in the project's folder with ([at least](/docs/usage/configuration-options/#available-options)) the following options:
 ```toml
 # Set your music folder, preferable a specific development music library with few songs,
 # to make scan fast
