@@ -3,11 +3,15 @@ title: "Community Maintained Packages"
 linkTitle: "Community Packages"
 date: 2016-02-01
 description: >
-  Navidrome packages for simpler installation on some platforms
+  Navidrome packages for simpler installation on some platforms, powered by You!
 ---
 
+{{% pageinfo %}}
+**DISCLAIMER**: These packages are not maintained by the Navidrome project, any issues should be reported to their authors.
+{{% /pageinfo %}}
+
 Even though the Navidrome project does not provide any pre-packaged installation for specific platforms, 
-there are some packages created and maintained by the community, that could simplify the setup on some systems.
+there are some packages created and maintained by the community, that can simplify the setup on some systems.
 
 This is a list of currently known packages available, with links to where to download/install them:
 
