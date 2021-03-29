@@ -13,6 +13,10 @@ translation efforts coordination and to get further instructions.
 
 Alternatively, you can submit a pull request with your proposed changes directly [to our project in GitHub](https://github.com/navidrome/navidrome/tree/master/resources/i18n).
 
+## Directory Structure
+
+If you choose to contribute translations via a pull request, most of the translation files are located in the `[resources/i18n](https://github.com/navidrome/navidrome/tree/master/resources/i18n)` directory. These are all served by the Navidrome backend to avoid bloating UI bundle with additional translations. The English translation files are located outside of this main directory at `[ui/src/i18n/en.json](https://github.com/navidrome/navidrome/blob/master/ui/src/i18n/en.json)` so they can be bundled with the UI.
+
 <img alt="POEditor" src="https://img.shields.io/poeditor/progress/337783/en?style=flat-square&token=c17601dd8151b384e987d3aa33ea68ba">
 <img alt="POEditor" src="https://img.shields.io/poeditor/progress/337783/zh-Hans?style=flat-square&token=c17601dd8151b384e987d3aa33ea68ba">
 <img alt="POEditor" src="https://img.shields.io/poeditor/progress/337783/zh-Hant?style=flat-square&token=c17601dd8151b384e987d3aa33ea68ba">
