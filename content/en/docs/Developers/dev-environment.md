@@ -54,7 +54,10 @@ DataFolder = "./data"
 # Address = "localhost"
 ```
 To start Navidrome in development mode, just run `make dev`. This will start both the backend
-and the frontend in "watch" mode, so any changes will automatically be reloaded.
+and the frontend in "watch" mode, so any changes will automatically be reloaded. It will open
+Navidrome automatically in your browser, using the URL http://localhost:4533/
+
+If it does not open a new window in your browser, check the output for any error messages.
 
 ### Windows (using WSL)
 
