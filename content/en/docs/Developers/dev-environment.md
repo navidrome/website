@@ -79,4 +79,12 @@ Make sure you are using WSL 2.0
 Now that you have a working instance of Linux running on your machine, follow the steps above for Unix-based system, in the VSCode terminal. For more information on working with VSCode+WSL, check their [documentation](https://code.visualstudio.com/docs/remote/wsl).
 
 
+## Troubleshooting
 
+### Changes are not appearing in my localhost copy of Navidrome
+
+If you are on a Linux system and are not seeing a `Compiling...` message in your terminal when saving changes to navidrome, then it is likely that your system is maxing out the number of files that can be "watched" for changes at one time.
+
+To increase this limit, you can run the command `echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p`, which adds the line `fs.inotify.max_user_watches=524288` to `/etc/sysctl.conf` and reloads sysctl so the change takes effect.
+
+More information about this can be found [here](https://dev.to/rubiin/ubuntu-increase-inotify-watcher-file-watch-limit-kf4)
