@@ -15,7 +15,7 @@ Alternatively, you can submit a pull request with your proposed changes directly
 
 ## Directory Structure
 
-If you choose to contribute translations via a pull request, most of the translation files are located in the `[resources/i18n](https://github.com/navidrome/navidrome/tree/master/resources/i18n)` directory. These are all served by the Navidrome backend to avoid bloating UI bundle with additional translations. The English translation files are located outside of this main directory at `[ui/src/i18n/en.json](https://github.com/navidrome/navidrome/blob/master/ui/src/i18n/en.json)` so they can be bundled with the UI.
+If you choose to contribute translations via a pull request, most of the translation files are located in the [`resources/i18n`](https://github.com/navidrome/navidrome/tree/master/resources/i18n) directory. These are all served by the Navidrome backend to avoid bloating UI bundle with additional translations. The English translation files are located outside of this main directory at [`ui/src/i18n/en.json`](https://github.com/navidrome/navidrome/blob/master/ui/src/i18n/en.json) so they can be bundled with the UI.
 
 
 
