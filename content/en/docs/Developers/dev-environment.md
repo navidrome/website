@@ -7,7 +7,7 @@ description: >
 ---
 
 {{% pageinfo %}}
-This is just a summary on how to get started. More information will soon be available. If you are stuck or have any questions, please join our [Discord server](https://discord.gg/xh7j7yF) and give us a shout on the `#dev` channel
+This is just a summary on how to get started. If you are stuck or have any questions, please join our [Discord server](https://discord.gg/xh7j7yF) and give us a shout on the `#dev` channel
 {{% /pageinfo %}}
 
 Any IDE with good support for GoLang and JavaScript/Node can be used for Navidrome development. We suggest using [Visual Studio Code](https://code.visualstudio.com/), which has excellent support for both languages.
@@ -79,7 +79,7 @@ Make sure you are using WSL 2.0
   2. Press <kbd>F1</kbd>, execute _Remote-WSL: New Window_. This will connect your installed Linux distro to VSCode.
   3. Now you can open a VSCode terminal and you'll be able to run any Linux command.
   
-Now that you have a working instance of Linux running on your machine, follow the steps above for Unix-based system, in the VSCode terminal. For more information on working with VSCode+WSL, check their [documentation](https://code.visualstudio.com/docs/remote/wsl).
+Now that you have a working instance of Linux running on your machine, follow the steps above for [Unix-based system](/docs/developers/dev-environment/#unix-based-systems-linux-macos-bsd-) in the VSCode terminal. For more information on working with VSCode+WSL, check their [documentation](https://code.visualstudio.com/docs/remote/wsl).
 
 
 
