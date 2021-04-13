@@ -38,9 +38,10 @@ Not all features are enabled in the demo. For instance, settings and transcoding
 
 #### Demo server configuration
 
-The server is running on an inexpensive OpenVZ VPS with the following configuration:
-* 2 Core Processor (shared)
+The server is running on an inexpensive [BuyVM](https://my.frantech.ca/aff.php?aff=4605) KVM with the following configuration:
+* 1 Core Processor
 * 512MB Memory
-* 30GB HDD Disk Space
+* 10GB SDD Disk Space
+* Cost: $2/month
 
 {{< /blocks/section >}}
