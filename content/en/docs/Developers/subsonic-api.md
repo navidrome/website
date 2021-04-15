@@ -11,10 +11,10 @@ description: >
 Navidrome is currently compatible with [Subsonic API](http://www.subsonic.org/pages/api.jsp) 
 v1.16.1, with some exceptions.
 
-This is an (almost) up to date list of all Subsonic API endpoints implemented by Navidrome. 
+This is an (hopefully) up to date list of all Subsonic API endpoints implemented in Navidrome. 
 Check the "Notes" column for limitations/missing behavior. Also keep in mind these differences 
 between Navidrome and Subsonic:
-* Navidrome will not implement any video related functionality, it is focus on Music only
+* Navidrome will not implement any video related functionality, it is focused on Music only
 * Right now, Navidrome only works with a single Music Library (Music Folder)
 * Navidrome does not mark songs as played by calls to `stream`, only when 
  `scrobble` is called with `submission=true`
@@ -37,9 +37,9 @@ between Navidrome and Subsonic:
 | `getGenres`            | |
 | `getArtistInfo`        | Requires [Last.FM and Spotify integration](/docs/usage/external_integrations/) |
 | `getArtistInfo2`       | Requires [Last.FM and Spotify integration](/docs/usage/external_integrations/) |
-| `getTopSongs`          | Requires [Last.FM](/docs/usage/external_integrations/) |
-| `getSimilarSongs`      | Requires [Last.FM](/docs/usage/external_integrations/) |
-| `getSimilarSongs2`     | Requires [Last.FM](/docs/usage/external_integrations/) |
+| `getTopSongs`          | Requires [Last.FM integration](/docs/usage/external_integrations/) |
+| `getSimilarSongs`      | Requires [Last.FM integration](/docs/usage/external_integrations/) |
+| `getSimilarSongs2`     | Requires [Last.FM integration](/docs/usage/external_integrations/) |
 
 | _Album/Songs Lists_    ||
 |------------------------|-|
