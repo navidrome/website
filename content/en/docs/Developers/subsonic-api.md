@@ -18,6 +18,11 @@ between Navidrome and Subsonic:
 * Right now, Navidrome only works with a single Music Library (Music Folder)
 * Navidrome does not mark songs as played by calls to `stream`, only when 
  `scrobble` is called with `submission=true`
+* IDs in Navidrome are always strings, normally MD5 hashes or UUIDs. This is important to 
+  mention because, even though the Subsonic API 
+  [schema](http://www.subsonic.org/pages/inc/api/schema/subsonic-rest-api-1.16.1.xsd) 
+  specifies IDs as strings, some clients insist in converting IDs to integers
+
 
 
 | _System_               ||
