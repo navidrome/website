@@ -37,9 +37,9 @@ between Navidrome and Subsonic:
 | `getGenres`            | |
 | `getArtistInfo`        | Requires [Last.FM and Spotify integration](/docs/usage/external_integrations/) |
 | `getArtistInfo2`       | Requires [Last.FM and Spotify integration](/docs/usage/external_integrations/) |
-| `getTopSongs`          | Requires [Last.FM and Spotify integration](/docs/usage/external_integrations/) |
-| `getSimilarSongs`      | Requires [Last.FM and Spotify integration](/docs/usage/external_integrations/) |
-| `getSimilarSongs2`     | Requires [Last.FM and Spotify integration](/docs/usage/external_integrations/) |
+| `getTopSongs`          | Requires [Last.FM](/docs/usage/external_integrations/) |
+| `getSimilarSongs`      | Requires [Last.FM](/docs/usage/external_integrations/) |
+| `getSimilarSongs2`     | Requires [Last.FM](/docs/usage/external_integrations/) |
 
 | _Album/Songs Lists_    ||
 |------------------------|-|
