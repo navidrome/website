@@ -82,6 +82,9 @@ make it all uppercase. Ex: `ND_LOGLEVEL=debug`. See below for all available opti
 | Spotify.ID                                  | `ND_SPOTIFY_ID`              | Spotify Client ID                                                                                                          | _Empty_                                  |
 | Spotify.Secret                              | `ND_SPOTIFY_SECRET`          | Spotify Client Secret                                                                                                      | _Empty_                                  |
 | EnableGravatar                              | `ND_ENABLEGRAVATAR`          | Use [Gravatar](https://gravatar.com/) images as the user profile image. Needs the user's email to be filled                | `false`                                  |
+| EnableFavourites                            | `ND_ENABLEFAVOURITES`        | Enable toggling "Heart"/"Loved" for songs/albums/artists in the UI (maps to "Star"/"Starred" in Subsonic Clients)          | `true`                                   |
+| EnableStarRating                            | `ND_ENABLESTARRATING`        | Enable 5-star ratings in the UI                                                                                            | `true`                                   |
+| DefaultTheme                                | `ND_DEFAULTTHEME`            | Sets the default theme used byt the UI when logging in from a new browser. This value must match one of the options in the UI | `Dark`                                |
 
 #### Notes
 
