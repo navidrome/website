@@ -50,7 +50,7 @@ Besides its own Web UI, Navidrome should be compatible with all Subsonic clients
 [Audinaut](https://github.com/nvllsvm/Audinaut) and
 [Music Stash](https://play.google.com/store/apps/details?id=com.ghenry22.mymusicstash)
 - Web: [Aurial](http://shrimpza.github.io/aurial/),
-[Subplayer](https://github.com/peguerosdc/subplayer), [Airsonic Frontend](https://github.com/tamland/airsonic-frontend), 
+[Subplayer](https://github.com/peguerosdc/subplayer), [Airsonic Refix](https://github.com/tamland/airsonic-refix), 
 [Jamstash](http://jamstash.com) and
 [Subfire](http://p.subfireplayer.net/)
 - Desktop: [Sublime Music](https://sublimemusic.app/) (Linux/macOS)
