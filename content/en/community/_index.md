@@ -25,6 +25,7 @@ Here are some articles written by and for members of the Navidrome community. If
 
 #### Other languages
 
+* [Navidrome自建流媒体平台 - Navidrome self-built streaming media platform (CentOS7.X)](https://blog.northtower.top/index.php/archives/12/) - Chinese (simplified) blog post, 11/Jan/2021 by Northtower
 * [Servidor de música. La alternativa a Airsonic es Navidrome](https://ugeek.github.io/post/2020-09-17-servidor-de-musica-la-alternativa-a-airsonic-es-navidrome-.html?utm_source=feedburner&utm_medium=feed&utm_campaign=Feed%3A+ugeek+%28uGeek%29&utm_content=FeedBurner) - Spanish podcast, 16/Sep/2020 by uGeek
 * [スマホでの音楽環境のためメディアサーバを探した話 (A story about searching for a media server)](https://blog.asterism.xyz/posts/2020-09-02/) - Japanese blog post, 02/Sep/2020 by aries
 * [Les Tutos: Docker No. 14: Navidrome - Serveur de streaming de musique](https://www.youtube.com/watch?v=FJ0pFRPdVjs) - French installation video, 25/Apr/2020 by Tonton Jo
