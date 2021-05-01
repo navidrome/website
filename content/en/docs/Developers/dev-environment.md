@@ -59,7 +59,7 @@ Navidrome automatically in your browser, using the URL http://localhost:4533/
 
 If it does not open a new window in your browser, check the output for any error messages.
 
-For more useful `make` targets, run `make help`
+For more useful `make` targets, run `make help`.
 
 ### Windows (using WSL)
 
