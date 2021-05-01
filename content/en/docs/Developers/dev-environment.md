@@ -46,11 +46,11 @@ LogLevel = "debug"
 # have to create a user every time you delete your dev database
 DevAutoCreateAdminPassword = "password"
 
-# Move the data/DB folder to a different location
+# Move the data/DB folder out of the root. `./data` folder is ignored by git
 DataFolder = "./data"
 
-# If developing in macOS with the firewall enabled, uncomment the next line to avoids having to 
-# accept incoming network connections every time the server restarts:
+# If you are developing in macOS with its firewall enabled, uncomment the next line to avoid 
+# having to accept incoming network connections every time the server restarts:
 # Address = "localhost"
 ```
 To start Navidrome in development mode, just run `make dev`. This will start both the backend
