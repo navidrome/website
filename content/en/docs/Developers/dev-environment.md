@@ -31,7 +31,7 @@ Keep in mind that the overall experience when using Docker Desktop for developme
 
 4. Install `pkg-config`
 5. Clone the project from https://github.com/navidrome/navidrome
-6. Install development tools: `make setup-dev`. This may take a while to complete
+6. Install development tools: `make setup`. This may take a while to complete
 7. Test installation: `make buildall`. This command should create a `navidrome` executable in the project's folder
 8. Create a `navidrome.toml` config file in the project's folder with ([at least](/docs/usage/configuration-options/#available-options)) the following options:
 ```toml
@@ -58,6 +58,8 @@ and the frontend in "watch" mode, so any changes will automatically be reloaded.
 Navidrome automatically in your browser, using the URL http://localhost:4533/
 
 If it does not open a new window in your browser, check the output for any error messages.
+
+For more useful `make` targets, run `make help`
 
 ### Windows (using WSL)
 
