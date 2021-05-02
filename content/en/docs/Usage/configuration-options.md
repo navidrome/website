@@ -85,6 +85,7 @@ make it all uppercase. Ex: `ND_LOGLEVEL=debug`. See below for all available opti
 | EnableGravatar                              | `ND_ENABLEGRAVATAR`          | Use [Gravatar](https://gravatar.com/) images as the user profile image. Needs the user's email to be filled                | `false`                                  |
 | EnableFavourites                            | `ND_ENABLEFAVOURITES`        | Enable toggling "Heart"/"Loved" for songs/albums/artists in the UI (maps to "Star"/"Starred" in Subsonic Clients)          | `true`                                   |
 | EnableStarRating                            | `ND_ENABLESTARRATING`        | Enable 5-star ratings in the UI                                                                                            | `true`                                   |
+| EnableUserEditing                           | `ND_ENABLEUSEREDITING`       | Enable regular users to edit their details and change their password                                                       | `true`                                   |
 | DefaultTheme                                | `ND_DEFAULTTHEME`            | Sets the default theme used byt the UI when logging in from a new browser. This value must match one of the options in the UI | `Dark`                                |
 
 #### Notes
