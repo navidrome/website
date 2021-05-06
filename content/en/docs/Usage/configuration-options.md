@@ -17,7 +17,7 @@ Example of a configuration file for Windows (should be similar for Linux, just u
 
 ```toml
 LogLevel = 'DEBUG'
-ScanInterval = '1h'
+ScanSchedule = '@every 1h'
 TranscodingCacheSize = '150MiB'
 MusicFolder = 'C:\Users\JohnDoe\Music' 
 ```
@@ -54,7 +54,7 @@ make it all uppercase. Ex: `ND_LOGLEVEL=debug`. See below for all available opti
 |                                             | `ND_CONFIGFILE`              | Load configurations from an external config file                                                                           | `"./navidrome.toml"`                     |
 | MusicFolder                                 | `ND_MUSICFOLDER`             | Folder where your music library is stored. Can be read-only                                                                | `"./music"`                              |
 | DataFolder                                  | `ND_DATAFOLDER`              | Folder to store application data (DB, cache...)                                                                            | `"./data"`                               |
-| ScanInterval                                | `ND_SCANINTERVAL`            | How frequently to scan for changes in your music library. Set it to `0` to disable scans                                   | `"1m"`                                   |
+| ScanSchedule                                | `ND_SCANSCHEDULE`            | Configure periodic scans using ["cron" syntax](https://en.wikipedia.org/wiki/Cron). To disable it altogether, set it to ""`| `"@every 1m"`                            |
 | LogLevel                                    | `ND_LOGLEVEL`                | Log level. Useful for troubleshooting. Possible values: `error`, `info`, `debug`, `trace`                                  | `"info"`                                 |
 | EnableLogRedacting                          | `ND_ENABLELOGREDACTING`      | Whether or not sensitive information (like tokens and passwords) should be redacted (hidden) in the logs                   | `true`                                   |
 | Port                                        | `ND_PORT`                    | HTTP port Navidrome will use                                                                                               | `4533`                                   |

@@ -27,7 +27,7 @@ services:
     restart: unless-stopped
     environment:
       # Optional: put your config options customization here. Examples:
-      ND_SCANINTERVAL: 1h
+      ND_SCANSCHEDULE: 1h
       ND_LOGLEVEL: info  
       ND_SESSIONTIMEOUT: 24h
       ND_BASEURL: ""
