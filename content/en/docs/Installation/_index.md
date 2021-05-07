@@ -21,11 +21,8 @@ platform. There are builds available for Linux (Intel and ARM, 32 and 64 bits), 
 For ARM-Based systems (ex: [Raspberry Pi](https://www.raspberrypi.org)), check which ARM build is the correct one for 
 your platform using [this table](https://www.riscosopen.org/wiki/documentation/show/ARMv7%20compatibility%20primer#introduction).
 
-Remember to install [ffmpeg](https://ffmpeg.org/download.html) in your system, a requirement for Navidrome to work 
-properly. You may find the latest static build for your platform here: https://johnvansickle.com/ffmpeg/.
-
-If you have any issues with these binaries, or need a binary for a different platform, please 
-[open an issue](https://github.com/navidrome/navidrome/issues).
+Remember to install [`ffmpeg`](https://ffmpeg.org/download.html) in your system, a requirement for Navidrome to work 
+properly. If your OS does not provide a package for `ffmpeg`, you may find the latest static build for your platform here: https://johnvansickle.com/ffmpeg/.
 
 ### Setup
 
