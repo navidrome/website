@@ -9,7 +9,7 @@ aliases:
 ---
 
 {{% pageinfo %}}
-**NOTE:** These instructions were created for the Ubuntu distribution, and even though they contain specific Ubuntu/Debian instructions (ex: `apt`) the concepts are are generic enough and you should be able to follow it on most Linux distributions, even on those not based on Debian (ex: CentOS and OpenSUSE)
+**NOTE:** These instructions were created for the Ubuntu distribution, and even though they contain specific Ubuntu/Debian instructions (ex: `apt`) the concepts are generic enough and can be applied on most Linux distributions, even on those not based on Debian (ex: CentOS and OpenSUSE)
 {{% /pageinfo %}}
 
 
