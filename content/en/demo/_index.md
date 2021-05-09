@@ -27,21 +27,17 @@ To login, use the following credentials:
 * User: demo
 * Password: demo
 
-The demo server works with all [Subsonic clients](/docs/overview/#apps), just use the server address https://demo.navidrome.org with the credentials above.
-
-#### Demo limitations
+The demo server works with all [Subsonic clients](/docs/overview/#apps), just use the server address https://demo.navidrome.org with the credentials above. 
 Not all features are enabled in the demo. For instance, settings and transcoding are disabled.
-
-{{< /blocks/section >}}
-
-{{< blocks/section type="section" color="primary">}}
 
 #### Demo server configuration
 
-The server is running on an inexpensive [BuyVM](https://my.frantech.ca/aff.php?aff=4605) KVM with the following configuration:
+The server is running on an inexpensive [BuyVM](https://my.frantech.ca/aff.php?aff=4605) virtual server with the following configuration:
 * 1 Core Processor
 * 512MB Memory
 * 10GB SDD Disk Space
 * Cost: $2/month
+
+If you decide to use their hosting services, please consider using our [affiliate link](https://my.frantech.ca/aff.php?aff=4605), to help sponsor the project.
 
 {{< /blocks/section >}}
