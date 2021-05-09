@@ -1,10 +1,16 @@
 ---
-title: "Ubuntu Linux Install"
-linkTitle: "Ubuntu Linux"
+title: "Linux Install"
+linkTitle: "Linux"
 date: 2017-01-05
 description: >
   Steps to install on Ubuntu Linux (and other Debian based distros)
+aliases:
+  - /docs/installation/ubuntu-linux
 ---
+
+{{% pageinfo %}}
+**NOTE:** These instructions were created for the Ubuntu distribution, and even though they contain specific Ubuntu/Debian instructions (ex: `apt`) the concepts are are generic enough and you should be able to follow it on most Linux distributions, even on those not based on Debian (ex: CentOS and OpenSUSE)
+{{% /pageinfo %}}
 
 
 The following steps have been tested on Ubuntu 18.04 and should work on all version 16.04 and above as well as other Debian based distros. Throughout these instructions the commands will have placeholders for the user (`<user>`) and group (`<group>`) you want to run Navidrome under and the music folder path (`<library_path>`). If you are using an existing media library ensure the user has permissions to the media library.
