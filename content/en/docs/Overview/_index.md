@@ -44,11 +44,11 @@ It can also work as a lightweight Subsonic-API compatible server, that can be us
 ## Apps
 
 Besides its own Web UI, Navidrome should be compatible with all Subsonic clients. The following clients are tested and confirmed to work properly:
-- iOS: [play:Sub](http://michaelsapps.dk/playsubapp/), [SubStreamer](https://apps.apple.com/it/app/substreamer/id1012991665) and [iSub](https://isub.app/)
+- iOS: [play:Sub](http://michaelsapps.dk/playsubapp/), [SubStreamer](https://substreamerapp.com/) and [iSub](https://isub.app/)
 - Android: [DSub](https://play.google.com/store/apps/details?id=github.daneren2005.dsub),
 [Ultrasonic](https://play.google.com/store/apps/details?id=org.moire.ultrasonic),
 [Audinaut](https://github.com/nvllsvm/Audinaut) and
-[SubStreamer](https://play.google.com/store/apps/details?id=com.ghenry22.substream2&hl=en_CA&gl=US)
+[SubStreamer](https://substreamerapp.com/)
 - Web: [Aurial](http://shrimpza.github.io/aurial/),
 [Subplayer](https://github.com/peguerosdc/subplayer), [Airsonic Refix](https://github.com/tamland/airsonic-refix), 
 [Jamstash](http://jamstash.com) and
