@@ -25,7 +25,7 @@ We're using discord for communications, feel free to [join](https://discord.gg/s
 
 As for the mentors:
 
-- Deluan Quintão ([ETZ](https://en.wikipedia.org/wiki/Eastern_Time_Zone)): deluan -- [@deluan](https://twitter.com/deluan)
+- Deluan Quintão ([ET](https://en.wikipedia.org/wiki/Eastern_Time_Zone)): deluan -- [@deluan](https://twitter.com/deluan)
 - Julien Voisin ([CET](https://en.wikipedia.org/wiki/Central_European_Time)): jvoisin -- [@dustriorg](https://twitter.com/dustriorg)
 
 Development methodology
