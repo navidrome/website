@@ -54,7 +54,7 @@ Besides its own Web UI, Navidrome should be compatible with all Subsonic clients
 [Jamstash](http://jamstash.com) and
 [Subfire](http://p.subfireplayer.net/)
 - Desktop: [Sublime Music](https://sublimemusic.app/) (Linux/macOS)
-- CLI: [Jellycli](https://github.com/tryffel/jellycli) (Windows/Linux)
+- CLI: [Jellycli](https://github.com/tryffel/jellycli) (Windows/Linux) and [STMP](https://github.com/wildeyedskies/stmp) (Linux/macOS)
 - Other: 
   - [Navidrome Kodi Plugin](https://github.com/BobHasNoSoul/plugin.audio.navidrome)
     
