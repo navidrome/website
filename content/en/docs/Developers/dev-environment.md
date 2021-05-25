@@ -22,7 +22,7 @@ Keep in mind that the overall experience when using Docker Desktop for developme
 ### Unix-based systems (Linux, macOS, BSD, …)
 
 1. Install [GoLang 1.16](https://golang.org/doc/install)
-2. Install [Node 14](http://nodejs.org/)
+2. Install [Node 16](http://nodejs.org/)
 3. Install [TagLib](http://taglib.org)
     - Ubuntu: `sudo apt install libtag1-dev`
     - Arch Linux: `pacman -S taglib`
