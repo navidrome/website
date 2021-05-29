@@ -25,7 +25,7 @@ This is a list of currently known packages available, with links to where to dow
 | OpenMediaVault         | [Instructions using docker-compose](https://forum.openmediavault.org/index.php?thread/36635-how-to-install-navidrome-using-docker-compose-an-airsonic-booksonic-alternative/) |
 | QNAP                   | https://www.qnapclub.eu/en/qpkg/958 |
 | TrueNAS SCALE          | https://truecharts.org/apps/navidrome/ |
-| Yunohost               | https://yunohost.org/en/app_navidrome |
+| YunoHost               | https://yunohost.org/en/app_navidrome |
 
 
 If you create, or know of, other Navidrome packages that are publicly available, please [add to the list above](https://github.com/navidrome/website/edit/master/content/en/docs/Installation/packages.md).
