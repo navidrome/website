@@ -14,11 +14,11 @@ needs read-only access to the Music Folder, and read-write permissions to the Da
 
 ## Network configuration
 
-Even though Navidrome comes with an embedded, full-featured HTTP server, you should seriously consider running it 
+Even though Navidrome comes with an embedded, full-featured HTTP server, you should seriously consider running it
 behind a reverse proxy (Ex: Caddy, Nginx, Traefik, Apache) for added security, including setting up SSL.
 There are tons of good resources on the web on how to properly setup a reverse proxy.
 
-When using Navidrome in such configuration, you may want to prevent Navidrome from listening to all IPs configured 
+When using Navidrome in such configuration, you may want to prevent Navidrome from listening to all IPs configured
 in your computer, and only listen to `localhost`. This can be achieved by setting the `Address` flag to `localhost`
 
 ## Transcoding configuration
@@ -39,6 +39,16 @@ don't forget to remove this option or set it to `false`.
 ## Limit login attempts
 
 To protect against brute-force attacks, Navidrome is configured by default with a login rate limiter,
-It uses a [Sliding Window](https://blog.cloudflare.com/counting-things-a-lot-of-different-things/#slidingwindowstotherescue) 
-algorithm to block too many consecutive login attempts. This can be configured using the flags `AuthRequestLimit` and 
-`AuthWindowLength` and can be disabled by setting `AuthRequestLimit` to `0`, though it is not recommended. 
+It uses a [Sliding Window](https://blog.cloudflare.com/counting-things-a-lot-of-different-things/#slidingwindowstotherescue)
+algorithm to block too many consecutive login attempts. This can be configured using the flags `AuthRequestLimit` and
+`AuthWindowLength` and can be disabled by setting `AuthRequestLimit` to `0`, though it is not recommended.
+
+## Reverse proxy authentication
+
+When reverse proxy authentication is used, the verification is done by another system. By checking specific HTTP header,
+Navidrome assumes you are already authenticated. This header can be configured via `ReverseProxyUserHeader` configuration
+option.  By default `Remote-User` is used.
+
+By default, Navidrome denies every attempt. Authentication proxy needs to be whitelisted in CIDR format, using `ReverseProxyWhitelist`.
+Both IPv4 and IPv6 are supported.
+
