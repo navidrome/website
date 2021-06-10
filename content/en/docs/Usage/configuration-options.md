@@ -12,14 +12,14 @@ or using command line arguments.
 ## Configuration File
 
 Navidrome tries to load the configuration from a `navidrome.toml` file in the current working
-directory. You can put any of the [configuration options below](#available-options) in this file. 
+directory. You can put any of the [configuration options below](#available-options) in this file.
 Example of a configuration file for Windows (should be similar for Linux, just use forward slashes for paths):
 
 ```toml
 LogLevel = 'DEBUG'
 ScanSchedule = '@every 1h'
 TranscodingCacheSize = '150MiB'
-MusicFolder = 'C:\Users\JohnDoe\Music' 
+MusicFolder = 'C:\Users\JohnDoe\Music'
 ```
 
 You can also specify a different path for the configuration file, using the `-c/--configfile` option.
@@ -38,7 +38,7 @@ You can set most of the [config options below](#available-options) passing argum
 C:\> navidrome --musicfolder "c:\User\johndoe\Music"
 ```
 
-Please note that command line arguments must be **all lowercase**. For a list of all available command line options, 
+Please note that command line arguments must be **all lowercase**. For a list of all available command line options,
 just call `navidrome --help`.
 
 
@@ -87,6 +87,8 @@ make it all uppercase. Ex: `ND_LOGLEVEL=debug`. See below for all available opti
 | EnableStarRating                            | `ND_ENABLESTARRATING`        | Enable 5-star ratings in the UI                                                                                            | `true`                                   |
 | EnableUserEditing                           | `ND_ENABLEUSEREDITING`       | Enable regular users to edit their details and change their password                                                       | `true`                                   |
 | DefaultTheme                                | `ND_DEFAULTTHEME`            | Sets the default theme used byt the UI when logging in from a new browser. This value must match one of the options in the UI | `Dark`                                |
+| ReverseProxyUserHeader                      | `ND_REVERSEPROXYUSERHEADER`  | HTTP header containing user name from authenticated proxy                                                                  | `"Remote-User"`                          |
+| ReverseProxyWhitelist                       | `ND_REVERSEPROXYWHITELIST`   | Comma separated list of IP CIDRs which are allowed to use reverse proxy authentication, empty means "deny all"             | _Empty_                                  |
 
 #### Notes
 
