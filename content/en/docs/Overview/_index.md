@@ -56,6 +56,9 @@ Besides its own Web UI, Navidrome should be compatible with all Subsonic clients
 [Subfire](http://p.subfireplayer.net/)
 - Desktop: [Sublime Music](https://sublimemusic.app/) (Linux/macOS)
 - CLI: [Jellycli](https://github.com/tryffel/jellycli) (Windows/Linux) and [STMP](https://github.com/wildeyedskies/stmp) (Linux/macOS)
+- Connected Speakers:
+  - Sonos: [bonob](https://github.com/simojenki/bonob)
+  - Alexa: [AskSonic](https://github.com/srichter/asksonic)
 - Other: 
   - [Navidrome Kodi Plugin](https://github.com/BobHasNoSoul/plugin.audio.navidrome)
   - [HTTPDirFS](https://github.com/fangfufu/httpdirfs)
