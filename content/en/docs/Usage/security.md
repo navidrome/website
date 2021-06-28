@@ -52,12 +52,11 @@ option.  By default the `Remote-User` header is used.
 By default, Navidrome denies every attempt. Authentication proxy needs to be whitelisted in CIDR format, using `ReverseProxyWhitelist`.
 Both IPv4 and IPv6 are supported.
 
+If you enable this feature and uses a Subsonic client, you must whitelist the Subsonic API URL, as this authentication method is 
+incompatible with the Subsonic authentication. You will need to whitelist the `/rest/*` URLs
+
 ## Encrypted passwords
 By default, Navidrome encrypts the passwords in the DB with a shared encryption key, just for the sake of obfuscation as this key can be easily found in 
 the codebase.
 
 This key can be overridden by the new config option `PasswordEncryptionKey`. Once this option is set and Navidrome is restarted, it will re-encrypt all passwords with this new key. This is a one-time only configuration, and after this point the config option cannot be changed anymore or users won't be able to authenticate.
-
-The idea for this implementation is that if the DB is compromised by SQL Injection, the key to decrypt is not part of the leak as it is saved in the config file or as an ENV var.
-
-Please check the logs for any errors changing the PasswordEncryptionKey option.
