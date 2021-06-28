@@ -34,12 +34,13 @@ It can also work as a lightweight Subsonic-API compatible server, that can be us
 - Tag-based browsing/searching
 - Playlists
 - Bookmarks (for Audiobooks)
-- Starred Artists/Albums/Tracks
+- Starred (favourites) Artists/Albums/Tracks
 - 5-Star Rating
 - Transcoding
 - Get/Save Play Queue (to continue listening in a different device)
-- Artist Bio from [Last.FM](/docs/usage/external_integrations/#lastfm)
-- Artist Images from [Spotify](/docs/usage/external_integrations/#spotify)
+- Last.fm scrobbling
+- Artist Bio from Last.fm
+- Artist Images from [Spotify (requires configuration)](/docs/usage/external-integrations/#spotify)
 
 ## Apps
 
@@ -68,7 +69,7 @@ trouble with the client of your choice.
 This project is in active development. Expect a more polished experience and new features/releases 
 on a frequent basis. Some upcoming features planned: 
 
-- Last.FM scrobbling
+- Last.fm scrobbling
 - Smart/dynamic playlists (similar to iTunes)
 - Jukebox mode
 - Sharing links to albums/songs/playlists

@@ -3,13 +3,15 @@ title: "External Integrations"
 linkTitle: "External Integrations"
 date: 2017-01-05
 description: >
-  Configure Navidrome to get information and images from Last.FM and Spotify
+  Configure Navidrome to get information and images from Last.fm and Spotify
+aliases:
+  - /docs/usage/external_integrations
 ---
 
-## Last.FM
+## Last.fm
 
-Navidrome can use Last.FM to retrieve artists biographies, top songs and similar artists. You will need a Last.FM free account. 
-You'll need to set the config options `LastFM.ApiKey` and `LastFM.Secret`. You can obtain these values by creating an API account in Last.FM:
+Navidrome can use Last.fm to retrieve artists biographies, top songs and similar artists. You will need a Last.fm free account. 
+You'll need to set the config options `LastFM.ApiKey` and `LastFM.Secret`. You can obtain these values by creating an API account in Last.fm:
 
 1) Go to https://www.last.fm/api/account/create and create an API account. Only the _Application Name_ field is mandatory:
 <p align="center">
