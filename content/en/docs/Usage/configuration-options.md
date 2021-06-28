@@ -69,6 +69,8 @@ make it all uppercase. Ex: `ND_LOGLEVEL=debug`. See below for all available opti
 | UILoginBackgroundUrl                        | `ND_UILOGINBACKGROUNDURL`    | Change background image used in the Login page                                                                             | _random music image from Unsplash.com_   |
 | UIWelcomeMessage                            | `ND_UIWELCOMEMESSAGE`        | Add a welcome message to the login screen                                                                                  | _Empty_                                  |
 | GATrackingID                                | `ND_GATRACKINGID`            | Send basic info to your own Google Analytics account. Must be in the format `UA-XXXXXXXX`                                  | _Empty_ (disabled)                       |
+| DefaultTheme                                | `ND_DEFAULTTHEME`            | Sets the default theme used by the UI when logging in from a new browser. This value must match one of the options in the UI | `Dark`                                 |
+| EnableCoverAnimation                        | `ND_ENABLECOVERANIMATION`    | Controls whether the player in the UI will animate the album cover (rotation) in desktop mode                              | `true`                                   |
 | IgnoredArticles                             | `ND_IGNOREDARTICLES`         | List of ignored articles when sorting/indexing artists                                                                     | `"The El La Los Las Le Les Os As O A"`   |
 | SearchFullString                            | `ND_SEARCHFULLSTRING`        | Match query strings anywhere in searchable fields, not only in word boundaries. Useful for languages where words are not space separated | `false`                    |
 | RecentlyAddedByModTime                      | `ND_RECENTLYADDEDBYMODTIME`  | Uses music files' modification time when sorting by "Recently Added". Otherwise use import time                            | `false`                                  |
@@ -79,22 +81,18 @@ make it all uppercase. Ex: `ND_LOGLEVEL=debug`. See below for all available opti
 | AuthRequestLimit[\*][limit-login-attempts]  | `ND_AUTHREQUESTLIMIT`        | How many login requests can be processed from a single IP during the `AuthWindowLength`. Set to `0` to disable the limit rater | `5`                                  |
 | AuthWindowLength[\*][limit-login-attempts]  | `ND_AUTHWINDOWLENGTH`        | Window Length for the authentication rate limit                                                                            | `"20s"`                                  |
 | Scanner.Extractor                           | `ND_SCANNER_EXTRACTOR`       | Select metadata extractor implementation. Options: `taglib` or `ffmpeg`                                                    | `taglib`                                 |
-| LastFM.ApiKey                               | `ND_LASTFM_APIKEY`           | Last.FM ApiKey                                                                                                             | _Empty_                                  |
-| LastFM.Secret                               | `ND_LASTFM_SECRET`           | Last.FM Shared Secret                                                                                                      | _Empty_                                  |
+| LastFM.Enabled                              | `ND_LASTFM_ENABLED`          | Set this to `false` to completely disable Last.FM integration                                                              | `true`                                   |
+| LastFM.ApiKey                               | `ND_LASTFM_APIKEY`           | Last.FM ApiKey                                                                                                             | Navidrome project's shared ApiKey        |
+| LastFM.Secret                               | `ND_LASTFM_SECRET`           | Last.FM Shared Secret                                                                                                      | Navidrome project's shared Secret        |
 | LastFM.Language                             | `ND_LASTFM_LANGUAGE`         | [Two letter-code for language][language-codes] to be used to retrieve biographies from Last.FM                             | `"en"`                                   |
-| Spotify.ID                                  | `ND_SPOTIFY_ID`              | Spotify Client ID                                                                                                          | _Empty_                                  |
-| Spotify.Secret                              | `ND_SPOTIFY_SECRET`          | Spotify Client Secret                                                                                                      | _Empty_                                  |
+| Spotify.ID[\*][spotify-integration]         | `ND_SPOTIFY_ID`              | Spotify Client ID. Required if you want Artist images                                                                      | _Empty_                                  |
+| Spotify.Secret[\*][spotify-integration]     | `ND_SPOTIFY_SECRET`          | Spotify Client Secret. Required if you want Artist images                                                                  | _Empty_                                  |
 | EnableGravatar                              | `ND_ENABLEGRAVATAR`          | Use [Gravatar](https://gravatar.com/) images as the user profile image. Needs the user's email to be filled                | `false`                                  |
 | EnableFavourites                            | `ND_ENABLEFAVOURITES`        | Enable toggling "Heart"/"Loved" for songs/albums/artists in the UI (maps to "Star"/"Starred" in Subsonic Clients)          | `true`                                   |
 | EnableStarRating                            | `ND_ENABLESTARRATING`        | Enable 5-star ratings in the UI                                                                                            | `true`                                   |
 | EnableUserEditing                           | `ND_ENABLEUSEREDITING`       | Enable regular users to edit their details and change their password                                                       | `true`                                   |
-<<<<<<< HEAD
-| DefaultTheme                                | `ND_DEFAULTTHEME`            | Sets the default theme used by the UI when logging in from a new browser. This value must match one of the options in the UI | `Dark`                                |
-=======
-| DefaultTheme                                | `ND_DEFAULTTHEME`            | Sets the default theme used byt the UI when logging in from a new browser. This value must match one of the options in the UI | `Dark`                                |
 | ReverseProxyUserHeader                      | `ND_REVERSEPROXYUSERHEADER`  | HTTP header containing user name from authenticated proxy                                                                  | `"Remote-User"`                          |
 | ReverseProxyWhitelist                       | `ND_REVERSEPROXYWHITELIST`   | Comma separated list of IP CIDRs which are allowed to use reverse proxy authentication, empty means "deny all"             | _Empty_                                  |
->>>>>>> f10edde... Add reverse proxy authentication documentation
 
 #### Notes
 
@@ -107,3 +105,5 @@ make it all uppercase. Ex: `ND_LOGLEVEL=debug`. See below for all available opti
 [limit-login-attempts]: /docs/usage/security#limit-login-attempts  "Login Limit Rating"
 [transcoding]:          /docs/usage/security#transcoding-configuration "Transcoding configuration"
 [language-codes]:       https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes "List of language codes"
+[spotify-integration]:  /docs/usage/external_integrations/#spotify
+[lastfm-integration]:  /docs/usage/external_integrations/#lastfm
