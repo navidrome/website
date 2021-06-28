@@ -40,11 +40,11 @@ between Navidrome and Subsonic:
 | `getArtist`            | |
 | `getAlbum`             | |
 | `getGenres`            | |
-| `getArtistInfo`        | Requires [Last.FM and Spotify integration](/docs/usage/external_integrations/) |
-| `getArtistInfo2`       | Requires [Last.FM and Spotify integration](/docs/usage/external_integrations/) |
-| `getTopSongs`          | Requires [Last.FM integration](/docs/usage/external_integrations/) |
-| `getSimilarSongs`      | Requires [Last.FM integration](/docs/usage/external_integrations/) |
-| `getSimilarSongs2`     | Requires [Last.FM integration](/docs/usage/external_integrations/) |
+| `getArtistInfo`        | Requires [Last.fm and Spotify integration](/docs/usage/external-integrations/) |
+| `getArtistInfo2`       | Requires [Last.fm and Spotify integration](/docs/usage/external-integrations/) |
+| `getTopSongs`          | Requires [Last.fm integration](/docs/usage/external-integrations/) |
+| `getSimilarSongs`      | Requires [Last.fm integration](/docs/usage/external-integrations/) |
+| `getSimilarSongs2`     | Requires [Last.fm integration](/docs/usage/external-integrations/) |
 
 | _Album/Songs Lists_    ||
 |------------------------|-|
@@ -81,7 +81,7 @@ between Navidrome and Subsonic:
 | `star`                 | |
 | `unstar`               | |
 | `setRating`            | |
-| `scrobble`             | No Last.FM support yet. It is used to update play count and last played |
+| `scrobble`             | |
 
 | _User Management_      ||
 |------------------------|-|

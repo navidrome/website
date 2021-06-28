@@ -81,10 +81,10 @@ make it all uppercase. Ex: `ND_LOGLEVEL=debug`. See below for all available opti
 | AuthRequestLimit[\*][limit-login-attempts]     | `ND_AUTHREQUESTLIMIT`        | How many login requests can be processed from a single IP during the `AuthWindowLength`. Set to `0` to disable the limit rater | `5`                                  |
 | AuthWindowLength[\*][limit-login-attempts]     | `ND_AUTHWINDOWLENGTH`        | Window Length for the authentication rate limit                                                                            | `"20s"`                                  |
 | Scanner.Extractor                              | `ND_SCANNER_EXTRACTOR`       | Select metadata extractor implementation. Options: `taglib` or `ffmpeg`                                                    | `taglib`                                 |
-| LastFM.Enabled                                 | `ND_LASTFM_ENABLED`          | Set this to `false` to completely disable Last.FM integration                                                              | `true`                                   |
-| LastFM.ApiKey                                  | `ND_LASTFM_APIKEY`           | Last.FM ApiKey                                                                                                             | Navidrome project's shared ApiKey        |
-| LastFM.Secret                                  | `ND_LASTFM_SECRET`           | Last.FM Shared Secret                                                                                                      | Navidrome project's shared Secret        |
-| LastFM.Language                                | `ND_LASTFM_LANGUAGE`         | [Two letter-code for language][language-codes] to be used to retrieve biographies from Last.FM                             | `"en"`                                   |
+| LastFM.Enabled                                 | `ND_LASTFM_ENABLED`          | Set this to `false` to completely disable Last.fm integration                                                              | `true`                                   |
+| LastFM.ApiKey                                  | `ND_LASTFM_APIKEY`           | Last.fm ApiKey                                                                                                             | Navidrome project's shared ApiKey        |
+| LastFM.Secret                                  | `ND_LASTFM_SECRET`           | Last.fm Shared Secret                                                                                                      | Navidrome project's shared Secret        |
+| LastFM.Language                                | `ND_LASTFM_LANGUAGE`         | [Two letter-code for language][language-codes] to be used to retrieve biographies from Last.fm                             | `"en"`                                   |
 | Spotify.ID[\*][spotify-integration]            | `ND_SPOTIFY_ID`              | Spotify Client ID. Required if you want Artist images                                                                      | _Empty_                                  |
 | Spotify.Secret[\*][spotify-integration]        | `ND_SPOTIFY_SECRET`          | Spotify Client Secret. Required if you want Artist images                                                                  | _Empty_                                  |
 | EnableGravatar                                 | `ND_ENABLEGRAVATAR`          | Use [Gravatar](https://gravatar.com/) images as the user profile image. Needs the user's email to be filled                | `false`                                  |
@@ -106,7 +106,7 @@ make it all uppercase. Ex: `ND_LOGLEVEL=debug`. See below for all available opti
 [limit-login-attempts]: /docs/usage/security#limit-login-attempts  "Login Limit Rating"
 [transcoding]:          /docs/usage/security#transcoding-configuration "Transcoding configuration"
 [language-codes]:       https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes "List of language codes"
-[spotify-integration]:  /docs/usage/external_integrations/#spotify
-[lastfm-integration]:   /docs/usage/external_integrations/#lastfm
+[spotify-integration]:  /docs/usage/external-integrations/#spotify
+[lastfm-integration]:   /docs/usage/external-integrations/#lastfm
 [encrypt-passwords]:    /docs/usage/security/#encrypted-passwords
 [reverse-proxy-auth]:   /docs/usage/security/#reverse-proxy-authentication
