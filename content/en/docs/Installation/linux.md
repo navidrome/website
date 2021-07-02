@@ -110,7 +110,7 @@ ProtectSystem=full
 
 ### Start the Navidrome Service
 
-Relaod the service daemon, start the newly create service, and verify it has started correctly.
+Reload the service daemon, start the newly create service, and verify it has started correctly.
 
 ```bash
 sudo systemctl daemon-reload
