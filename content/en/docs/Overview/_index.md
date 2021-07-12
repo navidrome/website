@@ -28,6 +28,7 @@ It can also work as a lightweight Subsonic-API compatible server, that can be us
 - **Transcoding** on the fly. Can be set per user/player. **Opus encoding is supported**
 - Translated to **17 languages** ([and counting](/docs/developers/translations/))
 - Full support for **playlists**, with option to auto-import `.m3u` files and to keep them in sync
+- **Last.fm** scrobbling
 
 ### Features supported by the Subsonic API
 
@@ -72,8 +73,8 @@ trouble with the client of your choice.
 This project is in active development. Expect a more polished experience and new features/releases 
 on a frequent basis. Some upcoming features planned: 
 
-- Last.fm scrobbling
+- Multi-valued tags (Multiple Artists, Genres...)
 - Smart/dynamic playlists (similar to iTunes)
-- Jukebox mode
-- Sharing links to albums/songs/playlists
+- Jukebox mode (plays music on an audio device attached to the server, and control from the UI/Mobile client)
+- Sharing public links to albums/songs/playlists
 
