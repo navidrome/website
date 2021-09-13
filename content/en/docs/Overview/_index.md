@@ -46,14 +46,18 @@ It can also work as a lightweight Subsonic-API compatible server, that can be us
 ## Apps
 
 Besides its own Web UI, Navidrome should be compatible with all Subsonic clients. The following clients are tested and confirmed to work properly:
-- iOS: [play:Sub](http://michaelsapps.dk/playsubapp/), [substreamer](https://substreamerapp.com/) and [iSub](https://isub.app/)
+- iOS: [play:Sub](http://michaelsapps.dk/playsubapp/), 
+[substreamer](https://substreamerapp.com/) 
+[Amperfy](https://github.com/BLeeEZ/amperfy) and 
+[iSub](https://isub.app/)
 - Android: [DSub](https://play.google.com/store/apps/details?id=github.daneren2005.dsub),
 [Ultrasonic](https://github.com/ultrasonic/ultrasonic#readme),
-[substreamer](https://substreamerapp.com/),
-[Subtracks](https://github.com/austinried/subtracks#readme) and
+[Subtracks](https://github.com/austinried/subtracks#readme),
+[substreamer](https://substreamerapp.com/) and
 [Audinaut](https://github.com/nvllsvm/Audinaut#readme)
-- Web: [Aurial](http://shrimpza.github.io/aurial/),
-[Subplayer](https://github.com/peguerosdc/subplayer), [Airsonic Refix](https://github.com/tamland/airsonic-refix), 
+- Web: [Subplayer](https://github.com/peguerosdc/subplayer), 
+[Airsonic Refix](https://github.com/tamland/airsonic-refix), 
+[Aurial](http://shrimpza.github.io/aurial/),
 [Jamstash](http://jamstash.com) and
 [Subfire](http://p.subfireplayer.net/)
 - Desktop: [Sublime Music](https://sublimemusic.app/) (Linux/macOS)
@@ -62,6 +66,7 @@ Besides its own Web UI, Navidrome should be compatible with all Subsonic clients
   - Sonos: [bonob](https://github.com/simojenki/bonob)
   - Alexa: [AskSonic](https://github.com/srichter/asksonic)
 - Other: 
+  - [Subsonic Kodi Plugin](https://github.com/warwickh/plugin.audio.subsonic)
   - [Navidrome Kodi Plugin](https://github.com/BobHasNoSoul/plugin.audio.navidrome)
   - [HTTPDirFS](https://github.com/fangfufu/httpdirfs)
     
