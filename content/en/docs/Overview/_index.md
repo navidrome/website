@@ -48,27 +48,27 @@ It can also work as a lightweight Subsonic-API compatible server, that can be us
 Besides its own Web UI, Navidrome should be compatible with all Subsonic clients. The following clients are tested and confirmed to work properly:
 - iOS: [play:Sub](http://michaelsapps.dk/playsubapp/), 
 [substreamer](https://substreamerapp.com/),
-[Amperfy](https://github.com/BLeeEZ/amperfy) and 
+[Amperfy](https://github.com/BLeeEZ/amperfy#readme) and 
 [iSub](https://isub.app/)
 - Android: [DSub](https://play.google.com/store/apps/details?id=github.daneren2005.dsub),
-[Ultrasonic](https://github.com/ultrasonic/ultrasonic#readme),
 [Subtracks](https://github.com/austinried/subtracks#readme),
-[substreamer](https://substreamerapp.com/) and
+[substreamer](https://substreamerapp.com/),
+[Ultrasonic](https://github.com/ultrasonic/ultrasonic#readme) and
 [Audinaut](https://github.com/nvllsvm/Audinaut#readme)
-- Web: [Subplayer](https://github.com/peguerosdc/subplayer), 
-[Airsonic Refix](https://github.com/tamland/airsonic-refix), 
+- Web: [Subplayer](https://github.com/peguerosdc/subplayer#readme),
+[Airsonic Refix](https://github.com/tamland/airsonic-refix#readme), 
 [Aurial](http://shrimpza.github.io/aurial/),
 [Jamstash](http://jamstash.com) and
 [Subfire](http://p.subfireplayer.net/)
 - Desktop: [Sublime Music](https://sublimemusic.app/) (Linux/macOS)
-- CLI: [Jellycli](https://github.com/tryffel/jellycli) (Windows/Linux) and [STMP](https://github.com/wildeyedskies/stmp) (Linux/macOS)
+- CLI: [Jellycli](https://github.com/tryffel/jellycli#readme) (Windows/Linux) and [STMP](https://github.com/wildeyedskies/stmp#readme) (Linux/macOS)
 - Connected Speakers:
-  - Sonos: [bonob](https://github.com/simojenki/bonob)
-  - Alexa: [AskSonic](https://github.com/srichter/asksonic)
+  - Sonos: [bonob](https://github.com/simojenki/bonob#readme)
+  - Alexa: [AskSonic](https://github.com/srichter/asksonic#readme)
 - Other: 
-  - [Subsonic Kodi Plugin](https://github.com/warwickh/plugin.audio.subsonic)
-  - [Navidrome Kodi Plugin](https://github.com/BobHasNoSoul/plugin.audio.navidrome)
-  - [HTTPDirFS](https://github.com/fangfufu/httpdirfs)
+  - [Subsonic Kodi Plugin](https://github.com/warwickh/plugin.audio.subsonic#readme)
+  - [Navidrome Kodi Plugin](https://github.com/BobHasNoSoul/plugin.audio.navidrome#readme)
+  - [HTTPDirFS](https://github.com/fangfufu/httpdirfs#readme)
     
 For more options, look at the [list of clients](https://airsonic.github.io/docs/apps/) maintained by 
 the Airsonic project. Please open an [issue](https://github.com/navidrome/navidrome/issues) if you have any 
