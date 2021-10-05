@@ -16,6 +16,7 @@ directory. You can put any of the [configuration options below](#available-optio
 Example of a configuration file for Windows (should be similar for Linux, just use forward slashes for paths):
 
 ```toml
+# This is just an example! Please see available options below to customize Navidrome to your needs
 LogLevel = 'DEBUG'
 ScanSchedule = '@every 1h'
 TranscodingCacheSize = '150MiB'
@@ -56,14 +57,14 @@ make it all uppercase. Ex: `ND_LOGLEVEL=debug`. See below for all available opti
 |                                                | `ND_CONFIGFILE`              | Load configurations from an external config file                                                                           | `"./navidrome.toml"`                     |
 | MusicFolder                                    | `ND_MUSICFOLDER`             | Folder where your music library is stored. Can be read-only                                                                | `"./music"`                              |
 | DataFolder                                     | `ND_DATAFOLDER`              | Folder to store application data (DB, cache...)                                                                            | `"./data"`                               |
-| ScanSchedule                                   | `ND_SCANSCHEDULE`            | Configure periodic scans using ["cron" syntax](https://en.wikipedia.org/wiki/Cron). To disable it altogether, set it to `0` or `""` (empty string) | `"@every 1m"`    |
-| LogLevel                                       | `ND_LOGLEVEL`                | Log level. Useful for troubleshooting. Possible values: `error`, `info`, `debug`, `trace`                                  | `"info"`                                 |
+| ScanSchedule                                   | `ND_SCANSCHEDULE`            | Configure periodic scans using ["cron" syntax](https://en.wikipedia.org/wiki/Cron). To disable it altogether, set it to `"0"` | `"@every 1m"`                         |
+| LogLevel                                       | `ND_LOGLEVEL`                | Log level. Useful for troubleshooting. Possible values: `error`, `warn`, `info`, `debug`, `trace`                          | `"info"`                                 |
 | EnableLogRedacting                             | `ND_ENABLELOGREDACTING`      | Whether or not sensitive information (like tokens and passwords) should be redacted (hidden) in the logs                   | `true`                                   |
 | Port                                           | `ND_PORT`                    | HTTP port Navidrome will use                                                                                               | `4533`                                   |
 | Address                                        | `ND_ADDRESS`                 | IP address the server will bind to                                                                                         | `0.0.0.0` and `::` (all IPs)             |
 | EnableTranscodingConfig[\*][transcoding]       | `ND_ENABLETRANSCODINGCONFIG` | Enables transcoding configuration in the UI                                                                                | `false`                                  |
-| TranscodingCacheSize                           | `ND_TRANSCODINGCACHESIZE`    | Size of transcoding cache. Set to `0` to disable cache                                                                     | `"100MB"`                                |
-| ImageCacheSize                                 | `ND_IMAGECACHESIZE`          | Size of image (art work) cache. Set to `0` to disable cache                                                                | `"100MB"`                                |
+| TranscodingCacheSize                           | `ND_TRANSCODINGCACHESIZE`    | Size of transcoding cache. Set to `"0"` to disable cache                                                                   | `"100MB"`                                |
+| ImageCacheSize                                 | `ND_IMAGECACHESIZE`          | Size of image (art work) cache. Set to `"0"` to disable cache                                                              | `"100MB"`                                |
 | AutoImportPlaylists                            | `ND_AUTOIMPORTPLAYLISTS`     | Enable/disable `.m3u` playlist auto-import                                                                                 | `true`                                   |
 | BaseUrl                                        | `ND_BASEURL`                 | Base URL (only the `path` part) to configure Navidrome behind a proxy (ex: `/music`)                                       | _Empty_                                  |
 | UILoginBackgroundUrl                           | `ND_UILOGINBACKGROUNDURL`    | Change background image used in the Login page                                                                             | _random music image from Unsplash.com_   |
