@@ -10,7 +10,13 @@ description: >
 ## Permissions
 
 **You should NOT run Navidrome as `root`**. Ideally you should have it running under its own user. Navidrome only
-needs read-only access to the Music Folder, and read-write permissions to the Data Folder
+needs read-only access to the Music Folder, and read-write permissions to the Data Folder.
+
+## Encrypted passwords
+To be able to keep compatibility with the Subsonic API and its clients, Navidrome needs to store user's passwords in its database. By default, Navidrome
+encrypts the passwords in the DB with a shared encryption key, just for the sake of obfuscation as this key can be easily found in the codebase.
+
+This key can be overridden by the config option `PasswordEncryptionKey`. Once this option is set and Navidrome is restarted, it will re-encrypt all passwords with this new key. This is a one-time only configuration, and after this point the config option cannot be changed anymore or else users won't be able to authenticate.
 
 ## Network configuration
 
@@ -20,6 +26,18 @@ There are tons of good resources on the web on how to properly setup a reverse p
 
 When using Navidrome in such configuration, you may want to prevent Navidrome from listening to all IPs configured
 in your computer, and only listen to `localhost`. This can be achieved by setting the `Address` flag to `localhost`
+
+## Reverse proxy authentication
+
+When reverse proxy authentication is used, the verification is done by another system. By checking a specific HTTP header,
+Navidrome assumes you are already authenticated. This header can be configured via `ReverseProxyUserHeader` configuration
+option.  By default the `Remote-User` header is used.
+
+By default, Navidrome denies every attempt. Authentication proxy needs to be whitelisted in CIDR format, using `ReverseProxyWhitelist`.
+Both IPv4 and IPv6 are supported.
+
+If you enable this feature and uses a Subsonic client, you must whitelist the Subsonic API URL, as this authentication method is 
+incompatible with the Subsonic authentication. You will need to whitelist the `/rest/*` URLs.
 
 ## Transcoding configuration
 
@@ -42,21 +60,3 @@ To protect against brute-force attacks, Navidrome is configured by default with 
 It uses a [Sliding Window](https://blog.cloudflare.com/counting-things-a-lot-of-different-things/#slidingwindowstotherescue)
 algorithm to block too many consecutive login attempts. This can be configured using the flags `AuthRequestLimit` and
 `AuthWindowLength` and can be disabled by setting `AuthRequestLimit` to `0`, though it is not recommended.
-
-## Reverse proxy authentication
-
-When reverse proxy authentication is used, the verification is done by another system. By checking a specific HTTP header,
-Navidrome assumes you are already authenticated. This header can be configured via `ReverseProxyUserHeader` configuration
-option.  By default the `Remote-User` header is used.
-
-By default, Navidrome denies every attempt. Authentication proxy needs to be whitelisted in CIDR format, using `ReverseProxyWhitelist`.
-Both IPv4 and IPv6 are supported.
-
-If you enable this feature and uses a Subsonic client, you must whitelist the Subsonic API URL, as this authentication method is 
-incompatible with the Subsonic authentication. You will need to whitelist the `/rest/*` URLs
-
-## Encrypted passwords
-By default, Navidrome encrypts the passwords in the DB with a shared encryption key, just for the sake of obfuscation as this key can be easily found in 
-the codebase.
-
-This key can be overridden by the new config option `PasswordEncryptionKey`. Once this option is set and Navidrome is restarted, it will re-encrypt all passwords with this new key. This is a one-time only configuration, and after this point the config option cannot be changed anymore or users won't be able to authenticate.
