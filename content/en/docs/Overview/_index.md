@@ -28,7 +28,7 @@ It can also work as a lightweight Subsonic-API compatible server, that can be us
 - **Transcoding** on the fly. Can be set per user/player. **Opus encoding is supported**
 - Translated to **17 languages** ([and counting](/docs/developers/translations/))
 - Full support for **playlists**, with option to auto-import `.m3u` files and to keep them in sync
-- **Last.fm** scrobbling
+- **Last.fm** and **ListenBrainz** scrobbling
 
 ### Features supported by the Subsonic API
 
@@ -39,7 +39,7 @@ It can also work as a lightweight Subsonic-API compatible server, that can be us
 - 5-Star Rating
 - Transcoding
 - Get/Save Play Queue (to continue listening in a different device)
-- Last.fm scrobbling
+- Last.fm and ListenBrainz scrobbling
 - Artist Bio from Last.fm
 - Artist Images from [Spotify (requires configuration)](/docs/usage/external-integrations/#spotify)
 
