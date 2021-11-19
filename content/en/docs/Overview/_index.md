@@ -19,15 +19,15 @@ It can also work as a lightweight Subsonic-API compatible server, that can be us
 - Streams virtually **any audio format** available
 - Reads and uses all your beautifully curated **metadata**
 - Great support for **compilations** (Various Artists albums) and **box sets** (multi-disc albums)
-- **Multi-user**, each user has their own play counts, playlists, favorites, etc..
-- **Multi-platform**, runs on macOS, Linux and Windows. **Docker** images are also provided
+- **Multi-user**, each user has their own play counts, playlists, favorites, etc.
+- **Multi-platform**, runs on macOS, Linux, and Windows. **Docker** images are also provided
 - Ready to use, official, **Raspberry Pi** binaries and Docker images available
 - Automatically **monitors your library** for changes, importing new files and reloading new metadata 
 - **Themeable**, modern and responsive **Web interface** based on [Material UI](https://material-ui.com)
 - **Compatible** with all Subsonic/Madsonic/Airsonic clients. See below for a list of tested clients
 - **Transcoding** on the fly. Can be set per user/player. **Opus encoding is supported**
 - Translated to **17 languages** ([and counting](/docs/developers/translations/))
-- Full support for **playlists**, with option to auto-import `.m3u` files and to keep them in sync
+- Full support for **playlists**, with an option to auto-import `.m3u` files and to keep them in sync
 - **Last.fm** scrobbling
 
 ### Features supported by the Subsonic API
@@ -77,7 +77,7 @@ trouble with the client of your choice.
 ## Road map
 
 This project is in active development. Expect a more polished experience and new features/releases 
-on a frequent basis. Some upcoming features planned: 
+frequently. Some upcoming features planned: 
 
 - Multi-valued tags (Multiple Artists, Genres...)
 - Smart/dynamic playlists (similar to iTunes)
