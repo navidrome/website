@@ -74,6 +74,7 @@ between Navidrome and Subsonic:
 | `stream`               | |
 | `download`             | Accepts ids for Songs, Albums, Artists and Playlists|
 | `getCoverArt`          | |
+| `getLyrics`            | Currently only works with embedded lyrics |
 | `getAvatar`            | If Gravatar is enabled and the user has an email, returns a redirect to their Gravatar. Or else return a placeholder |
 
 | _Media Annotation_     ||

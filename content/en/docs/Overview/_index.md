@@ -42,6 +42,7 @@ It can also work as a lightweight Subsonic-API compatible server, that can be us
 - Last.fm and ListenBrainz scrobbling
 - Artist Bio from Last.fm
 - Artist Images from [Spotify (requires configuration)](/docs/usage/external-integrations/#spotify)
+- Lyrics (from embedded tags)
 
 ## Apps
 
