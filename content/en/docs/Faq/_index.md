@@ -38,7 +38,7 @@ as much as possible. Specifically in the case of [logs](https://12factor.net/log
 any log files, it only outputs all information to `stdout`, making it easy for the proper logging tools in each platform to handle them. 
 Some examples bellow:
 
-- **Linux**: if you installed Navidrome using the Systemd unit (as explained in the [install instructions](/docs/installation/ubuntu-linux/#create-a-systemd-unit)), you can see the logs using the [journalctl](https://manpages.debian.org/stretch/systemd/journalctl.1.en.html) tool: `journalctl -f -u navidrome.service`.
+- **Linux**: if you installed Navidrome using the Systemd unit (as explained in the [install instructions](/docs/installation/ubuntu-linux/#create-a-systemd-unit)), you can see the logs using the [journalctl](https://manpages.debian.org/stretch/systemd/journalctl.1.en.html) tool: `journalctl -u navidrome.service`.
 
 - **Docker**: you can use `docker logs` or `docker-compose logs` to retrieve/follow the logs.
 
