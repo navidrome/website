@@ -22,6 +22,7 @@ between Navidrome and Subsonic:
   mention because, even though the Subsonic API 
   [schema](http://www.subsonic.org/pages/inc/api/schema/subsonic-rest-api-1.16.1.xsd) 
   specifies IDs as strings, some clients insist in converting IDs to integers
+* It is reccommended to follow the instructions for the [Airsonic API](https://airsonic.github.io/docs/api/) to authenticate when generating requests. 
 
 
 
