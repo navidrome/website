@@ -27,6 +27,7 @@ You'll also need to install the [TagLib](http://taglib.org) library:
 - Debian/Ubuntu: `sudo apt install libtag1-dev`
 - Arch Linux: `pacman -S taglib`
 - macOS: `brew install taglib`
+- FreeBSD: `pkg install taglib`
 - For other platforms check their [installation instructions](https://github.com/taglib/taglib/blob/master/INSTALL.md)
 
 After the prerequisites above are installed, clone Navidrome's repository and build it:
@@ -36,6 +37,15 @@ $ git clone https://github.com/navidrome/navidrome
 $ cd navidrome
 $ make setup        # Install build dependencies
 $ make buildall     # Build UI and server, generates a single executable
+```
+
+On FreeBSD you have to use `gmake`:
+
+```shell script
+$ git clone https://github.com/navidrome/navidrome
+$ cd navidrome
+$ gmake setup        # Install build dependencies
+$ gmake buildall     # Build UI and server, generates a single executable
 ```
 
 This will generate the `navidrome` executable binary in the project's root folder.
