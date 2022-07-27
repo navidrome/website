@@ -82,7 +82,7 @@ This project is in active development. Expect a more polished experience and new
 on a frequent basis. Some upcoming features planned: 
 
 - Multi-valued tags (Multiple Artists, Genres...)
-- Smart/dynamic playlists (similar to iTunes)
+- Smart/dynamic playlists (similar to iTunes) ([initial implementation already available](https://github.com/navidrome/navidrome/issues/1417))
 - Jukebox mode (plays music on an audio device attached to the server, and control from the UI/Mobile client)
 - Sharing public links to albums/songs/playlists
 
