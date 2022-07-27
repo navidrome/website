@@ -54,6 +54,7 @@ Besides its own Web UI, Navidrome should be compatible with all Subsonic clients
 - Android: [DSub](https://play.google.com/store/apps/details?id=github.daneren2005.dsub),
 [Subtracks](https://github.com/austinried/subtracks#readme),
 [substreamer](https://substreamerapp.com/),
+[Symfonium](https://symfonium.app/),
 [Ultrasonic](https://github.com/ultrasonic/ultrasonic#readme) and
 [Audinaut](https://github.com/nvllsvm/Audinaut#readme)
 - Web: [Subplayer](https://github.com/peguerosdc/subplayer#readme),
@@ -61,7 +62,7 @@ Besides its own Web UI, Navidrome should be compatible with all Subsonic clients
 [Aurial](http://shrimpza.github.io/aurial/),
 [Jamstash](http://jamstash.com) and
 [Subfire](http://p.subfireplayer.net/)
-- Desktop: [Sublime Music](https://sublimemusic.app/) (Linux) and [Sonixd](https://github.com/jeffvli/sonixd) (Windows/Linux/macOS)
+- Desktop: [Sonixd](https://github.com/jeffvli/sonixd) (Windows/Linux/macOS) and [Sublime Music](https://sublimemusic.app/) (Linux)
 - CLI: [Jellycli](https://github.com/tryffel/jellycli#readme) (Windows/Linux) and [STMP](https://github.com/wildeyedskies/stmp#readme) (Linux/macOS)
 - Connected Speakers:
   - Sonos: [bonob](https://github.com/simojenki/bonob#readme)
