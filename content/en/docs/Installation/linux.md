@@ -27,11 +27,11 @@ sudo apt install vim ffmpeg
 
 ### Create Directory Structure
 
-Create a directory to store the Navidrome executable and a working directory with the proper permissions.
+Create directories to store the Navidrome executable, its configuration file, and its database, with proper permissions.
 
 ```bash
-sudo install -d -o <user> -g <group> /opt/navidrome
-sudo install -d -o <user> -g <group> /var/lib/navidrome
+sudo mkdir -p /opt/navidrome /etc/opt/navidrome /var/opt/navidrome
+sudo chown <user>:<group> /var/opt/navidrome
 ```
 
 ### Get Navidrome
@@ -41,12 +41,11 @@ Download the latest release from the [releases page](https://github.com/navidrom
 ```bash
 wget https://github.com/navidrome/navidrome/releases/download/v0.XX.0/navidrome_0.XX.0_Linux_x86_64.tar.gz -O Navidrome.tar.gz
 sudo tar -xvzf Navidrome.tar.gz -C /opt/navidrome/
-sudo chown -R <user>:<group> /opt/navidrome
 ```
 
 ### Create Configuration File
 
-In the working directory, `/var/lib/navidrome` create a new file named `navidrome.toml` with the following settings.
+In the configuration directory, `/etc/opt/navidrome`, create a new file named `navidrome.toml` with the following settings.
 
 ```toml
 MusicFolder = "<library_path>"
@@ -61,8 +60,10 @@ Create a new file under `/etc/systemd/system/` named `navidrome.service` with th
 ```toml
 [Unit]
 Description=Navidrome Music Server and Streamer compatible with Subsonic/Airsonic
+Wants=remote-fs.target network.target
 After=remote-fs.target network.target
-AssertPathExists=/var/lib/navidrome
+AssertPathExists=/var/opt/navidrome
+AssertPathExists=/etc/opt/navidrome/navidrome.toml
 
 [Install]
 WantedBy=multi-user.target
@@ -71,8 +72,8 @@ WantedBy=multi-user.target
 User=<user>
 Group=<group>
 Type=simple
-ExecStart=/opt/navidrome/navidrome --configfile "/var/lib/navidrome/navidrome.toml"
-WorkingDirectory=/var/lib/navidrome
+ExecStart=/opt/navidrome/navidrome --configfile "/etc/opt/navidrome/navidrome.toml"
+WorkingDirectory=/var/opt/navidrome
 TimeoutStopSec=20
 KillMode=process
 Restart=on-failure
@@ -89,7 +90,7 @@ RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
 RestrictNamespaces=yes
 RestrictRealtime=yes
 SystemCallFilter=~@clock @debug @module @mount @obsolete @reboot @setuid @swap
-ReadWritePaths=/var/lib/navidrome
+ReadWritePaths=/var/opt/navidrome
 
 # You can uncomment the following line if you're not using the jukebox This
 # will prevent navidrome from accessing any real (physical) devices
@@ -97,7 +98,7 @@ ReadWritePaths=/var/lib/navidrome
 
 # You can change the following line to `strict` instead of `full` if you don't
 # want navidrome to be able to write anything on your filesystem outside of
-# /var/lib/navidrome.
+# /var/opt/navidrome.
 ProtectSystem=full
 
 # You can uncomment the following line if you don't have any media in /home/*.
