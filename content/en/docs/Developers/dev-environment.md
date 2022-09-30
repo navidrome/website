@@ -80,7 +80,10 @@ Make sure you are using WSL 2.0
   1. Click on Extensions (present on leftmost column), install _Remote Development_ extension and reload VSCode.
   2. Press <kbd>F1</kbd>, execute _Remote-WSL: New Window_. This will connect your installed Linux distro to VSCode.
   3. Now you can open a VSCode terminal and you'll be able to run any Linux command.
-  
+
+#### Common Issues
+  1. Because of [this WSL issue](https://github.com/microsoft/WSL/issues/4885) you need to use your network IP address to be able to login to Navidrome in development mode. Otherwise you will get an `Error: Unauthorized` when logging in. You can see your network IP address after running `make dev`. 
+
 Now that you have a working instance of Linux running on your machine, follow the steps above for [Unix-based system](/docs/developers/dev-environment/#unix-based-systems-linux-macos-bsd-) in the VSCode terminal. For more information on working with VSCode+WSL, check their [documentation](https://code.visualstudio.com/docs/remote/wsl).
 
 
