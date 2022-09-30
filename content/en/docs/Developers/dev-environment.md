@@ -72,7 +72,8 @@ The (arguably better) alternative is to set up the project using [Visual Studio 
   2. Go to _Settings > Turn Windows feature on or off > Windows subsystem for Linux_.
   3. Go to Microsoft Store and download and install any Linux distro you like. For maximum compatibility, we recommend Ubuntu.
   4. Open Downloaded Linux distro, add username and password and then update it using: `sudo apt update && sudo apt upgrade -y`.
-  5. This will create an Linux terminal where you can execute any Linux commands.
+  5. Install needed compilers for building Navidrome: `sudo apt install gcc g++`
+  6. This will create an Linux terminal where you can execute any Linux commands.
 
 Make sure you are using WSL 2.0
 
