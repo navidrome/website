@@ -101,6 +101,8 @@ make it all uppercase. Ex: `ND_LOGLEVEL=debug`. See below for all available opti
 | PasswordEncryptionKey[\*][encrypt-passwords]   | `ND_PASSWORDENCRYPTIONKEY`   | Passphrase used to encrypt passwords in the DB. Click [here][encrypt-passwords] for details                                | -                                        |
 | ReverseProxyUserHeader[\*][reverse-proxy-auth] | `ND_REVERSEPROXYUSERHEADER`  | HTTP header containing user name from authenticated proxy                                                                  | `"Remote-User"`                          |
 | ReverseProxyWhitelist[\*][reverse-proxy-auth]  | `ND_REVERSEPROXYWHITELIST`   | Comma separated list of IP CIDRs which are allowed to use reverse proxy authentication, empty means "deny all"             | _Empty_                                  |
+| Prometheus.Enabled                             | `ND_PROMETHEUS_ENABLED`      | Enable extra endpoint with [Prometheus](https://prometheus.io/docs/introduction/overview/) metrics.                        | `false`                                  |
+| Prometheus.MetricsPath                         | `ND_PROMETHEUS_METRICSPATH`  | Custom path for Prometheus metrics. Useful for blocking unauthorized metrics requests.                                     | `"/metrics"`                             |
 
 #### Notes
 
