@@ -46,3 +46,20 @@ Some examples bellow:
 	- if you used [Shawl](https://github.com/mtkennerly/shawl), just check the `shawl_for_navidrome_*.log` files created in the same location as the Shawl executable.
 	- if you used [NSSM](http://nssm.cc/), the location of the logs are specified by the `AppStdout` attribute.
 	- if you used [WinSW](https://github.com/winsw/winsw), the log file is in the same directory as the WinSW configuration file for the Navidrome service.
+
+---
+## I deleted a song from my music folder however the album is still listed in the UI?
+This is a known bug, and [a rather uncommon situation for self-hosted users](https://github.com/navidrome/navidrome/issues/868#issuecomment-803699959) that have their music in the **root** music folder. (see [Configuration Options](https://www.navidrome.org/docs/usage/configuration-options/).)
+
+The workaround involves placing your music collection within a subfolder, instead of in the **root** music directory. (see this [Github issue](https://github.com/navidrome/navidrome/issues/937#issuecomment-1257089106))
+
+eg. /music/music/<your music here>, instead of /music/<your music here>
+
+
+Prevention is better than a cure, however if you are experiencing this bug:
+1. Stop the Navidrome service.
+	__For more information:__ see [Installation](https://www.navidrome.org/docs/installation/) and select your setup type.
+2. Navigate to the **config** directory, and remove all of its contents. 
+	__NOTE:__ this will effectively reset all of your settings, so a 'fresh' setup will be required. Doing this **does not** delete your music
+3. If you haven't placed your music within a subdirectory yet, do so now.
+4. Restart the Navidrome service, recommence the setup
