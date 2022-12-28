@@ -23,3 +23,10 @@ That's it! You should now be able to browse and listen to all your music.
 **Note**: It usually take a couple of minutes for 
 your music to start appearing in Navidrome's UI. You can check the logs to see what is the scan 
 progress. If you see any errors, [reach out](/community) and we can help you
+
+**Note**: If you have any `.m3u` playlist in your music folder, they should be added as playlist
+in Navidrome automatically. However, Navidrome only does that when there is an admin user. On a 
+fresh installation, it can happen that Navidrome already finished scanning your music folder 
+before you created the first admin user. In that case, you need to make sure the "last modified" 
+date of the `m3u` files is newer than the last scan. On Linux and macOS systems, this can be 
+done with the `touch` command.
