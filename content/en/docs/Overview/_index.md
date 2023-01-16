@@ -54,9 +54,8 @@ Besides its own Web UI, Navidrome should be compatible with all Subsonic clients
 - Android: [DSub](https://play.google.com/store/apps/details?id=github.daneren2005.dsub),
 [Subtracks](https://github.com/austinried/subtracks#readme),
 [substreamer](https://substreamerapp.com/),
-[Symfonium](https://symfonium.app/),
-[Ultrasonic](https://github.com/ultrasonic/ultrasonic#readme) and
-[Audinaut](https://github.com/nvllsvm/Audinaut#readme)
+[Symfonium](https://symfonium.app/) and
+[Ultrasonic](https://ultrasonic.gitlab.io/)
 - Web: [Thunderdrome](https://thunderdrome.netlify.app/),
 [Airsonic Refix](https://airsonic.netlify.com/), 
 [Subplayer](https://subplayer.netlify.app/),
