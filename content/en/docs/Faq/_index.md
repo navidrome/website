@@ -59,7 +59,7 @@ eg. /music/music/<your music here>, instead of /music/<your music here>
 Prevention is better than a cure, however if you are experiencing this bug:
 1. Stop the Navidrome service.
 	__For more information:__ see [Installation](https://www.navidrome.org/docs/installation/) and select your setup type.
-2. Navigate to the **config** directory, and remove all of its contents. 
+2. Navigate to the **data** directory, and remove all of its contents. 
 	__NOTE:__ this will effectively reset all of your settings, so a 'fresh' setup will be required. Doing this **does not** delete your music
 3. If you haven't placed your music within a subdirectory yet, do so now.
 4. Restart the Navidrome service, recommence the setup
