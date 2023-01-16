@@ -19,7 +19,8 @@ See the existing themes for examples.
 4) Start the application, your new theme should now appear as an option in the theme selector
 
 Before submitting a pull request to include your theme in Navidrome, please test your theme thoroughly and make sure 
-it is formatted with the [Prettier](https://prettier.io/) rules found in the project (`ui/src/.prettierrc.js`)
+it is formatted with the [Prettier](https://prettier.io/) rules found in the project (`ui/src/.prettierrc.js`). 
+Also, don't forget to add lots of screenshots!
 
 ## Resources for Material-UI theming
 
