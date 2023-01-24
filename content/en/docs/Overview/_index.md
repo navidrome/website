@@ -28,7 +28,9 @@ It can also work as a lightweight Subsonic-API compatible server, that can be us
 - **Transcoding** on the fly. Can be set per user/player. **Opus encoding is supported**
 - Translated to **17 languages** ([and counting](/docs/developers/translations/))
 - Full support for **playlists**, with option to auto-import `.m3u` files and to keep them in sync
-- **Last.fm** and **ListenBrainz** scrobbling
+- Scrobbling to **Last.fm**, **ListenBrainz** and **Maloja** (via custom ListenBrainz URL)
+- **Sharing** public links to albums/songs/playlists
+- **Reverse Proxy** authentication[\*](/docs/usage/security/#reverse-proxy-authentication)
 
 ### Features supported by the Subsonic API
 
@@ -36,13 +38,16 @@ It can also work as a lightweight Subsonic-API compatible server, that can be us
 - Playlists
 - Bookmarks (for Audiobooks)
 - Starred (favourites) Artists/Albums/Tracks
-- 5-Star Rating
-- Transcoding
+- 5-Star Rating for Artists/Albums/Tracks
+- Transcoding and Downsampling
 - Get/Save Play Queue (to continue listening in a different device)
 - Last.fm and ListenBrainz scrobbling
 - Artist Bio from Last.fm
 - Artist Images from [Spotify (requires configuration)](/docs/usage/external-integrations/#spotify)
-- Lyrics (from embedded tags)
+- Album images and description from Last.fm
+- Lyrics (currently only from embedded tags)
+- Internet Radios
+- Shares ([experimental support](https://github.com/navidrome/navidrome/pull/2106))
 
 ## Apps
 
@@ -81,8 +86,7 @@ trouble with the client of your choice.
 This project is in active development. Expect a more polished experience and new features/releases 
 on a frequent basis. Some upcoming features planned: 
 
-- Multi-valued tags (Multiple Artists, Genres...)
+- Multi-valued tags (Multiple Artists, Groupings...)
 - Smart/dynamic playlists (similar to iTunes) ([initial implementation already available](https://github.com/navidrome/navidrome/issues/1417))
 - Jukebox mode (plays music on an audio device attached to the server, and control from the UI/Mobile client)
-- Sharing public links to albums/songs/playlists
 
