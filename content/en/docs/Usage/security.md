@@ -31,13 +31,19 @@ in your computer, and only listen to `localhost`. This can be achieved by settin
 
 When reverse proxy authentication is used, the verification is done by another system. By checking a specific HTTP header,
 Navidrome assumes you are already authenticated. This header can be configured via `ReverseProxyUserHeader` configuration
-option.  By default the `Remote-User` header is used.
+option. By default, the `Remote-User` header is used.
 
-By default, Navidrome denies every attempt. Authentication proxy needs to be whitelisted in CIDR format, using `ReverseProxyWhitelist`.
-Both IPv4 and IPv6 are supported.
+By default, Navidrome denies every attempt. Authentication proxy needs to be whitelisted in CIDR format, using 
+`ReverseProxyWhitelist`. Both IPv4 and IPv6 are supported. 
 
-If you enable this feature and uses a Subsonic client, you must whitelist the Subsonic API URL, as this authentication method is 
-incompatible with the Subsonic authentication. You will need to whitelist the `/rest/*` URLs.
+If you enable this feature and uses a Subsonic client, you must whitelist the Subsonic API URL, as this authentication
+method is incompatible with the Subsonic authentication. You will need to whitelist the `/rest/*` URLs.
+
+If a user is successfully authenticated by the proxy, but it does not exist in the Navidrome DB, it will be created with 
+a random password. The user can change this password if they plan to use a Subsonic client.
+
+If you plan to use the Sharing option, where you can create unauthenticated links to parts of your library, you'll 
+need to whitelist `/share/*` URLs. 
 
 ## Transcoding configuration
 
