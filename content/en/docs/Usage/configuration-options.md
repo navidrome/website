@@ -20,7 +20,7 @@ Example of a configuration file for Windows (should be similar for Linux, just u
 LogLevel = 'DEBUG'
 ScanSchedule = '@every 1h'
 TranscodingCacheSize = '150MiB'
-MusicFolder = 'C:\Users\JohnDoe\Music'
+MusicFolder = 'C:\Users\JohnDoe\Music'  # IMPORTANT: Use single quotes for paths in Windows
 ```
 
 You can also specify a different path for the configuration file, using the `-c/--configfile` option.
