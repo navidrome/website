@@ -94,12 +94,12 @@ between Navidrome and Subsonic:
 | `getPlayQueue`         | `current` is a string id, not `int` as it shows in the official Subsonic API documentation |
 | `savePlayQueue`        |                                                                                            |
 
-| _Sharing_     |     |
-|---------------|-----|
-| `getShares`   |     |
-| `createShare` |     |
-| `updateShare` |     |
-| `deleteShare` |     |
+| _Sharing_ (if `EnableSharing` is `true`) |     |
+|------------------------------------------|-----|
+| `getShares`                              |     |
+| `createShare`                            |     |
+| `updateShare`                            |     |
+| `deleteShare`                            |     |
 
 | _Internet radio_             |     |
 |------------------------------|-----|
