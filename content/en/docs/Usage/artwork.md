@@ -25,7 +25,7 @@ setting `EnableMediaFileCoverArt=false`.
 
 ## Artists
 
-Image for artists are fetched by these rules:
+Image for artists are fetched following these rules:
 1. Try to read an `artist.*` image file from the artist folder (the parent folder of all albums of a given artist). Ex:
   - `C:\Music\U2\Rattle And Run\CD1\01.mp3`
   - `C:\Music\U2\Boy\01.mp3`
@@ -37,5 +37,5 @@ Image for artists are fetched by these rules:
 
 ## Playlists
 
-Currently, Playlists cover art are generated tiled images, containing up to 4 covers from the albums in the playlist.
-If for any reason it cannot be generated, it will use the album cover placeholder (blue record image)
+Currently, Playlists CoverArt images are generated tiled images, containing up to 4 covers from the albums in the playlist.
+If for any reason it cannot be generated, it will use the album cover placeholder (blue record image). This is currently only available in the Subsonic API.
