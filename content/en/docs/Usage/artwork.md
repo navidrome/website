@@ -29,6 +29,7 @@ Image for artists are fetched following these rules:
 1. Try to read an `artist.*` image file from the artist folder (the parent folder of all albums of a given artist). Ex:
   - `C:\Music\U2\Rattle And Run\CD1\01.mp3`
   - `C:\Music\U2\Boy\01.mp3`
+  
     It will try to read the image from `C:\Music\U2\artist.*`
 2. If not found, try to read an `artist.*` image from any album for that artist. If more than one is found, the
    selected one is unpredictable.
