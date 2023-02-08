@@ -1,21 +1,24 @@
 ---
 title: "Monitoring"
 linkTitle: "Monitoring"
-date: 2023-02-05
+date: 2017-01-03
 description: >
   How to monitor status of your navidrome instance
 draft: false
 ---
 
-Currently navidrome supports monitoring and alerting using
+Currently, navidrome supports monitoring and alerting using
 Prometheus/[OpenMetrics](https://github.com/OpenObservability/OpenMetrics/blob/main/specification/OpenMetrics.md)
-standard
+standard. Example Grafana dashboard:
 
-## Prometheus
+<p align="center">
+<img width="1000" src="/screenshots/grafana-example.png">
+</p>
+
 
 ### Configuration
 You need to set `ND_PROMETHEUS_ENABLED` to enable Prometheus metrics endpoint.
-Setting custom `ND_PROMETHEUS_METRICSPATH` highly recommended if your Navidrome
+Setting custom `ND_PROMETHEUS_METRICSPATH` is highly recommended if your Navidrome
 instance is publicly available.
 
 Minimal docker compose example file with metrics enabled:
