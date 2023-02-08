@@ -67,7 +67,9 @@ Besides its own Web UI, Navidrome should be compatible with all Subsonic clients
 [Aurial](http://shrimpza.github.io/aurial/),
 [Jamstash](http://jamstash.com) and
 [Subfire](http://p.subfireplayer.net/)
-- Desktop: [Sonixd](https://github.com/jeffvli/sonixd) (Windows/Linux/macOS) and [Sublime Music](https://sublimemusic.app/) (Linux)
+- Desktop: [Sonixd](https://github.com/jeffvli/sonixd) (Windows/Linux/macOS), 
+[Sublime Music](https://sublimemusic.app/) (Linux) and
+[Submariner](https://submarinerapp.com/) (macOS)
 - CLI: [Jellycli](https://github.com/tryffel/jellycli#readme) (Windows/Linux) and [STMP](https://github.com/wildeyedskies/stmp#readme) (Linux/macOS)
 - Connected Speakers:
   - Sonos: [bonob](https://github.com/simojenki/bonob#readme)
