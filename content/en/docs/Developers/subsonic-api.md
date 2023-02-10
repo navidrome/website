@@ -16,7 +16,7 @@ Check the "Notes" column for limitations/missing behavior. Also keep in mind the
 between Navidrome and Subsonic:
 * Navidrome will not implement any video related functionality, it is focused on Music only
 * Right now, Navidrome only works with a single Music Library (Music Folder)
-* There are currenlty no plans to support browse-by-folder. Endpoints for this functionality (Ex: `getIndexes`, `getMusicDirectory`)
+* There are currently no plans to support browse-by-folder. Endpoints for this functionality (Ex: `getIndexes`, `getMusicDirectory`)
   returns a simulated directory tree, using the format: `/Artist/Album/01 - Song.mp3`.
 * Navidrome does not mark songs as played by calls to `stream`, only when 
  `scrobble` is called with `submission=true`
