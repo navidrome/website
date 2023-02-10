@@ -16,6 +16,8 @@ Check the "Notes" column for limitations/missing behavior. Also keep in mind the
 between Navidrome and Subsonic:
 * Navidrome will not implement any video related functionality, it is focused on Music only
 * Right now, Navidrome only works with a single Music Library (Music Folder)
+* There are currenlty no plans to support browse-by-folder. Endpoints for this functionality (Ex: `getIndexes`, `getMusicDirectory`)
+  returns a simulated directory tree, using the format: `/Artist/Album/01 - Song.mp3`.
 * Navidrome does not mark songs as played by calls to `stream`, only when 
  `scrobble` is called with `submission=true`
 * IDs in Navidrome are always strings, normally MD5 hashes or UUIDs. This is important to 
@@ -71,13 +73,13 @@ between Navidrome and Subsonic:
 | `updatePlaylist`         |                                         |
 | `deletePlaylist`         |                                         |
 
-| _Media Retrieval_      |                                                                                                                      |
-|------------------------|----------------------------------------------------------------------------------------------------------------------|
-| `stream`               |                                                                                                                      |
-| `download`             | Accepts ids for Songs, Albums, Artists and Playlists. Also accepts transcoding options similar to `stream`           |
-| `getCoverArt`          |                                                                                                                      |
-| `getLyrics`            | Currently only works with embedded lyrics                                                                            |
-| `getAvatar`            | If Gravatar is enabled and the user has an email, returns a redirect to their Gravatar. Or else return a placeholder |
+| _Media Retrieval_      |                                                                                                                       |
+|------------------------|-----------------------------------------------------------------------------------------------------------------------|
+| `stream`               |                                                                                                                       |
+| `download`             | Accepts ids for Songs, Albums, Artists and Playlists. Also accepts transcoding options similar to `stream`            |
+| `getCoverArt`          |                                                                                                                       |
+| `getLyrics`            | Currently only works with embedded lyrics                                                                             |
+| `getAvatar`            | If Gravatar is enabled and the user has an email, returns a redirect to their Gravatar. Or else returns a placeholder |
 
 | _Media Annotation_ |     |
 |--------------------|-----|
