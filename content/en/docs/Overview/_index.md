@@ -28,6 +28,7 @@ It can also work as a lightweight Subsonic-API compatible server, that can be us
 - **Transcoding** on the fly. Can be set per user/player. **Opus encoding is supported**
 - Translated to **17 languages** ([and counting](/docs/developers/translations/))
 - Full support for **playlists**, with option to auto-import `.m3u` files and to keep them in sync
+- **Smart**/dynamic playlists (similar to iTunes). More info [here](https://github.com/navidrome/navidrome/issues/1417)
 - Scrobbling to **Last.fm**, **ListenBrainz** and **Maloja** (via custom ListenBrainz URL)
 - **Sharing** public links to albums/songs/playlists
 - **Reverse Proxy** authentication[\*](/docs/usage/security/#reverse-proxy-authentication)
@@ -90,7 +91,7 @@ on a frequent basis. Some upcoming features planned:
 
 - [Multiple Artists](https://github.com/navidrome/navidrome/issues/211)
 - [Multiple folders](https://github.com/navidrome/navidrome/issues/192)
-- Smart/dynamic playlists (similar to iTunes) ([initial implementation already available](https://github.com/navidrome/navidrome/issues/1417))
+- [UI to edit Smart playlists](https://github.com/navidrome/navidrome/issues/1417)
 - [Jukebox mode](https://github.com/navidrome/navidrome/issues/364) (plays music on an audio device attached to the server, and control from the UI/Mobile client)
 - [Support more tags](https://github.com/navidrome/navidrome/issues/1036) (including multi-valued tags)
 
