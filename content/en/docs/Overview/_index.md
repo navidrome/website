@@ -23,7 +23,7 @@ It can also work as a lightweight Subsonic-API compatible server, that can be us
 - **Multi-platform**, runs on macOS, Linux and Windows. **Docker** images are also provided
 - Ready to use, official, **Raspberry Pi** binaries and Docker images available
 - Automatically **monitors your library** for changes, importing new files and reloading new metadata 
-- **Themeable**, modern and responsive **Web interface** based on [Material UI](https://material-ui.com)
+- **Themeable**, modern and responsive **Web interface** based on [Material UI](https://material-ui.com) and [React-Admin](https://marmelab.com/react-admin/)
 - **Compatible** with all Subsonic/Madsonic/Airsonic clients. See below for a list of tested clients
 - **Transcoding** on the fly. Can be set per user/player. **Opus encoding is supported**
 - Translated to **17 languages** ([and counting](/docs/developers/translations/))
