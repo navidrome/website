@@ -88,7 +88,9 @@ trouble with the client of your choice.
 This project is in active development. Expect a more polished experience and new features/releases 
 on a frequent basis. Some upcoming features planned: 
 
-- Multi-valued tags (Multiple Artists, Groupings...)
+- [Multiple Artists](https://github.com/navidrome/navidrome/issues/211)
+- [Multiple folders](https://github.com/navidrome/navidrome/issues/192)
 - Smart/dynamic playlists (similar to iTunes) ([initial implementation already available](https://github.com/navidrome/navidrome/issues/1417))
-- Jukebox mode (plays music on an audio device attached to the server, and control from the UI/Mobile client)
+- [Jukebox mode](https://github.com/navidrome/navidrome/issues/364) (plays music on an audio device attached to the server, and control from the UI/Mobile client)
+- [Support more tags](https://github.com/navidrome/navidrome/issues/1036) (including multi-valued tags)
 
