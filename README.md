@@ -10,7 +10,7 @@ cd website
 npm install
 ```
 
-You'll need to install [Hugo](https://gohugo.io/) 0.66.0 or newer
+You'll need to install [Hugo](https://gohugo.io/) 0.111.1 or newer
 
 Note: For Windows users, you need to be sure to install the extended edition of Hugo.  
 
