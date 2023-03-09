@@ -88,4 +88,13 @@ Make sure you are using WSL 2.0
 Now that you have a working instance of Linux running on your machine, follow the steps above for [Unix-based system](/docs/developers/dev-environment/#unix-based-systems-linux-macos-bsd-) in the VSCode terminal. For more information on working with VSCode+WSL, check their [documentation](https://code.visualstudio.com/docs/remote/wsl).
 
 
+## Troubleshooting
 
+### System limit for number of file watchers reached
+
+
+If you encounter the `Error: ENOSPC: System limit for number of file watchers reached, watch` while running `make dev` on Linux systems, then your system is maxing out the number of files that can be "watched" for changes at one time.
+
+To increase this limit, you can run the command `echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p`, which adds the line `fs.inotify.max_user_watches=524288` to `/etc/sysctl.conf` and reloads sysctl so the change takes effect. this allows `inotify` to watch more files and folders for changes at a time.
+
+More information about this can be found [here](https://dev.to/rubiin/ubuntu-increase-inotify-watcher-file-watch-limit-kf4)
