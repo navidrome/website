@@ -4,6 +4,7 @@
   "description": "Navidrome Music Server site",
   "main": "none.js",
   "scripts": {
+    "preinstall": "(cd themes/docsy && npm install)",
     "dev": "run-p -l start docsy",
     "start": "hugo server",
     "docsy": "(cd themes/docsy/userguide && hugo server -p 1312 --themesDir ../..)",
