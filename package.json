@@ -8,7 +8,7 @@
     "dev": "run-p -l start docsy",
     "start": "hugo server",
     "docsy": "(cd themes/docsy/userguide && hugo server -p 1312 --themesDir ../..)",
-    "sync-images": "./sync-images.sh"
+    "sync-images": "./sync-images.sh 20072696"
   },
   "repository": {
     "type": "git",
