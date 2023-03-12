@@ -28,16 +28,18 @@ To login, use the following credentials:
 * Password: demo
 
 The demo server works with all [Subsonic clients](/docs/overview/#apps), just use the server address https://demo.navidrome.org with the credentials above. 
-Not all features are enabled in the demo. For instance, settings and transcoding are disabled.
+Not all features are enabled in the demo. For instance, settings are disabled.
 
 #### Demo server configuration
 
-The server is running on an inexpensive [BuyVM](https://my.frantech.ca/aff.php?aff=4605) virtual server with the following configuration:
+The server is running on the inexpensive [PikaPods](https://www.pikapods.com/pods?run=navidrome) managed hosting with the following configuration:
 * 1 Core Processor
 * 512MB Memory
-* 10GB SDD Disk Space
-* Cost: $2/month
+* 10GB Disk Space
+* Approximate Cost: $2.27/month
 
-If you decide to use their hosting services, please consider using our [affiliate link](https://my.frantech.ca/aff.php?aff=4605), to help sponsor the project.
+[PikaPods](https://www.pikapods.com) has partnered with us to offer you an
+[officially supported, cloud-hosted solution](/docs/installation/managed/#pikapods).
+A share of the revenue helps fund the development of Navidrome at no additional cost for you.
 
 {{< /blocks/section >}}

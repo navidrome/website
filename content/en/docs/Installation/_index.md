@@ -11,7 +11,8 @@ aliases:
 ### Download
 
 {{% pageinfo %}}
-If you are using Docker, you can skip download and just head to the [Docker setup page](docker)
+If you are using Docker, you can skip download and just head to the [Docker setup page](docker).
+If you prefer a managed hosting solution in the cloud, you can use [PikaPods](/docs/installation/managed/#pikapods).
 {{% /pageinfo %}}
 
 
