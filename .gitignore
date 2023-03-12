@@ -5,3 +5,4 @@ node_modules/
 tech-doc-hugo
 bin
 .envrc
+.hugo_build.lock
