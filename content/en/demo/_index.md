@@ -42,4 +42,6 @@ The server is running on the inexpensive [PikaPods](https://www.pikapods.com/pod
 [officially supported, cloud-hosted solution](/docs/installation/managed/#pikapods).
 A share of the revenue helps fund the development of Navidrome at no additional cost for you.
 
+[![PikaPods](https://www.pikapods.com/static/run-button.svg)](https://www.pikapods.com/pods?run=navidrome)
+
 {{< /blocks/section >}}
