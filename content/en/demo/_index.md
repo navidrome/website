@@ -10,7 +10,7 @@ layout: docs
 {{< blocks/cover title="Navidrome Live Demo" image_anchor="bottom" color="primary" height="min" >}}
 
 <div class="mx-auto">
-	<a class="btn btn-lg btn-primary mr-3 mb-4" href="https://demo.navidrome.org" target="_blank">
+	<a class="btn btn-lg btn-secondary mr-3 mb-4" href="https://demo.navidrome.org" target="_blank">
 		Go to our demo site <i class="fas fa-arrow-alt-circle-right ml-2"></i>
 	</a>
 </div>
