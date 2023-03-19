@@ -44,7 +44,7 @@ The example shown assumes a few things:
 
 Then to load the service, run:
 ```bash
-launchctl load ~/Library/LaunchAgents/navidrome.plist`
+launchctl load ~/Library/LaunchAgents/navidrome.plist
 ```
 
 To start the service, run:
