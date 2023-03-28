@@ -1,8 +1,6 @@
-
-public/
+/public
 resources/
 node_modules/
-tech-doc-hugo
-bin
+package-lock.json
 .envrc
 .hugo_build.lock

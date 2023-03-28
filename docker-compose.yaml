@@ -1,0 +1,11 @@
+version: "3.3"
+
+services:
+  site:
+    build:
+      context: .
+    command: server --poll 500ms
+    ports:
+      - "1313:1313"
+    volumes:
+      - .:/src
