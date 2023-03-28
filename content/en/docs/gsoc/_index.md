@@ -2,6 +2,8 @@
 title: Google Summer of Code 2021
 linkTitle: "Navidrome GSoC 2021"
 weight: 9
+toc_hide: true
+hide_summary: true
 description: >
   Navidrome GSoC 2021 information
 ---
