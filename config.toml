@@ -168,3 +168,18 @@ no = 'Sorry to hear that. Please <a href="https://github.com/navidrome/website/i
 # Developer relevant links. These will show up on right side of footer and in the community page if you have one.
 
 # background credit: Photo by Travis Yewell on Unsplash
+
+# hugo module configuration
+
+[module]
+	# uncomment line below for temporary local development of module
+	# replacements = "github.com/google/docsy -> ../../docsy"
+	[module.hugoVersion]
+		extended = true
+		min = "0.75.0"
+	[[module.imports]]
+		path = "github.com/google/docsy"
+		disable = false
+	[[module.imports]]
+		path = "github.com/google/docsy/dependencies"
+		disable = false
