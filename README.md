@@ -48,7 +48,7 @@ documentation](https://docs.docker.com/compose/gettingstarted/).
 
 1. Install dependencies:
     - [Go][]
-    - [Hugo][]
+    - [Hugo][] (0.107.0 or newer)
     - [Node.js][]
 2. Clone this repository
    ```bash
@@ -60,11 +60,8 @@ documentation](https://docs.docker.com/compose/gettingstarted/).
    npm install
    ```
 
-You'll need to install [Hugo](https://gohugo.io/) 0.107.0 or newer
-
-Note: For Windows users, you need to be sure to install the extended edition of Hugo.  
-
-This can be done via `choco install hugo-extended`
+> NOTE: For Windows users, you need to be sure to install the extended edition of Hugo.  
+> This can be done via `choco install hugo-extended`
 
 ## Running the website locally
 
