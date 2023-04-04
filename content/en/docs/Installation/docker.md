@@ -1,5 +1,5 @@
 ---
-title: "Docker"
+title: "Installing with Docker"
 linkTitle: "Docker"
 date: 2017-01-05
 description: >

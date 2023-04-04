@@ -1,5 +1,5 @@
 ---
-title: "Configuration Options"
+title: "Navidrome Configuration Options"
 linkTitle: "Configuration Options"
 date: 2017-01-06
 description: >

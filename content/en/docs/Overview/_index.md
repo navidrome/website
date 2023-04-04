@@ -1,5 +1,5 @@
 ---
-title: "Overview"
+title: "Navidrome Overview"
 linkTitle: "Overview"
 weight: 1
 description: >

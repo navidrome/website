@@ -1,5 +1,5 @@
 ---
-title: "Monitoring"
+title: "Monitoring Navidrome"
 linkTitle: "Monitoring"
 date: 2017-01-03
 description: >

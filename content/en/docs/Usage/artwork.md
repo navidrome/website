@@ -1,5 +1,5 @@
 ---
-title: "Artwork resolution"
+title: "Artwork location resolution"
 linkTitle: "Artwork resolution"
 date: 2017-01-05
 description: >
