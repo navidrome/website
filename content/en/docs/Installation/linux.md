@@ -56,9 +56,10 @@ For additional configuration options see the [configuration options page](https:
 
 ### Create a Systemd Unit
 
-Create a new file under `/etc/systemd/system/` named `navidrome.service` with the following data.
+Create a new file under `/etc/systemd/system/` named `navidrome.service` with the following data. Make sure you replace
+`<user>` and `<group>` with the user and group you want to run Navidrome under.
 
-```toml
+```systemd
 [Unit]
 Description=Navidrome Music Server and Streamer compatible with Subsonic/Airsonic
 After=remote-fs.target network.target
