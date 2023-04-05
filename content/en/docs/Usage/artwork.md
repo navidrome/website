@@ -31,7 +31,7 @@ The default is `artist.*, album/artist.*, external`, meaning:
 - First try to find an `artist.*` image in the artist folder(s)
 - If not found, try to find an `artist.*` image in one of the album folders for this artist
 - If not found, try to fetch it from an [external service](/docs/usage/external-integrations) (currently only Spotify)
-- If not found, use the artist image placeholder (grey start image)
+- If not found, use the artist image placeholder (grey star image)
 
 ## Playlists
 
