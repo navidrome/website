@@ -25,16 +25,13 @@ setting `EnableMediaFileCoverArt=false`.
 
 ## Artists
 
-Image for artists are fetched following these rules:
-1. Try to read an `artist.*` image file from the artist folder (the parent folder of all albums of a given artist). Ex:
-  - `C:\Music\U2\Rattle And Run\CD1\01.mp3`
-  - `C:\Music\U2\Boy\01.mp3`
-  
-    It will try to read the image from `C:\Music\U2\artist.*`
-2. If not found, try to read an `artist.*` image from any album for that artist. If more than one is found, the
-   selected one is unpredictable.
-3. If not found, it will try to get it from an external source. Currently, this can only be Spotify, if configured.
-4. If not found, use the artist image placeholder (grey star image).
+Fetching of images for artists is controlled by the `ArtistArtPriority` [config option](/docs/usage/configuration-options).
+This is a comma-separated list of places to look for artist images.
+The default is `artist.*, album/artist.*, external`, meaning:
+- First try to find an `artist.*` image in the artist folder(s)
+- If not found, try to find an `artist.*` image in one of the album folders for this artist
+- If not found, try to fetch it from an [external service](/docs/usage/external-integrations) (currently only Spotify)
+- If not found, use the artist image placeholder (grey start image)
 
 ## Playlists
 
