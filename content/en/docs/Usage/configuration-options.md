@@ -12,8 +12,8 @@ or using command line arguments.
 ## Configuration File
 
 Navidrome tries to load the configuration from a `navidrome.toml` file in the current working
-directory. You can put any of the [configuration options below](#available-options) in this file.
-Example of a configuration file for Windows (should be similar for Linux, just use forward slashes for paths):
+directory, if it exists. You can create this file and put any of the [configuration options below](#available-options) in it.
+Example of a configuration file for Windows (should be similar for other systems, just use forward slashes for paths):
 
 ```toml
 # This is just an example! Please see available options below to customize Navidrome to your needs
@@ -32,9 +32,15 @@ Ex. of usage (Windows):
 C:\> navidrome --configfile "c:\User\johndoe\navidrome.toml"
 ```
 
+Linux/macOS:
+
+```bash
+$ navidrome --configfile "/User/johndoe/navidrome.toml"
+```
+
 ## Command Line Arguments
 
-You can set most of the [config options below](#available-options) passing arguments to `navidrome` executable. Ex:
+You can set most of the [config options below](#available-options) passing arguments to `navidrome` executable. Ex (Windows):
 ```bash
 C:\> navidrome --musicfolder "c:\User\johndoe\Music"
 ```
