@@ -15,35 +15,74 @@ Navidrome tries to load the configuration from a `navidrome.toml` file in the cu
 directory, if it exists. You can create this file and put any of the [configuration options below](#available-options) in it.
 Example of a configuration file for Windows (should be similar for other systems, just use forward slashes for paths):
 
-```toml
-# This is just an example! Please see available options below to customize Navidrome to your needs
+{{< tabpane >}}
+{{< tab header="**Example**:" disabled=true />}}
+{{< tab header="Windows" lang="windows" highlight="guessSyntax=true">}}
+# This is just an example! Please see available options to customize Navidrome for your needs at
+# https://www.navidrome.org/docs/usage/configuration-options/#available-options
+
 LogLevel = 'DEBUG'
 ScanSchedule = '@every 1h'
 TranscodingCacheSize = '150MiB'
 MusicFolder = 'C:\Users\JohnDoe\Music'  # IMPORTANT: Use single quotes for paths in Windows
-```
+{{< /tab >}}
+{{< tab header="macOS" lang="macos" >}}
+# This is just an example! Please see available options to customize Navidrome for your needs at
+# https://www.navidrome.org/docs/usage/configuration-options/#available-options
+
+LogLevel = 'DEBUG'
+ScanSchedule = '@every 1h'
+TranscodingCacheSize = '150MiB'
+MusicFolder = '/Users/JohnDoe/Music'
+{{< /tab >}}
+{{< tab header="Unix-based systems" lang="unix" >}}
+# This is just an example! Please see available options to customize Navidrome for your needs at
+# https://www.navidrome.org/docs/usage/configuration-options/#available-options
+
+LogLevel = 'DEBUG'
+ScanSchedule = '@every 1h'
+TranscodingCacheSize = '150MiB'
+MusicFolder = '/mnt/music'
+{{< /tab >}}
+{{< /tabpane >}}
 
 You can also specify a different path for the configuration file, using the `-c/--configfile` option.
-Navidrome can load the configuration from `toml`, `json`, `yml` and `ini` files.
+Navidrome can load the configuration from `toml`, `json`, `yml` and `ini` files. 
 
-Ex. of usage (Windows):
+The example below assume you have created a `navidrome.toml` file in your home directory:
 
-```bash
-C:\> navidrome --configfile "c:\User\johndoe\navidrome.toml"
-```
-
-Linux/macOS:
-
-```bash
-$ navidrome --configfile "/User/johndoe/navidrome.toml"
-```
+{{< tabpane >}}
+{{< tab header="**Example**:" disabled=true />}}
+{{< tab header="Windows" lang="windows" >}}
+C:\> navidrome --configfile "c:\User\JohnDoe\navidrome.toml"
+{{< /tab >}}
+{{< tab header="macOs" lang="macos" >}}
+$ navidrome --configfile "/User/JohnDoe/navidrome.toml"
+{{< /tab >}}
+{{< tab header="Unix-based systems" lang="unix" >}}
+$ navidrome --configfile "/home/johndoe/navidrome.toml"
+{{< /tab >}}
+{{< /tabpane >}}
 
 ## Command Line Arguments
 
-You can set most of the [config options below](#available-options) passing arguments to `navidrome` executable. Ex (Windows):
-```bash
-C:\> navidrome --musicfolder "c:\User\johndoe\Music"
-```
+You can set most of the [config options below](#available-options) passing arguments to `navidrome` executable.
+
+The example below shows how to set the `MusicFolder` using the command line, assuming you have your music library 
+under your home directory:
+
+{{< tabpane >}}
+{{< tab header="**Example**:" disabled=true />}}
+{{< tab header="Windows" lang="windows" >}}
+C:\> navidrome --musicfolder "c:\User\JohnDoe\Music"
+{{< /tab >}}
+{{< tab header="macOs" lang="macos" >}}
+$ navidrome --musicfolder "/User/JohnDoe/Music"
+{{< /tab >}}
+{{< tab header="Unix-based systems" lang="unix" >}}
+$ navidrome --musicfolder "/mnt/music"
+{{< /tab >}}
+{{< /tabpane >}}
 
 Please note that command line arguments must be **all lowercase**. For a list of all available command line options,
 just call `navidrome --help`.
