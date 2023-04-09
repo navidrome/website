@@ -7,7 +7,6 @@ description: >
 ---
 
 
-
 Navidrome can be ran by simply double-clicking the binary that has been downloaded from the [release page](https://github.com/navidrome/navidrome/releases/latest) or by running it in the command line. However, that will keep a terminal window open while Navidrome is running.
 
 To have Navidrome running in the background, we can run it as a service.
@@ -16,7 +15,7 @@ We define a service as shown below and save that in a file named `navidrome.plis
 The example shown assumes a few things:
 
 1. The binary has been downloaded and extracted to the `/opt/navidrome` folder.
-2. A [configuration file](https://www.navidrome.org/docs/usage/configuration-options) for Navidrome has been created and is named `navidrome.toml` in that folder.
+2. A [configuration file](https://www.navidrome.org/docs/usage/configuration-options) for Navidrome has been created and is named `navidrome.toml` in that folder. Be sure to set the `DataFolder` option as well.
 3. A log file for Navidrome has been created and is named `navidrome.log` in that folder.
 
 ```xml
