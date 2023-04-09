@@ -22,25 +22,33 @@ Example of a configuration file for Windows (should be similar for other systems
 # https://www.navidrome.org/docs/usage/configuration-options/#available-options
 
 LogLevel = 'DEBUG'
-ScanSchedule = '@every 1h'
+ScanSchedule = '@every 24h'
 TranscodingCacheSize = '150MiB'
-MusicFolder = 'C:\Users\JohnDoe\Music'  # IMPORTANT: Use single quotes for paths in Windows
+
+# IMPORTANT: Use single quotes for paths in Windows
+MusicFolder = 'C:\Users\JohnDoe\Music'
+
+# Set this to the path of your ffmpeg executable
+FFmpegPath = 'C:\Program Files\ffmpeg\bin\ffmpeg.exe' 
 {{< /tab >}}
 {{< tab header="macOS" lang="macos" >}}
 # This is just an example! Please see available options to customize Navidrome for your needs at
 # https://www.navidrome.org/docs/usage/configuration-options/#available-options
 
 LogLevel = 'DEBUG'
-ScanSchedule = '@every 1h'
+ScanSchedule = '@every 24h'
 TranscodingCacheSize = '150MiB'
 MusicFolder = '/Users/JohnDoe/Music'
+
+# This is the default path for Homebrew installed ffmpeg
+FFmpegPath = '/usr/local/bin/ffmpeg'
 {{< /tab >}}
 {{< tab header="Unix-based systems" lang="unix" >}}
 # This is just an example! Please see available options to customize Navidrome for your needs at
 # https://www.navidrome.org/docs/usage/configuration-options/#available-options
 
 LogLevel = 'DEBUG'
-ScanSchedule = '@every 1h'
+ScanSchedule = '@every 24h'
 TranscodingCacheSize = '150MiB'
 MusicFolder = '/mnt/music'
 {{< /tab >}}
