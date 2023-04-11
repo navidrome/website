@@ -62,16 +62,19 @@ Besides its own Web UI, Navidrome should be compatible with all Subsonic clients
 [substreamer](https://substreamerapp.com/),
 [Symfonium](https://symfonium.app/) and
 [Ultrasonic](https://ultrasonic.gitlab.io/)
-- Web: [Thunderdrome](https://thunderdrome.netlify.app/),
+- Web: 
+[Feishin](https://feishin.vercel.app/),
+[Thunderdrome](https://thunderdrome.netlify.app/),
 [Airsonic Refix](https://airsonic.netlify.com/), 
 [Subplayer](https://subplayer.netlify.app/),
 [Aurial](http://shrimpza.github.io/aurial/),
 [Jamstash](http://jamstash.com) and
 [Subfire](http://p.subfireplayer.net/)
 - Desktop: [Sonixd](https://github.com/jeffvli/sonixd) (Windows/Linux/macOS), 
+[Feishin](https://github.com/jeffvli/feishin) (Linux/macOS),
 [Sublime Music](https://sublimemusic.app/) (Linux),
-[Submariner](https://submarinerapp.com/) (macOS) and 
-[Supersonic](https://github.com/dweymouth/supersonic) (Windows/Linux/macOS)
+[Supersonic](https://github.com/dweymouth/supersonic) (Windows/Linux/macOS) and 
+[Submariner](https://submarinerapp.com/) (macOS)
 - CLI: [Jellycli](https://github.com/tryffel/jellycli#readme) (Windows/Linux) and [STMP](https://github.com/wildeyedskies/stmp#readme) (Linux/macOS)
 - Connected Speakers:
   - Sonos: [bonob](https://github.com/simojenki/bonob#readme)
