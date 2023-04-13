@@ -36,6 +36,7 @@ It can also work as a lightweight Subsonic-API compatible server, that can be us
 ### Features supported by the Subsonic API
 
 - Tag-based browsing/searching
+- Simulated browsing by folders (see note below)
 - Playlists
 - Bookmarks (for Audiobooks)
 - Starred (favourites) Artists/Albums/Tracks
@@ -50,6 +51,11 @@ It can also work as a lightweight Subsonic-API compatible server, that can be us
 - Internet Radios
 - Shares ([experimental support](https://github.com/navidrome/navidrome/pull/2106))
 
+{{< alert color="warning" title="NOTE" >}}
+Navidrome [**does not support**](/docs/faq/#can-you-add-a-browsing-by-folder-optionmode-to-navidrome) 
+browsing by folders, but simulates it based on the tags with a structure like: 
+`/AlbumArtist/Album/01-Song.ext`
+{{</alert>}}
 ## Apps
 
 Besides its own Web UI, Navidrome should be compatible with all Subsonic clients. The following clients are tested and confirmed to work properly:
