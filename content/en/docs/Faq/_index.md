@@ -27,6 +27,14 @@ If browsing by folder is an essential feature for you, there are [alternative mu
 that offer this functionality. We encourage you to explore these options if folder browsing is a priority.
 
 ---
+## I have an album with tracks by different artists, why is it broken up into lots of separate albums, each with their own artist?
+Navidrome only organises music by tags, it will not automatically group a folder containing a bunch of songs with different artists into one album.
+
+For a "Various Artists" compilation, the `Part Of Compilation` tag (`TCMP` for id3, `COMPILATION` for FLAC) must be set, for all tracks.
+
+For a single-artist album with a different artist name for each track (for example "Alice feat. Bob" , "Alice feat. Carol"), the `Album Artist` tags must be the same ("Alice") for all tracks.
+
+---
 ## How can I edit my music metadata (id3 tags)? How can I rename/move my files?
 With Navidrome you can't. Navidrome does not write to your music folder or the files by design. It may have capabilities to change/add 
 cover art for artists, albums and playlists in the future, but even then it won't write these images to your Music Folder or 
@@ -42,15 +50,6 @@ Navidrome recommends: [beets](https://beets.io) (Linux, macOS, Windows) and [Mus
 Others: [mp3tag](https://www.mp3tag.de/en/index.html) (Windows, macOS), [ExifTool](https://exiftool.org/) (Linux, macOS, Windows), [Yate](https://2manyrobots.com/yate/) (macOS), [Kid3](https://kid3.kde.org/) (Windows, macOS, Linux), [foobar2000](https://www.foobar2000.org) (Windows, macOS), [MusicBee](https://getmusicbee.com/) (Windows), [Media Monkey](https://www.mediamonkey.com) (Windows), Groove Music (Windows), Windows Media Player (Windows), Apple iTunes (Windows), Apple Music (macOS).
 
 If you are new to organizing and tagging your library, take a look at this post about how to use Picard or beets with Navidrome: [Organizing music with Musicbrainz Picard](http://www.thedreaming.org/2020/11/22/musicbrainz-picard/)
-
----
-## I have an album with tracks by different artists, why is it broken up into lots of separate albums, each with their own artist?
-Navidrome only organises music by tags, it will not automatically group a folder containing a bunch of songs with different artists into one album.
-
-For a "Various Artists" compilation, the `Part Of Compilation` tag (`TCMP` for id3, `COMPILATION` for FLAC) must be set, for all tracks.
-
-For a single-artist album with a different artist name for each track (for example "Alice feat. Bob" , "Alice feat. Carol"), the `Album Artist` tags must be the same ("Alice") for all tracks.
-
 
 ---
 ## Where are the logs?
