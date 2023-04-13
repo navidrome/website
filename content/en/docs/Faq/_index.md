@@ -6,6 +6,27 @@ description: >
   Frequently Asked Questions
 ---
 
+## Can you add a browsing by folder option/mode to Navidrome?
+While it is technically possible to add a browsing by folder option, doing so would require significant changes to 
+Navidrome's internal structures across most of its components. We have decided to focus on features that align with 
+our vision of a music server that emphasizes tags. Implementing folder browsing would not only be a major undertaking, 
+but it could also make supporting all of Navidrome's current and future features more difficult and error-prone.
+
+Here are a few situations where users might find folder browsing important, and how Navidrome plans to address them:
+
+1. Grouping music by classification (e.g., genre): Navidrome already handle genres, you can browse by genres in 
+   Subsonic clients, and it will have a dedicated Genre view in the future. There will also be support for the 
+   multivalued `grouping` tag, with a dedicated view as well.
+2. Having different releases for the same album: This will be [supported](https://github.com/navidrome/navidrome/pull/2162) 
+   soon.
+3. Users who don't have their library tagged: **We explicitly do not support this**, as it would make it very difficult 
+   to support all features Navidrome has and will have. We do not want to have code that "infers" that a folder with 
+   a bunch of MP3 files is an album, as this approach would make the code highly complex and error-prone.
+
+If browsing by folder is an essential feature for you, there are [alternative music servers](https://github.com/basings/selfhosted-music-overview)
+that offer this functionality. We encourage you to explore these options if folder browsing is a priority.
+
+---
 ## How can I edit my music metadata (id3 tags)? How can I rename/move my files?
 With Navidrome you can't. Navidrome does not write to your music folder or the files by design. It may have capabilities to change/add 
 cover art for artists, albums and playlists in the future, but even then it won't write these images to your Music Folder or 
