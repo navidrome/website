@@ -92,8 +92,7 @@ Besides its own Web UI, Navidrome should be compatible with all Subsonic clients
   - [upmpdcli](https://www.lesbonscomptes.com/upmpdcli/index.html): expose Navidrome as a UPnP/DLNA media library. See the [discussion](https://github.com/navidrome/navidrome/discussions/2324).
     
 For more options, look at the [list of clients](https://airsonic.github.io/docs/apps/) maintained by 
-the Airsonic project. Please open an [issue](https://github.com/navidrome/navidrome/issues) if you have any 
-trouble with the client of your choice.
+the Airsonic project.
 
 ## Road map
 
