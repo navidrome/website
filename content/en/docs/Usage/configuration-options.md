@@ -109,7 +109,8 @@ make it all uppercase. Ex: `ND_LOGLEVEL=debug`. See below for all available opti
 |----------------|------------------|---------------------------------------------------------------------------------------------------|------------------------------|
 |                | `ND_CONFIGFILE`  | Load configurations from an external config file                                                  | `"./navidrome.toml"`         |
 | MusicFolder    | `ND_MUSICFOLDER` | Folder where your music library is stored. Can be read-only                                       | `"./music"`                  |
-| DataFolder     | `ND_DATAFOLDER`  | Folder to store application data (DB, cache...)                                                   | `"./data"`                   |
+| DataFolder     | `ND_DATAFOLDER`  | Folder to store application data (DB)                                                             | `"./data"`                   |
+| CacheFolder    | `ND_CACHEFOLDER` | Folder to store cache data (transcoding, images...)                                               | `"<DataFolder>/cache"`       |
 | LogLevel       | `ND_LOGLEVEL`    | Log level. Useful for troubleshooting. Possible values: `error`, `warn`, `info`, `debug`, `trace` | `"info"`                     |
 | Address        | `ND_ADDRESS`     | IP address the server will bind to                                                                | `0.0.0.0` and `::` (all IPs) |
 | BaseUrl        | `ND_BASEURL`     | Base URL (only the `path` part) to configure Navidrome behind a proxy (ex: `/music`)              | _Empty_                      |
