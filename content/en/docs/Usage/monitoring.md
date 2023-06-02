@@ -2,7 +2,7 @@
 title: "Monitoring Navidrome"
 linkTitle: "Monitoring"
 date: 2017-01-03
-weight: 40
+weight: 50
 description: >
   How to monitor status of your navidrome instance
 draft: false
