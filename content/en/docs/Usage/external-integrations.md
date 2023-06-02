@@ -2,6 +2,7 @@
 title: "External Integrations"
 linkTitle: "External Integrations"
 date: 2017-01-04
+weight: 30
 description: >
   Configure Navidrome to get information and images from Last.fm and Spotify
 aliases:

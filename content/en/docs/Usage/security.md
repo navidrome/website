@@ -2,6 +2,7 @@
 title: Security Considerations
 linkTitle: Security Considerations
 date: 2017-01-02
+weight: 100
 description: >
   Information on how to making your installation more secure
 ---
