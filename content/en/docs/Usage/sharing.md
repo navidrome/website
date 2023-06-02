@@ -41,15 +41,6 @@ Once you have configured your share as desired, click the "Share" button. This w
 
 The generated sharable links will be in the following format: `http://yourserver.com/share/XXXXXXXXXX`. If you have Navidrome behind a reverse proxy, ensure you allow traffic to `/share`.
 
-### Creating and Managing Shares
-You can create and manage shares in the User Interface (UI) for the following:
-
-- Albums
-- Songs
-- Playlists
-- Artists
-
-
 ### Subsonic API Endpoints
 The Sharing feature also implements the related Subsonic API endpoints. 
 See the <a href="https://opensubsonic.netlify.app/categories/sharing/" target="_blank">API docs for implemented endpoints</a>
