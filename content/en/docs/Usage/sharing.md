@@ -7,8 +7,6 @@ description: >
   How to create links to your media to be shared on Facebook, Twitter, WhatsApp
 ---
 
-## Navidrome Sharing Feature
-
 {{< alert color="warning" title="NOTE" >}}
 Please be aware that the Sharing feature is still under active development, and improvements to functionality and security are expected in future updates. Please report any issues or suggestions to the Navidrome GitHub issues page.
 {{</alert>}}
