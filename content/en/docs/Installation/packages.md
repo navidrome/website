@@ -30,7 +30,7 @@ More packages available, with links to download/install instructions:
 | Arch Linux             | You can install Navidrome via the [`navidrome-bin`](https://aur.archlinux.org/packages/navidrome-bin/) package in the [AUR](https://aur.archlinux.org/). <br/> Alternatively, you can install using the [`navidrome-git`](https://aur.archlinux.org/packages/navidrome-git/) package which will compile Navidrome from source. |
 | Cloudron               | https://www.cloudron.io/store/org.navidrome.cloudronapp.html |
 | Fedora                 | https://copr.fedorainfracloud.org/coprs/lchh/navidrome/ |    
-| Kubernets Chart        | https://artifacthub.io/packages/helm/k8s-at-home/navidrome | 
+| Kubernets Chart        | [https://artifacthub.io/packages/helm/emmas-charts/navidrome](https://artifacthub.io/packages/helm/emmas-charts/navidrome) | 
 | Nix/NixOS              | [Package](https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/servers/misc/navidrome/default.nix) and [module](https://github.com/NixOS/nixpkgs/blob/nixos-unstable/nixos/modules/services/audio/navidrome.nix) definitions in [nixpkgs](https://github.com/NixOS/nixpkgs) | 
 | OpenMediaVault         | [Instructions using docker-compose](https://forum.openmediavault.org/index.php?thread/36635-how-to-install-navidrome-using-docker-compose-an-airsonic-booksonic-alternative/) |
 | QNAP                   | https://www.qnapclub.eu/en/qpkg/958 |
