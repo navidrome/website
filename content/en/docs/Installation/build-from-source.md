@@ -18,7 +18,7 @@ you should open an [issue in the project's GitHub page](https://github.com/navid
 
 If you don't want to wait, you can try to build the binary yourself, with the following steps.
 
-First, you will need to install [Go 1.20+](https://golang.org/doc/install) and
+First, you will need to install [Go 1.19+](https://golang.org/doc/install) and
 [Node 16](http://nodejs.org). The setup is very strict, and the steps below only work with
 these versions (enforced in the Makefile). Make sure to add `$GOPATH/bin` to your `PATH` as described
 in the [official Go site](https://golang.org/doc/gopath_code.html#GOPATH)
