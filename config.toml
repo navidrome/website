@@ -155,6 +155,11 @@ no = 'Sorry to hear that. Please <a href="https://github.com/navidrome/website/i
 	url = "https://twitter.com/navidrome"
 	icon = "fab fa-twitter"
         desc = "Follow us on Twitter"
+[[params.links.user]]
+	name = "Lemmy (Community moderated)"
+	url = "https://discuss.tchncs.de/c/navidrome"
+	icon = "fa-regular fa-comment"
+        desc = "Discuss and help from fellow users on the fediverse"
 [[params.links.developer]]
 	name = "GitHub"
 	url = "https://github.com/navidrome/navidrome"
