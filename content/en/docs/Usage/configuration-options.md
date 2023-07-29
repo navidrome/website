@@ -179,6 +179,7 @@ make it all uppercase. Ex: `ND_LOGLEVEL=debug`. See below for all available opti
   time units are "s", "m", "h".
 - Sizes are specified as a number and an optional unit suffix, such as "1GB" or "150 MiB". Default
   unit is bytes.  Note: "1KB" == "1000", "1KiB" == "1024"
+- Transcoding can be required in some situations. For example: trying to play a [WMA](https://en.wikipedia.org/wiki/Windows_Media_Audio) file in a webbrowser, will **only** work for natively supported formats by the browser you are using. (so playing that with Mozilla Firefox on Linux, will not work. Mozilla even have their [own guide](https://developer.mozilla.org/en-US/docs/Web/Media/Formats/Audio_codecs) about audio codecs).
 
 
 [limit-login-attempts]: /docs/usage/security#limit-login-attempts  "Login Limit Rating"
