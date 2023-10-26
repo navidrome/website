@@ -32,6 +32,7 @@ It can also work as a lightweight Subsonic-API compatible server, that can be us
 - Scrobbling to **Last.fm**, **ListenBrainz** and **Maloja** (via custom ListenBrainz URL)
 - **Sharing** public links to albums/songs/playlists
 - **Reverse Proxy** authentication[\*](/docs/usage/security/#reverse-proxy-authentication)
+- [Jukebox mode](/docs/usage/jukebox) allows playing music on an audio device attached to the server, and control from a client
 
 ### Features supported by the Subsonic API
 
@@ -49,6 +50,7 @@ It can also work as a lightweight Subsonic-API compatible server, that can be us
 - Album images and description from Last.fm
 - Lyrics (currently only from embedded tags)
 - Internet Radios
+- [Jukebox mode](/docs/usage/jukebox)
 - Shares ([experimental support](https://github.com/navidrome/navidrome/pull/2106))
 
 {{< alert color="warning" title="NOTE" >}}
@@ -102,6 +104,5 @@ on a frequent basis. Some upcoming features planned:
 - [Multiple Artists](https://github.com/navidrome/navidrome/issues/211)
 - [Multiple folders](https://github.com/navidrome/navidrome/issues/192)
 - [UI to edit Smart playlists](https://github.com/navidrome/navidrome/issues/1417)
-- [Jukebox mode](https://github.com/navidrome/navidrome/issues/364) (plays music on an audio device attached to the server, and control from the UI/Mobile client)
 - [Support more tags](https://github.com/navidrome/navidrome/issues/1036) (including multi-valued tags)
 
