@@ -14,19 +14,29 @@ aliases:
 Artist images can be retrieved from Spotify. You'll need to set the config options `Spotify.ID` and `Spotify.Secret`. 
 To obtain these values, create a free account in Spotify, then follow these steps:
 
-1) Click on the "Create an App" button in Spotify's Developer dashboard: https://developer.spotify.com/dashboard/applications:
+1) Click on the "Create app" button in Spotify's Developer dashboard: https://developer.spotify.com/dashboard/applications:
 <p align="center">
 <img width="500" src="/screenshots/spotify-dashboard.png">
 </p>
 
-2) Fill all fields and click on the "Create" button:
+2) Fill the name and description fields, fill the "Redirect URI" field with `http://localhost/` and click on the "Save" button:
 <p align="center">
 <img width="500" src="/screenshots/spotify-create-app.png">
 </p>
 
-3) Copy the values to your [configuration file](/docs/usage/configuration-options#configuration-file) (or set them as environment variables):
+3) Go to "Settings":
 <p align="center">
-<img width="500" src="/screenshots/spotify-app-created.png">
+<img width="500" src="/screenshots/spotify-app-home.png">
+</p>
+
+4) Click "View client secret":
+<p align="center">
+<img width="500" src="/screenshots/spotify-app-basic-info.png">
+</p>
+
+5) Copy the values of ID and secret to your [configuration file](/docs/usage/configuration-options#configuration-file) (or set them as environment variables):
+<p align="center">
+<img width="500" src="/screenshots/spotify-app-basic-info-secret.png">
 </p>
 
 ## Last.fm

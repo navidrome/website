@@ -79,7 +79,7 @@ Besides its own Web UI, Navidrome should be compatible with all Subsonic clients
 [Jamstash](http://jamstash.com) and
 [Subfire](http://p.subfireplayer.net/)
 - Desktop: [Sonixd](https://github.com/jeffvli/sonixd) (Windows/Linux/macOS), 
-[Feishin](https://github.com/jeffvli/feishin) (Linux/macOS),
+[Feishin](https://github.com/jeffvli/feishin) (Windows/Linux/macOS),
 [Sublime Music](https://sublimemusic.app/) (Linux),
 [Supersonic](https://github.com/dweymouth/supersonic) (Windows/Linux/macOS) and 
 [Submariner](https://submarinerapp.com/) (macOS)
