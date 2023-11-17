@@ -106,16 +106,16 @@ make it all uppercase. Ex: `ND_LOGLEVEL=debug`. See below for all available opti
 
 ### Basic configuration
 
-| In config file | As an env var    | Description                                                                                       | Default Value                |
-|----------------|------------------|---------------------------------------------------------------------------------------------------|------------------------------|
-|                | `ND_CONFIGFILE`  | Load configurations from an external config file                                                  | `"./navidrome.toml"`         |
-| MusicFolder    | `ND_MUSICFOLDER` | Folder where your music library is stored. Can be read-only                                       | `"./music"`                  |
-| DataFolder     | `ND_DATAFOLDER`  | Folder to store application data (DB)                                                             | `"./data"`                   |
-| CacheFolder    | `ND_CACHEFOLDER` | Folder to store cache data (transcoding, images...)                                               | `"<DataFolder>/cache"`       |
-| LogLevel       | `ND_LOGLEVEL`    | Log level. Useful for troubleshooting. Possible values: `error`, `warn`, `info`, `debug`, `trace` | `"info"`                     |
-| Address        | `ND_ADDRESS`     | IP address the server will bind to                                                                | `0.0.0.0` and `::` (all IPs) |
-| BaseUrl        | `ND_BASEURL`     | Base URL to configure Navidrome behind a proxy (examples: `/music`, `https://music.example.com`)  | _Empty_                      |
-| Port           | `ND_PORT`        | HTTP port Navidrome will use                                                                      | `4533`                       |
+| In config file | As an env var    | Description                                                                                                       | Default Value                |
+|----------------|------------------|-------------------------------------------------------------------------------------------------------------------|------------------------------|
+|                | `ND_CONFIGFILE`  | Load configurations from an external config file                                                                  | `"./navidrome.toml"`         |
+| MusicFolder    | `ND_MUSICFOLDER` | Folder where your music library is stored. Can be read-only                                                       | `"./music"`                  |
+| DataFolder     | `ND_DATAFOLDER`  | Folder to store application data (DB)                                                                             | `"./data"`                   |
+| CacheFolder    | `ND_CACHEFOLDER` | Folder to store cache data (transcoding, images...)                                                               | `"<DataFolder>/cache"`       |
+| LogLevel       | `ND_LOGLEVEL`    | Log level. Useful for troubleshooting. Possible values: `error`, `warn`, `info`, `debug`, `trace`                 | `"info"`                     |
+| Address        | `ND_ADDRESS`     | Address the server will bind to. Can be an IPv4 or IPv6. Also supports `unix:/path/to/file` for Unix socket files | `0.0.0.0` and `::` (all IPs) |
+| BaseUrl        | `ND_BASEURL`     | Base URL to configure Navidrome behind a proxy (examples: `/music`, `https://music.example.com`)                  | _Empty_                      |
+| Port           | `ND_PORT`        | HTTP port Navidrome will use                                                                                      | `4533`                       |
 
 ### Advanced configuration
 
@@ -177,6 +177,8 @@ make it all uppercase. Ex: `ND_LOGLEVEL=debug`. See below for all available opti
 | Spotify.Secret[\*][spotify-integration]        | `ND_SPOTIFY_SECRET`               | Spotify Client Secret. Required if you want Artist images                                                                                                                                                                  | _Empty_                                                    |
 | SubsonicArtistParticipations                   | `ND_SUBSONICARTISTPARTICIPATIONS` | When requesting artist's albums, include albums where the artist participates (ex: Various Artists compilations)                                                                                                           | `false`                                                    |
 | TranscodingCacheSize                           | `ND_TRANSCODINGCACHESIZE`         | Size of transcoding cache. Set to `"0"` to disable cache                                                                                                                                                                   | `"100MB"`                                                  |
+| TLSCert                                        | `ND_TLSCERT`                      | Path for the TLS certificate file                                                                                                                                                                                          | _Empty_ (disable TLS)                                      |
+| TLSKey                                         | `ND_TLSKEY`                       | Path for the TLS key file                                                                                                                                                                                                  | _Empty_ (disable TLS)                                      |
 | UILoginBackgroundUrl                           | `ND_UILOGINBACKGROUNDURL`         | Change background image used in the Login page                                                                                                                                                                             | _random music image from Unsplash.com_                     |
 | UIWelcomeMessage                               | `ND_UIWELCOMEMESSAGE`             | Add a welcome message to the login screen                                                                                                                                                                                  | _Empty_                                                    |
 
