@@ -30,9 +30,11 @@ that offer this functionality. We encourage you to explore these options if fold
 ## ▶︎ I have an album with tracks by different artists, why is it broken up into lots of separate albums, each with their own artist?
 Navidrome only organises music by tags, it will not automatically group a folder containing a bunch of songs with different artists into one album.
 
-For a "Various Artists" compilation, the `Part Of Compilation` tag (`TCMP` for id3, `COMPILATION` for FLAC) must be set, for all tracks.
+For a "Various Artists" compilation, the `Part Of Compilation` tag (`TCMP=1` for id3, `COMPILATION=1` for FLAC) must be set, for all tracks.
 
 For a single-artist album with a different artist name for each track (for example "Alice feat. Bob" , "Alice feat. Carol"), the `Album Artist` tags must be the same ("Alice") for all tracks.
+
+Note if `Scanner.GroupAlbumReleases` is set to `false` (default, see [available configuration options](https://www.navidrome.org/docs/usage/configuration-options/#available-options)), an album might be split in different parts if the tracks have different date tags.
 
 ---
 ## ▶︎ How can I edit my music metadata (id3 tags)? How can I rename/move my files?
