@@ -39,7 +39,7 @@ sudo install -d -o <user> -g <group> /var/lib/navidrome
 Download the latest release from the [releases page](https://github.com/navidrome/navidrome/releases), extract the contents to the executable directory, and set the permissions for the files. (Replace the URL below with the one from the releases page):
 
 ```bash
-wget https://github.com/navidrome/navidrome/releases/download/v0.XX.0/navidrome_0.XX.0_Linux_x86_64.tar.gz -O Navidrome.tar.gz
+wget https://github.com/navidrome/navidrome/releases/download/v0.XX.X/navidrome_0.XX.X_linux_amd64.tar.gz -O Navidrome.tar.gz
 sudo tar -xvzf Navidrome.tar.gz -C /opt/navidrome/
 sudo chown -R <user>:<group> /opt/navidrome
 ```
