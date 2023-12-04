@@ -63,7 +63,7 @@ browsing by folders, but simulates it based on the tags with a structure like:
 Besides its own Web UI, Navidrome should be compatible with all Subsonic clients. The following clients are tested and confirmed to work properly:
 - Android: [Symfonium](https://symfonium.app/),
 [DSub](https://play.google.com/store/apps/details?id=github.daneren2005.dsub),
-[Tempo](https://github.com/CappielloAntonio/tempo),
+[Tempo](https://github.com/CappielloAntonio/tempo#readme),
 [substreamer](https://substreamerapp.com/),
 [Subtracks](https://github.com/austinried/subtracks#readme),
 and
