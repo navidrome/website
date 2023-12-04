@@ -61,15 +61,17 @@ browsing by folders, but simulates it based on the tags with a structure like:
 ## Apps
 
 Besides its own Web UI, Navidrome should be compatible with all Subsonic clients. The following clients are tested and confirmed to work properly:
+- Android: [Symfonium](https://symfonium.app/),
+[DSub](https://play.google.com/store/apps/details?id=github.daneren2005.dsub),
+[Tempo](https://github.com/CappielloAntonio/tempo),
+[substreamer](https://substreamerapp.com/),
+[Subtracks](https://github.com/austinried/subtracks#readme),
+and
+[Ultrasonic](https://ultrasonic.gitlab.io/)
 - iOS: [play:Sub](http://michaelsapps.dk/playsubapp/), 
 [substreamer](https://substreamerapp.com/),
 [Amperfy](https://github.com/BLeeEZ/amperfy#readme) and 
 [iSub](https://isub.app/)
-- Android: [DSub](https://play.google.com/store/apps/details?id=github.daneren2005.dsub),
-[Subtracks](https://github.com/austinried/subtracks#readme),
-[substreamer](https://substreamerapp.com/),
-[Symfonium](https://symfonium.app/) and
-[Ultrasonic](https://ultrasonic.gitlab.io/)
 - Web: 
 [Feishin](https://feishin.vercel.app/),
 [Thunderdrome](https://thunderdrome.netlify.app/),
