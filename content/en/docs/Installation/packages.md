@@ -31,7 +31,7 @@ More packages available, with links to download/install instructions:
 | Fedora                 | https://copr.fedorainfracloud.org/coprs/lchh/navidrome/ |    
 | Kubernets Chart        | [https://artifacthub.io/packages/helm/emmas-charts/navidrome](https://artifacthub.io/packages/helm/emmas-charts/navidrome) | 
 | OpenMediaVault         | [Instructions using docker-compose](https://forum.openmediavault.org/index.php?thread/36635-how-to-install-navidrome-using-docker-compose-an-airsonic-booksonic-alternative/) |
-| QNAP                   | https://www.qnapclub.eu/en/qpkg/958 |
+| QNAP                   | https://www.myqnap.org/product/navidrome/ |
 | TrueNAS SCALE          | https://truecharts.org/apps/stable/navidrome |
 | YunoHost               | https://yunohost.org/en/app_navidrome |
 
