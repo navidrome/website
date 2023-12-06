@@ -30,7 +30,6 @@ More packages available, with links to download/install instructions:
 | Cloudron               | https://www.cloudron.io/store/org.navidrome.cloudronapp.html |
 | Fedora                 | https://copr.fedorainfracloud.org/coprs/lchh/navidrome/ |    
 | Kubernets Chart        | [https://artifacthub.io/packages/helm/emmas-charts/navidrome](https://artifacthub.io/packages/helm/emmas-charts/navidrome) | 
-| Nix/NixOS              | [Package](https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/servers/misc/navidrome/default.nix) and [module](https://github.com/NixOS/nixpkgs/blob/nixos-unstable/nixos/modules/services/audio/navidrome.nix) definitions in [nixpkgs](https://github.com/NixOS/nixpkgs) | 
 | OpenMediaVault         | [Instructions using docker-compose](https://forum.openmediavault.org/index.php?thread/36635-how-to-install-navidrome-using-docker-compose-an-airsonic-booksonic-alternative/) |
 | QNAP                   | https://www.qnapclub.eu/en/qpkg/958 |
 | TrueNAS SCALE          | https://truecharts.org/apps/stable/navidrome |
