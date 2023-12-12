@@ -37,6 +37,9 @@ option. By default, the `Remote-User` header is used.
 By default, Navidrome denies every attempt. Authentication proxy needs to be whitelisted in CIDR format, using 
 `ReverseProxyWhitelist`. Both IPv4 and IPv6 are supported. 
 
+**NOTE**: if you are listening on a UNIX socket, Navidrome will allow any connection to authenticate, as there is no 
+remote IP exposed. Make sure to properly protect the socket with user access controls.
+
 If you enable this feature and uses a Subsonic client, you must whitelist the Subsonic API URL, as this authentication
 method is incompatible with the Subsonic authentication. You will need to whitelist the `/rest/*` URLs.
 
