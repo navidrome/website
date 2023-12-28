@@ -59,6 +59,7 @@ id = "UA-2382675-17"
 [languages]
 [languages.en]
 title = "Navidrome"
+[languages.en.params]
 description = "Personal Music Streamer"
 languageName ="English"
 # Weight used for sorting.

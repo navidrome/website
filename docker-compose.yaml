@@ -2,9 +2,8 @@ version: "3.3"
 
 services:
   site:
-    build:
-      context: .
-    command: server --poll 500ms
+    image: floryn90/hugo:0.121.1-ext-ubuntu
+    command: server
     ports:
       - "1313:1313"
     volumes:
