@@ -182,6 +182,7 @@ make it all uppercase. Ex: `ND_LOGLEVEL=debug`. See below for all available opti
 | TranscodingCacheSize                           | `ND_TRANSCODINGCACHESIZE`         | Size of transcoding cache. Set to `"0"` to disable cache                                                                                                                                                                   | `"100MB"`                                                  |
 | UILoginBackgroundUrl                           | `ND_UILOGINBACKGROUNDURL`         | Change background image used in the Login page                                                                                                                                                                             | _random music image from Unsplash.com_                     |
 | UIWelcomeMessage                               | `ND_UIWELCOMEMESSAGE`             | Add a welcome message to the login screen                                                                                                                                                                                  | _Empty_                                                    |
+| UnixSocketPerm                                 | `ND_UNIXSOCKETPERM`               | Set file permissions for Unix Socket File.[\*][reverse-proxy-auth]                                                                                                                                                         | `"0660"`                                                   |
 
 #### Notes
 
