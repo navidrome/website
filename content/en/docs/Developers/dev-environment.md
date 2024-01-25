@@ -26,6 +26,7 @@ Keep in mind that the overall experience when using Docker Desktop for developme
 3. Install [TagLib](http://taglib.org)
     - Ubuntu: `sudo apt install libtag1-dev`
     - Arch Linux: `pacman -S taglib`
+    - Fedora: `dnf install taglib-devel`
     - macOS: `brew install taglib`
     - For other platforms check their [installation instructions](https://github.com/taglib/taglib/blob/master/INSTALL.md)
 
