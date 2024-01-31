@@ -61,31 +61,47 @@ browsing by folders, but simulates it based on the tags with a structure like:
 ## Apps
 
 Besides its own Web UI, Navidrome should be compatible with all Subsonic clients. The following clients are tested and confirmed to work properly:
-- Android: [Symfonium](https://symfonium.app/),
-[DSub](https://play.google.com/store/apps/details?id=github.daneren2005.dsub),
-[Tempo](https://github.com/CappielloAntonio/tempo#readme),
-[substreamer](https://substreamerapp.com/),
-[Subtracks](https://github.com/austinried/subtracks#readme),
-and
-[Ultrasonic](https://ultrasonic.gitlab.io/)
-- iOS: [play:Sub](http://michaelsapps.dk/playsubapp/), 
-[substreamer](https://substreamerapp.com/),
-[Amperfy](https://github.com/BLeeEZ/amperfy#readme) and 
-[iSub](https://isub.app/)
-- Web: 
-[Feishin](https://feishin.vercel.app/),
-[Thunderdrome](https://thunderdrome.netlify.app/),
-[Airsonic Refix](https://airsonic.netlify.com/), 
-[Subplayer](https://subplayer.netlify.app/),
-[Aurial](http://shrimpza.github.io/aurial/),
-[Jamstash](http://jamstash.com) and
-[Subfire](http://p.subfireplayer.net/)
-- Desktop: [Sonixd](https://github.com/jeffvli/sonixd) (Windows/Linux/macOS), 
-[Feishin](https://github.com/jeffvli/feishin) (Windows/Linux/macOS),
-[Sublime Music](https://sublimemusic.app/) (Linux),
-[Supersonic](https://github.com/dweymouth/supersonic) (Windows/Linux/macOS) and 
-[Submariner](https://submarinerapp.com/) (macOS)
-- CLI: [Jellycli](https://github.com/tryffel/jellycli#readme) (Windows/Linux) and [STMP](https://github.com/wildeyedskies/stmp#readme) (Linux/macOS)
+
+{{< tabpane text=true >}}
+
+{{% tab header="Android" %}}
+- [Symfonium](https://symfonium.app/)
+- [DSub](https://play.google.com/store/apps/details?id=github.daneren2005.dsub)
+- [Tempo](https://github.com/CappielloAntonio/tempo#readme)
+- [substreamer](https://substreamerapp.com/)
+- [Subtracks](https://github.com/austinried/subtracks#readme)
+- [Ultrasonic](https://ultrasonic.gitlab.io/)
+{{% /tab %}}
+
+{{% tab header="iOS" %}}
+- [play:Sub](http://michaelsapps.dk/playsubapp/) 
+- [substreamer](https://substreamerapp.com/)
+- [Amperfy](https://github.com/BLeeEZ/amperfy#readme) 
+- [iSub](https://isub.app/)
+{{% /tab %}}
+
+{{% tab header="Web" %}}
+- [Feishin](https://feishin.vercel.app/)
+- [Thunderdrome](https://thunderdrome.netlify.app/)
+- [Airsonic Refix](https://airsonic.netlify.com/) 
+- [Subplayer](https://subplayer.netlify.app/)
+- [Aurial](http://shrimpza.github.io/aurial/)
+- [Subfire](http://p.subfireplayer.net/)
+- [Jamstash](http://jamstash.com)
+{{% /tab %}}
+
+{{% tab header="Desktop" %}}
+- [Sonixd](https://github.com/jeffvli/sonixd) <i class="fa-brands fa-windows" style="color:gray"/></i>&nbsp;<i class="fa-brands fa-apple" style="color:gray"></i>&nbsp;<i class="fa-brands fa-linux" style="color:gray"></i>   
+- [Feishin](https://github.com/jeffvli/feishin) <i class="fa-brands fa-windows" style="color:gray"/></i>&nbsp;<i class="fa-brands fa-apple" style="color:gray"></i>&nbsp;<i class="fa-brands fa-linux" style="color:gray"></i> 
+- [Supersonic](https://github.com/dweymouth/supersonic) <i class="fa-brands fa-windows" style="color:gray"/></i>&nbsp;<i class="fa-brands fa-apple" style="color:gray"></i>&nbsp;<i class="fa-brands fa-linux" style="color:gray"></i> 
+- [Sublime Music](https://sublimemusic.app/) <i class="fa-brands fa-linux" style="color:gray"></i>
+- [Submariner](https://submarinerapp.com/) <i class="fa-brands fa-apple" style="color:gray"></i>
+- CLI: 
+  - [Jellycli](https://github.com/tryffel/jellycli#readme) <i class="fa-brands fa-windows" style="color:gray"/></i>&nbsp;<i class="fa-brands fa-linux" style="color:gray"></i>
+  - [STMP](https://github.com/wildeyedskies/stmp#readme) <i class="fa-brands fa-apple" style="color:gray"></i>&nbsp;<i class="fa-brands fa-linux" style="color:gray"></i>
+{{% /tab %}}
+
+{{% tab header="Other" %}}
 - Connected Speakers:
   - Sonos: [bonob](https://github.com/simojenki/bonob#readme)
   - Alexa: [AskSonic](https://github.com/srichter/asksonic#readme)
@@ -94,7 +110,9 @@ and
   - [Navidrome Kodi Plugin](https://github.com/BobHasNoSoul/plugin.audio.navidrome#readme)
   - [HTTPDirFS](https://github.com/fangfufu/httpdirfs#readme)
   - [upmpdcli](https://www.lesbonscomptes.com/upmpdcli/index.html): expose Navidrome as a UPnP/DLNA media library. See the [discussion](https://github.com/navidrome/navidrome/discussions/2324).
-    
+{{% /tab %}}
+{{< /tabpane >}}
+
 For more options, look at the [list of clients](https://airsonic.github.io/docs/apps/) maintained by 
 the Airsonic project.
 
