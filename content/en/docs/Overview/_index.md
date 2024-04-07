@@ -87,7 +87,6 @@ Besides its own Web UI, Navidrome should be compatible with all Subsonic clients
 - [Subplayer](https://subplayer.netlify.app/)
 - [Aurial](http://shrimpza.github.io/aurial/)
 - [Subfire](http://p.subfireplayer.net/)
-- [Jamstash](http://jamstash.com)
 {{% /tab %}}
 
 {{% tab header="Desktop" %}}
