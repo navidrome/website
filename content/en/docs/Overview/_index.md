@@ -85,8 +85,9 @@ Besides its own Web UI, Navidrome should be compatible with all Subsonic clients
 - [Thunderdrome](https://thunderdrome.netlify.app/)
 - [Airsonic Refix](https://airsonic.netlify.com/) 
 - [Subplayer](https://subplayer.netlify.app/)
-- [Aurial](http://shrimpza.github.io/aurial/)
-- [Subfire](http://p.subfireplayer.net/)
+- [Aurial](https://shrimpza.github.io/aurial/)
+- [Subfire](https://p.subfireplayer.net/)
+- [Jamstash](https://tsquillario.github.io/Jamstash)
 {{% /tab %}}
 
 {{% tab header="Desktop" %}}
