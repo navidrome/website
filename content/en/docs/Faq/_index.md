@@ -64,6 +64,8 @@ Some examples bellow:
 
 - **Docker**: you can use `docker logs` or `docker-compose logs` to retrieve/follow the logs.
 
+- **FreeBSD** by default logs are writen to `/var/log/debug.log`
+
 - **Windows**: depending on what you used to install Navidrome as a service, the logs will be in different locations by default:
 	- if you used [Shawl](https://github.com/mtkennerly/shawl), just check the `shawl_for_navidrome_*.log` files created in the same location as the Shawl executable.
 	- if you used [NSSM](http://nssm.cc/), the location of the logs are specified by the `AppStdout` attribute.
