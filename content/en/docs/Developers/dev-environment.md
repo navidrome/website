@@ -62,6 +62,27 @@ If it does not open a new window in your browser, check the output for any error
 
 For more useful `make` targets, run `make help`.
 
+### Building it locally
+
+To build Navidrome locally, follow these steps:
+
+1. Make sure you have all the dependencies installed as mentioned in the previous sections.
+2. Open a terminal and navigate to the project's folder.
+3. Run the command `make buildjs` to build the frontend assets. This will build the Web UI in the `ui/build` folder
+4. Run the command `make build` to build the backend server. This will create a `navidrome` binary in the project's folder
+
+Alternatively, you can call `make buildall` to build both backend and frontend.  Not very useful if you are only changing one of them.
+
+
+### Building with Docker
+
+If you want to build Navidrome for a different platform than your own dev environment, use `make single` and specify the OS/Platform as parameters. Example for Linux/ARM:
+```
+make single GOOS=linux GOARCH=arm
+```
+
+If you want to build a Docker image with your local changes, use `make docker`. Note that this command only build images for `linux/amd64`. The built image will be tagged locally as `deluan/navidrome:develop`
+
 ### Windows (using WSL)
 
 Even though it is possible to setup a fully working Navidrome development environment in Windows, we currently don't provide instructions for that (feel free to contribute to these docs if you successfully set it up). 
@@ -87,7 +108,6 @@ Make sure you are using WSL 2.0
   1. Because of [this WSL issue](https://github.com/microsoft/WSL/issues/4885) you need to use your network IP address to be able to login to Navidrome in development mode. Otherwise you will get an `Error: Unauthorized` when logging in. You can see your network IP address after running `make dev`. 
 
 Now that you have a working instance of Linux running on your machine, follow the steps above for [Unix-based system](/docs/developers/dev-environment/#unix-based-systems-linux-macos-bsd-) in the VSCode terminal. For more information on working with VSCode+WSL, check their [documentation](https://code.visualstudio.com/docs/remote/wsl).
-
 
 ## Troubleshooting
 
