@@ -141,7 +141,7 @@ The default value is `mpv --audio-device=%d --no-audio-display --pause %f --inpu
 | `%d`   | Audio device (see above)  |
 | `%f`   | Path to file to play      |
 
-To integrate with Snapcast alter the template.
+To integrate with Snapcast alter the template:
 
 ```toml
 MPVCmdTemplate = "mpv --no-audio-display --pause %f --input-ipc-server=%s --audio-channels=stereo --audio-samplerate=48000 --audio-format=s16 --ao=pcm --ao-pcm-file=/tmp/snapfifo"

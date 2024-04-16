@@ -106,23 +106,23 @@ make it all uppercase. Ex: `ND_LOGLEVEL=debug`. See below for all available opti
 
 ### Basic configuration
 
-| In config file | As an env var    | Description                                                                                                       | Default Value                |
-| -------------- | ---------------- | ----------------------------------------------------------------------------------------------------------------- | ---------------------------- |
-|                | `ND_CONFIGFILE`  | Load configurations from an external config file                                                                  | `"./navidrome.toml"`         |
-| MusicFolder    | `ND_MUSICFOLDER` | Folder where your music library is stored. Can be read-only                                                       | `"./music"`                  |
-| DataFolder     | `ND_DATAFOLDER`  | Folder to store application data (DB)                                                                             | `"./data"`                   |
-| CacheFolder    | `ND_CACHEFOLDER` | Folder to store cache data (transcoding, images...)                                                               | `"<DataFolder>/cache"`       |
-| LogLevel       | `ND_LOGLEVEL`    | Log level. Useful for troubleshooting. Possible values: `error`, `warn`, `info`, `debug`, `trace`                 | `"info"`                     |
-| Address        | `ND_ADDRESS`     | Address the server will bind to. Can be an IPv4 or IPv6. Also supports `unix:/path/to/file` for Unix socket files | `0.0.0.0` and `::` (all IPs) |
-| BaseUrl        | `ND_BASEURL`     | Base URL to configure Navidrome behind a proxy (examples: `/music`, `https://music.example.com`)                  | _Empty_                      |
-| Port           | `ND_PORT`        | HTTP port Navidrome will use                                                                                      | `4533`                       |
+| In config file | As an env var     | Description                                                                                                       | Default Value                |
+|----------------|-------------------|-------------------------------------------------------------------------------------------------------------------|------------------------------|
+|                | `ND_CONFIGFILE`   | Load configurations from an external config file                                                                  | `"./navidrome.toml"`         |
+| MusicFolder    | `ND_MUSICFOLDER`  | Folder where your music library is stored. Can be read-only                                                       | `"./music"`                  |
+| DataFolder     | `ND_DATAFOLDER`   | Folder to store application data (DB)                                                                             | `"./data"`                   |
+| CacheFolder    | `ND_CACHEFOLDER`  | Folder to store cache data (transcoding, images...)                                                               | `"<DataFolder>/cache"`       |
+| LogLevel       | `ND_LOGLEVEL`     | Log level. Useful for troubleshooting. Possible values: `error`, `warn`, `info`, `debug`, `trace`                 | `"info"`                     |
+| Address        | `ND_ADDRESS`      | Address the server will bind to. Can be an IPv4 or IPv6. Also supports `unix:/path/to/file` for Unix socket files | `0.0.0.0` and `::` (all IPs) |
+| BaseUrl        | `ND_BASEURL`      | Base URL to configure Navidrome behind a proxy (examples: `/music`, `https://music.example.com`)                  | _Empty_                      |
+| Port           | `ND_PORT`         | HTTP port Navidrome will use                                                                                      | `4533`                       |
 
 ### Advanced configuration
 
 <!-- This table is easier to be edited when Word Wrap is toggled off. Please keep it sorted -->
 
 | In config file                                 | As an env var                     | Description                                                                                                                                                                                                                | Default Value                                                               |
-| ---------------------------------------------- | --------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
+|------------------------------------------------|-----------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------|
 | AuthRequestLimit[\*][limit-login-attempts]     | `ND_AUTHREQUESTLIMIT`             | How many login requests can be processed from a single IP during the `AuthWindowLength`. Set to `0` to disable the limit rater                                                                                             | `5`                                                                         |
 | AuthWindowLength[\*][limit-login-attempts]     | `ND_AUTHWINDOWLENGTH`             | Window Length for the authentication rate limit                                                                                                                                                                            | `"20s"`                                                                     |
 | AutoImportPlaylists                            | `ND_AUTOIMPORTPLAYLISTS`          | Enable/disable `.m3u` playlist auto-import                                                                                                                                                                                 | `true`                                                                      |
@@ -160,7 +160,7 @@ make it all uppercase. Ex: `ND_LOGLEVEL=debug`. See below for all available opti
 | ListenBrainz.Enabled                           | `ND_LISTENBRAINZ_ENABLED`         | Set this to `false` to completely disable ListenBrainz integration                                                                                                                                                         | `true`                                                                      |
 | MaxSidebarPlaylists                            | `ND_MAXSIDEBARPLAYLISTS`          | Set the maximum number of playlists shown in the UI's sidebar. Note that a very large number can cause UI performance issues.                                                                                              | `100`                                                                       |
 | MPVPath                                        | `ND_MPVPATH`                      | Path to `mpv` executable. Used for [Jukebox mode][jukebox-mode]                                                                                                                                                            | _Empty_ (search in PATH)                                                    |
-| MPVCmdTemplate                                 | `ND_MPVCMDTEMPLATE`               | Cmd template used to construct the call of the `mpv` executable. Used for [Jukebox mode][jukebox-mode]                                                                                                                     | `mpv --audio-device=%d --no-audio-display --pause %f --input-ipc-server=%s` |
+| MPVCmdTemplate                                 | `ND_MPVCMDTEMPLATE`               | Cmd template used to construct the call of the `mpv` executable. Used for [Jukebox mode][jukebox-cmd]                                                                                                                      | `mpv --audio-device=%d --no-audio-display --pause %f --input-ipc-server=%s` |
 | PasswordEncryptionKey[\*][encrypt-passwords]   | `ND_PASSWORDENCRYPTIONKEY`        | Passphrase used to encrypt passwords in the DB. Click [here][encrypt-passwords] for details                                                                                                                                | -                                                                           |
 | PlaylistsPath                                  | `ND_PLAYLISTSPATH`                | Where to search for and import playlists from. Can be a list of folders/globs (separated by `:` (or `;` on Windows). Paths **MUST** be relative to `MusicFolder`                                                           | `".:**/**"` (meaning `MusicFolder` and all its subfolders)                  |
 | PreferSortTags                                 | `ND_PREFERSORTTAGS`               | Use Sort_* tags to sort columns in the UI.                                                                                                                                                                                 | `false`                                                                     |
@@ -204,6 +204,7 @@ make it all uppercase. Ex: `ND_LOGLEVEL=debug`. See below for all available opti
 [mediafilecoverart]:    /docs/usage/artwork/#mediafiles
 [jukebox-mode]:         /docs/usage/jukebox
 [jukebox-config]:       /docs/usage/jukebox/#configuration
+[jukebox-cmd]:          /docs/usage/jukebox/#the-mpvcmdtemplate--snapcast-integration
 [maloja]:               https://github.com/krateng/maloja
 [i18n]:                 https://github.com/navidrome/navidrome/tree/master/resources/i18n
 [extractors]:           /docs/usage/extractors
