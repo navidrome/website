@@ -13,8 +13,8 @@ or using command line arguments.
 ## Configuration File
 
 Navidrome tries to load the configuration from a `navidrome.toml` file in the current working
-directory, if it exists. You can create this file and put any of the [configuration options below](#available-options) in it.
-Example of a configuration file for Windows (should be similar for other systems, just use forward slashes for paths):
+directory, if it exists. You can create this file and put any of the [configuration options below](#available-options)
+in it. Example of a configuration file (select your OS):
 
 {{< tabpane >}}
 {{< tab header="**Example**:" disabled=true />}}
@@ -30,7 +30,7 @@ TranscodingCacheSize = '150MiB'
 MusicFolder = 'C:\Users\JohnDoe\Music'
 
 # Set this to the path of your ffmpeg executable
-FFmpegPath = 'C:\Program Files\ffmpeg\bin\ffmpeg.exe' 
+FFmpegPath = 'C:\Program Files\ffmpeg\bin\ffmpeg.exe'
 {{< /tab >}}
 {{< tab header="macOS" lang="macos" >}}
 # This is just an example! Please see available options to customize Navidrome for your needs at
@@ -56,7 +56,7 @@ MusicFolder = '/mnt/music'
 {{< /tabpane >}}
 
 You can also specify a different path for the configuration file, using the `-c/--configfile` option.
-Navidrome can load the configuration from `toml`, `json`, `yml` and `ini` files. 
+Navidrome can load the configuration from `toml`, `json`, `yml` and `ini` files.
 
 The example below assume you have created a `navidrome.toml` file in your home directory:
 
@@ -77,7 +77,7 @@ $ navidrome --configfile "/home/johndoe/navidrome.toml"
 
 You can set most of the [config options below](#available-options) passing arguments to `navidrome` executable.
 
-The example below shows how to set the `MusicFolder` using the command line, assuming you have your music library 
+The example below shows how to set the `MusicFolder` using the command line, assuming you have your music library
 under your home directory:
 
 {{< tabpane >}}
@@ -95,7 +95,6 @@ $ navidrome --musicfolder "/mnt/music"
 
 Please note that command line arguments must be **all lowercase**. For a list of all available command line options,
 just call `navidrome --help`.
-
 
 ## Environment Variables
 
@@ -126,8 +125,8 @@ make it all uppercase. Ex: `ND_LOGLEVEL=debug`. See below for all available opti
 | AuthRequestLimit[\*][limit-login-attempts]     | `ND_AUTHREQUESTLIMIT`             | How many login requests can be processed from a single IP during the `AuthWindowLength`. Set to `0` to disable the limit rater                                                                                             | `5`                                                        |
 | AuthWindowLength[\*][limit-login-attempts]     | `ND_AUTHWINDOWLENGTH`             | Window Length for the authentication rate limit                                                                                                                                                                            | `"20s"`                                                    |
 | AutoImportPlaylists                            | `ND_AUTOIMPORTPLAYLISTS`          | Enable/disable `.m3u` playlist auto-import                                                                                                                                                                                 | `true`                                                     |
-| CoverArtPriority                               | `ND_COVERARTPRIORITY`             | Configure the order to look for cover art images. Use special `embedded` value to get embedded images from the audio files                                                                                                 | `cover.*, folder.*, front.*, embedded, external`           |
-| ArtistArtPriority                              | `ND_ARTISTARTPRIORITY`            | Configure the order to look for artist images.                                                                                                                                                                             | `artist.*, album/artist.*, external`                       |
+| ArtistArtPriority[\*][artistcoverart]          | `ND_ARTISTARTPRIORITY`            | Configure the order to look for artist images.                                                                                                                                                                             | `artist.*, album/artist.*, external`                       |
+| CoverArtPriority[\*][albumcoverart]            | `ND_COVERARTPRIORITY`             | Configure the order to look for cover art images. Use special `embedded` value to get embedded images from the audio files                                                                                                 | `cover.*, folder.*, front.*, embedded, external`           |
 | CoverJpegQuality                               | `ND_COVERJPEGQUALITY`             | Set JPEG quality percentage for resized cover art images                                                                                                                                                                   | `75`                                                       |
 | DefaultDownsamplingFormat                      | `ND_DEFAULTDOWNSAMPLINGFORMAT`    | Format to transcode to when client requests downsampling (specify maxBitrate without a format)                                                                                                                             | `opus`                                                     |
 | DefaultLanguage                                | `ND_DEFAULTLANGUAGE`              | Sets the default language used by the UI when logging in from a new browser. This value must match one of the file names in the [resources/i18n][i18n]. Ex: for Chinese Simplified it has to be `zh-Hans` (case sensitive) | `"en"`                                                     |
@@ -189,9 +188,12 @@ make it all uppercase. Ex: `ND_LOGLEVEL=debug`. See below for all available opti
 - Durations are specified as a number and a unit suffix, such as "24h", "30s" or "1h10m". Valid
   time units are "s", "m", "h".
 - Sizes are specified as a number and an optional unit suffix, such as "1GB" or "150 MiB". Default
-  unit is bytes.  Note: "1KB" == "1000", "1KiB" == "1024"
-- Transcoding can be required in some situations. For example: trying to play a [WMA](https://en.wikipedia.org/wiki/Windows_Media_Audio) file in a webbrowser, will **only** work for natively supported formats by the browser you are using. (so playing that with Mozilla Firefox on Linux, will not work. Mozilla even have their [own guide](https://developer.mozilla.org/en-US/docs/Web/Media/Formats/Audio_codecs) about audio codecs).
-
+  unit is bytes. Note: "1KB" == "1000", "1KiB" == "1024"
+- Transcoding can be required in some situations. For example: trying to play
+  a [WMA](https://en.wikipedia.org/wiki/Windows_Media_Audio) file in a webbrowser, will **only** work for natively
+  supported formats by the browser you are using. (so playing that with Mozilla Firefox on Linux, will not work. Mozilla
+  even have their [own guide](https://developer.mozilla.org/en-US/docs/Web/Media/Formats/Audio_codecs) about audio
+  codecs).
 
 [limit-login-attempts]: /docs/usage/security#limit-login-attempts  "Login Limit Rating"
 [transcoding]:          /docs/usage/security#transcoding-configuration "Transcoding configuration"
@@ -200,6 +202,8 @@ make it all uppercase. Ex: `ND_LOGLEVEL=debug`. See below for all available opti
 [lastfm-integration]:   /docs/usage/external-integrations/#lastfm
 [encrypt-passwords]:    /docs/usage/security/#encrypted-passwords
 [reverse-proxy-auth]:   /docs/usage/security/#reverse-proxy-authentication
+[albumcoverart]:        /docs/usage/artwork/#albums
+[artistcoverart]:        /docs/usage/artwork/#artists
 [mediafilecoverart]:    /docs/usage/artwork/#mediafiles
 [jukebox-mode]:         /docs/usage/jukebox
 [jukebox-config]:       /docs/usage/jukebox/#configuration
