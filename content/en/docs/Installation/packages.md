@@ -24,16 +24,17 @@ Here is the list of packages for various OSes/Distributions, provided by Repolog
 
 More packages available, with links to download/install instructions:
 
-| System               | Information |
-|------------------------|-|
-| Ansible Role           | https://github.com/zfuller/navidrome-role | 
-| Cloudron               | https://www.cloudron.io/store/org.navidrome.cloudronapp.html |
-| Fedora                 | https://copr.fedorainfracloud.org/coprs/lchh/navidrome/ |    
-| Kubernets Chart        | [https://artifacthub.io/packages/helm/emmas-charts/navidrome](https://artifacthub.io/packages/helm/emmas-charts/navidrome) | 
-| OpenMediaVault         | [Instructions using docker-compose](https://forum.openmediavault.org/index.php?thread/36635-how-to-install-navidrome-using-docker-compose-an-airsonic-booksonic-alternative/) |
-| QNAP                   | https://www.myqnap.org/product/navidrome/ |
-| TrueNAS SCALE          | https://truecharts.org/apps/stable/navidrome |
-| YunoHost               | https://yunohost.org/en/app_navidrome |
+| System                  | Information                                                                                                                                                                   |
+|-------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Ansible Role            | https://github.com/zfuller/navidrome-role                                                                                                                                     | 
+| Cloudron                | https://www.cloudron.io/store/org.navidrome.cloudronapp.html                                                                                                                  |
+| Fedora                  | https://copr.fedorainfracloud.org/coprs/lchh/navidrome/                                                                                                                       |    
+| Kubernets Chart         | [https://artifacthub.io/packages/helm/emmas-charts/navidrome](https://artifacthub.io/packages/helm/emmas-charts/navidrome)                                                    | 
+| OpenMediaVault          | [Instructions using docker-compose](https://forum.openmediavault.org/index.php?thread/36635-how-to-install-navidrome-using-docker-compose-an-airsonic-booksonic-alternative/) |
+| QNAP                    | https://www.myqnap.org/product/navidrome/                                                                                                                                     |
+| TrueNAS SCALE           | https://truecharts.org/apps/stable/navidrome                                                                                                                                  |
+| YunoHost                | https://yunohost.org/en/app_navidrome                                                                                                                                         |
 
 
-If you create, or know of, other Navidrome packages that are publicly available, please [add to the list above](https://github.com/navidrome/website/edit/master/content/en/docs/Installation/packages.md).
+If you create, or know of, other Navidrome packages that are publicly available, please 
+[add to the list above](https://github.com/navidrome/website/edit/master/content/en/docs/Installation/packages.md).
