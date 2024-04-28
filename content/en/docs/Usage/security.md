@@ -30,24 +30,7 @@ in your computer, and only listen to `localhost`. This can be achieved by settin
 
 ## Reverse proxy authentication
 
-When reverse proxy authentication is used, the verification is done by another system. By checking a specific HTTP header,
-Navidrome assumes you are already authenticated. This header can be configured via `ReverseProxyUserHeader` configuration
-option. By default, the `Remote-User` header is used.
-
-By default, Navidrome denies every attempt. Authentication proxy needs to be whitelisted in CIDR format, using 
-`ReverseProxyWhitelist`. Both IPv4 and IPv6 are supported. 
-
-**NOTE**: if you are listening on a UNIX socket, Navidrome will allow any connection to authenticate, as there is no 
-remote IP exposed. Make sure to properly protect the socket with user access controls.
-
-If you enable this feature and uses a Subsonic client, you must whitelist the Subsonic API URL, as this authentication
-method is incompatible with the Subsonic authentication. You will need to whitelist the `/rest/*` URLs.
-
-If a user is successfully authenticated by the proxy, but it does not exist in the Navidrome DB, it will be created with 
-a random password. The user can change this password if they plan to use a Subsonic client.
-
-If you plan to use the Sharing option, where you can create unauthenticated links to parts of your library, you'll 
-need to whitelist `/share/*` URLs. 
+See the dedicated section on [Reverse proxy authentication](../reverse-proxy/#security-considerations)
 
 ## Transcoding configuration
 
@@ -69,5 +52,5 @@ don't forget to remove this option or set it to `false`.
 To protect against brute-force attacks, Navidrome is configured by default with a login rate limiter,
 It uses a [Sliding Window](https://blog.cloudflare.com/counting-things-a-lot-of-different-things/#slidingwindowstotherescue)
 algorithm to block too many consecutive login attempts. It is enabled by default and you don't need to do anything.
-The rate limiter can be fine tuned using the flags `AuthRequestLimit` and `AuthWindowLength` and can be disabled by 
+The rate limiter can be fine tuned using the flags `AuthRequestLimit` and `AuthWindowLength` and can be disabled by
 setting `AuthRequestLimit` to `0`, though it is not recommended.
