@@ -19,6 +19,8 @@ With reverse proxy authentication enabled, Navidrome gets the username of the au
 
 If a user is successfully authenticated by the proxy but does not exist in the Navidrome DB, it will be created with a random password.
 
+You might also be interested in the `EnableUserEditing` option, which allows disabling the User page that lets users change their Navidrome password.
+
 ### Sharing endpoint
 
 If you plan to use the Sharing feature, where you can create unauthenticated links to parts of your library, you'll need to whitelist the `/share/*` URLs.
@@ -29,7 +31,13 @@ The subsonic endpoint also supports reverse proxy authentication, and will ignor
 
 If your reverse proxy does not support the standard subsonic authentication scheme, or if the subsonic clients you want to use don't support an alternate authentication mechanism also supported by your proxy (such as BasicAuth), you can still configure your proxy to bypass authentication on `/rest/*` URLs and let Navidrome perform authentication for those requests. In that case, your users will have to update their (initially random) password in Navidrome, to use it with their subsonic client.
 
-Note that the Navidrome web app uses a mix of internal and subsonic APIs, and receives subsonic credentials from the server. It is planned to address this (TODO: Create issue and add link), but in the meantime you will need to either configure your proxy to still bypass authentication on the subsonic endpoint for the Navidrome web app, identified as the subsonic client `NavidromeUI` (`c=NavidromeUI`) and let Navidrome handle that authentication, or use your standard authentication mechanism (e.g. relying on session cookies) for that client.
+### Navidrome Web App
+
+The Navidrome web app uses a mix of internal and subsonic APIs, and receives subsonic credentials from the server to use for requests against the subsonic API. As the credentials received from the server likely won't match those in your dedicated authentication service, you need to handle subsonic requests from the Navidrome web app (identified as the subsonic client `NavidromeUI` via the `c` query parameter) in a special way. You can either:
+* Ignore the subsonic authentication parameters and authenticate those requests the same way as non-subsonic requests. This relies on the fact that requests to the subsonic API will look the same to the proxy as requests to the internal API (e.g. same session cookies).
+* Bypass authentication on your proxy for those requests and let Navidrome handle it. This relies on the fact that the web app receives the subsonic credentials when it loads, and it can load only if the proxy has already authenticated the user.
+
+Note that if you don't intend to support third-party subsonic clients, you can simply place the subsonic endpoint behind the same protection rule as the rest of the application, i.e. you don't need any special handling to bypass authentication.
 
 ## Security
 
