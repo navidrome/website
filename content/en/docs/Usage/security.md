@@ -26,11 +26,33 @@ behind a reverse proxy (Ex: Caddy, Nginx, Traefik, Apache) for added security, i
 There are tons of good resources on the web on how to properly setup a reverse proxy.
 
 When using Navidrome in such configuration, you may want to prevent Navidrome from listening to all IPs configured
-in your computer, and only listen to `localhost`. This can be achieved by setting the `Address` flag to `localhost`
+in your computer, and only listen to `localhost`. This can be achieved by setting the `Address` flag to `localhost`.
 
 ## Reverse proxy authentication
 
-See the dedicated section on [Reverse proxy authentication](../reverse-proxy/#security-considerations)
+When reverse proxy authentication is enabled, Navidrome trusts the reverse proxy user header (configured with the `ReverseProxyUserHeader` option, by default `Remote-User`).
+
+In principle, the reverse proxy user header is ignored if requests don't come from a reverse proxy trusted with the `ReverseProxyWhitelist` option. This check can however be fooled by requests with a forged source IP address if the reverse proxy can be bypassed (e.g. sent by a compromised service running next to Navidrome).
+
+### Listening on a UNIX socket
+
+If you are listening on a UNIX socket (`Address` option), Navidrome will allow any connection to authenticate using the reverse proxy user header, as there is no remote IP exposed.
+
+Make sure to properly protect the socket with user access controls.
+
+### Reverse proxy with a dynamic IP address
+
+Navidrome does not support resolving hostnames in the `ReverseProxyWhitelist` configuration option.
+
+In scenarios where the reverse proxy has a dynamic IP address, for example when you use docker, you might consider using `0.0.0.0/0` to allow requests from the reverse proxy. This essentially disables the check, so you have to make sure that only the reverse proxy can send requests to Navidrome.
+
+In particular with docker and docker-compose, without extra configuration containers are usually placed on the same default network and can therefore freely communicate.
+
+### Potential HPP vulnerability
+
+When reverse proxy authentication is enabled, Navidrome currently does not disable the other authentication methods. This could potentially create an HTTP Parameter Pollution vulnerability if the reverse proxy is misconfigured, or due to a bug or oversight in Navidrome.
+
+You should make sure that the reverse proxy user header is always set for requests against protected endpoints. As a rule of thumb, for a reverse proxy authentication setup, the only endpoints that are not protected are `/rest/*` (depending on whether your proxy can handle the subsonic authentication scheme) and `/share/*`.
 
 ## Transcoding configuration
 
