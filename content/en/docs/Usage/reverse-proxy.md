@@ -13,7 +13,7 @@ By default, reverse proxy authentication is disabled. To enable the feature, eit
 * Configure a trusted reverse proxy with the `ReverseProxyWhitelist` configuration option. The option takes an IPv4 or IPv6 range in CIDR notation.
 * Configure a UNIX socket with the `Address` option.
 
-When enabled via the `ReverseProxyWhitelist` option, Navidrome validates requests' source IP address against the `ReverseProxyWhitelist` configuration option. If the address doesn't match, reverse proxy authentication is not used even if the reverse proxy user header is present (see below), and falls back to a standard authentication mechanism.
+When enabled via the `ReverseProxyWhitelist` option, Navidrome validates the requests' source IP address against the `ReverseProxyWhitelist` configuration option. If the address doesn't match, reverse proxy authentication is not used even if the reverse proxy user header is present (see below), and falls back to a standard authentication mechanism.
 
 With reverse proxy authentication enabled, Navidrome gets the username of the authenticated user from incoming requests' `Remote-User` HTTP header. The header can be changed via the `ReverseProxyUserHeader` configuration option.
 
@@ -42,3 +42,55 @@ Note that if you don't intend to support third-party subsonic clients, you can s
 ## Security
 
 Make sure to check the reverse proxy authentication section in the dedicated [Security Considerations](../security#reverse-proxy-authentication) page.
+
+## Example
+
+In this example, Navidrome is behind the [Traefik](https://traefik.io) reverse proxy, and [Authelia](https://www.authelia.com) is used to authenticate requests, with the help of Traefik's [ForwardAuth](https://doc.traefik.io/traefik/middlewares/http/forwardauth/) middleware. Each service has its own subdomain. Docker Compose is used to deploy the whole thing.
+
+The Navidrome Web App uses the standard authentication page from Authelia, and subsonic clients are expected to send credentials using BasicAuth.
+
+This example does not go into the details of configuring Traefik, Authelia and Navidrome, but gives an overview of how those services can be integrated. If you need more details, Authelia has a pretty good documentation for integration with Traefik and other reverse proxies. Below is a `docker-compose.yml` excerpt stripped down to the relevant parts:
+
+```yaml
+authelia:
+  image: authelia/authelia:4.38.8
+  labels:
+    # The login page and user dashboard need to be reachable from the web
+    traefik.http.routers.authelia.rule: Host(`auth.${DOMAIN}`)
+    traefik.http.routers.authelia.entrypoints: https
+    # Standard authentication middleware to be used by web services
+    traefik.http.middlewares.authelia.forwardauth.address: http://authelia:9091/api/verify?rd=https://auth.${DOMAIN}/
+    traefik.http.middlewares.authelia.forwardauth.authResponseHeaders: Remote-User
+    # Basicauth middleware for subsonic clients
+    traefik.http.middlewares.authelia-basicauth.forwardauth.address: http://authelia:9091/api/verify?auth=basic
+    traefik.http.middlewares.authelia-basicauth.forwardauth.authResponseHeaders: Remote-User
+
+navidrome:
+  image: deluan/navidrome:0.52.0
+  labels:
+    # Default rule which uses Authelia's web-based authentication. If you enable
+    # navidrome's Sharing feature, you can configure Authelia to bypass
+    # authentication for /share/* URLs, so you don't need an extra rule here.
+    traefik.http.routers.navidrome.rule: Host(`music.${DOMAIN}`)
+    traefik.http.routers.navidrome.entrypoints: https
+    traefik.http.routers.navidrome.middlewares: authelia@docker
+    # Requests to the subsonic endpoint use the basicauth middleware, unless
+    # they come from the Navidrome Web App ("NavidromeUI" subsonic client), in
+    # which case the default authelia middleware is used.
+    traefik.http.routers.navidrome-subsonic.rule: Host(`music.${DOMAIN}`) && PathPrefix(`/rest/`) && !Query(`c`, `NavidromeUI`)
+    traefik.http.routers.navidrome-subsonic.entrypoints: https
+    traefik.http.routers.navidrome-subsonic.middlewares: authelia-basicauth@docker
+  environment:
+    # Navidrome does not resolve hostnames in this option, and by default
+    # traefik will get assigned an IP address dynamically, so all IPs must be
+    # trusted.
+    # This means that any other service in the same docker network can make
+    # requests to navidrome, and easily impersonate an admin.
+    # If you assign a static IP to your traefik service, configure it here.
+    ND_REVERSEPROXYWHITELIST: 0.0.0.0/0
+    # Since authentication is entirely handled by Authelia, users don't need to
+    # manage their password in Navidrome anymore.
+    ND_ENABLEUSEREDITING: false
+```
+
+Note that only a handful of subsonic clients support BasicAuth (as it is not standardized by the subsonic specification), e.g. on Android DSub and Symfonium do, and on iOS play:Sub does. If you want to support all subsonic clients, you can have a look at the Traefik plugin [BasicAuth adapter for Subsonic](https://plugins.traefik.io/plugins/6521c6de39e2d7caa2181888/basic-auth-adapter-for-subsonic) which transforms subsonic authentication parameters into a BasicAuth header that Authelia can handle.
