@@ -31,6 +31,12 @@ The subsonic endpoint also supports reverse proxy authentication, and will ignor
 
 If your reverse proxy does not support the standard subsonic authentication scheme, or if the subsonic clients you want to use don't support an alternate authentication mechanism also supported by your proxy (such as BasicAuth), you can still configure your proxy to bypass authentication on `/rest/*` URLs and let Navidrome perform authentication for those requests. In that case, your users will have to update their (initially random) password in Navidrome, to use it with their subsonic client.
 
+{{< alert title="Note" >}}
+Most reverse proxies and authentication services don't support the subsonic authentication scheme out of the box.
+
+A handful of clients claim to support BasicAuth (e.g. DSub and Symfonium on Android, and play:Sub on iOS), but even then it might not work as you expect (as it is not standardized by the subsonic specification): you will likely need to generate a subsonic error response instead of a proper BasicAuth authentication failure response. Otherwise, some clients might display an unexpected error such as "server unreachable" when the credentials are incorrect, and other clients might refuse to connect altogether even with valid credentials.
+{{< /alert >}}
+
 ### Navidrome Web App
 
 The Navidrome web app uses a mix of internal and subsonic APIs, and receives subsonic credentials from the server to use for requests against the subsonic API. As the credentials received from the server likely won't match those in your dedicated authentication service, you need to handle subsonic requests from the Navidrome web app (identified as the subsonic client `NavidromeUI` via the `c` query parameter) in a special way. You can either:
@@ -43,11 +49,69 @@ Note that if you don't intend to support third-party subsonic clients, you can s
 
 Make sure to check the reverse proxy authentication section in the dedicated [Security Considerations](../security#reverse-proxy-authentication) page.
 
-## Example
+## Examples
+
+### Caddy with forward_auth
+
+In this example, Navidrome is behind the [Caddy](https://caddyserver.com) reverse proxy, and [Authentik](https://goauthentik.io) is used to authenticate requests, with the help of Caddy's [forward_auth](https://caddyserver.com/docs/caddyfile/directives/forward_auth) middleware.
+
+This example does not go into the details of configuring Caddy, Authentik and Navidrome, but gives an overview of how those services can be integrated. Below is a `Caddyfile` excerpt stripped down to the relevant parts:
+
+```Caddyfile
+example.com
+
+reverse_proxy /outpost.goauthentik.io/* http://authentik:9000
+
+@protected not path /share/* /rest/*
+forward_auth @protected http://authentik:9000 {
+  uri /outpost.goauthentik.io/auth/caddy
+  copy_headers X-Authentik-Username>Remote-User
+}
+
+# Authentik uses the Authorization header if present, so should be able to
+# authenticate subsonic clients that support BasicAuth.
+# If you want to have Navidrome authenticate subsonic requests, remove this
+# forward_auth block.
+@subsonic path /rest/*
+forward_auth @subsonic http://authentik:9000 {
+  uri /outpost.goauthentik.io/auth/caddy
+  copy_headers X-Authentik-Username>Remote-User
+
+  # Some clients that claim to support basicauth still expect a subsonic
+  # response in case of authentication failure instead of a proper basicauth
+  # response.
+  @error status 1xx 3xx 4xx 5xx
+  handle_response @error {
+    respond <<SUBSONICERR
+      <subsonic-response xmlns="http://subsonic.org/restapi" status="failed" version="1.16.1" type="proxy-auth" serverVersion="n/a" openSubsonic="true">
+        <error code="40" message="Invalid credentials or unsupported client"></error>
+      </subsonic-response>
+      SUBSONICERR 200
+  }
+}
+
+reverse_proxy navidrome:4533
+```
+
+Note that if you want to whitelist the unprotected paths as part of your Authentik configuration instead of doing it in Caddy, the `copy_headers` subdirective [won't work as expected](https://caddy.community/t/stop-copying-empty-forward-auth-header/17485): Authentik won't set the `X-Authentik-Username` header for whitelisted paths, but Caddy will still copy the header with an incorrect value. In order to make it work, you need a workaround:
+
+```Caddyfile
+forward_auth http://authentik:9000 {
+  uri /outpost.goauthentik.io/auth/caddy
+  # copy_headers subdirective removed
+}
+
+# Only set the Remote-User header if the request was actually authentified (user
+# header set by Authentik), as opposed to whitelisted (user header not set).
+@hasUsername `{http.reverse_proxy.header.X-Authentik-Username} != null`
+request_header @hasUsername Remote-User {http.reverse_proxy.header.X-Authentik-Username}
+```
+
+### Traefik with ForwardAuth
 
 In this example, Navidrome is behind the [Traefik](https://traefik.io) reverse proxy, and [Authelia](https://www.authelia.com) is used to authenticate requests, with the help of Traefik's [ForwardAuth](https://doc.traefik.io/traefik/middlewares/http/forwardauth/) middleware. Each service has its own subdomain. Docker Compose is used to deploy the whole thing.
 
-The Navidrome Web App uses the standard authentication page from Authelia, and subsonic clients are expected to send credentials using BasicAuth.
+The Navidrome Web App uses the standard authentication page from Authelia, and there is limited support for some subsonic clients that support BasicAuth (in particular the error response rewriting in case of authentication failure is missing).
 
 This example does not go into the details of configuring Traefik, Authelia and Navidrome, but gives an overview of how those services can be integrated. If you need more details, Authelia has a pretty good documentation for integration with Traefik and other reverse proxies. Below is a `docker-compose.yml` excerpt stripped down to the relevant parts:
 
@@ -56,10 +120,10 @@ authelia:
   image: authelia/authelia:4.38.8
   labels:
     # The login page and user dashboard need to be reachable from the web
-    traefik.http.routers.authelia.rule: Host(`auth.${DOMAIN}`)
+    traefik.http.routers.authelia.rule: Host(`auth.example.com`)
     traefik.http.routers.authelia.entrypoints: https
     # Standard authentication middleware to be used by web services
-    traefik.http.middlewares.authelia.forwardauth.address: http://authelia:9091/api/verify?rd=https://auth.${DOMAIN}/
+    traefik.http.middlewares.authelia.forwardauth.address: http://authelia:9091/api/verify?rd=https://auth.example.com/
     traefik.http.middlewares.authelia.forwardauth.authResponseHeaders: Remote-User
     # Basicauth middleware for subsonic clients
     traefik.http.middlewares.authelia-basicauth.forwardauth.address: http://authelia:9091/api/verify?auth=basic
@@ -71,13 +135,13 @@ navidrome:
     # Default rule which uses Authelia's web-based authentication. If you enable
     # navidrome's Sharing feature, you can configure Authelia to bypass
     # authentication for /share/* URLs, so you don't need an extra rule here.
-    traefik.http.routers.navidrome.rule: Host(`music.${DOMAIN}`)
+    traefik.http.routers.navidrome.rule: Host(`music.example.com`)
     traefik.http.routers.navidrome.entrypoints: https
     traefik.http.routers.navidrome.middlewares: authelia@docker
     # Requests to the subsonic endpoint use the basicauth middleware, unless
     # they come from the Navidrome Web App ("NavidromeUI" subsonic client), in
     # which case the default authelia middleware is used.
-    traefik.http.routers.navidrome-subsonic.rule: Host(`music.${DOMAIN}`) && PathPrefix(`/rest/`) && !Query(`c`, `NavidromeUI`)
+    traefik.http.routers.navidrome-subsonic.rule: Host(`music.example.com`) && PathPrefix(`/rest/`) && !Query(`c`, `NavidromeUI`)
     traefik.http.routers.navidrome-subsonic.entrypoints: https
     traefik.http.routers.navidrome-subsonic.middlewares: authelia-basicauth@docker
   environment:
@@ -93,4 +157,4 @@ navidrome:
     ND_ENABLEUSEREDITING: false
 ```
 
-Note that only a handful of subsonic clients support BasicAuth (as it is not standardized by the subsonic specification), e.g. on Android DSub and Symfonium do, and on iOS play:Sub does. If you want to support all subsonic clients, you can have a look at the Traefik plugin [BasicAuth adapter for Subsonic](https://plugins.traefik.io/plugins/6521c6de39e2d7caa2181888/basic-auth-adapter-for-subsonic) which transforms subsonic authentication parameters into a BasicAuth header that Authelia can handle.
+If you want to add support for the subsonic authentication scheme in order to support all subsonic clients, you can have a look at the Traefik plugin [BasicAuth adapter for Subsonic](https://plugins.traefik.io/plugins/6521c6de39e2d7caa2181888/basic-auth-adapter-for-subsonic) which transforms subsonic authentication parameters into a BasicAuth header that Authelia can handle.
