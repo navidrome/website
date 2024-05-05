@@ -13,7 +13,7 @@ By default, reverse proxy authentication is disabled. To enable the feature, eit
 * Configure a trusted reverse proxy with the `ReverseProxyWhitelist` configuration option. The option takes an IPv4 or IPv6 range in CIDR notation.
 * Configure a UNIX socket with the `Address` option.
 
-When enabled via the `ReverseProxyWhitelist` option, Navidrome validates the requests' source IP address against range configured in `ReverseProxyWhitelist`. If the address doesn't match, reverse proxy authentication is not used even if the reverse proxy user header is present (see below), and falls back to a standard authentication mechanism.
+When enabled via the `ReverseProxyWhitelist` option, Navidrome validates the requests' source IP address against the range configured in `ReverseProxyWhitelist`. If the address doesn't match, reverse proxy authentication is not used even if the reverse proxy user header is present (see below), and falls back to a standard authentication mechanism.
 
 With reverse proxy authentication enabled, Navidrome gets the username of the authenticated user from incoming requests' `Remote-User` HTTP header. The header can be changed via the `ReverseProxyUserHeader` configuration option.
 
@@ -72,7 +72,8 @@ forward_auth @protected http://authentik:9000 {
 }
 
 # Authentik uses the Authorization header if present, so should be able to
-# authenticate subsonic clients that support BasicAuth.
+# authenticate subsonic clients that support BasicAuth. Requests from the
+# Navidrome Web App will be authenticated via the existing session cookie.
 # If you want to have Navidrome authenticate subsonic requests, remove this
 # forward_auth block.
 @subsonic path /rest/*
