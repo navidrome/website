@@ -77,6 +77,7 @@ Besides its own Web UI, Navidrome should be compatible with all Subsonic clients
 - [play:Sub](http://michaelsapps.dk/playsubapp/) 
 - [substreamer](https://substreamerapp.com/)
 - [Amperfy](https://github.com/BLeeEZ/amperfy#readme) 
+- [Stream Music](https://apps.apple.com/ca/app/stream-music-enjoy-music/id6449966496)
 - [iSub](https://isub.app/)
 {{% /tab %}}
 
