@@ -8,7 +8,7 @@ description: >
 draft: false
 ---
 
-Currently, navidrome supports monitoring and alerting using
+Currently, Navidrome supports monitoring and alerting using
 Prometheus/[OpenMetrics](https://github.com/OpenObservability/OpenMetrics/blob/main/specification/OpenMetrics.md)
 standard. Example Grafana dashboard:
 
@@ -16,13 +16,24 @@ standard. Example Grafana dashboard:
 <img width="1000" src="/screenshots/grafana-example.png">
 </p>
 
+### Overview
+Prometheus is a service that takes data from a metrics endpoint and collects it.
+Grafana is a dashboard service that can take data from a Prometheus server and 
+display it.
+Navidrome has an easy way to create a `/metrics` endpoint that Prometheus can use. 
+Once you point Prometheus to this endpoint, and Grafana to your Prometheus server, 
+you will be able to monitor your Navidrome instance.
+
+The easiest way to do this is using docker-compose and docker-compose networks.
+
 
 ### Configuration
 You need to set `ND_PROMETHEUS_ENABLED` to enable Prometheus metrics endpoint.
 Setting custom `ND_PROMETHEUS_METRICSPATH` is highly recommended if your Navidrome
-instance is publicly available.
+instance is publicly available. If you are using a reverse proxy, you can also set
+this enpoint to require a username and password.
 
-Minimal docker compose example file with metrics enabled:
+Minimal docker compose example file with metrics enabled, and Prometheus and Grafana containers:
 
 ```yml
 version: '3'
@@ -38,6 +49,39 @@ services:
     volumes:
       - "./data:/data"
       - "./music:/music"
+    networks:
+      - metrics-network
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus
+    command:
+      - '--config.file=<your path here>/prometheus.yml'
+    ports:
+      - 9090:9090
+    restart: unless-stopped
+    volumes:
+      - <your path here>:/etc/prometheus
+      - <your path here>:/prometheus
+    networks:
+      - metrics-network
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    ports:
+      - 3000:3000
+    restart: unless-stopped
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=grafana
+      - GF_SERVER_ROOT_URL=<your external grafana endpoint here>
+      - GF_SERVER_SERVE_FROM_SUB_PATH=false # if it has a subpath or not
+    volumes:
+      - <your path here>:/etc/grafana/provisioning/datasources
+    networks:
+      - metrics-network
+networks:
+  metrics-network:
+    driver: bridge
 ```
 
 Example `prometheus.yml` config to parse this instance:
@@ -49,7 +93,7 @@ scrape_configs:
     metrics_path: /metrics_SOME_SECRET_KEY
     scheme: http
     static_configs:
-      - targets: ['YOUR_IP_HERE:4533']
+      - targets: ['navidrome:4533']
 ```
 
 ### Dashboard
