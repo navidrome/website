@@ -54,7 +54,7 @@ services:
     image: prom/prometheus
     container_name: prometheus
     command:
-      - '--config.file=<your path here>/prometheus.yml'
+      - '--config.file=/prometheus/prometheus.yml'
     ports:
       - 9090:9090
     restart: unless-stopped
