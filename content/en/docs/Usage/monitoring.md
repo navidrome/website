@@ -1,10 +1,10 @@
 ---
 title: "Monitoring Navidrome"
 linkTitle: "Monitoring"
-date: 2017-01-03
+date: 2024-07-08
 weight: 50
 description: >
-  How to monitor status of your navidrome instance
+  How to monitor status of your Navidrome instance
 draft: false
 ---
 
@@ -20,20 +20,19 @@ standard. Example Grafana dashboard:
 Prometheus is a service that takes data from a metrics endpoint and collects it.
 Grafana is a dashboard service that can take data from a Prometheus server and 
 display it.
-Navidrome has an easy way to create a `/metrics` endpoint that Prometheus can use. 
+Navidrome has an easy way to create a metrics endpoint that Prometheus can use. 
 Once you point Prometheus to this endpoint, and Grafana to your Prometheus server, 
 you will be able to monitor your Navidrome instance.
 
-The easiest way to do this is using docker-compose and docker-compose networks.
-
+The easiest way to do this is using docker-compose and Docker networks.
 
 ### Configuration
 You need to set `ND_PROMETHEUS_ENABLED` to enable Prometheus metrics endpoint.
 Setting custom `ND_PROMETHEUS_METRICSPATH` is highly recommended if your Navidrome
-instance is publicly available. If you are using a reverse proxy, you can also set
-this enpoint to require a username and password.
+instance is publicly available.
 
-Minimal docker compose example file with metrics enabled, and Prometheus and Grafana containers:
+Minimal docker compose example file with metrics enabled, and Prometheus and Grafana
+containers:
 
 ```yml
 version: '3'
@@ -60,8 +59,8 @@ services:
       - 9090:9090
     restart: unless-stopped
     volumes:
-      - <your path here>:/etc/prometheus
-      - <your path here>:/prometheus
+      - ./etc/prometheus:/etc/prometheus
+      - ./prometheus:/prometheus
     networks:
       - metrics-network
   grafana:
@@ -71,12 +70,10 @@ services:
       - 3000:3000
     restart: unless-stopped
     environment:
-      - GF_SECURITY_ADMIN_USER=admin
-      - GF_SECURITY_ADMIN_PASSWORD=grafana
       - GF_SERVER_ROOT_URL=<your external grafana endpoint here>
-      - GF_SERVER_SERVE_FROM_SUB_PATH=false # if it has a subpath or not
+      - GF_SERVER_SERVE_FROM_SUB_PATH=false # if your external grafana endpoint has a subpath or not
     volumes:
-      - <your path here>:/etc/grafana/provisioning/datasources
+      - ./etc/grafana:/etc/grafana/provisioning/datasources
     networks:
       - metrics-network
 networks:
