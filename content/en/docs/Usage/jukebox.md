@@ -91,7 +91,7 @@ MPVPath = "/path/to/mpv"
 
 Jukebox mode will use MPV's **auto** device for playback if no device is given.
 
-One can supply an array of multiple devices under Jukebox.Devices:
+One can supply an array of multiple devices under `Jukebox.Devices` (note: this config option cannot be set as an environment variable):
 
 ```toml
 Jukebox.Devices = [
@@ -101,7 +101,7 @@ Jukebox.Devices = [
 ]
 ```
 
-and select one by using Jukebox.Default:
+and select one by using `Jukebox.Default`:
 
 ```toml
 Jukebox.Default = "dac"
