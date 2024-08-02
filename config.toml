@@ -76,7 +76,7 @@ weight = 1
 copyright = "The Navidrome Authors"
 privacy_policy = "https://policies.google.com/privacy"
 
-# First one is picked as the Twitter card image if not set on page.
+# First one is picked as the X card image if not set on page.
 # images = ["images/project-illustration.png"]
 
 # Menu title if your navbar has a versions selector to access old versions of your site.
@@ -152,10 +152,10 @@ no = 'Sorry to hear that. Please <a href="https://github.com/navidrome/website/i
 	icon = "fab fa-discord"
         desc = "Chat with other users and project developers"
 [[params.links.user]]
-	name = "Twitter"
-	url = "https://twitter.com/navidrome"
-	icon = "fab fa-twitter"
-        desc = "Follow us on Twitter"
+	name = "X"
+	url = "https://x.com/navidrome"
+	icon = "fab fa-x-twitter"
+        desc = "Follow us on X"
 [[params.links.user]]
 	name = "Lemmy (Community moderated)"
 	url = "https://discuss.tchncs.de/c/navidrome"

@@ -27,13 +27,13 @@ We're using discord for communications, feel free to [join](https://discord.gg/s
 
 As for the mentors:
 
-- Deluan Quintão ([ET](https://en.wikipedia.org/wiki/Eastern_Time_Zone)): deluan -- [@deluan](https://twitter.com/deluan)
-- Julien Voisin ([CET](https://en.wikipedia.org/wiki/Central_European_Time)): jvoisin -- [@dustriorg](https://twitter.com/dustriorg)
+- Deluan Quintão ([ET](https://en.wikipedia.org/wiki/Eastern_Time_Zone)): deluan -- [@deluan](https://x.com/deluan)
+- Julien Voisin ([CET](https://en.wikipedia.org/wiki/Central_European_Time)): jvoisin -- [@dustriorg](https://x.com/dustriorg)
 
 Development methodology
 -----------------------
 
-The main repository is hosted on [Github](https://github.com/deluan/navidrome), which is also used for tracking bugs and running the continuous integration. The main communication medium is [Discord]( https://discord.gg/xh7j7yF ), along with [Twitter]( https://twitter.com/navidrome ) for announcements, and [Reddit](https://www.reddit.com/r/navidrome/) as general purpose forum.
+The main repository is hosted on [Github](https://github.com/deluan/navidrome), which is also used for tracking bugs and running the continuous integration. The main communication medium is [Discord]( https://discord.gg/xh7j7yF ), along with [X]( https://x.com/navidrome ) for announcements, and [Reddit](https://www.reddit.com/r/navidrome/) as general purpose forum.
 The usual way to get code in is to submit a pull-request, which will be reviewed by the community and merged. Adding some tests might of course speed up this process.
 
 
