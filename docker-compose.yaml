@@ -1,5 +1,3 @@
-version: "3.3"
-
 services:
   site:
     image: floryn90/hugo:0.121.1-ext-ubuntu
