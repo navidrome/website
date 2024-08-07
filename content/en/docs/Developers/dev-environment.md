@@ -33,7 +33,7 @@ Keep in mind that the overall experience when using Docker Desktop for developme
 4. Install `pkg-config`
 5. Clone the project from https://github.com/navidrome/navidrome
 6. Install development tools: `make setup`. This may take a while to complete
-7. Test installation: `make buildall`. This command should create a `navidrome` executable in the project's folder
+7. Test installation: `make build`. This command should create a `navidrome` executable in the project's folder
 8. Create a `navidrome.toml` config file in the project's folder with ([at least](/docs/usage/configuration-options/#available-options)) the following options:
 ```toml
 # Set your music folder, preferable a specific development music library with few songs,
@@ -68,11 +68,7 @@ To build Navidrome locally, follow these steps:
 
 1. Make sure you have all the dependencies installed as mentioned in the previous sections.
 2. Open a terminal and navigate to the project's folder.
-3. Run the command `make buildjs` to build the frontend assets. This will build the Web UI in the `ui/build` folder
-4. Run the command `make build` to build the backend server. This will create a `navidrome` binary in the project's folder
-
-Alternatively, you can call `make buildall` to build both backend and frontend.  Not very useful if you are only changing one of them.
-
+3. Run the command `make build` to build the whole project. This will create a `navidrome` binary in the project's folder
 
 ### Building with Docker
 

@@ -36,7 +36,7 @@ After the prerequisites above are installed, clone Navidrome's repository and bu
 $ git clone https://github.com/navidrome/navidrome
 $ cd navidrome
 $ make setup        # Install build dependencies
-$ make buildall     # Build UI and server, generates a single executable
+$ make build        # Build UI and server, generates a single executable
 ```
 
 On FreeBSD you have to use `gmake`:
@@ -45,7 +45,7 @@ On FreeBSD you have to use `gmake`:
 $ git clone https://github.com/navidrome/navidrome
 $ cd navidrome
 $ gmake setup        # Install build dependencies
-$ gmake buildall     # Build UI and server, generates a single executable
+$ gmake build        # Build UI and server, generates a single executable
 ```
 
 This will generate the `navidrome` executable binary in the project's root folder.
