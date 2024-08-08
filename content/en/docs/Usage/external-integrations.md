@@ -54,7 +54,7 @@ To obtain these values, create a free account in Spotify, then follow these step
 <img width="500" src="/screenshots/spotify-app-basic-info.png">
 </p>
 
-5) Copy the values of ID and secret to your [configuration file](/docs/usage/configuration-options#configuration-file) (or set them as environment variables):
+5) Copy the values of ID and secret to your [configuration file](/docs/usage/configuration-options#configuration-file) as `Spotify.ID` and `Spotify.Secret` (or set them as environment variables `ND_SPOTIFY_ID` and `ND_SPOTIFY_SECRET`):
 <p align="center">
 <img width="500" src="/screenshots/spotify-app-basic-info-secret.png">
 </p>
