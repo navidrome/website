@@ -26,7 +26,7 @@ send your scrobbles to Last.fm. For these features to work, you'll need to set t
 <img width="500" src="/screenshots/lastfm-account-created.png">
 </p>
 
-3) Copy the values above to your [configuration file](/docs/usage/configuration-options#configuration-file) (or set them as environment variables)
+3) Copy the values above to your [configuration file](/docs/usage/configuration-options#configuration-file) as `LastFM.ApiKey` and `LastFM.Secret` (or set them as environment variables `ND_LASTFM_APIKEY` and `ND_LASTFM_SECRET`)
 
 
 ## Spotify
@@ -54,7 +54,7 @@ To obtain these values, create a free account in Spotify, then follow these step
 <img width="500" src="/screenshots/spotify-app-basic-info.png">
 </p>
 
-5) Copy the values of ID and secret to your [configuration file](/docs/usage/configuration-options#configuration-file) (or set them as environment variables):
+5) Copy the values of ID and secret to your [configuration file](/docs/usage/configuration-options#configuration-file) as `Spotify.ID` and `Spotify.Secret` (or set them as environment variables `ND_SPOTIFY_ID` and `ND_SPOTIFY_SECRET`):
 <p align="center">
 <img width="500" src="/screenshots/spotify-app-basic-info-secret.png">
 </p>
