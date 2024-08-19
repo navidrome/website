@@ -1,7 +1,7 @@
 ---
 title: "Windows Install"
 linkTitle: "Windows"
-date: 2017-01-05
+date: 2024-08-19
 description: >
   Steps to install on Windows
 ---
@@ -16,7 +16,7 @@ The MSI supports the basic configuration properties being set on the command lin
 msiexec /quiet /passive /log log.log /i navidrome.msi ND_PORT=8080 ND_MUSICFOLDER=C:\MyMusicFolder ND_DATAFOLDER=C:\NavidromeDataFolder
 ```
 
-Futher modification can be made by changing the navidrome.toml file after installation and restarting the service
+Futher modification can be made by changing the navidrome.toml file after installation and restarting the service.
 
 ## Manual Install
 
