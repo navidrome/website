@@ -10,8 +10,16 @@ description: >
 [Download](https://github.com/navidrome/navidrome/releases/) and install the latest Navidrome msi for the correct version of windows (most likely AMD64). The installer will prompt for basic configuration options (port, directories etc) these can be left as default or customised to your setup. The service will be installed and started automatically, once the installer has completed you can go to [http://127.0.0.1:4553] (or whichever port you chose) in a browser and setup the first user.
 
 ### Silent Install
-The MSI supports the basic configuration properties being set on the command line to the msi like so:
+The MSI supports the following configuration properties being set on the command line to the msi like so:
 
+| Property Name     | Configuration File Option | Default Value                                                      |
+|-------------------|---------------------------|--------------------------------------------------------------------|
+| `ND_PORT`         | Port                      | 4533                                                               |
+| `ND_MUSICFOLDER   | MusicFolder               | `C:\Music`                                                         |
+| `ND_DATAFOLDER`   | DataFolder                | `C:\ProgramData\Navidrome`                                         |
+| `INSTALLDIR       |                           | `C:\Program Files\Navidrome` or `C:\Program Files (x86)\Navidrome` | 
+
+An example of unattended installation setting these properties is as follows:
 ```bat
 msiexec /quiet /passive /log log.log /i navidrome.msi ND_PORT=8080 ND_MUSICFOLDER=C:\MyMusicFolder ND_DATAFOLDER=C:\NavidromeDataFolder
 ```
