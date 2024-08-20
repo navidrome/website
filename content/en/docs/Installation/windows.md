@@ -27,6 +27,9 @@ msiexec /quiet /passive /log log.log /i navidrome.msi ND_PORT=8080 ND_MUSICFOLDE
 Futher modification can be made by changing the navidrome.toml file after installation and restarting the service.
 
 ## Manual Install
+Navidrome has the ability to install as a service without any external wrappers if desired. This can be achieved by `navidrome service install`, once installed it can be launched through `navidrome service start` or using any of the Windows services management tools. Removal of the service can be achieved through `navidrome service uninstall`.
+
+## Pre-Kardianos Manual Install
 
 Since Navidrome needs to be run from the command line, it is suggested to use a service wrapper to make it into a service as it does not make sense to have a terminal window open whenever you want to use Navidrome.
 The examples below are for [Shawl](https://github.com/mtkennerly/shawl), [NSSM](http://nssm.cc/) and [WinSW](https://github.com/winsw/winsw).
