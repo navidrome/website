@@ -7,7 +7,7 @@ description: >
 ---
 
 ## MSI Install
-[Download](https://github.com/navidrome/navidrome/releases/) and install the latest Navidrome msi for the correct version of windows (most likely AMD64). The installer will prompt for basic configuration options (port, directories etc) these can be left as default or customised to your setup. The service will be installed and started automatically, once the installer has completed you can go to [http://127.0.0.1:4553] (or whichever port you chose) in a browser and setup the first user.
+[Download](https://github.com/navidrome/navidrome/releases/) and install the latest Navidrome msi for the correct version of windows (most likely AMD64). The installer will prompt for basic configuration options (port, directories etc) these can be left as default or customised to your setup. The service will be installed and started automatically, once the installer has completed you can go to [http://127.0.0.1:4553] (or whichever port you chose) in a browser and setup the first user. The `navidrome.toml` configuration file will be located in the installation folder (default: `C:\Program Files\Navidrome`).
 
 ### Silent Install
 The MSI supports the following configuration properties being set on the command line to the msi like so:
