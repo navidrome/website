@@ -15,9 +15,9 @@ The MSI supports the following configuration properties being set on the command
 | Property Name     | Configuration File Option | Default Value                                                      |
 |-------------------|---------------------------|--------------------------------------------------------------------|
 | `ND_PORT`         | Port                      | 4533                                                               |
-| `ND_MUSICFOLDER   | MusicFolder               | `C:\Music`                                                         |
+| `ND_MUSICFOLDER`  | MusicFolder               | `C:\Music`                                                         |
 | `ND_DATAFOLDER`   | DataFolder                | `C:\ProgramData\Navidrome`                                         |
-| `INSTALLDIR       |                           | `C:\Program Files\Navidrome` or `C:\Program Files (x86)\Navidrome` | 
+| `INSTALLDIR`      |                           | `C:\Program Files\Navidrome` or `C:\Program Files (x86)\Navidrome` | 
 
 An example of unattended installation setting these properties is as follows:
 ```bat
