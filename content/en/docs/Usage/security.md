@@ -40,7 +40,7 @@ By default, Navidrome denies every attempt. Authentication proxy needs to be whi
 **NOTE**: if you are listening on a UNIX socket, Navidrome will allow any connection to authenticate, as there is no 
 remote IP exposed. Make sure to properly protect the socket with user access controls.
 
-If you enable this feature and uses a Subsonic client, you must whitelist the Subsonic API URL, as this authentication
+If you enable this feature and use a Subsonic client, you must whitelist the Subsonic API URL, as this authentication
 method is incompatible with the Subsonic authentication. You will need to whitelist the `/rest/*` URLs.
 
 If a user is successfully authenticated by the proxy, but it does not exist in the Navidrome DB, it will be created with 
