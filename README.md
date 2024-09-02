@@ -14,16 +14,16 @@ on Linux.
 1. Build the docker image
 
    ```bash
-   docker-compose build
+   docker compose build
    ```
 
 2. Run the built image
 
    ```bash
-   docker-compose up
+   docker compose up
    ```
 
-   > NOTE: You can run both commands at once with `docker-compose up --build`.
+   > NOTE: You can run both commands at once with `docker compose up --build`.
 
 3. Verify that the service is working.
 
@@ -39,7 +39,7 @@ To stop Docker Compose, on your terminal window, press **Ctrl + C**.
 To remove the produced images, run:
 
 ```bash
-docker-compose rm
+docker compose rm
 ```
 For more information, see the [Docker Compose
 documentation](https://docs.docker.com/compose/gettingstarted/).

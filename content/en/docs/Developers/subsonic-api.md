@@ -11,6 +11,9 @@ description: >
 Navidrome is currently compatible with [Subsonic API](http://www.subsonic.org/pages/api.jsp) 
 v1.16.1, with some exceptions.
 
+[OpenSubsonic](https://opensubsonic.netlify.app/) extensions are being constantly added. For an up to date list of 
+supported extensions, check [here](https://github.com/navidrome/navidrome/issues/2695).
+
 This is a (hopefully) up-to-date list of all Subsonic API endpoints implemented in Navidrome. 
 Check the "Notes" column for limitations/missing behavior. Also keep in mind these differences 
 between Navidrome and Subsonic:
