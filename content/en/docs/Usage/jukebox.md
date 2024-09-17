@@ -91,7 +91,7 @@ MPVPath = "/path/to/mpv"
 
 Jukebox mode will use MPV's **auto** device for playback if no device is given.
 
-One can supply an array of multiple devices under Jukebox.Devices:
+One can supply an array of multiple devices under `Jukebox.Devices` (note: this config option cannot be set as an environment variable):
 
 ```toml
 Jukebox.Devices = [
@@ -101,7 +101,7 @@ Jukebox.Devices = [
 ]
 ```
 
-and select one by using Jukebox.Default:
+and select one by using `Jukebox.Default`:
 
 ```toml
 Jukebox.Default = "dac"
@@ -148,6 +148,14 @@ MPVCmdTemplate = "mpv --no-audio-display --pause %f --input-ipc-server=%s --audi
 ```
 
 This assumes Snapcast is running on the same machine as Navidrome. Check the [Snapcast documentation](https://github.com/badaix/snapcast/blob/develop/doc/player_setup.md#mpv) for details.
+
+## Usage
+
+Once Jukebox mode is enabled and configured, to start playing music through your servers speakers you'll need to download a third-party
+[Subsonic client](https://www.subsonic.org/pages/apps.jsp). This client acts as a remote control.
+Not all Subsonic clients support Jukebox mode and you'll need to check that your client supports this feature.
+
+Jukebox mode is currently not supported through the Navidrome Web UI.
 
 ## Troubleshooting
 

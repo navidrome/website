@@ -4,7 +4,7 @@ linkTitle: Sharing your media
 date: 2017-01-02
 weight: 40
 description: >
-  How to create links to your media to be shared on Facebook, Twitter, WhatsApp
+  How to create links to your media to be shared on Facebook, X, WhatsApp
 ---
 
 {{< alert color="warning" title="NOTE" >}}

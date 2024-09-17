@@ -105,6 +105,8 @@ Besides its own Web UI, Navidrome should be compatible with all Subsonic clients
 {{% /tab %}}
 
 {{% tab header="Other" %}}
+- Apple TV:
+  - [SubSwift](https://apps.apple.com/us/app/subswift/id6504658929)
 - Connected Speakers:
   - Sonos: [bonob](https://github.com/simojenki/bonob#readme)
   - Alexa: [AskSonic](https://github.com/srichter/asksonic#readme)

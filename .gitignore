@@ -4,3 +4,4 @@ node_modules/
 package-lock.json
 .envrc
 .hugo_build.lock
+.DS_Store
