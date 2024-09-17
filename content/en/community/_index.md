@@ -21,6 +21,7 @@ Here are some articles written by and for members of the Navidrome community. If
 
 #### Other languages
 
+* [Navidrome：自建音乐库的又一选择](https://www.himiku.com/archives/navidrome.html) - Chinese (simplified) blog post, 25/Nov/2023 by mikusa
 * [Mein selbstgehosteter Musikstreamingdienst (My self-hosted music streaming service)](https://mialikescoffee.com/musicstreaming-mit-navidrome/) - German blog post, 19/Mar/2021 by mialikescoffee
 * [Navidrome自建流媒体平台 - Navidrome self-built streaming media platform (CentOS7.X)](https://blog.northtower.top/index.php/archives/12/) - Chinese (simplified) blog post, 11/Jan/2021 by Northtower
 * [Servidor de música. La alternativa a Airsonic es Navidrome](https://ugeek.github.io/post/2020-09-17-servidor-de-musica-la-alternativa-a-airsonic-es-navidrome-.html?utm_source=feedburner&utm_medium=feed&utm_campaign=Feed%3A+ugeek+%28uGeek%29&utm_content=FeedBurner) - Spanish podcast, 16/Sep/2020 by uGeek
