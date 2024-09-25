@@ -85,7 +85,8 @@ Besides its own Web UI, Navidrome should be compatible with all Subsonic clients
 {{% tab header="Web" %}}
 - [Feishin](https://feishin.vercel.app/)
 - [Thunderdrome](https://thunderdrome.netlify.app/)
-- [Airsonic Refix](https://airsonic.netlify.com/) 
+- [Airsonic Refix](https://airsonic.netlify.com/)
+- [Aonsoku](https://aonsoku.vercel.app/)
 - [Subplayer](https://subplayer.netlify.app/)
 - [Aurial](https://shrimpza.github.io/aurial/)
 - [Subfire](https://p.subfireplayer.net/)
