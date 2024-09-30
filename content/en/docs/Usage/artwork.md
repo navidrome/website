@@ -4,7 +4,7 @@ linkTitle: "Artwork resolution"
 date: 2017-01-05
 weight: 20
 description: >
-  How Navidrome find artist and cover art images
+  How Navidrome finds artist and cover art images
 ---
 
 ## Artists

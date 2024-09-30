@@ -26,14 +26,13 @@ More packages available, with links to download/install instructions:
 
 | System                  | Information                                                                                                                                                                   |
 |-------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Ansible Role            | https://github.com/zfuller/navidrome-role                                                                                                                                     | 
 | Cloudron                | https://www.cloudron.io/store/org.navidrome.cloudronapp.html                                                                                                                  |
 | Fedora                  | https://copr.fedorainfracloud.org/coprs/lchh/navidrome/                                                                                                                       |    
-| Kubernets Chart         | [https://artifacthub.io/packages/helm/emmas-charts/navidrome](https://artifacthub.io/packages/helm/emmas-charts/navidrome)                                                    | 
+| Kubernets Chart         | https://artifacthub.io/packages/helm/emmas-charts/navidrome                                                                                                                   | 
 | OpenMediaVault          | [Instructions using docker-compose](https://forum.openmediavault.org/index.php?thread/36635-how-to-install-navidrome-using-docker-compose-an-airsonic-booksonic-alternative/) |
 | QNAP                    | https://www.myqnap.org/product/navidrome/                                                                                                                                     |
-| TrueNAS SCALE           | https://truecharts.org/apps/stable/navidrome                                                                                                                                  |
-| YunoHost                | https://yunohost.org/en/app_navidrome                                                                                                                                         |
+| TrueNAS SCALE           | https://truecharts.org/charts/stable/navidrome/                                                                                                                               |
+| YunoHost                | https://apps.yunohost.org/app/navidrome                                                                                                                                       |
 
 
 If you create, or know of, other Navidrome packages that are publicly available, please 

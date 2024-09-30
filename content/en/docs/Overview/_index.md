@@ -67,8 +67,9 @@ Besides its own Web UI, Navidrome should be compatible with all Subsonic clients
 {{% tab header="Android" %}}
 - [Symfonium](https://symfonium.app/)
 - [DSub](https://play.google.com/store/apps/details?id=github.daneren2005.dsub)
-- [Tempo](https://github.com/CappielloAntonio/tempo#readme)
+- [StreamMusic](https://music.aqzscn.cn/docs/versions/latest/)
 - [substreamer](https://substreamerapp.com/)
+- [Tempo](https://github.com/CappielloAntonio/tempo#readme)
 - [Subtracks](https://github.com/austinried/subtracks#readme)
 - [Ultrasonic](https://ultrasonic.gitlab.io/)
 {{% /tab %}}
@@ -76,6 +77,7 @@ Besides its own Web UI, Navidrome should be compatible with all Subsonic clients
 {{% tab header="iOS" %}}
 - [play:Sub](http://michaelsapps.dk/playsubapp/) 
 - [substreamer](https://substreamerapp.com/)
+- [StreamMusic](https://apps.apple.com/ca/app/stream-music-enjoy-music/id6449966496)
 - [Amperfy](https://github.com/BLeeEZ/amperfy#readme) 
 - [iSub](https://isub.app/)
 {{% /tab %}}
@@ -83,7 +85,8 @@ Besides its own Web UI, Navidrome should be compatible with all Subsonic clients
 {{% tab header="Web" %}}
 - [Feishin](https://feishin.vercel.app/)
 - [Thunderdrome](https://thunderdrome.netlify.app/)
-- [Airsonic Refix](https://airsonic.netlify.com/) 
+- [Airsonic Refix](https://airsonic.netlify.com/)
+- [Aonsoku](https://aonsoku.vercel.app/)
 - [Subplayer](https://subplayer.netlify.app/)
 - [Aurial](https://shrimpza.github.io/aurial/)
 - [Subfire](https://p.subfireplayer.net/)
@@ -95,6 +98,7 @@ Besides its own Web UI, Navidrome should be compatible with all Subsonic clients
 - [Supersonic](https://github.com/dweymouth/supersonic) <i class="fa-brands fa-windows" style="color:gray"/></i>&nbsp;<i class="fa-brands fa-apple" style="color:gray"></i>&nbsp;<i class="fa-brands fa-linux" style="color:gray"></i> 
 - [Sublime Music](https://sublimemusic.app/) <i class="fa-brands fa-linux" style="color:gray"></i>
 - [Submariner](https://submarinerapp.com/) <i class="fa-brands fa-apple" style="color:gray"></i>
+- [StreamMusic](https://music.aqzscn.cn/docs/versions/latest/) <i class="fa-brands fa-windows" style="color:gray"/></i>&nbsp;<i class="fa-brands fa-apple" style="color:gray"></i>
 - [Sonixd](https://github.com/jeffvli/sonixd) <i class="fa-brands fa-windows" style="color:gray"/></i>&nbsp;<i class="fa-brands fa-apple" style="color:gray"></i>&nbsp;<i class="fa-brands fa-linux" style="color:gray"></i>   
 - CLI: 
   - [Jellycli](https://github.com/tryffel/jellycli#readme) <i class="fa-brands fa-windows" style="color:gray"/></i>&nbsp;<i class="fa-brands fa-linux" style="color:gray"></i>
@@ -102,6 +106,8 @@ Besides its own Web UI, Navidrome should be compatible with all Subsonic clients
 {{% /tab %}}
 
 {{% tab header="Other" %}}
+- Apple TV:
+  - [SubSwift](https://apps.apple.com/us/app/subswift/id6504658929)
 - Connected Speakers:
   - Sonos: [bonob](https://github.com/simojenki/bonob#readme)
   - Alexa: [AskSonic](https://github.com/srichter/asksonic#readme)
