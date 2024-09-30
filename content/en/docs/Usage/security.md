@@ -36,9 +36,9 @@ In principle, the reverse proxy user header is ignored if requests don't come fr
 
 ### Listening on a UNIX socket
 
-If you are listening on a UNIX socket (`Address` option), Navidrome will allow any connection to authenticate using the reverse proxy user header, as there is no remote IP exposed.
+If you are listening on a UNIX socket (`Address` option) and enable reverse proxy authentication (`ReverseProxyWhitelist` configured with the special value `@`), any process able to write to the socket can forge authenticated requests.
 
-Make sure to properly protect the socket with user access controls.
+Make sure to properly protect the socket with user access controls (see the `UnixSocketPerm` option).
 
 ### Reverse proxy with a dynamic IP address
 

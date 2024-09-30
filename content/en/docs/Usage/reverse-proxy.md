@@ -9,11 +9,11 @@ description: >
 
 ## Configuration
 
-By default, reverse proxy authentication is disabled. To enable the feature, either:
-* Configure a trusted reverse proxy with the `ReverseProxyWhitelist` configuration option. The option takes an IPv4 or IPv6 range in CIDR notation.
-* Configure a UNIX socket with the `Address` option.
+By default, reverse proxy authentication is disabled. To enable the feature, configure a trusted reverse proxy with the `ReverseProxyWhitelist` option. This option takes a comma-separated list of either:
+* An IPv4 or IPv6 range in CIDR notation.
+* An `@` (at sign) when listening on a UNIX socket (see the `Address` option).
 
-When enabled via the `ReverseProxyWhitelist` option, Navidrome validates the requests' source IP address against the range configured in `ReverseProxyWhitelist`. If the address doesn't match, reverse proxy authentication is not used even if the reverse proxy user header is present (see below), and falls back to a standard authentication mechanism.
+When enabled via the `ReverseProxyWhitelist` option, Navidrome validates the requests' source IP address against the ranges configured in `ReverseProxyWhitelist`. If the address doesn't match, reverse proxy authentication is not used even if the reverse proxy user header is present (see below), and falls back to a standard authentication mechanism. For requests received through a UNIX socket, IPs can't be validated and Navidrome will use the reverse proxy user header if and only if `ReverseProxyWhitelist` contains `@`.
 
 With reverse proxy authentication enabled, Navidrome gets the username of the authenticated user from incoming requests' `Remote-User` HTTP header. The header can be changed via the `ReverseProxyUserHeader` configuration option.
 

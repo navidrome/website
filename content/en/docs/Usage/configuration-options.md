@@ -105,16 +105,16 @@ make it all uppercase. Ex: `ND_LOGLEVEL=debug`. See below for all available opti
 
 ### Basic configuration
 
-| In config file | As an env var    | Description                                                                                                                               | Default Value                |
-|----------------|------------------|-------------------------------------------------------------------------------------------------------------------------------------------|------------------------------|
-|                | `ND_CONFIGFILE`  | Load configurations from an external config file                                                                                          | `"./navidrome.toml"`         |
-| MusicFolder    | `ND_MUSICFOLDER` | Folder where your music library is stored. Can be read-only                                                                               | `"./music"`                  |
-| DataFolder     | `ND_DATAFOLDER`  | Folder to store application data (DB)                                                                                                     | `"./data"`                   |
-| CacheFolder    | `ND_CACHEFOLDER` | Folder to store cache data (transcoding, images...)                                                                                       | `"<DataFolder>/cache"`       |
-| LogLevel       | `ND_LOGLEVEL`    | Log level. Useful for troubleshooting. Possible values: `error`, `warn`, `info`, `debug`, `trace`                                         | `"info"`                     |
-| Address        | `ND_ADDRESS`     | Address the server will bind to. Can be an IPv4 or IPv6. Also supports `unix:/path/to/file` for Unix socket files[\*][reverse-proxy-auth] | `0.0.0.0` and `::` (all IPs) |
-| BaseUrl        | `ND_BASEURL`     | Base URL to configure Navidrome behind a proxy (examples: `/music`, `https://music.example.com`)                                          | _Empty_                      |
-| Port           | `ND_PORT`        | HTTP port Navidrome will use                                                                                                              | `4533`                       |
+| In config file | As an env var    | Description                                                                                        | Default Value                |
+|----------------|------------------|----------------------------------------------------------------------------------------------------|------------------------------|
+|                | `ND_CONFIGFILE`  | Load configurations from an external config file                                                   | `"./navidrome.toml"`         |
+| MusicFolder    | `ND_MUSICFOLDER` | Folder where your music library is stored. Can be read-only                                        | `"./music"`                  |
+| DataFolder     | `ND_DATAFOLDER`  | Folder to store application data (DB)                                                              | `"./data"`                   |
+| CacheFolder    | `ND_CACHEFOLDER` | Folder to store cache data (transcoding, images...)                                                | `"<DataFolder>/cache"`       |
+| LogLevel       | `ND_LOGLEVEL`    | Log level. Useful for troubleshooting. Possible values: `error`, `warn`, `info`, `debug`, `trace`  | `"info"`                     |
+| Address        | `ND_ADDRESS`     | Address the server will bind to. Can be an IPv4, IPv6 or a UNIX socket file (`unix:/path/to/file`) | `0.0.0.0` and `::` (all IPs) |
+| BaseUrl        | `ND_BASEURL`     | Base URL to configure Navidrome behind a proxy (examples: `/music`, `https://music.example.com`)   | _Empty_                      |
+| Port           | `ND_PORT`        | HTTP port Navidrome will use                                                                       | `4533`                       |
 
 ### Advanced configuration
 
@@ -171,7 +171,7 @@ make it all uppercase. Ex: `ND_LOGLEVEL=debug`. See below for all available opti
 | Prometheus.MetricsPath                         | `ND_PROMETHEUS_METRICSPATH`                      | Custom path for Prometheus metrics. Useful for blocking unauthorized metrics requests.                                                                                                                                     | `"/metrics"`                                                                |
 | RecentlyAddedByModTime                         | `ND_RECENTLYADDEDBYMODTIME`                      | Uses music files' modification time when sorting by "Recently Added". Otherwise use import time                                                                                                                            | `false`                                                                     |
 | ReverseProxyUserHeader[\*][reverse-proxy-auth] | `ND_REVERSEPROXYUSERHEADER`                      | HTTP header containing user name from authenticated proxy. Click [here][reverse-proxy-config] for details                                                                                                                  | `"Remote-User"`                                                             |
-| ReverseProxyWhitelist[\*][reverse-proxy-auth]  | `ND_REVERSEPROXYWHITELIST`                       | Comma separated list of IP CIDRs which are allowed to use reverse proxy authentication, empty means "deny all". Click [here][reverse-proxy-config] for details                                                             | _Empty_                                                                     |
+| ReverseProxyWhitelist[\*][reverse-proxy-auth]  | `ND_REVERSEPROXYWHITELIST`                       | Comma separated list of IP CIDRs (or when listening on a UNIX socket the special value `@`) which are allowed to use reverse proxy authentication. Empty means "deny all". Click [here][reverse-proxy-config] for details  | _Empty_                                                                     |
 | Scanner.Extractor[\*][extractors]              | `ND_SCANNER_EXTRACTOR`                           | Select metadata extractor implementation. Options: `taglib` or `ffmpeg`                                                                                                                                                    | `"taglib"`                                                                  |
 | Scanner.GenreSeparators                        | `ND_SCANNER_GENRESEPARATORS`                     | List of separators to split genre tags                                                                                                                                                                                     | `";/,"`                                                                     |
 | Scanner.GroupAlbumReleases                     | `ND_SCANNER_GROUPALBUMRELEASES`                  | "true" groups albums with the same Artist + Album Title as one album; "false" splits re-issues (=different Release Date) into separate albums                                                                              | `false`                                                                     |
@@ -208,7 +208,7 @@ make it all uppercase. Ex: `ND_LOGLEVEL=debug`. See below for all available opti
 [spotify-integration]:  /docs/usage/external-integrations/#spotify
 [lastfm-integration]:   /docs/usage/external-integrations/#lastfm
 [encrypt-passwords]:    /docs/usage/security/#encrypted-passwords
-[reverse-proxy-auth]:   /docs/usage/security/#reverse-proxy-authentication
+[reverse-proxy-auth]:   /docs/usage/security/#reverse-proxy-authentication "Reverse Proxy Authentication"
 [reverse-proxy-config]: /docs/usage/reverse-proxy
 [albumcoverart]:        /docs/usage/artwork/#albums
 [artistcoverart]:        /docs/usage/artwork/#artists
