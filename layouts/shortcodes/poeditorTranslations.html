@@ -19,7 +19,7 @@
         <th>Language</th>
         <th>Code</th>
         <th>Progress</th>
-<!--        <th>Last Updated</th>-->
+        <th>Last Updated</th>
     </tr>
     </thead>
     <tbody>
@@ -29,7 +29,7 @@
         <td>{{ $language.name }}</td>
         <td>{{ $language.code }}</td>
         <td>{{ printf "%.2f%%" $language.percentage }}</td>
-<!--        <td>{{ time.AsTime $language.updated | time.Format "2006-01-02" }}</td>-->
+        <td>{{ time.AsTime $language.updated | time.Format "2006-01-02" }}</td>
     </tr>
     {{ end }}
     {{ end }}
