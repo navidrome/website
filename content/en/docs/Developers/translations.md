@@ -18,11 +18,15 @@ translation efforts coordination and to get further instructions.
 
 ## Contributing with a Pull Request
 
-Alternatively, you can submit a pull request with your proposed changes directly [to our project in GitHub](https://github.com/navidrome/navidrome/tree/master/resources/i18n).
+Alternatively, you can submit a pull request with your proposed changes directly 
+[to our project in GitHub](https://github.com/navidrome/navidrome/tree/master/resources/i18n). This method requires 
+you to have a GitHub account and some basic knowledge of Git.
 
 If you choose to contribute translations via a pull request, most of the translation files are located in the [`resources/i18n`](https://github.com/navidrome/navidrome/tree/master/resources/i18n) directory. The English translation file is the only one located outside of this directory. It can be found in the [`ui/src/i18n/en.json`](https://github.com/navidrome/navidrome/blob/master/ui/src/i18n/en.json).
 
 
 ## Translation Status
+
+Languages with at least 70% of the terms translated:
 
 {{< poeditorTranslations apiToken="c17601dd8151b384e987d3aa33ea68ba" projectId="337783" >}}

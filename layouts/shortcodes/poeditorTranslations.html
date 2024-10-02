@@ -13,7 +13,7 @@
 {{ else }}
 {{ $data := $response.Content | unmarshal }}
 {{ if eq $data.response.status "success" }}
-<table class="translation-table">
+<table class="translation-table sortable">
     <thead>
     <tr>
         <th>Language</th>
