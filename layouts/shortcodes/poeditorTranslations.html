@@ -4,8 +4,10 @@
 {{ $url := "https://api.poeditor.com/v2/languages/list" }}
 {{ $body := printf "api_token=%s&id=%s" $apiToken $projectId | safeURL }}
 {{ $headers := dict "Content-Type" "application/x-www-form-urlencoded" }}
+{{ $cacheBuster := now.Unix }}
 
-{{ $response := resources.GetRemote $url (dict "method" "POST" "body" $body "headers" $headers) }}
+
+{{ $response := resources.GetRemote (printf "%s?cache-buster=%d" $url $cacheBuster) (dict "method" "POST" "body" $body "headers" $headers) }}
 
 {{ if $response }}
 {{ with $response.Err }}
