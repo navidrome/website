@@ -103,6 +103,7 @@ Besides its own Web UI, Navidrome should be compatible with all Subsonic clients
 - CLI: 
   - [Jellycli](https://github.com/tryffel/jellycli#readme) <i class="fa-brands fa-windows" style="color:gray"/></i>&nbsp;<i class="fa-brands fa-linux" style="color:gray"></i>
   - [STMP](https://github.com/wildeyedskies/stmp#readme) <i class="fa-brands fa-apple" style="color:gray"></i>&nbsp;<i class="fa-brands fa-linux" style="color:gray"></i>
+  - [STMPS](https://github.com/spezifisch/stmps#readme) <i class="fa-brands fa-apple" style="color:gray"></i>&nbsp;<i class="fa-brands fa-linux" style="color:gray"></i>
 {{% /tab %}}
 
 {{% tab header="Other" %}}
