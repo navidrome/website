@@ -17,7 +17,6 @@ run Navidrome.
 Create a `docker-compose.yml` file with the following content (or add the `navidrome` service 
 below to your existing file):
 ```yaml
-version: "3"
 services:
   navidrome:
     image: deluan/navidrome:latest
