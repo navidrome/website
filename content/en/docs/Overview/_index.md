@@ -60,7 +60,8 @@ browsing by folders, but simulates it based on the tags with a structure like:
 {{</alert>}}
 ## Apps
 
-Besides its own Web UI, Navidrome should be compatible with all Subsonic clients. The following clients are tested and confirmed to work properly:
+Besides its own Web UI, Navidrome should be compatible with all Subsonic clients. The following clients are tested and 
+confirmed to work properly:
 
 {{< tabpane text=true >}}
 
@@ -79,6 +80,7 @@ Besides its own Web UI, Navidrome should be compatible with all Subsonic clients
 - [substreamer](https://substreamerapp.com/)
 - [StreamMusic](https://apps.apple.com/ca/app/stream-music-enjoy-music/id6449966496)
 - [Amperfy](https://github.com/BLeeEZ/amperfy#readme) 
+- [flo](https://client.flooo.club/)
 - [iSub](https://isub.app/)
 {{% /tab %}}
 
