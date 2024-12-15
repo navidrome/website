@@ -26,28 +26,33 @@ behind a reverse proxy (Ex: Caddy, Nginx, Traefik, Apache) for added security, i
 There are tons of good resources on the web on how to properly setup a reverse proxy.
 
 When using Navidrome in such configuration, you may want to prevent Navidrome from listening to all IPs configured
-in your computer, and only listen to `localhost`. This can be achieved by setting the `Address` flag to `localhost`
+in your computer, and only listen to `localhost`. This can be achieved by setting the `Address` flag to `localhost`.
 
 ## Reverse proxy authentication
 
-When reverse proxy authentication is used, the verification is done by another system. By checking a specific HTTP header,
-Navidrome assumes you are already authenticated. This header can be configured via `ReverseProxyUserHeader` configuration
-option. By default, the `Remote-User` header is used.
+When reverse proxy authentication is enabled, Navidrome trusts the reverse proxy user header (configured with the `ReverseProxyUserHeader` option, by default `Remote-User`).
 
-By default, Navidrome denies every attempt. Authentication proxy needs to be whitelisted in CIDR format, using 
-`ReverseProxyWhitelist`. Both IPv4 and IPv6 are supported. 
+In principle, the reverse proxy user header is ignored if requests don't come from a reverse proxy trusted with the `ReverseProxyWhitelist` option. This check can however be fooled by requests with a forged source IP address if the reverse proxy can be bypassed (e.g. sent by a compromised service running next to Navidrome).
 
-**NOTE**: if you are listening on a UNIX socket, Navidrome will allow any connection to authenticate, as there is no 
-remote IP exposed. Make sure to properly protect the socket with user access controls.
+### Listening on a UNIX socket
 
-If you enable this feature and use a Subsonic client, you must whitelist the Subsonic API URL, as this authentication
-method is incompatible with the Subsonic authentication. You will need to whitelist the `/rest/*` URLs.
+If you are listening on a UNIX socket (`Address` option) and enable reverse proxy authentication (`ReverseProxyWhitelist` configured with the special value `@`), any process able to write to the socket can forge authenticated requests.
 
-If a user is successfully authenticated by the proxy, but it does not exist in the Navidrome DB, it will be created with 
-a random password. The user can change this password if they plan to use a Subsonic client.
+Make sure to properly protect the socket with user access controls (see the `UnixSocketPerm` option).
 
-If you plan to use the Sharing option, where you can create unauthenticated links to parts of your library, you'll 
-need to whitelist `/share/*` URLs. 
+### Reverse proxy with a dynamic IP address
+
+Navidrome does not support resolving hostnames in the `ReverseProxyWhitelist` configuration option.
+
+In scenarios where the reverse proxy has a dynamic IP address, for example when you use docker, you might consider using `0.0.0.0/0` to allow requests from the reverse proxy. This essentially disables the check, so you have to make sure that only the reverse proxy can send requests to Navidrome.
+
+In particular with docker and docker-compose, without extra configuration containers are usually placed on the same default network and can therefore freely communicate.
+
+### Potential HPP vulnerability
+
+When reverse proxy authentication is enabled, Navidrome currently does not disable the other authentication methods. This could potentially create an HTTP Parameter Pollution vulnerability if the reverse proxy is misconfigured, or due to a bug or oversight in Navidrome.
+
+You should make sure that the reverse proxy user header is always set for requests against protected endpoints. As a rule of thumb, for a reverse proxy authentication setup, the only endpoints that are not protected are `/rest/*` (depending on whether your proxy can handle the subsonic authentication scheme) and `/share/*`.
 
 ## Transcoding configuration
 
@@ -69,5 +74,5 @@ don't forget to remove this option or set it to `false`.
 To protect against brute-force attacks, Navidrome is configured by default with a login rate limiter,
 It uses a [Sliding Window](https://blog.cloudflare.com/counting-things-a-lot-of-different-things/#slidingwindowstotherescue)
 algorithm to block too many consecutive login attempts. It is enabled by default and you don't need to do anything.
-The rate limiter can be fine tuned using the flags `AuthRequestLimit` and `AuthWindowLength` and can be disabled by 
+The rate limiter can be fine tuned using the flags `AuthRequestLimit` and `AuthWindowLength` and can be disabled by
 setting `AuthRequestLimit` to `0`, though it is not recommended.
