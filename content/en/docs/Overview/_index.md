@@ -77,8 +77,8 @@ confirmed to work properly:
 
 {{% tab header="iOS" %}}
 - [play:Sub](http://michaelsapps.dk/playsubapp/) 
-- [substreamer](https://substreamerapp.com/)
 - [StreamMusic](https://apps.apple.com/ca/app/stream-music-enjoy-music/id6449966496)
+- [substreamer](https://substreamerapp.com/)
 - [Amperfy](https://github.com/BLeeEZ/amperfy#readme) 
 - [flo](https://client.flooo.club/)
 - [iSub](https://isub.app/)
@@ -96,12 +96,12 @@ confirmed to work properly:
 {{% /tab %}}
 
 {{% tab header="Desktop" %}}
-- [Amperfy](https://github.com/BLeeEZ/amperfy#readme) <i class="fa-brands fa-apple" style="color:gray"></i>
 - [Feishin](https://github.com/jeffvli/feishin) <i class="fa-brands fa-windows" style="color:gray"/></i>&nbsp;<i class="fa-brands fa-apple" style="color:gray"></i>&nbsp;<i class="fa-brands fa-linux" style="color:gray"></i> 
 - [Supersonic](https://github.com/dweymouth/supersonic) <i class="fa-brands fa-windows" style="color:gray"/></i>&nbsp;<i class="fa-brands fa-apple" style="color:gray"></i>&nbsp;<i class="fa-brands fa-linux" style="color:gray"></i> 
-- [Sublime Music](https://sublimemusic.app/) <i class="fa-brands fa-linux" style="color:gray"></i>
 - [Submariner](https://submarinerapp.com/) <i class="fa-brands fa-apple" style="color:gray"></i>
 - [StreamMusic](https://music.aqzscn.cn/docs/versions/latest/) <i class="fa-brands fa-windows" style="color:gray"/></i>&nbsp;<i class="fa-brands fa-apple" style="color:gray"></i>
+- [Sublime Music](https://sublimemusic.app/) <i class="fa-brands fa-linux" style="color:gray"></i>
+- [Amperfy](https://github.com/BLeeEZ/amperfy#readme) <i class="fa-brands fa-apple" style="color:gray"></i>
 - [Sonixd](https://github.com/jeffvli/sonixd) <i class="fa-brands fa-windows" style="color:gray"/></i>&nbsp;<i class="fa-brands fa-apple" style="color:gray"></i>&nbsp;<i class="fa-brands fa-linux" style="color:gray"></i>   
 - CLI: 
   - [Jellycli](https://github.com/tryffel/jellycli#readme) <i class="fa-brands fa-windows" style="color:gray"/></i>&nbsp;<i class="fa-brands fa-linux" style="color:gray"></i>
