@@ -72,4 +72,4 @@ Anonymous usage data helps the Navidrome developer:
 
 ## How to Opt Out
 
-Data collection is enabled by default. To disable it, you can either set a configuration option [to disable telemetry](/docs/usage/configuration-options/#available-options) or select to opt-out during the first-time setup from a new database. Note that the config option will always take priority over whatever may have been set during first-time setup.
+Data collection is enabled by default. To disable this telemetry, you can set `EnableInsightsCollector` or `EnableExternalServices` [configuration option](/docs/usage/configuration-options/#available-options) to false.
