@@ -6,8 +6,6 @@ description: >
   Information on how data is collected by the Navidrome project
 ---
 
-# Navidrome Anonymous Usage Statistics
-
 ## Overview
 
 Navidrome includes an **anonymous usage statistics feature** designed to help improve the project for all users.
@@ -147,13 +145,12 @@ the [configuration options page](/docs/usage/configuration-options#available-opt
 - **Config.ImageCacheSize**
 - **Config.EnableArtworkPrecache**
 - **Config.EnableDownloads**
-- **Config.EnableExternalServices**
 - **Config.EnableSharing**
 - **Config.EnableStarRating**
 - **Config.EnableLastFM**
 - **Config.EnableListenBrainz**
-- **Config.EnableMediaFileCoverArt**
 - **Config.EnableSpotify**
+- **Config.EnableMediaFileCoverArt**
 - **Config.EnableJukebox**
 - **Config.EnablePrometheus**
 - **Config.SessionTimeout**
@@ -168,7 +165,7 @@ the [configuration options page](/docs/usage/configuration-options#available-opt
 ---
 
 **In Summary**:  
-When gathered from many Navidrome instances, these metrics and settings help you understand the *aggregate*
+When gathered from many Navidrome instances, these metrics and settings are invaluable in understanding the *aggregate*
 patterns of usage, deployment environments, media collections, and configuration preferences. This aggregated data
 is *not* intended for diagnosing single-instance issues; rather, it provides a high-level view of how Navidrome is
 deployed and used by its community overall.
