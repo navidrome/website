@@ -15,6 +15,8 @@ aliases:
 
 The following steps have been tested on Ubuntu 18.04 and should work on all version 16.04 and above as well as other Debian based distros. Throughout these instructions the commands will have placeholders for the user (`<user>`) and group (`<group>`) you want to run Navidrome under and the music folder path (`<library_path>`). If you are using an existing media library ensure the user has permissions to the media library.
 
+If `<library_path>` is not on the root filesystem, it is recommended to not mount the folder containing your music directly, but its parent directory. For example, if you mount the disk/network share in `/mnt/navidrome`, create a subdirectory `/mnt/navidrome/library` to store your music. This ensures that if the disk/network share is not mounted for any reason, and Navidrome scans the library, you will not lose your playlist contents, favourites, and play counts. The reason for this is that if Navidrome scans the library, and `<library_path>` does not exist, the scan will fail and your database will not be changed. If, however, `<library_path>` does exist but is empty, then Navidrome will delete all songs from the database. If this occurs, playlist contents, favourites, and play counts are lost since these are deleted when a song is deleted from the database. If you must directly mount the folder containing your music, you can prevent Navidrome from starting if `<library_path>` is empty by adding `AssertDirectoryNotEmpty=<library_path>` in the `[Unit]` section of `/etc/systemd/system/navidrome.service`.
+
 ### Update and Install Prerequisites
 
 Ensure your system is up to date and install [ffmpeg](https://ffmpeg.org/download.html).
