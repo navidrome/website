@@ -170,7 +170,7 @@ patterns of usage, deployment environments, media collections, and configuration
 is *not* intended for diagnosing single-instance issues; rather, it provides a high-level view of how Navidrome is
 deployed and used by its community overall.
 
-Here's a sample of the data sent: https://gist.github.com/deluan/5fae829d4b249b663427d22c3c24de30
+Here's a sample of the data sent: https://gist.github.com/deluan/1c8944fb92329c1658d96bb72a8e8db4
 
 ### Data Retention
 
