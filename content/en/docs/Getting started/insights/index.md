@@ -95,13 +95,13 @@ data can help understand how frequently different types of storage are configure
 This information is just the type of the filesystem (ex: nfs, ext4, ntfs...) used for each type of storage,
 not the actual path.
 
-- **FS.Music:** File system details for storing music files.
+- **FS.Music:** File system type for storing music files.
 
-- **FS.Data:** Details about the file system storing Navidrome’s database.
+- **FS.Data:** File system type storing Navidrome’s database.
 
-- **FS.Cache:** Indicates the storage system or path used for cached data.
+- **FS.Cache:** File system type storing cached data.
 
-- **FS.Backup:** The file system location for backups.
+- **FS.Backup:** The file system type for backups.
 
 Each of these includes `Type`, describing the kind of storage (e.g., local disk, network mount). Aggregating them
 shows how widely different storage setups are used, and their impact on performance.
