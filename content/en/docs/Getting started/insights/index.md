@@ -65,6 +65,8 @@ there are any issues (e.g. performance impact or high memory usage) specific to 
 - **OS.Version:** The version of the operating system or distribution. Aggregating these versions helps track environment trends and
   legacy OS usage.
 
+- **OS.Containerized:** Whether Navidrome is running in a containerized environment (Docker, Kubernetes, etc..) 
+
 - **OS.Arch:** CPU architecture (e.g., "amd64", "arm"). This allows to understand how Navidrome is typically deployed
   (e.g., on Raspberry Pis vs. standard x86 servers).
 
