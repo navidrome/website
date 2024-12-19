@@ -32,9 +32,9 @@ is generally intended to represent. Each field corresponds to a piece of informa
 
 ### Top-level Fields
 
-- **InsightsID:** A unique, **randomly generated** identifier for this particular insights data. It’s a **random** ID that helps
-  distinguish one data report from another. It is **NOT** connected in anyway with your Navidrome instance or any
-  other data.
+- **InsightsID:** A unique, **randomly generated** identifier for a given Navidrome instance. It’s a **random** ID that 
+  allows reports from the same instance to be grouped together. It is **NOT** directly connected to any of your data,
+  and it cannot be used to directly identify you or your instance. 
 
 - **Version:**  Shows which Navidrome version each report came from. In aggregate analysis, this tells you how many users are on a
   particular version and can highlight upgrade patterns.
