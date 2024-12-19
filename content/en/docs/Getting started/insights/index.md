@@ -128,6 +128,9 @@ Across many deployments, they help illustrate general usage trends of the Navidr
 - **Library.ActiveUsers:** Number of currently active users in the last 7 days. This helps understand the average load the server
   is operating under.
 
+- **Library.ActivePlayers:** Number of currently active players in the last 7 days. This allows to understand what 
+  are the most used players.
+
 ---
 
 ### Configuration Settings
