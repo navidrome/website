@@ -1,0 +1,46 @@
+{{ $apiToken := .Get "apiToken" }}
+{{ $projectId := .Get "projectId" }}
+
+{{ $url := "https://api.poeditor.com/v2/languages/list" }}
+{{ $body := printf "api_token=%s&id=%s" $apiToken $projectId | safeURL }}
+{{ $headers := dict "Content-Type" "application/x-www-form-urlencoded" }}
+{{ $cacheBuster := now.Unix }}
+
+
+{{ $response := resources.GetRemote (printf "%s?cache-buster=%d" $url $cacheBuster) (dict "method" "POST" "body" $body "headers" $headers) }}
+
+{{ if $response }}
+{{ with $response.Err }}
+<p>Error: {{ . }}</p>
+{{ else }}
+{{ $data := $response.Content | unmarshal }}
+{{ if eq $data.response.status "success" }}
+<table class="translation-table sortable">
+    <thead>
+    <tr>
+        <th>Language</th>
+        <th>Code</th>
+        <th>Progress</th>
+        <th>Last Updated</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{ range $language := $data.result.languages }}
+    {{ if gt $language.percentage 70 }}
+    <tr>
+        <td>{{ $language.name }}</td>
+        <td>{{ $language.code }}</td>
+        <td>{{ printf "%.2f%%" $language.percentage }}</td>
+        <td>{{ time.AsTime $language.updated | time.Format "2006-01-02" }}</td>
+    </tr>
+    {{ end }}
+    {{ end }}
+    </tbody>
+</table>
+{{ else }}
+<p>Error: {{ $data.response.message }}</p>
+{{ end }}
+{{ end }}
+{{ else }}
+<p>Error: Unable to fetch translation data from POEditor.</p>
+{{ end }}

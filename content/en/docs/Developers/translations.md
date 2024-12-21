@@ -5,36 +5,28 @@ weight: 20
 description: >
   Learn how you can contribute with translations for the UI
 ---
+<a href="https://poeditor.com/">
+<p>
+<img src="https://github.com/user-attachments/assets/c19b1d2b-01e1-4682-a007-12356c42147c">
+</p>
+</a>
 
-Translations are currently managed in [POEditor](https://poeditor.com). 
+Translations are currently managed in [POEditor](https://poeditor.com).
 If you want to contribute new translations or help reviewing/proofreading any of the existing 
 ones, please join our [Discord server](https://discord.gg/xh7j7yF), channel `#translations`, for 
 translation efforts coordination and to get further instructions.
 
-Alternatively, you can submit a pull request with your proposed changes directly [to our project in GitHub](https://github.com/navidrome/navidrome/tree/master/resources/i18n).
+## Contributing with a Pull Request
 
-## Directory Structure
+Alternatively, you can submit a pull request with your proposed changes directly 
+[to our project in GitHub](https://github.com/navidrome/navidrome/tree/master/resources/i18n). This method requires 
+you to have a GitHub account and some basic knowledge of Git.
 
-If you choose to contribute translations via a pull request, most of the translation files are located in the [`resources/i18n`](https://github.com/navidrome/navidrome/tree/master/resources/i18n) directory. These are all served by the Navidrome backend to avoid bloating UI bundle with additional translations. The English translation file is located outside of this main directory at [`ui/src/i18n/en.json`](https://github.com/navidrome/navidrome/blob/master/ui/src/i18n/en.json) so it can be bundled with the UI.
-
+If you choose to contribute translations via a pull request, most of the translation files are located in the [`resources/i18n`](https://github.com/navidrome/navidrome/tree/master/resources/i18n) directory. The English translation file is the only one located outside of this directory. It can be found in the [`ui/src/i18n/en.json`](https://github.com/navidrome/navidrome/blob/master/ui/src/i18n/en.json).
 
 
 ## Translation Status
 
-<img alt="POEditor" src="https://img.shields.io/poeditor/progress/337783/en?style=flat-square&token=c17601dd8151b384e987d3aa33ea68ba">
-<img alt="POEditor" src="https://img.shields.io/poeditor/progress/337783/zh-Hans?style=flat-square&token=c17601dd8151b384e987d3aa33ea68ba">
-<img alt="POEditor" src="https://img.shields.io/poeditor/progress/337783/zh-Hant?style=flat-square&token=c17601dd8151b384e987d3aa33ea68ba">
-<img alt="POEditor" src="https://img.shields.io/poeditor/progress/337783/cs?style=flat-square&token=c17601dd8151b384e987d3aa33ea68ba">
-<img alt="POEditor" src="https://img.shields.io/poeditor/progress/337783/da?style=flat-square&token=c17601dd8151b384e987d3aa33ea68ba">
-<img alt="POEditor" src="https://img.shields.io/poeditor/progress/337783/nl?style=flat-square&token=c17601dd8151b384e987d3aa33ea68ba">
-<img alt="POEditor" src="https://img.shields.io/poeditor/progress/337783/eo?style=flat-square&token=c17601dd8151b384e987d3aa33ea68ba">
-<img alt="POEditor" src="https://img.shields.io/poeditor/progress/337783/fr?style=flat-square&token=c17601dd8151b384e987d3aa33ea68ba">
-<img alt="POEditor" src="https://img.shields.io/poeditor/progress/337783/de?style=flat-square&token=c17601dd8151b384e987d3aa33ea68ba">
-<img alt="POEditor" src="https://img.shields.io/poeditor/progress/337783/it?style=flat-square&token=c17601dd8151b384e987d3aa33ea68ba">
-<img alt="POEditor" src="https://img.shields.io/poeditor/progress/337783/ja?style=flat-square&token=c17601dd8151b384e987d3aa33ea68ba">
-<img alt="POEditor" src="https://img.shields.io/poeditor/progress/337783/pl?style=flat-square&token=c17601dd8151b384e987d3aa33ea68ba">
-<img alt="POEditor" src="https://img.shields.io/poeditor/progress/337783/pt?style=flat-square&token=c17601dd8151b384e987d3aa33ea68ba">
-<img alt="POEditor" src="https://img.shields.io/poeditor/progress/337783/es?style=flat-square&token=c17601dd8151b384e987d3aa33ea68ba">
-<img alt="POEditor" src="https://img.shields.io/poeditor/progress/337783/ru?style=flat-square&token=c17601dd8151b384e987d3aa33ea68ba">
-<img alt="POEditor" src="https://img.shields.io/poeditor/progress/337783/th?style=flat-square&token=c17601dd8151b384e987d3aa33ea68ba">
-<img alt="POEditor" src="https://img.shields.io/poeditor/progress/337783/tr?style=flat-square&token=c17601dd8151b384e987d3aa33ea68ba">
+Languages with at least 70% of the terms translated:
+
+{{< poeditorTranslations apiToken="c17601dd8151b384e987d3aa33ea68ba" projectId="337783" >}}

@@ -60,7 +60,8 @@ browsing by folders, but simulates it based on the tags with a structure like:
 {{</alert>}}
 ## Apps
 
-Besides its own Web UI, Navidrome should be compatible with all Subsonic clients. The following clients are tested and confirmed to work properly:
+Besides its own Web UI, Navidrome should be compatible with all Subsonic clients. The following clients are tested and 
+confirmed to work properly:
 
 {{< tabpane text=true >}}
 
@@ -76,9 +77,10 @@ Besides its own Web UI, Navidrome should be compatible with all Subsonic clients
 
 {{% tab header="iOS" %}}
 - [play:Sub](http://michaelsapps.dk/playsubapp/) 
-- [substreamer](https://substreamerapp.com/)
 - [StreamMusic](https://apps.apple.com/ca/app/stream-music-enjoy-music/id6449966496)
+- [substreamer](https://substreamerapp.com/)
 - [Amperfy](https://github.com/BLeeEZ/amperfy#readme) 
+- [flo](https://client.flooo.club/)
 - [iSub](https://isub.app/)
 {{% /tab %}}
 
@@ -96,13 +98,15 @@ Besides its own Web UI, Navidrome should be compatible with all Subsonic clients
 {{% tab header="Desktop" %}}
 - [Feishin](https://github.com/jeffvli/feishin) <i class="fa-brands fa-windows" style="color:gray"/></i>&nbsp;<i class="fa-brands fa-apple" style="color:gray"></i>&nbsp;<i class="fa-brands fa-linux" style="color:gray"></i> 
 - [Supersonic](https://github.com/dweymouth/supersonic) <i class="fa-brands fa-windows" style="color:gray"/></i>&nbsp;<i class="fa-brands fa-apple" style="color:gray"></i>&nbsp;<i class="fa-brands fa-linux" style="color:gray"></i> 
-- [Sublime Music](https://sublimemusic.app/) <i class="fa-brands fa-linux" style="color:gray"></i>
 - [Submariner](https://submarinerapp.com/) <i class="fa-brands fa-apple" style="color:gray"></i>
 - [StreamMusic](https://music.aqzscn.cn/docs/versions/latest/) <i class="fa-brands fa-windows" style="color:gray"/></i>&nbsp;<i class="fa-brands fa-apple" style="color:gray"></i>
+- [Sublime Music](https://sublimemusic.app/) <i class="fa-brands fa-linux" style="color:gray"></i>
+- [Amperfy](https://github.com/BLeeEZ/amperfy#readme) <i class="fa-brands fa-apple" style="color:gray"></i>
 - [Sonixd](https://github.com/jeffvli/sonixd) <i class="fa-brands fa-windows" style="color:gray"/></i>&nbsp;<i class="fa-brands fa-apple" style="color:gray"></i>&nbsp;<i class="fa-brands fa-linux" style="color:gray"></i>   
 - CLI: 
   - [Jellycli](https://github.com/tryffel/jellycli#readme) <i class="fa-brands fa-windows" style="color:gray"/></i>&nbsp;<i class="fa-brands fa-linux" style="color:gray"></i>
   - [STMP](https://github.com/wildeyedskies/stmp#readme) <i class="fa-brands fa-apple" style="color:gray"></i>&nbsp;<i class="fa-brands fa-linux" style="color:gray"></i>
+  - [STMPS](https://github.com/spezifisch/stmps#readme) <i class="fa-brands fa-apple" style="color:gray"></i>&nbsp;<i class="fa-brands fa-linux" style="color:gray"></i>
 {{% /tab %}}
 
 {{% tab header="Other" %}}
