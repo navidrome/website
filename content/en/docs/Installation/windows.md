@@ -1,10 +1,21 @@
 ---
 title: "Windows Install"
 linkTitle: "Windows"
-date: 2017-01-05
+date: 2024-08-19
 description: >
   Steps to install on Windows
 ---
+
+## MSI Install
+[Download](https://github.com/navidrome/navidrome/releases/) and install the latest Navidrome MSI for the correct version of Windows (most likely AMD64). The 
+installer will prompt for basic configuration options (port, directories etc). These can be left as default or 
+customised to your setup. The service will be installed and started automatically, once the installer has completed 
+you can go to [http://127.0.0.1:4533] (or whichever port you chose) in a browser and setup the first user. 
+The `navidrome.ini` configuration file will be located in the installation folder (default: `C:\Program Files\Navidrome`).
+
+Further modification can be made by changing the `navidrome.ini` file after installation and restarting the service.
+
+## Manual Installation
 
 Since Navidrome needs to be run from the command line, it is suggested to use a service wrapper to make it into a service as it does not make sense to have a terminal window open whenever you want to use Navidrome.
 The examples below are for [Shawl](https://github.com/mtkennerly/shawl), [NSSM](http://nssm.cc/) and [WinSW](https://github.com/winsw/winsw).
