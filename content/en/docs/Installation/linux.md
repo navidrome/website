@@ -43,7 +43,7 @@ There are two ways to install the package, `apt` and `dpkg`. `apt` is the usual 
 Using `apt`:
 
 ~~~bash
-apt install ./navidrome_0.XX.X_linux_amd64.deb
+sudo apt install ./navidrome_0.XX.X_linux_amd64.deb
 ~~~
 
 Using `dpkg`:
@@ -55,10 +55,10 @@ sudo dpkg -i ./navidrome_0.XX.X_amd64.deb
 sudo apt install -f
 ~~~
 
-**Configuration File**: After installation, Navidrome MUST be configured to run. The default path for the configuration file is /var/lib/navidrome/navidrome.toml. Create and edit the file using nano directly.
+**Configuration File**: After installation, Navidrome MUST be configured to run. The default path for the configuration file is /etc/navidrome/navidrome.toml. Create and edit the file using nano directly.
 
 ~~~bash
-sudo nano /var/lib/navidrome/navidrome.toml
+sudo nano /etc/navidrome/navidrome.toml
 ~~~
 
 Add the following line to specify your music library path:
@@ -67,28 +67,24 @@ Add the following line to specify your music library path:
 MusicFolder = "/path/to/your/music/library"
 ~~~
 
+If the MusicFolder is not set, that the default music path is `/opt/navidrome/music` and it will be running as user `navidrome`.
+
 For additional configuration options see the [configuration options page](https://www.navidrome.org/docs/usage/configuration-options/).
 
-**Start the Navidrome Service**: Use systemctl to start the Navidrome service.
+**Start the Navidrome Service**: Use systemctl to start the Navidrome service and set it to run on startup.
 
 ~~~bash
-sudo systemctl start navidrome
-~~~
-
-**Enable Navidrome to Start on Boot**: To make Navidrome start automatically on system boot, enable the service.
-
-~~~bash
-sudo systemctl enable navidrome
+sudo systemctl enable --now navidrome
 ~~~
 
 **Check Service Status**: Verify that Navidrome is running correctly.
 
 ~~~bash
 sudo systemctl status navidrome
+sudo journalctl -u navidrome -f
 ~~~
 
 If everything is set up correctly, Navidrome will be accessible via web browser: http://localhost:4533.
-
 
 
 ## Migrate from self-built to .deb Pre-built package
@@ -121,12 +117,12 @@ sudo rm -rf /opt/navidrome
 
 ### Installation
 
-The machine is now clean and ready for installation. Follow the regular [Linux installation instructions](#install-navidrome-using-pre-built-binary) above. Just be sure to place the config file and database in appropriate locations (/var/lib/navidrome by default).
+The machine is now clean and ready for installation. Follow the regular [Linux installation instructions](#install-navidrome-using-pre-built-binary) above. Just be sure to place the config file and database in appropriate locations (/etc/navidrome/navidrome.toml).
 
 
 ### Additional Considerations
 
-* **Permissions**: Ensure that the user running Navidrome has the necessary permissions to access your music library.
+* **Permissions**: Ensure that the user `navidrone` which is used by the program has the necessary permissions to access your music library.
 * **Environment Variables**: If you had any custom environment variables set in your previous setup, make sure to configure them in the new setup as well.
 
 
@@ -165,7 +161,7 @@ sudo chown -R <user>:<group> /opt/navidrome
 
 ### Create Configuration File
 
-In the working directory, `/var/lib/navidrome` create a new file named `navidrome.toml` with the following settings.
+In the directory `/etc/navidrome` create a new file named `navidrome.toml` with the following settings.
 
 ```toml
 MusicFolder = "<library_path>"
@@ -191,7 +187,7 @@ WantedBy=multi-user.target
 User=<user>
 Group=<group>
 Type=simple
-ExecStart=/opt/navidrome/navidrome --configfile "/var/lib/navidrome/navidrome.toml"
+ExecStart=/opt/navidrome/navidrome --configfile "/etc/navidrome/navidrome.toml"
 WorkingDirectory=/var/lib/navidrome
 TimeoutStopSec=20
 KillMode=process
