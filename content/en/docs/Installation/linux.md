@@ -41,6 +41,7 @@ Download the latest release from the [releases page](https://github.com/navidrom
 ```bash
 wget https://github.com/navidrome/navidrome/releases/download/v0.XX.X/navidrome_0.XX.X_linux_amd64.tar.gz -O Navidrome.tar.gz
 sudo tar -xvzf Navidrome.tar.gz -C /opt/navidrome/
+sudo chmod +x /opt/navidrome/navidrome
 sudo chown -R <user>:<group> /opt/navidrome
 ```
 
