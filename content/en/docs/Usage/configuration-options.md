@@ -31,6 +31,10 @@ MusicFolder = 'C:\Users\JohnDoe\Music'
 
 # Set this to the path of your ffmpeg executable
 FFmpegPath = 'C:\Program Files\ffmpeg\bin\ffmpeg.exe'
+
+[LastFM]
+    ApiKey = "{API_KEY}"
+    Secret = "{SECRET}"
 {{< /tab >}}
 {{< tab header="macOS" lang="macos" >}}
 # This is just an example! Please see available options to customize Navidrome for your needs at
@@ -43,6 +47,10 @@ MusicFolder = '/Users/JohnDoe/Music'
 
 # This is the default path for Homebrew installed ffmpeg
 FFmpegPath = '/usr/local/bin/ffmpeg'
+
+[LastFM]
+    ApiKey = "{API_KEY}"
+    Secret = "{SECRET}"
 {{< /tab >}}
 {{< tab header="Unix-based systems" lang="unix" >}}
 # This is just an example! Please see available options to customize Navidrome for your needs at
@@ -52,6 +60,10 @@ LogLevel = 'DEBUG'
 ScanSchedule = '@every 24h'
 TranscodingCacheSize = '150MiB'
 MusicFolder = '/mnt/music'
+
+[LastFM]
+    ApiKey = "{API_KEY}"
+    Secret = "{SECRET}"
 {{< /tab >}}
 {{< /tabpane >}}
 
