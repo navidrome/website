@@ -20,6 +20,8 @@ Navidrome's Jukebox mode is based on the OpenSource audio player [MPV](https://m
 audio/videoplayer that is supported on many platforms. Navidrome's Jukebox mode uses MPV for audio playback in
 combination with MPV's feature to be controlled through [IPC](https://mpv.io/manual/master/#json-ipc).
 
+Client support might vary. One client that is know to work in jukebox mode is [jamstash](https://github.com/tsquillario/Jamstash).
+
 ## MPV Installation
 
 MPV must be present on the system where the Navidrome server runs. You might find it already installed or could install
@@ -148,6 +150,16 @@ MPVCmdTemplate = "mpv --no-audio-display --pause %f --input-ipc-server=%s --audi
 ```
 
 This assumes Snapcast is running on the same machine as Navidrome. Check the [Snapcast documentation](https://github.com/badaix/snapcast/blob/develop/doc/player_setup.md#mpv) for details.
+
+
+Or provide the configuration via ENV variables (in you docker compose)
+
+```yaml
+ND_JUKEBOX_ENABLED: true
+ND_MPVCMDTEMPLATE: "/usr/bin/mpv --no-audio-display --pause %f --input-ipc-server=%s --audio-channels=stereo --audio-samplerate=48000 --audio-format=s16 --ao=pcm --ao-pcm-file=/audio/snapcast_fifo"
+```
+
+When using docker you will also need to mount the location of the fifo that the snapcast server exposes.
 
 ## Usage
 
