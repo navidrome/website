@@ -101,9 +101,9 @@ confirmed to work properly:
 - [Submariner](https://submarinerapp.com/) <i class="fa-brands fa-apple" style="color:gray"></i>
 - [StreamMusic](https://music.aqzscn.cn/docs/versions/latest/) <i class="fa-brands fa-windows" style="color:gray"/></i>&nbsp;<i class="fa-brands fa-apple" style="color:gray"></i>
 - [Aonsoku](https://github.com/victoralvesf/aonsoku) <i class="fa-brands fa-windows" style="color:gray"/></i>&nbsp;<i class="fa-brands fa-apple" style="color:gray"></i>&nbsp;<i class="fa-brands fa-linux" style="color:gray"></i>
-- [Sublime Music](https://sublimemusic.app/) <i class="fa-brands fa-linux" style="color:gray"></i>
 - [Amperfy](https://github.com/BLeeEZ/amperfy#readme) <i class="fa-brands fa-apple" style="color:gray"></i>
 - [Sonixd](https://github.com/jeffvli/sonixd) <i class="fa-brands fa-windows" style="color:gray"/></i>&nbsp;<i class="fa-brands fa-apple" style="color:gray"></i>&nbsp;<i class="fa-brands fa-linux" style="color:gray"></i>   
+- [Sublime Music](https://sublimemusic.app/) <i class="fa-brands fa-linux" style="color:gray"></i>
 - CLI: 
   - [STMP](https://github.com/wildeyedskies/stmp#readme) <i class="fa-brands fa-apple" style="color:gray"></i>&nbsp;<i class="fa-brands fa-linux" style="color:gray"></i>
   - [STMPS](https://github.com/spezifisch/stmps#readme) <i class="fa-brands fa-apple" style="color:gray"></i>&nbsp;<i class="fa-brands fa-linux" style="color:gray"></i>
