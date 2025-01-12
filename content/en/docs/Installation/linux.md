@@ -61,7 +61,7 @@ sudo apt install -f
 sudo nano /etc/navidrome/navidrome.toml
 ~~~
 
-Add the following line to specify your music library path:
+Add/update the following line to specify your music library path:
 
 ~~~conf
 MusicFolder = "/path/to/your/music/library"
@@ -169,10 +169,10 @@ MusicFolder = "<library_path>"
 
 For additional configuration options see the [configuration options page](https://www.navidrome.org/docs/usage/configuration-options/).
 
-### Create a Systemd Unit
+### Create a systemd Unit
 
 Create a new file under `/etc/systemd/system/` named `navidrome.service` with the following data. Make sure you replace
-`<user>` and `<group>` with the user and group you want to run Navidrome under.
+`<user>` and `<group>` with the user and group you want to run Navidrome under. If you use the backup feature, you will also need to add the backup path to the systemd allow-list for Navidrome as shown in the [Backup usage documentation]().
 
 ```systemd
 [Unit]

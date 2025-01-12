@@ -12,6 +12,7 @@ Navidrome version 0.54.x introduces a backup feature that allows the music serve
 Note: The backup process ONLY backs up the database (users, play counts, etc.). It does NOT back up the music or the config.
 {{% /pageinfo %}}
 
+
 ## Configuring Backup with config.toml
 
 To configure backups using the navidrome.toml file, insert the following lines to set up backups:
@@ -44,7 +45,7 @@ volumes:
 
 ## Manually Creating a Backup
 
-You can manually create a backup via the navidrome command like so:
+You can manually create a backup via the `navidrome backup create` command:
 
 ~~~bash
 sudo navidrome backup create
@@ -56,6 +57,19 @@ If you use docker compose, you can do the same with:
 sudo docker compose run <service_name> backup create
 ~~~
 
+When manually creating a backup, no prune cycle is run, so none of the existing backups will be pruned. However, next time the automated backup process runs, the normal prune cycle will run and potentially remove several backups until the number of backups is down to the configured backup count setting. To manually run a prune cycle, use the `navidrome backup prune` command:
+
+~~~bash
+sudo navidrome backup prune
+~~~
+
+If you use docker compose, you can do the same with:
+
+~~~bash
+sudo docker compose run <service_name> backup prune
+~~~
+
+
 ## Locating Backup
 
 Once configured, Navidrome will store backups in the directory specified by the BackupFolder or ND_BACKUP_PATH setting. To verify the location:
@@ -65,9 +79,15 @@ Once configured, Navidrome will store backups in the directory specified by the 
 
 ## Restoring a Backup
 
-Note: Restoring a backup should ONLY be done when the service is NOT running.
+When you restore a backup, the existing data in the database is wiped and the data in the backup gets copied into the database.
 
-Restore a backup by running the `navidrome backup restore` command.
+Note: YOU MUST BE SURE TO RUN THIS COMMAND WHILE THE NAVIDROME APP IS NOT RUNNING/LIVE.
+
+Restore a backup by running the `navidrome backup restore ` command.
+
+Note: Restoring a backup should ONLY be done when the service is NOT running. You've been warned.
+
+
 
 ## Additional Resources
 
