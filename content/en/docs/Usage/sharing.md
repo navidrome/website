@@ -14,10 +14,18 @@ Please be aware that the Sharing feature is still under active development, and 
 Navidrome has a "Sharing" feature which allows users to generate a shareable link for a track, album, artist, or playlist. This link can then be sent to friends, allowing them to listen or download the music without having an account on your Navidrome instance.
 
 ### Enabling the Sharing Feature
-Recent versions of Navidrome have the Sharing feature enabled by default. To use it, make sure the config option `EnableSharing` (or the environment variable `ND_ENABLESHARING`) is set to `true`. For details how how to configure Navidrome, see the [configuration](/docs/usage/configuration-options) documentation.
+The Sharing feature is disabled by default. To enable it, you need to adjust your Navidrome
+[configuration](/docs/usage/configuration-options). In your configuration file, set `EnableSharing=true`, or set the
+environment variable `ND_ENABLESHARING=true`.
+
+Once the Sharing feature is enabled, all users will have access to all existing shares. This includes the ability to change the description and expiration date of the shares, as well as the capability to create new shares.
+
+Please note that at this time, there is no way to set specific sharing permissions per user. This means that once the Sharing feature is enabled, all users have equal access and capabilities related to sharing. This includes the ability to view, modify, and create shares.
+
+Due to this, we advise you to enable this feature only if you are comfortable with these permissions. Future updates may include more granular permission controls for sharing.
 
 ### Using the Sharing Feature
-
+Once the Sharing feature is enabled, all users will be able to access current shares, modify descriptions and expiration, and create new ones. However, as of the initial implementation, there is currently no way to set permissions per user.
 When browsing your music collection, you will notice a "Share" button or menu item available for each item, be it a track, album, artist, or playlist. To share an item, simply click on this "Share" button.
 
 Upon clicking the "Share" button, a dialog box will appear, allowing you to configure your share. This includes setting a description other configurations for the share.
