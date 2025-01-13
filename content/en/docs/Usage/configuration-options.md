@@ -224,5 +224,5 @@ make it all uppercase. Ex: `ND_LOGLEVEL=debug`. See below for all available opti
 [i18n]:                 https://github.com/navidrome/navidrome/tree/master/resources/i18n
 [extractors]:           /docs/usage/extractors
 [share-url]:            https://github.com/navidrome/navidrome/discussions/3117
-[insights]:             /docs/getting-started/telemetry
+[insights]:             /docs/getting-started/insights
 [unsplash]:             https://unsplash.com/collections/20072696/navidrome
