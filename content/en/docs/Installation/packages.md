@@ -17,7 +17,7 @@ Here is the list of packages for various OSes/Distributions, provided by Repolog
 
 <a href="https://repology.org/project/navidrome/versions">
 <p>
-<img src="https://repology.org/badge/vertical-allrepos/navidrome.svg" alt="Packaging status">
+<img src="https://repology.org/badge/vertical-allrepos/navidrome.svg?columns=2&exclude_unsupported=1" alt="Packaging status">
 </p>
 </a>
 
