@@ -6,6 +6,30 @@ set -e
 ACCESS_KEY="$HUGO_UNSPLASH_ACCESS_KEY"
 COLLECTION_ID="$1"
 
+# Check if cwebp is installed
+if ! command -v cwebp &> /dev/null; then
+    echo "Error: cwebp is not installed. Please install webp package first."
+    exit 1
+fi
+
+# Check if jq is installed
+if ! command -v jq &> /dev/null; then
+    echo "Error: jq is not installed. Please install jq package first."
+    exit 1
+fi
+
+# Check if the Unsplash API access key is set
+if [ -z "$ACCESS_KEY" ]; then
+    echo "Error: Unsplash API access key is not set. Please set the HUGO_UNSPLASH_ACCESS_KEY environment variable."
+    exit 1
+fi
+
+# Check if the collection ID is provided as an argument
+if [ -z "$COLLECTION_ID" ]; then
+    echo "Error: Collection ID is not provided. Please provide the collection ID as an argument."
+    exit 1
+fi
+
 # Initialize variables for pagination
 page=1
 per_page=30
@@ -35,6 +59,7 @@ done
 mkdir -p static/images
 echo "---" > static/images/index.yml
 new_images=0
+new_webp=0
 
 # Download each image in the list to the static/images folder if it doesn't already exist
 for id in $image_ids; do
@@ -46,7 +71,13 @@ for id in $image_ids; do
     curl -sSL "$url" > static/images/"${id}".jpg
     new_images=$((new_images+1))
   fi
+  # Convert to WebP if it doesn't exist yet
+  if [ ! -f "static/images/${id}.webp" ]; then
+    cwebp -q 80 "static/images/${id}.jpg" -o "static/images/${id}.webp"
+    new_webp=$((new_webp+1))
+  fi
   echo "- ${id}.jpg" >> static/images/index.yml
 done
 
 [ "$new_images" != "0" ] && echo "New images added: $new_images"
+[ "$new_webp" != "0" ] && echo "New WebP conversions: $new_webp"
