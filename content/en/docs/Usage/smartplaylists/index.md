@@ -203,7 +203,7 @@ prefix (or whatever value you set in `MusicFolder`).
 Any tags imported from the music files, that are not listed above, can be also used as fields in your Smart Playlists.
 Check the [complete list of tags](https://github.com/navidrome/navidrome/blob/master/resources/mappings.yaml) imported 
 by navidrome. You can also add your own custom tags to your music files and use them in your Smart Playlists. 
-Check the `Tags` section in the [configuration options page](/docs/usage/configuration-options) for more information.
+Check the [Custom Tags](/docs/usage/customtags) for more information.
 
 ### Operators
 
