@@ -209,23 +209,23 @@ Check the `Tags` section in the [configuration options page](/docs/usage/configu
 
 Here's a table of operators you can use in your Smart Playlists:
 
-| Operator        | Description      | Argument type                     |
-|-----------------|------------------|-----------------------------------|
-| `is`            | Equal            | String, Number, Boolean           |
-| `isNot`         | Not equal        | String, Number, Boolean           |
-| `gt`            | Greater than     | Number                            |
-| `lt`            | Less than        | Number                            |
-| `contains`      | Contains         | String                            |
-| `notContains`   | Does not contain | String                            |
-| `startsWith`    | Starts with      | String                            |
-| `endsWith`      | Ends with        | String                            |
-| `inTheRange`    | In the range     | Array of two numbers or dates     |
-| `before`        | Before           | Date (`"YYYY-MM-DD"`)             |
-| `after`         | After            | Date (`"YYYY-MM-DD"`)             |
-| `inTheLast`     | In the last      | Number of days                    |
-| `notInTheLast`  | Not in the last  | Number of days                    |
-| `inPlaylist`    | In playlist      | Another playlist's ID (see below) |
-| `notInPlaylist` | Not in playlist  | Another playlist's ID (see below) |
+| Operator        | Description              | Argument type                     |
+|-----------------|--------------------------|-----------------------------------|
+| `is`            | Equal                    | String, Number, Boolean           |
+| `isNot`         | Not equal                | String, Number, Boolean           |
+| `gt`            | Greater than             | Number                            |
+| `lt`            | Less than                | Number                            |
+| `contains`      | Contains                 | String                            |
+| `notContains`   | Does not contain         | String                            |
+| `startsWith`    | Starts with              | String                            |
+| `endsWith`      | Ends with                | String                            |
+| `inTheRange`    | In the range (inclusive) | Array of two numbers or dates     |
+| `before`        | Before                   | Date (`"YYYY-MM-DD"`)             |
+| `after`         | After                    | Date (`"YYYY-MM-DD"`)             |
+| `inTheLast`     | In the last              | Number of days                    |
+| `notInTheLast`  | Not in the last          | Number of days                    |
+| `inPlaylist`    | In playlist              | Another playlist's ID (see below) |
+| `notInPlaylist` | Not in playlist          | Another playlist's ID (see below) |
 
 The nature of the field determines the argument type. For example, `year` and `tracknumber` require a number,
 while `title` and `album` require a string.
