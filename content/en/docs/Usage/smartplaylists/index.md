@@ -84,7 +84,11 @@ editing Smart Playlists in future releases.
 
 In the meantime, if you want a graphical way to create playlists, you can use 
 [Feishin](https://github.com/jeffvli/feishin/), a desktop/web client for Navidrome, that supports creating 
-Smart Playlists.
+Smart Playlists:
+
+{{< imgproc feishin_nsp_editor Fit "2000x2000" />}}
+
+Smart Playlists created/edited in Feishin will be available in Navidrome UI as soon as they are saved.
 
 ## Importing Smart Playlists
 Smart Playlists are imported the same way as regular (`.m3u`) playlists, during the library scan. Place your `.nsp` 
@@ -220,6 +224,5 @@ while `title` and `album` require a string.
 To get a playlist's ID to be used in `inPlaylist` and `notInPlaylist`, navigate to the playlist in the Navidrome UI 
 and check the URL. The ID is the last part of the URL after the `/playlists/` path:
 
-{{< imgproc playlist_url Fit "800x500" >}}
-{{< /imgproc >}}
+{{< imgproc playlist_url Fit "1000x1000" />}}
 
