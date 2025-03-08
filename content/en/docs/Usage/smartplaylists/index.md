@@ -105,6 +105,13 @@ Smart Playlists based on user interactions (e.g., play count, loved tracks) are 
 the owner's interactions. If you want personalized playlists for each user, create separate `.nsp` files for each user
 and assign ownership accordingly.
 
+### Refreshing Playlists
+Smart Playlists are refreshed automatically when they are accessed by the UI or any Subsonic client. This ensures
+that the playlist is up-to-date when you view it. To avoid unnecessary load, there is a minimum delay between refreshes.
+This delay can be adjusted by setting the
+[`SmartPlaylistRefreshDelay`](/docs/usage/configuration-options/#:~:text=SmartPlaylistRefreshDelay) configuration option. 
+By default, this is set to `5s`, meaning that Smart Playlists refreshes are spaced at least 5 seconds apart.
+You can adjust this value in the configuration file.
 
 ## Troubleshooting Common Issues
 ### Referencing Other Playlists
@@ -118,9 +125,15 @@ underscores (`_`), be aware that these might be ignored in some computations. Ad
 ### Sorting by multiple fields
 Currently, sorting by multiple fields is not supported.
 
-### Filepath Adjustments
-`filepath` are relative to your music library folder. Ensure your paths are correctly specified without the `/music` 
-prefix (or whatever value you set in `MusicFolder`).
+### Deleting Users with Shared Smart Playlists
+If you encounter issues deleting users with shared Smart Playlists, check if the playlists are used by other users.
+See [this issue](https://github.com/navidrome/navidrome/issues/3180) for details.
+
+### Editing Playlists
+To change the rules of a Smart Playlist, you need to edit the `.nsp` file directly 
+(or use [Feishin](https://github.com/jeffvli/feishin/)). Changes are automatically detected during the next library scan.
+The list of tracks in a Smart Playlist is read-only and cannot be edited directly.
+
 
 ## Additional Resources
 
@@ -166,6 +179,13 @@ Here's a table  of fields you can use in your Smart Playlists:
 | `lastplayed`      | Date track was last played             |
 | `playcount`       | Number of times track was played       |
 | `rating`          | Track rating                           |
+
+##### Notes
+- Dates must be in the format `"YYYY-MM-DD"`.
+- Booleans must not be enclosed in quotes. Example: `{ "is": { "loved": true } }`.
+- `filepath` is relative to your music library folder. Ensure your paths are correctly specified without the `/music`
+prefix (or whatever value you set in `MusicFolder`).
+
 
 Any tags imported from the music files, that are not listed above, can be also used as fields in your Smart Playlists.
 Check the [complete list of tags](https://github.com/navidrome/navidrome/blob/master/resources/mappings.yaml) imported 
