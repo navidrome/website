@@ -118,9 +118,18 @@ By default, this is set to `5s`, meaning that Smart Playlists refreshes are spac
 You can adjust this value in the configuration file.
 
 ## Troubleshooting Common Issues
+
+### Playlist Not Showing Up
+If a Smart Playlist is not showing up in the Navidrome UI, check the following:
+- Check the logs for any errors during the library scan.
+- Ensure the `.nsp` file is in the correct folder and has the correct permissions.
+- Ensure the file is correctly formatted and does not contain any syntax errors. Tip: Use a JSON validator to check 
+  the file (ex: https://jsonlint.com/)
+- Check the playlist's visibility and ownership settings.
+
 ### Referencing Other Playlists
-When referencing another playlist by ID, ensure that the referenced playlist is not another Smart Playlist unless it 
-is set to 'public'. This ensures proper functionality.
+When referencing another playlist by ID (using the operator `inPlaylist`), ensure that the referenced playlist is not 
+another Smart Playlist unless it is set to 'public'. This ensures proper functionality.
 
 ### Special Characters in Conditions
 If you encounter issues with conditions like `contains` or `endsWith`, especially with special characters like 
