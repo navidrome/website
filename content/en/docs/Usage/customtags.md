@@ -10,9 +10,9 @@ description: >
 
 ## Overview
 
-As all values imported are stored and indexed in the database, to improve performance and reduce storage requirements, 
+As all tags imported are stored and indexed in the database, to improve performance and reduce storage requirements, 
 Navidrome only imports a predefined set of tags. The complete list of default tags imported are listed 
-[here][mappings]
+[here][mappings].
 
 However, Navidrome supports importing and using custom tags from your music files. Custom tags allow you to extend the 
 metadata beyond the default supported tags. This functionality can be configured via the configuration file.
@@ -21,13 +21,13 @@ metadata beyond the default supported tags. This functionality can be configured
 
 Custom tags are defined under the `Tags` configuration section. A custom tag configuration accepts the following properties:
 
-- `Aliases`: A list of all alternative names that can found in your music files, but should be considered the same tag. 
+- **Aliases**: A list of all alternative names that can found in your music files, but should be considered the same tag. 
   Ex: `album artist`, `albumartist`
-- `Type`: Specifies the type of data stored in the tag. It can be used to validate or transform values. 
+- **Type**: Specifies the type of data stored in the tag. It can be used to validate or transform values. 
   Supported types are `int`,`float`, `date`, `uuid`. If not specified, the tag will be treated as a `string`.
-- `MaxLength`: The length limit for the tag value. Default is 1024 characters.
-- `Album`: A boolean flag indicating whether this tag applies to an album rather than an individual track.
-- `Split`: Tags are always considered multivalued, but you can specify a list of delimiters used to split a tag value 
+- **MaxLength**: The length limit for the tag value. Default is 1024 characters.
+- **Album**: A boolean flag indicating whether this tag applies to an album rather than an individual track.
+- **Split**: Tags are always considered multivalued, but you can specify a list of delimiters used to split a tag value 
    into multiple entries.  
 
 Note that tags are case-insensitive, so you don't need to specify all possible case variations in the `Aliases` list.
