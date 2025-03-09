@@ -4,7 +4,7 @@ linkTitle: Smart Playlists (Beta)
 date: 2017-01-02
 weight: 40
 description: >
-  
+  Learn how to create and manage Smart Playlists in Navidrome, a dynamic way to organize and enjoy your music collection.
 ---
 
 Smart Playlists in Navidrome offer a dynamic way to organize and enjoy your music collection. They are created using 
