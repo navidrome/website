@@ -17,7 +17,8 @@ Smart Playlists are currently in beta and may have some limitations. Please repo
 {{</alert>}}
 
 ## Creating Smart Playlists
-To create a Smart Playlist, you need to define a JSON object with specific fields and operators. 
+To create a Smart Playlist, you need to define a JSON object with specific [fields](#fields)
+and [operators](#operators) that describe the criteria for selecting tracks. The JSON object is stored in a `.nsp` file
 Here are some examples to get you started:
 
 ### Example 1: Recently Played Tracks
