@@ -253,8 +253,8 @@ Here are some recommendations and tips on workflow:
          part of this (many tools can do so based on tags), ensure the files end up in the correct location 
          (your Navidrome music library folder). 
 {{< alert color="warning" >}}
-**Caution**: If you are retagging files that are already in Navidrome, avoid rettaging and moving in one step, as this 
-could cause that Navidrome to lose track of the files. Instead, retag and save, rescan, then move the files and rescan 
+**Caution**: If you are retagging files that are already in Navidrome, avoid retagging and moving in one step, as this 
+could cause Navidrome to lose track of the files. Instead, retag and save, rescan, then move the files and rescan 
 again. See details [here](/docs/usage/pids/#handling-file-moves-and-retagging).
 {{< /alert >}}
     6. **Rescan in Navidrome**: Navidrome usually auto-detects changes, but you can trigger a library rescan or 

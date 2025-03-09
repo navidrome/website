@@ -27,8 +27,8 @@ Persistent IDs are unique, user-configurable identifiers for tracks and albums, 
 The default [configuration][config] prioritizes MusicBrainz IDs (MBIDs) when available:
 
 ```toml
-PID.Album = "musicbrainz_albumid|albumartistid,album,albumversion,releasedate"
 PID.Track = "musicbrainz_trackid|albumid,discnumber,tracknumber,title"
+PID.Album = "musicbrainz_albumid|albumartistid,album,albumversion,releasedate"
 ```
 
 - **Track PID:**
@@ -67,8 +67,8 @@ You can create custom PID configurations to meet specific needs, such as:
 
 When files are moved, Navidrome uses PIDs to accurately identify and reconnect these files on the next scan:
 
-- First, Navidrome attempts to match missing files with new ones based on exact tags.
-- If exact tags do not match, Navidrome checks for a matching PIDs.
+- First, Navidrome attempts to match a missing file with new ones based on exact tags.
+- If exact tags do not match, Navidrome checks for a matching PID.
 - Finally, if no PID match is found, it attempts to match the file based on the original file path, excluding the 
   file extension (ex: `/artist/album/01-track.mp3` → `/artist/album/01-track.flac`).
 
