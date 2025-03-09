@@ -19,14 +19,13 @@ The project includes a [VSCode Dev Container](https://code.visualstudio.com/docs
 {{% alert title="Note" %}}
 Keep in mind that the overall experience when using Docker Desktop for development will be slower than normal, because access to the host OS filesystem is generally slower. If you want to have full performance, we recommend installing the dependencies directly on your system and skip using Docker for development.
 {{% /alert %}}
+
 ### Unix-based systems (Linux, macOS, BSD, …)
 
-1. Install [GoLang 1.22+](https://golang.org/doc/install)
+1. Install [GoLang 1.23+](https://golang.org/doc/install)
 2. Install [Node 20](http://nodejs.org/)
-3. Install [TagLib](https://github.com/taglib/taglib/blob/master/INSTALL.md), preferable version 2.0
-    - Ubuntu: `sudo apt install libtag1-dev`
+3. Install [TagLib 2.0+](https://github.com/taglib/taglib/blob/master/INSTALL.md)
     - Arch Linux: `pacman -S taglib`
-    - Fedora: `dnf install taglib-devel`
     - macOS: `brew install taglib --HEAD`
     - For other platforms check their [installation instructions](https://github.com/taglib/taglib/blob/master/INSTALL.md)
 
@@ -72,12 +71,25 @@ To build Navidrome locally, follow these steps:
 
 ### Building with Docker
 
-If you want to build Navidrome for a different platform than your own dev environment, use `make single` and specify the OS/Platform as parameters. Example for Linux/ARM:
-```
-make single GOOS=linux GOARCH=arm
+{{% alert %}}
+To build Navidrome with Docker, you need to have Docker installed on your system. If you don't have it, you can 
+download it from [Docker's website](https://www.docker.com/products/docker-desktop).
+{{% /alert %}}
+
+If you want to build Navidrome for a different platform than your own dev environment, use `make docker-build` and specify the OS/Platform as parameters. Example for Linux/ARM:
+```shell
+make docker-build PLATFORMS=linux/amd64,windows/amd64
 ```
 
-If you want to build a Docker image with your local changes, use `make docker`. Note that this command only build images for `linux/amd64`. The built image will be tagged locally as `deluan/navidrome:develop`
+To get a list of all available platforms, run `make docker-platforms`.
+
+If you want to build a Docker image with your local changes, use `make docker-image`. 
+The built image will be tagged locally as `deluan/navidrome:develop`. This can be overridden by setting the `DOCKER_TAG` variable.
+Use `IMAGE_PLATFORMS` to specify the platforms you want to build the image for. Example:
+
+```shell
+make docker-image IMAGE_PLATFORMS=linux/amd64,windows/amd64 DOCKER_TAG=mytag
+```
 
 ### Windows (using WSL)
 
