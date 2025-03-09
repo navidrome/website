@@ -235,3 +235,4 @@ make it all uppercase. Ex: `ND_LOGLEVEL=debug`. See below for all available opti
 [pids]:                 /docs/usage/pids
 [cronspec]:             https://en.wikipedia.org/wiki/Cron#CRON_expression
 [unsplash]:             https://unsplash.com/collections/20072696/navidrome
+[opensubsonic]:         https://opensubsonic.netlify.app/
