@@ -133,8 +133,7 @@ the Airsonic project.
 This project is in active development. Expect a more polished experience and new features/releases 
 on a frequent basis. Some upcoming features planned: 
 
-- [Multiple Artists](https://github.com/navidrome/navidrome/issues/211)
-- [Multiple folders](https://github.com/navidrome/navidrome/issues/192)
-- [UI to edit Smart playlists](https://github.com/navidrome/navidrome/issues/1417)
-- [Support more tags](https://github.com/navidrome/navidrome/issues/1036) (including multi-valued tags)
+- [Multiple libraries](https://github.com/navidrome/navidrome/issues/192)
+- New UI, including a [Smart playlists editor](/docs/usage/smartplaylists)
+- Plugins
 

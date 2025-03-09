@@ -12,13 +12,14 @@ Navidrome's internal structures across most of its components. We have decided t
 our vision of a music server that emphasizes tags. Implementing folder browsing would not only be a major undertaking, 
 but it could also make supporting all of Navidrome's current and future features more difficult and error-prone.
 
-Here are a few situations where users might find folder browsing important, and how Navidrome plans to address them:
+Here are a few situations where users might find folder browsing important, and how Navidrome addresses them:
 
-1. Grouping music by classification (e.g., genre): Navidrome already handle genres, you can browse by genres in 
-   Subsonic clients, and it will have a dedicated Genre view in the future. There will also be support for the 
-   multivalued `grouping` tag, with a dedicated view as well.
-2. Having different releases for the same album: This will be [supported](https://github.com/navidrome/navidrome/pull/2162) 
-   soon.
+1. Grouping music by classification (e.g., genre, mood, grouping): Navidrome already handle these tags, 
+   you can browse by genres in Subsonic clients, and it will have a dedicated Genre view in the future. 
+   There is support for the multivalued `grouping` tag, (with a dedicated view coming in a future release as well).
+2. Having different releases for the same album: This will is already supported, and is configurable via the 
+   [Persistent IDs](/docs/usage/pids/) feature. You can group albums by `musicbrainz_albumid`, `discogs_release_id`, 
+   `folder`, or any other tag you want.
 3. Users who don't have their library tagged: **We explicitly do not support this**, as it would make it very difficult 
    to support all features Navidrome has and will have. We do not want to have code that "infers" that a folder with 
    a bunch of MP3 files is an album, as this approach would make the code highly complex and error-prone.
@@ -34,7 +35,9 @@ For a "Various Artists" compilation, the `Part Of Compilation` tag (`TCMP=1` for
 
 For a single-artist album with a different artist name for each track (for example "Alice feat. Bob" , "Alice feat. Carol"), the `Album Artist` tags must be the same ("Alice") for all tracks.
 
-Note if `Scanner.GroupAlbumReleases` is set to `false` (default, see [available configuration options](https://www.navidrome.org/docs/usage/configuration-options/#available-options)), an album might be split in different parts if the tracks have different date tags.
+Also, take a look at the [Persistent IDs](/docs/usage/pids/) feature, which can help you group tracks that belong to 
+the same album, even if they have different artist. You can group tracks by `folder`, for example, by setting 
+the configuration option `PID.Album="folder"`. Check the [PID documentation](/docs/usage/pids/) for more information.
 
 ---
 ## ▶︎ How can I edit my music metadata (id3 tags)? How can I rename/move my files?
@@ -52,6 +55,9 @@ Navidrome recommends: [beets](https://beets.io) (Linux, macOS, Windows) and [Mus
 Others: [mp3tag](https://www.mp3tag.de/en/index.html) (Windows, macOS), [ExifTool](https://exiftool.org/) (Linux, macOS, Windows), [Yate](https://2manyrobots.com/yate/) (macOS), [Kid3](https://kid3.kde.org/) (Windows, macOS, Linux), [foobar2000](https://www.foobar2000.org) (Windows, macOS), [MusicBee](https://getmusicbee.com/) (Windows), [Media Monkey](https://www.mediamonkey.com) (Windows), Groove Music (Windows), Windows Media Player (Windows), Apple iTunes (Windows), Apple Music (macOS).
 
 If you are new to organizing and tagging your library, take a look at this post about how to use Picard or beets with Navidrome: [Organizing music with Musicbrainz Picard](http://www.thedreaming.org/2020/11/22/musicbrainz-picard/)
+
+Don't forget to take a look at our [Tagging Guidelines](/docs/usage/tagging-guidelines/) to ensure your music library 
+is correctly tagged.
 
 ---
 ## ▶︎ Where are the logs?
