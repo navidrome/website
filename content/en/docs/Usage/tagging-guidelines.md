@@ -16,6 +16,10 @@ This means that having clean and consistent tags is crucial for your music to di
 Proper tagging ensures that albums aren't split up, artists are listed correctly, and you can easily browse or search 
 for your music in Navidrome.
 
+Good tagging practices not only make your music library more enjoyable to use, but also make it future-proof: 
+If you ever switch to a different music player/server, or want to use a different music management tool, having 
+well-tagged files will make the transition smoother.
+
 ## Tagging Basics and Best Practices
 
 ### Consistent and Complete Metadata
@@ -46,7 +50,8 @@ Each tag field has a specific purpose. Here are the important ones and how to us
   the Album name. Navidrome will group multi-disc albums together and may show disc divisions.
 - **Year/Date**: The year (or full date) of the album’s release. While not strictly required, the year is useful 
   information and some views or clients might use it. Use a four-digit year (and if using month/day, keep format consistent).
-- **Genre**: The genre of the music (e.g., Rock, Jazz). This can help when browsing or creating genre-based playlists.
+- **Genre**: The genre of the music (e.g., Rock, Jazz). This is a multi-valued field and can help when browsing or 
+  creating genre-based playlists.
 - **Compilation (Part of a Compilation)**: A special flag for various-artists albums. For a “Various Artists” 
   compilation album, set this tag on all its tracks so Navidrome treats them as one album. In MP3/ID3 tagging,
   this is often labeled "Part of a Compilation" (technically the `TCMP` frame) which should be set to "1" (true). 
@@ -93,7 +98,7 @@ Including album cover art enhances the Navidrome experience. Here's how to manag
   to add cover art makes browsing much nicer.
 
 {{% alert "info" %}}
-Organizing your music in a consistent folder structure can also help Navidrome find your artwork files.
+Organizing your music in a logical and consistent folder structure can also help Navidrome find your artwork files.
 Check the [Artwork Resolution](/docs/usage/artwork) page for details.
 {{% /alert %}}
 
@@ -193,14 +198,14 @@ useful to understand the basics so you can tag consistently:
   like ID3; you can even add non-standard fields (Picard, for example, can add a `MUSICBRAINZ_ALBUMID` tag for 
   its own use). The main thing is to use **standard field names** so that Navidrome (and other players) know 
   what to do with them. Navidrome will read these tags and support multi-valued fields natively.
-  - **APE tags**: APE is another tagging format, used primarily in Monkey's Audio (.ape files) and sometimes WavPack or 
-    Musepack. APE tags also consist of key-value pairs (similar to Vorbis comments). Field names might be similar 
-    (often not all-caps; could be "Artist", "Album", etc.). If you're dealing with APE files, just ensure your tag 
-    editor writes the standard fields. APE tags, like Vorbis, allow multiple entries of the same field name as well. 
-    One caveat: Some MP3 files might have APE tags attached (left over from old software or for ReplayGain data). 
-    It's generally best to avoid having both ID3 and APE on the same MP3, as it can confuse some programs. 
-    If you encounter this, use your tag tool to remove or synchronize one of them (Navidrome reads ID3 by default 
-    for MP3).
+- **APE tags**: APE is another tagging format, used primarily in Monkey's Audio (.ape files) and sometimes WavPack or 
+  Musepack. APE tags also consist of key-value pairs (similar to Vorbis comments). Field names might be similar 
+  (often not all-caps; could be "Artist", "Album", etc.). If you're dealing with APE files, just ensure your tag 
+  editor writes the standard fields. APE tags, like Vorbis, allow multiple entries of the same field name as well. 
+  One caveat: Some MP3 files might have APE tags attached (left over from old software or for ReplayGain data). 
+  It's generally best to avoid having both ID3 and APE on the same MP3, as it can confuse some programs. 
+  If you encounter this, use your tag tool to remove or synchronize one of them (Navidrome reads ID3 by default 
+  for MP3).
 - **MP4/M4A (AAC files)**: These use the MP4 container's metadata format (often called MP4 tags or atoms). 
     You’ll see tag codes like `©ART` (Artist), `©alb` (Album), `aART` (Album Artist), `trkn` (track number), 
     etc. Most tag editors (Picard, iTunes, etc.) let you edit these without worrying about the codes. Navidrome 
@@ -296,9 +301,10 @@ again. See details [here](/docs/usage/pids/#handling-file-moves-and-retagging).
 - **Keep tags tidy**: Little details like extra spaces at the end of names or inconsistent capitalization can lead 
   to multiple entries (e.g., "The Beatles" vs "The Beatles "). Try to keep things tidy. Many tag editors can 
   batch-clean or case-correct tags.
-- **Use Navidrome's strengths**: Navidrome reads a lot of tags (including comments, lyrics, etc.). If you want to 
-  enrich your library, consider adding lyrics or other info via your editor — Navidrome will display lyrics if 
-  present, for example.
+- **Use Navidrome's strengths**: Navidrome reads a 
+  [lot of tags](https://github.com/navidrome/navidrome/blob/master/resources/mappings.yaml) 
+  (including comments, lyrics, grouping, mood, etc.). If you want to enrich your library, consider adding lyrics or 
+  other info via your editor — Navidrome will display lyrics if present, for example.
 - **Enjoy your music**: A bit of effort in tagging goes a long way. Once everything is tagged well, Navidrome 
   will present a beautiful, browsable collection. You’ll spend less time searching for songs or fixing metadata 
   and more time listening. Happy tagging!

@@ -1,6 +1,6 @@
 ---
 title: Customizing Persistent IDs in Navidrome
-linkTitle: Persistent IDs (PID)
+linkTitle: Persistent IDs (PIDs)
 date: 2017-01-02
 weight: 45
 description: >
