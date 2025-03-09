@@ -91,5 +91,5 @@ configuration file, then use it in the Smart Playlist as a regular
 
 
 [mappings]: https://github.com/navidrome/navidrome/blob/master/resources/mappings.yaml
-[pid]: /docs/Usage/pid
+[pid]: /docs/usage/pid
 
