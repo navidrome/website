@@ -48,8 +48,13 @@ Each tag field has a specific purpose. Here are the important ones and how to us
 - **Disc Number**: If an album spans multiple discs, use this to differentiate disc 1, disc 2, etc. For example, 
   "1/2" for Disc 1 of 2. Ensure all tracks that are on the same disc have the same disc number, and all tracks share 
   the Album name. Navidrome will group multi-disc albums together and may show disc divisions.
-- **Year/Date**: The year (or full date) of the album’s release. While not strictly required, the year is useful 
-  information and some views or clients might use it. Use a four-digit year (and if using month/day, keep format consistent).
+- **Year/Date**: The year (or full date) of the album’s recording. While not strictly required, the year is useful 
+  information and some views or clients might use it. Formats accepted are: `YYYY` (for `YEAR` and `DATE`) 
+  and `YYYY-MM-DD` or `YYYY-MM` (for `DATE`).
+  For a more precise date information, you can leverage other Date fields:
+    - `DATE`/`YEAR`: The date of the track recording.
+    - `ORIGINALDATE`/`ORIGINALYEAR`: The original release date of the album.
+    - `RELEASEDATE`/`RELEASEYEAR`: The release date of the album.
 - **Genre**: The genre of the music (e.g., Rock, Jazz). This is a multi-valued field and can help when browsing or 
   creating genre-based playlists.
 - **Compilation (Part of a Compilation)**: A special flag for various-artists albums. For a “Various Artists” 
@@ -104,46 +109,98 @@ Check the [Artwork Resolution](/docs/usage/artwork) page for details.
 
 
 ## Handling Multiple Artists and Collaborations
-Many songs have multiple contributing artists (for example, a duet, or a track featuring a guest artist). Properly 
-tagging these ensures all artists are recognized by Navidrome and that albums don’t get split unexpectedly.
 
-- **List all artists in the Artist tag**: Include all primary artists for the track in the **Artist** field. Avoid 
-putting featured artists in the song title. For example, prefer **Artist** = "Alice feat. Bob" and **Title** = 
-"Sunshine" over putting the feat artist in the title. This way, Navidrome knows both Alice and Bob are artists on the 
-track (and you’ll be able to find the song under both artists).
-- **Use Album Artist for grouping**: If an album is by one main artist but has guest artists on some tracks, use the 
-Album Artist tag to keep the album grouped. For instance, if Alice is the main artist for the album *Brighter Days*, 
-but some songs are duets (Alice / Bob), set **Album Artist** = "Alice" on all tracks. The individual track’s Artist 
-can be "Alice / Bob" or "Alice feat. Bob", but since Album Artist is consistent ("Alice"), Navidrome will show the 
-album under Alice’s discography as one album. It will also list the album under Bob’s page, since he’s an artist on
-some tracks.
-- **"Various Artists" albums**: For compilations or soundtracks where each track is by a different artist, use 
-**Album Artist** = "Various Artists" (and remember to set the Compilation tag as mentioned earlier). Navidrome 
-will then list the album as a compilation, and not under one single artist. Within that album, it will display each 
-track’s own artist.
-- **Multiple artist tag fields**: Some formats let you have truly separate multiple artists:
-    - In FLAC/OGG (Vorbis comments) and APE tags, you can add the ARTIST tag more than once. For example, one 
-        ARTIST=Alice and another ARTIST=Bob. Navidrome will read both entries as two artists for the track.
-    - In MP3 ID3v2.4, multiple artists are supported internally. Tagging software may allow you to input "Alice; Bob" 
-      or a similar separator, and it will actually store two artist entries in the file. Navidrome can interpret those 
-      properly.
-      - In MP3 ID3v2.3 (the older format), there isn’t native support for multiple separate artists, so all names are 
-        combined into one field. The convention is to separate them with a symbol like `" / "` or `"; "` 
-        (depending on the software). For consistency, you might use "Artist1 feat. Artist2" format. Navidrome will 
-        split the field into two artists based on the `" feat. "` separator.
-- **Consistency in separators**: Ideally you would use multiple artist tags as described above. If you must use a 
-    single text field for multiple artists (in formats that don't support multi-value tags), pick a separator and stick 
-    with it. Common choices are `" feat. "`, `"; "`,  or `" / "`. For example, if you use "Artist1 feat. Artist2" for one song, 
-    do the same wherever applicable, rather than sometimes using `"; "` or `" / "` arbitrarily.
-- **Check Navidrome's behavior**: After tagging multi-artist tracks, do a library scan in Navidrome and see how it 
-  displays. Navidrome might list the track under each artist's page (especially if using multi-valued tags). 
-  If you find that a track isn't showing up under an artist as expected, you may need to adjust how the artists are 
-  tagged (for instance, ensure there are truly separate artist tags or that the separator is recognized).
-- **Featuring vs Primary Artist**: As a style note, some people only list the main artist in the Artist tag and put 
-  "feat. Guest" in the Title. This keeps the library's primary artist list clean, but then the guest artist isn't 
-  directly searchable. It's generally better for Navidrome to include *all* artists in the Artist tag field 
-  (as separate entries or a combined string). That way, you can click or search the guest artist in Navidrome. 
-  Use Album Artist to preserve the grouping under the main artist if needed.
+When tagging tracks with multiple artists or collaborators, it's important to clearly and consistently represent each 
+artist. Navidrome supports both singular (`ARTIST` and `ALBUMARTIST`) and plural (`ARTISTS` and `ALBUMARTISTS`) tags. 
+However, **multi-valued tags (`ARTISTS` and `ALBUMARTISTS`) are preferred**, as they allow Navidrome to more accurately 
+identify individual artists and improve library organization.
+
+### Recommended Approach: Multi-Valued Tags
+
+- **Preferred:**
+    - Use multiple `ARTISTS` tags to explicitly specify each artist individually.
+    - Example (FLAC/Vorbis comments):
+      ```
+      ARTISTS=Alice
+      ARTISTS=Bob
+      ```
+    - Navidrome clearly distinguishes each artist.
+    - Facilitates better searching, sorting, and browsing.
+
+### Singular vs. Plural Tags
+- **Singular (`ARTIST`)**: Typically a single text entry (e.g., "Artist1 feat. Artist2").
+    - Navidrome will attempt to parse this field into multiple artists if common separators 
+      (e.g., `" / "`, `" feat. "`, `"; "`) are used.
+    - However, relying on separators is less precise than multi-valued tags.
+
+- **Plural (`ARTISTS`)**: Explicitly multi-valued tag allowing multiple distinct entries.
+    - Each artist can have individual associated metadata (like MusicBrainz IDs).
+    - Preferred method, as it avoids ambiguity and parsing errors.
+
+Note that if you have both singular and plural tags, Navidrome will use the singular one (`ARTIST` or `ALBUMARTIST`)
+as a "Display Name" for the artist (or album artist)
+
+{{< alert "info" >}}
+If you use Picard, check the scripts available in the [Picard specific tips](#picard-specific-tips) below. 
+These scripts can help set up multi-valued artist tags automatically.
+{{< /alert >}}
+
+### Examples:
+
+**Ideal tagging (FLAC/Vorbis Comments example):**
+
+```text
+TITLE=Sunshine
+ARTIST=Alice feat. Bob
+ARTISTS=Alice
+ARTISTS=Bob
+ALBUM=Brighter Days
+ALBUMARTIST=Alice
+TRACKNUMBER=7
+```
+
+**Less ideal (single-valued ARTIST):**
+
+```text
+TITLE=Sunshine
+ARTIST=Alice feat. Bob
+ALBUM=Brighter Days
+ALBUMARTIST=Alice
+```
+
+In the ideal example, Navidrome clearly identifies each artist separately. In the less ideal example, Navidrome may 
+split the artist names based on common separators (like `" feat. "`, `" / "`, or `"; "`), but it’s less accurate.
+
+{{< alert color="warning" title="Avoid using separators for multiple artists" >}}
+Relying on separators in tags can cause issues with some artist names (Ex: `AC/DC`, `Earth, Wind & Fire`).
+If possible, use multi-valued tags (`ARTISTS` and `ALBUMARTISTS`) to avoid such problems.
+{{< /alert >}} 
+
+### Multi-Valued Tags Support by Format
+- **Vorbis/FLAC, Opus:** Multi-valued tags are fully supported and straightforward.
+- **ID3v2.4 (MP3)**: Supports true multi-valued tags, similar to Vorbis.
+- **ID3v2.3 (Older MP3 format)**: Does **not** officially support multiple artists. Instead, use a consistent 
+  separator ("/") if you must combine artists into one tag, though this approach is less ideal. Avoid using this format
+  if possible and prefer the newer ID3v2.4
+
+### Best Practices:
+- Always prefer multi-valued tags (`ARTISTS` and `ALBUMARTISTS`) when supported by your tagging software.
+- If multi-valued tags are unavailable, use consistent separators (`" feat. "`, `" / "`, or `"; "`).
+- Maintain consistency throughout your library to avoid duplicate or misidentified artist entries.
+- Always verify how your tags appear in Navidrome and adjust tagging accordingly.
+
+Proper use of multi-valued tags significantly enhances the accuracy and enjoyment of your music library in Navidrome.
+
+{{< alert title="Note on Other Artist Roles" >}}
+Other role tags (ex: `COMPOSER`, `LYRICIST`, `ARRANGER`) do not have a plural version. For those, you can add multiple 
+instances of the same tag. Ex:
+```shell
+COMPOSER: Alice
+COMPOSER: Bob
+```
+In this case, Navidrome will treat both Alice and Bob as composers for the track. If multi-valued tags are supported by 
+your tag editor, you can use a common separator (like `/` or `;`) to combine values in a single tag.
+{{< /alert >}}
 
 **Example:** For a song **"Sunshine"** by **Alice** featuring **Bob** on the album *Brighter Days* (which is primarily Alice's album):
 - In a FLAC (Vorbis comments) file, you might have tags:
@@ -166,11 +223,6 @@ track’s own artist.
   In the FLAC example, there are two separate ARTIST fields (one for Alice, one for Bob). In the MP3 example, the 
   two artist names are combined in one field with a `" / "` separator. Both will display correctly in Navidrome, 
   but the FLAC method more explicitly preserves the two distinct artist entries.
-
-{{% alert "info" %}}
-The same rules for multi-valued tags and separators apply to other artist roles like Album Artist, Composers, Arrangers 
-and even Genre. Use the same principles to ensure consistency.
-{{% /alert %}}
 
 ## Differences in Tag Formats (ID3, Vorbis, APE, etc.)
 Different audio file formats use different tagging standards. You don't need to know all the technical details, but it's 
@@ -259,11 +311,13 @@ again. See details [here](/docs/usage/pids/#handling-file-moves-and-retagging).
 {{< /alert >}}
     6. **Rescan in Navidrome**: Navidrome usually auto-detects changes, but you can trigger a library rescan or 
          restart the server to be sure. Once scanned, check in the Navidrome interface that everything appears 
-         as expected.
+         as expected. You can check the tags of any file in Navidrome by looking at the "Get Info"->"Raw Tags" tab:
+    {{< imgproc get_info_raw_tags Fit "2000x2000" />}}
     7. **Iterate as needed**: If something looks wrong in Navidrome (e.g., an album is split into two entries, or a 
          track is missing artwork), go back to your tag editor to fix those tags and then re-save and rescan. 
          Common fixes include making Album Artist consistent, correcting typos or extra spaces, or adding missing 
          compilation flags.
+
 
 - **Continuous tagging**: Make tagging part of your routine. When you add new music, tag it properly before (or immediately after) adding it to Navidrome. It's easier to keep a library organized from the start than to fix a messy library later.
 
@@ -274,15 +328,15 @@ again. See details [here](/docs/usage/pids/#handling-file-moves-and-retagging).
 - For a better integration with Navidrome, you can add the following scripts to your Picard configuration, to add 
   extra tags that can help Navidrome organize your library:
     ```shell
-    # Album Version
-    $set(musicbrainz_albumcomment,%_releasecomment%)
-    $if(%_recordingcomment%, $set(subtitle,%_recordingcomment%))
-    ```
-    ```shell
     # Multiple artists
     $setmulti(albumartists,%_albumartists%)
     $setmulti(albumartistssort,%_albumartists_sort%)
     $setmulti(artistssort,%_artists_sort%)
+    ```
+    ```shell
+    # Album Version
+    $set(musicbrainz_albumcomment,%_releasecomment%)
+    $if(%_recordingcomment%, $set(subtitle,%_recordingcomment%))
     ```
     ```shell
     # Release and Original dates
