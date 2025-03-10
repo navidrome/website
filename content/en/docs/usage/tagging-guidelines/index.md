@@ -11,7 +11,7 @@ description: >
 ## Why Proper Tagging is Important
 Navidrome organizes your music library *entirely* based on the metadata tags in your audio files. Unlike some music 
 players, it does not use folder names or file names to group tracks 
-([why?](http://localhost:1313/docs/faq/#-can-you-add-a-browsing-by-folder-optionmode-to-navidrome)). 
+([why?](/docs/faq/#-can-you-add-a-browsing-by-folder-optionmode-to-navidrome)). 
 This means that having clean and consistent tags is crucial for your music to display correctly. 
 Proper tagging ensures that albums aren't split up, artists are listed correctly, and you can easily browse or search 
 for your music in Navidrome.
