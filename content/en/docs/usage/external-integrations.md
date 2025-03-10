@@ -13,7 +13,7 @@ aliases:
 
 Navidrome can use Last.fm to retrieve artists biographies, top songs, similar artists and album covers. It can also
 send your scrobbles to Last.fm. For these features to work, you'll need to set the 
-[config options](/docs/usage/configuration-options/#:~:text=(auto%20detect)-,LastFM.ApiKey,-ND_LASTFM_APIKEY) 
+[config options](/docs/usage/configuration-options/#:~:text=LastFM.ApiKey*-,ND_LASTFM_APIKEY,-Last.fm%20API) 
 `LastFM.ApiKey` and `LastFM.Secret`. You can obtain these values by creating a free API account in Last.fm:
 
 1) Go to https://www.last.fm/api/account/create and create an API account. Only the _Application Name_ field is mandatory:
