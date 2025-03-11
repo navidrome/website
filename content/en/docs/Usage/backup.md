@@ -6,12 +6,13 @@ description: >
   Information on the in-built backup system
 ---
 
-Navidrome version 0.54.x introduces a backup feature that allows the music server's data to get periodically exported and optionally re-imported. This guide will walk you through configuring backups using both the config.toml file and environment variables, where to locate the backups, and how to restore from a backup.
+Navidrome version 0.54.x introduces a backup feature that allows the music server's data to get periodically exported. 
+This guide will walk you through configuring backups using both a [configuration](/docs/usage/configuration-options) 
+file and environment variables, where to locate the backups, and how to restore from a backup.
 
-{{% pageinfo %}}
+{{% alert %}}
 Note: The backup process ONLY backs up the database (users, play counts, etc.). It does NOT back up the music or the config.
-{{% /pageinfo %}}
-
+{{% /alert %}}
 
 ## Configuring Backup with config.toml
 
@@ -55,9 +56,13 @@ If you use docker compose, you can do the same with:
 
 ~~~bash
 sudo docker compose run <service_name> backup create
+# service_name is usually `navidrome` 
 ~~~
 
-When manually creating a backup, no prune cycle is run, so none of the existing backups will be pruned. However, next time the automated backup process runs, the normal prune cycle will run and potentially remove several backups until the number of backups is down to the configured backup count setting. To manually run a prune cycle, use the `navidrome backup prune` command:
+When manually creating a backup, no prune cycle is run, so none of the existing backups will be pruned. However, 
+next time the automated backup process runs, the normal prune cycle will run and potentially remove several backups 
+until the number of backups is down to the configured backup count setting. To manually run a prune cycle, use the 
+`navidrome backup prune` command:
 
 ~~~bash
 sudo navidrome backup prune
@@ -67,6 +72,7 @@ If you use docker compose, you can do the same with:
 
 ~~~bash
 sudo docker compose run <service_name> backup prune
+# service_name is usually `navidrome`
 ~~~
 
 
@@ -74,7 +80,7 @@ sudo docker compose run <service_name> backup prune
 
 Once configured, Navidrome will store backups in the directory specified by the BackupFolder or ND_BACKUP_PATH setting. To verify the location:
 
-* Check the Config File: If using config.toml, look for the `Backup` config node and confirm that all three options are configured.
+* Check the Config File: If using a configuration file, look for the `Backup` config node and confirm that all three options are configured.
 * Check Environment Variables: If using environment variables, ensure that all three variables is set correctly.
 
 ## Restoring a Backup
@@ -85,7 +91,9 @@ Note: YOU MUST BE SURE TO RUN THIS COMMAND WHILE THE NAVIDROME APP IS NOT RUNNIN
 
 Restore a backup by running the `navidrome backup restore ` command.
 
-Note: Restoring a backup should ONLY be done when the service is NOT running. You've been warned.
+{{% alert color="warning" title="Attention" %}}
+Restoring a backup should ONLY be done when the service is NOT running. You've been warned.
+{{% /alert %}}
 
 
 
