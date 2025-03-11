@@ -11,8 +11,8 @@ description: >
 ## Overview
 
 When using Navidrome, you may encounter missing tracks or albums in your library. When moving or renaming files, 
-Navidrome may not be able to match the old versions of your files with the new ones. This can result in "ghost"
-(grayed out) tracks or albums in your library. 
+Navidrome may not be able to match the old versions of your files with the new ones when scanning your library. 
+This can result in "ghost" (grayed out) tracks or albums in your library. 
 
 Only admins can see the missing tracks and albums in the library:
 
@@ -41,7 +41,11 @@ To avoid getting into this situation, it is recommended to move or rename files 
 and then update the tags.
 
 Another common case is when you have a network drive that is not always available, or a removable drive that is not
-connected. In these cases, Navidrome will mark the files as missing until the drive is available again.
+connected:
+
+{{< imgproc all_missing Fit "2000x2000" />}}
+
+In these cases, Navidrome will mark the files as missing until the drive is available again.
 
 ## How to permanently delete Missing Files
 
