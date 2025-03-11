@@ -15,9 +15,17 @@ Navidrome only imports a predefined set of tags. The complete list of default ta
 [here][mappings].
 
 However, Navidrome supports importing and using custom tags from your music files. Custom tags allow you to extend the 
-metadata beyond the default supported tags. This functionality can be configured via the configuration file.
+metadata beyond the default supported tags. This functionality can be configured via the [configuration file][config].
 
 ## Configuring custom tags
+
+{{< alert >}}
+This customization is only available when using a [configuration file](/docs/usage/configuration-options).
+
+If you want to use a configuration file with Docker, you can do so by creating a `navidrome.toml` config file in the
+host folder that is mapped to your `/data` volume, and set the env var `ND_CONFIGFILE=/data/navidrome.toml`.
+{{< /alert >}}
+
 
 Custom tags are defined under the `Tags` configuration section. A custom tag configuration accepts the following properties:
 
@@ -90,6 +98,7 @@ configuration file, then use it in the Smart Playlist as a regular
 [field](/docs/usage/smartplaylists/#additional-resources).
 
 
+[config]: /docs/usage/configuration-options
 [mappings]: https://github.com/navidrome/navidrome/blob/master/resources/mappings.yaml
 [pid]: /docs/usage/pid
 

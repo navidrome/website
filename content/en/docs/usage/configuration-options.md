@@ -12,6 +12,14 @@ or using command line arguments.
 
 ## Configuration File
 
+{{< alert >}}
+Some options are only configurable using a configuration file. If you are using environment variables 
+(ex: with Docker), you may not be able to set all options.
+
+If you want to use a configuration file with Docker, you can do so by creating a `navidrome.toml` config file in the 
+host folder that is mapped to your `/data` volume, and set the env var `ND_CONFIGFILE=/data/navidrome.toml`.
+{{< /alert >}}
+
 Navidrome tries to load the configuration from a `navidrome.toml` file in the current working
 directory, if it exists. You can create this file and put any of the [configuration options below](#available-options)
 in it. Example of a configuration file (select your OS):
