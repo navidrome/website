@@ -40,6 +40,9 @@ To learn how Navidrome matches missing files and newly discovered ones, see the 
 To avoid getting into this situation, it is recommended to move or rename files first, trigger a quick scan,
 and then update the tags.
 
+Another common case is when you have a network drive that is not always available, or a removable drive that is not
+connected. In these cases, Navidrome will mark the files as missing until the drive is available again.
+
 ## How to permanently delete Missing Files
 
 If you are sure that the missing files are not coming back, you can permanently delete them from the database.
