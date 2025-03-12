@@ -30,7 +30,7 @@ host folder that is mapped to your `/data` volume, and set the env var `ND_CONFI
 Custom tags are defined under the `Tags` configuration section. A custom tag configuration accepts the following properties:
 
 - **Aliases**: A list of all alternative names that can found in your music files, but should be considered the same tag. 
-  Ex: `album artist`, `albumartist`
+  Ex: `album artist`, `albumartist`. This is a required field.
 - **Type**: Specifies the type of data stored in the tag. It can be used to validate or transform values. 
   Supported types are `int`,`float`, `date`, `uuid`. If not specified, the tag will be treated as a `string`.
 - **MaxLength**: The length limit for the tag value. Default is 1024 characters.
@@ -88,9 +88,14 @@ side effects if the delimiter is used in other contexts. (Ex: using `'/'` as an 
 
 Example: Splitting the `artist` tag by `\` and `; `
 ```toml
+Tags.artist.Aliases = [ "tpe1", "artist", "©art", "author", "iart" ]
 Tags.artist.Split = ['\', '; ']
 ```
-Check the [mappings][mappings] file for the default separators used by Navidrome.
+
+{{< alert color="warning" title="Important" >}}
+Note that you **always** need to specify the default aliases for the tag, even if you are only changing the separators.
+Check the [mappings](https://github.com/navidrome/navidrome/blob/master/resources/mappings.yaml) file for the default aliases and separators used by Navidrome.
+{{< /alert >}}
 
 ### Adding tags for custom filtering/sorting in Smart Playlists
 If you want to create a Smart Playlist that filters or sorts by a custom tag, you can define the tag in the
