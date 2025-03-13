@@ -34,7 +34,8 @@ Custom tags are defined under the `Tags` configuration section. A custom tag con
 - **Type**: Specifies the type of data stored in the tag. It can be used to validate or transform values. 
   Supported types are `int`,`float`, `date`, `uuid`. If not specified, the tag will be treated as a `string`.
 - **MaxLength**: The length limit for the tag value. Default is 1024 characters.
-- **Album**: A boolean flag indicating whether this tag applies to an album rather than an individual track.
+- **Album**: A boolean flag indicating whether this tag applies to an album as well. Default is `false`. 
+  If set to `true`, the tag will be considered when generating the [PID][pid] for an album.
 - **Split**: Tags are always considered multivalued, but you can specify a list of delimiters used to split a tag value 
    into multiple entries.  
 
@@ -64,6 +65,7 @@ information from other DBs, like Discogs, you can add custom tags to store the D
 Example:
 ```toml
 Tags.discogs_release_id.Aliases = ['DISCOGS_RELEASE_ID']
+Tags.discogs_release_id.Album = true
 PID.Album = 'discogs_release_id|albumartistid,album,albumversion,releasedate'
 ```
 
