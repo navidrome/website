@@ -38,16 +38,17 @@ Custom tags are defined under the `Tags` configuration section. A custom tag con
   If set to `true`, the tag will be considered when generating the [PID][pid] for an album.
 - **Split**: Tags are always considered multivalued, but you can specify a list of delimiters used to split a tag value 
    into multiple entries.  
+- **Ignore**: A boolean flag indicating whether this tag should be ignored. Default is `false`.
 
 Note that tags are case-insensitive, so you don't need to specify all possible case variations in the `Aliases` list.
 
 ### Example configuration
 Below is an example of how to set up custom tag options in your configuration file.
 ```toml
-Tags.mycustomtag.Aliases = ["mycustomtag", "customtag"]
-Tags.mycustomtag.MaxLength = 50
-Tags.mycustomtag.Album = false
-Tags.mycustomtag.Split = ["; ", " / "]
+Tags.MyCustomTag.Aliases = ["mycustomtag", "customtag"]
+Tags.MyCustomTag.MaxLength = 50
+Tags.MyCustomTag.Album = false
+Tags.MyCustomTag.Split = ["; ", " / "]
 ```
 
 In this example, the custom tag `mycustomtag` is configured with two aliases, a type of string (default), and a maximum 
@@ -64,7 +65,7 @@ information from other DBs, like Discogs, you can add custom tags to store the D
 
 Example:
 ```toml
-Tags.discogs_release_id.Aliases = ['DISCOGS_RELEASE_ID']
+Tags.discogs_release_id.Aliases = ['discogs_release_id']
 Tags.discogs_release_id.Album = true
 PID.Album = 'discogs_release_id|albumartistid,album,albumversion,releasedate'
 ```
@@ -73,12 +74,12 @@ See the [PID configuration][pid] for more information on how to configure album 
 
 ### Disabling tags
 Any custom tag found in your music files, but not defined with the `Tags` configuration option will be ignored by 
-Navidrome. If you need to disable a tag that is already [imported by default][mappings], you can do so by defining 
-it in the configuration file with an empty list of aliases. 
+Navidrome. If you need to disable a tag that is already [imported by default][mappings], you can do so by explicitly
+setting its `Ignore` flag to `true`.
 
 Example: disabling the `subtitle` tag 
 ```toml
-Tags.subtitle.Aliases = []
+Tags.Subtitle.Ignore = true
 ```
 
 ### Changing separators
@@ -90,14 +91,8 @@ side effects if the delimiter is used in other contexts. (Ex: using `'/'` as an 
 
 Example: Splitting the `artist` tag by `\` and `; `
 ```toml
-Tags.artist.Aliases = [ "tpe1", "artist", "©art", "author", "iart" ]
-Tags.artist.Split = ['\', '; ']
+Tags.Artist.Split = ['\', '; ']
 ```
-
-{{< alert color="warning" title="Important" >}}
-Note that you **always** need to specify the default aliases for the tag, even if you are only changing the separators.
-Check the [mappings](https://github.com/navidrome/navidrome/blob/master/resources/mappings.yaml) file for the default aliases and separators used by Navidrome.
-{{< /alert >}}
 
 ### Adding tags for custom filtering/sorting in Smart Playlists
 If you want to create a Smart Playlist that filters or sorts by a custom tag, you can define the tag in the
