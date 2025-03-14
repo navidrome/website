@@ -93,6 +93,15 @@ Example: Splitting the `artist` tag by `\` and `; `
 ```toml
 Tags.Artist.Split = ['\', '; ']
 ```
+### Separating Writer and Composer tags
+By default, Navidrome maps both `composer` and `writer` tag values to a single (multi-valued) `composer` field in its 
+database. If you want to keep these as separate metadata fields, you can define custom tags for each one:
+```toml
+Tags.Composer.Aliases = ['composer', 'tcom', 'composer', '©wrt', 'wm/composer', 'imus']
+Tags.Writer.Aliases = ['writer', 'txxx:writer', 'iwri']
+```
+
+This will allow you to filter or sort by `writer` in Smart Playlists.
 
 ### Adding tags for custom filtering/sorting in Smart Playlists
 If you want to create a Smart Playlist that filters or sorts by a custom tag, you can define the tag in the
