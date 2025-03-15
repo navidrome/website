@@ -38,7 +38,8 @@ Custom tags are defined under the `Tags` configuration section. A custom tag con
   If set to `true`, the tag will be considered when generating the [PID][pid] for an album.
 - **Split**: Tags are always considered multivalued, but you can specify a list of delimiters used to split a tag value 
    into multiple entries.  
-- **Ignore**: A boolean flag indicating whether this tag should be ignored. Default is `false`.
+- **Ignore**: A boolean flag indicating whether this tag should be ignored. Default is `false`. Useful for disabling tags
+  that are imported by [default][mappings]. See example [below](#disabling-tags).
 
 Note that tags are case-insensitive, so you don't need to specify all possible case variations in the `Aliases` list.
 
