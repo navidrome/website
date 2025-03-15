@@ -174,14 +174,30 @@ split the artist names based on common separators (like `" feat. "`, `" / "`, or
 {{< alert color="warning" title="Avoid using separators for multiple artists" >}}
 Relying on separators in tags can cause issues with some artist names (Ex: `AC/DC`, `Earth, Wind & Fire`).
 If possible, use multi-valued tags (`ARTISTS` and `ALBUMARTISTS`) to avoid such problems.
+
+If multi-valued tags are not supported by your tag editor, you can, as a last resort, use a common separator
+(like `" / "` or `"; "`) to combine values in a single tag. Navidrome will attempt to split them based on the separator.
 {{< /alert >}} 
+
+{{< alert title="Note on other Artist Roles" >}}
+Other role tags (`COMPOSER`, `LYRICIST`, `ARRANGER`, `ENGINEER`, ..) do not have a plural version. For those, you can add the singular
+tag multiple times (for Vorbis/FLAC) or make it multi-valued (for ID3v2.4). Navidrome will recognize and display them
+correctly. For example, in a FLAC file, you could have:
+```shell
+COMPOSER: Alice
+COMPOSER: Bob
+```
+In this case, Navidrome will treat both Alice and Bob as composers for the track.
+{{< /alert >}}
 
 ### Multi-Valued Tags Support by Format
 - **Vorbis/FLAC, Opus:** Multi-valued tags are fully supported and straightforward.
 - **ID3v2.4 (MP3)**: Supports true multi-valued tags, similar to Vorbis.
 - **ID3v2.3 (Older MP3 format)**: Does **not** officially support multiple artists. Instead, use a consistent 
-  separator ("/") if you must combine artists into one tag, though this approach is less ideal. Avoid using this format
-  if possible and prefer the newer ID3v2.4
+  separator (ex: `"; "`) if you must combine artists into one tag, though this approach is less ideal. **Avoid using 
+  this format if possible and prefer the newer ID3v2.4**
+- Other tag formats (APE, MP4, WMA): Check your tag editor’s documentation for multi-valued tag support. 
+  Most modern tools can handle multi-valued tags in any format.
 
 ### Best Practices:
 - Always prefer multi-valued tags (`ARTISTS` and `ALBUMARTISTS`) when supported by your tagging software.
@@ -190,17 +206,6 @@ If possible, use multi-valued tags (`ARTISTS` and `ALBUMARTISTS`) to avoid such 
 - Always verify how your tags appear in Navidrome and adjust tagging accordingly.
 
 Proper use of multi-valued tags significantly enhances the accuracy and enjoyment of your music library in Navidrome.
-
-{{< alert title="Note on Other Artist Roles" >}}
-Other role tags (ex: `COMPOSER`, `LYRICIST`, `ARRANGER`) do not have a plural version. For those, you can add multiple 
-instances of the same tag. Ex:
-```shell
-COMPOSER: Alice
-COMPOSER: Bob
-```
-In this case, Navidrome will treat both Alice and Bob as composers for the track. If multi-valued tags are supported by 
-your tag editor, you can use a common separator (like `/` or `;`) to combine values in a single tag.
-{{< /alert >}}
 
 **Example:** For a song **"Sunshine"** by **Alice** featuring **Bob** on the album *Brighter Days* (which is primarily Alice's album):
 - In a FLAC (Vorbis comments) file, you might have tags:
@@ -284,8 +289,8 @@ Here are some recommendations and tips on workflow:
       manually edit multiple files, copy/paste tag fields, or use online database lookups. Mp3tag has a simple 
       interface but lots of power under the hood.
     - **beets** – *Free, command-line (cross-platform).* Very powerful for auto-organizing and tagging using 
-      MusicBrainz data, but it requires comfort with terminal commands. Great if you want automation and don't 
-      mind writing a configuration.
+      MusicBrainz data (or Discogs, using plugins), but it requires comfort with terminal commands. Great if you 
+      want automation and don't mind writing a configuration file.
     - *Other options:* **Kid3** (GUI, multi-platform), **MusicBee** (Windows, a player with strong tagging features), 
         **MediaMonkey** (Windows), **foobar2000** (Windows, has tagging capabilities), or even iTunes/Apple Music for 
           editing tags of files. All of these can write tags that Navidrome will read.
@@ -313,14 +318,12 @@ again. See details [here](/docs/usage/pids/#handling-file-moves-and-retagging).
          restart the server to be sure. Once scanned, check in the Navidrome interface that everything appears 
          as expected. You can check the tags of any file in Navidrome by looking at the "Get Info"->"Raw Tags" tab:
     {{< imgproc get_info_raw_tags Fit "2000x2000" />}}
-    7. **Iterate as needed**: If something looks wrong in Navidrome (e.g., an album is split into two entries, or a 
-         track is missing artwork), go back to your tag editor to fix those tags and then re-save and rescan. 
-         Common fixes include making Album Artist consistent, correcting typos or extra spaces, or adding missing 
-         compilation flags.
+    7. **Iterate as needed**: If something looks wrong in Navidrome (e.g., an album is split into two entries, or is 
+         missing artwork), go back to your tag editor to fix those tags and then re-save and rescan. 
+         Common fixes include making Album Artist and Release Dates consistent, correcting typos or extra spaces, 
+         or adding missing compilation flags.
 
-
-- **Continuous tagging**: Make tagging part of your routine. When you add new music, tag it properly before (or immediately after) adding it to Navidrome. It's easier to keep a library organized from the start than to fix a messy library later.
-
+    
 ### Picard specific tips
 - In Picard’s settings, you can enable options to embed cover art *and* save a cover image file. Doing both 
     is ideal (embed for portability, and cover.jpg for any software that looks for it). Picard also allows scripting 
@@ -355,10 +358,14 @@ again. See details [here](/docs/usage/pids/#handling-file-moves-and-retagging).
 - **Keep tags tidy**: Little details like extra spaces at the end of names or inconsistent capitalization can lead 
   to multiple entries (e.g., "The Beatles" vs "The Beatles "). Try to keep things tidy. Many tag editors can 
   batch-clean or case-correct tags.
+- **Continuous tagging**: Make tagging part of your routine. When you add new music, tag it properly before
+  (or immediately after) adding it to Navidrome. **It's easier to keep a library organized from the start than to
+  fix a messy library later.** Your future self will thank you!
 - **Use Navidrome's strengths**: Navidrome reads a 
   [lot of tags](https://github.com/navidrome/navidrome/blob/master/resources/mappings.yaml) 
   (including comments, lyrics, grouping, mood, etc.). If you want to enrich your library, consider adding lyrics or 
-  other info via your editor — Navidrome will display lyrics if present, for example.
+  other info via your editor — Navidrome will display lyrics if present, for example, and has filters for various tags, 
+  like Genre, Grouping, Mood, Album Type, etc.
 - **Enjoy your music**: A bit of effort in tagging goes a long way. Once everything is tagged well, Navidrome 
   will present a beautiful, browsable collection. You’ll spend less time searching for songs or fixing metadata 
   and more time listening. Happy tagging!
