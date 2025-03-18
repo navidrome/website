@@ -89,9 +89,9 @@ sudo journalctl -u navidrome -f
 If everything is set up correctly, Navidrome will be accessible via web browser: http://localhost:4533.
 
 
-## Migrate from self-built to .deb Pre-built package
+## Migrate from manual installation to .deb Pre-built package
 
-Migrating from a self-built Navidrome instance to the new pre-built .deb package version can streamline updates and maintenance. This guide will walk you through the process of migrating your existing Navidrome setup on Linux to the .deb package version, specifically from the 0.54.1 release.
+Migrating from a manually installed Navidrome instance to the new pre-built .deb package version can streamline updates and maintenance. This guide will walk you through the process of migrating your existing Navidrome setup on Linux to the .deb package version, specifically from the 0.54.1 release.
 
 Before starting the migration, ensure you have:
 
@@ -128,11 +128,7 @@ The machine is now clean and ready for installation. Follow the regular [Linux i
 * **Environment Variables**: If you had any custom environment variables set in your previous setup, make sure to configure them in the new setup as well.
 
 
-
-
-
-
-## Build Navidrome on Linux
+## Manual installation on Linux
 
 Navidrome can also be installed using a self-built binary. In order to do so, first ensure your system is up to date and install [ffmpeg](https://ffmpeg.org/download.html).
 
