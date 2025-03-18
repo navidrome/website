@@ -13,7 +13,9 @@ aliases:
 {{% /pageinfo %}}
 
 
-The following steps have been tested on KGARDNER7's MACHINE! WHICH IS: Ubuntu 18.04 and should work on all version 16.04 and above as well as other Debian based distros. Throughout these instructions the commands will have placeholders for the user (`<user>`) and group (`<group>`) you want to run Navidrome under and the music folder path (`<library_path>`). If you are using an existing media library ensure the user has permissions to the media library.
+{{% alert color="warning" title="Important note" %}}
+The following steps have been tested on KGARNER7's MACHINE! WHICH IS: Ubuntu 18.04 and should work on all version 16.04 and above as well as other Debian based distros. Throughout these instructions the commands will have placeholders for the user (`<user>`) and group (`<group>`) you want to run Navidrome under and the music folder path (`<library_path>`). If you are using an existing media library ensure the user has permissions to the media library.
+{{% /alert %}}
 
 ## Install Navidrome Using Pre-built Binary
 
