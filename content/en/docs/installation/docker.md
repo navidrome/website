@@ -26,10 +26,7 @@ services:
     restart: unless-stopped
     environment:
       # Optional: put your config options customization here. Examples:
-      ND_SCANSCHEDULE: 1h
-      ND_LOGLEVEL: info  
-      ND_SESSIONTIMEOUT: 24h
-      ND_BASEURL: ""
+      # ND_LOGLEVEL: debug
     volumes:
       - "/path/to/data:/data"
       - "/path/to/your/music/folder:/music:ro"
