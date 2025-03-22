@@ -94,6 +94,12 @@ Example: Splitting the `artist` tag by `\` and `; `
 ```toml
 Tags.Artist.Split = ['\', '; ']
 ```
+
+If you want to disable splitting for a tag, you can set the `Split` option to an empty list.
+```toml
+Tags.Genre.Split = []
+```
+
 ### Separating Writer and Composer tags
 By default, Navidrome maps both `composer` and `writer` tag values to a single (multi-valued) `composer` field in its 
 database. If you want to keep these as separate metadata fields, you can define custom tags for each one:
