@@ -206,7 +206,7 @@ make it all uppercase. Ex: `ND_LOGLEVEL=debug`. See below for all available opti
 | TranscodingCacheSize                           | `ND_TRANSCODINGCACHESIZE`                        | Size of transcoding cache. Set to `"0"` to disable cache                                                                                                                                                                                                                                                                              | `"100MB"`                                                                   |
 | UILoginBackgroundUrl                           | `ND_UILOGINBACKGROUNDURL`                        | Change background image used in the Login page                                                                                                                                                                                                                                                                                        | _random music image from this [Unsplash.com][unsplash] collection_          |
 | UIWelcomeMessage                               | `ND_UIWELCOMEMESSAGE`                            | Add a welcome message to the login screen                                                                                                                                                                                                                                                                                             | _Empty_                                                                     |
-| UnixSocketPerm                                 | `ND_UNIXSOCKETPERM`                              | Set file permissions for Unix Socket File.[\*][reverse-proxy-auth]                                                                                                                                                                                                                                                                    | `"0660"`                                                                    |
+| UnixSocketPerm                                 | `ND_UNIXSOCKETPERM`                              | Set file permissions for Unix Socket File.[\*][unix-socket]                                                                                                                                                                                                                                                                           | `"0660"`                                                                    |
 
 #### Notes
 
@@ -228,6 +228,7 @@ make it all uppercase. Ex: `ND_LOGLEVEL=debug`. See below for all available opti
 [encrypt-passwords]:    /docs/usage/security/#encrypted-passwords
 [reverse-proxy-auth]:   /docs/usage/security/#reverse-proxy-authentication "Reverse Proxy Authentication"
 [reverse-proxy-config]: /docs/usage/reverse-proxy
+[unix-socket]:          /docs/usage/security/#listening-on-a-unix-socket
 [albumcoverart]:        /docs/usage/artwork/#albums
 [artistcoverart]:        /docs/usage/artwork/#artists
 [mediafilecoverart]:    /docs/usage/artwork/#mediafiles
