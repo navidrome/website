@@ -1,0 +1,196 @@
+baseURL: "https://www.navidrome.org"
+title: "Navidrome"
+
+## Hugo allows theme composition (and inheritance). The precedence is from left to right.
+#theme:
+#  - "docsy"
+
+# Language settings
+contentDir: "content/en"
+defaultContentLanguage: "en"
+defaultContentLanguageInSubdir: false
+# Useful when translating.
+enableMissingTranslationPlaceholders: true
+
+enableRobotsTXT: true
+
+# Will give values to .Lastmod etc.
+enableGitInfo: true
+
+#disableKinds:
+#  - "taxonomy"
+
+# Highlighting config
+pygmentsCodeFences: true
+pygmentsUseClasses: false
+# Use the new Chroma Go highlighter in Hugo.
+pygmentsUseClassic: false
+#pygmentsOptions: "linenos=table"
+# See https://help.farbox.com/pygments.html
+pygmentsStyle: "tango"
+
+# Configure how URLs look like per section.
+permalinks:
+  blog: "/:section/:year/:month/:day/:slug/"
+
+### Configuration for BlackFriday markdown parser: https://github.com/russross/blackfriday
+#blackfriday:
+#  plainIDAnchors: true
+#  hrefTargetBlank: true
+#  angledQuotes: false
+#  latexDashes: true
+
+# Image processing configuration.
+imaging:
+  resampleFilter: "CatmullRom"
+  quality: 75
+  anchor: "smart"
+
+# Language configuration
+languages:
+  en:
+    title: "Navidrome"
+    params:
+      description: "Personal Music Streamer"
+      languageName: "English"
+      # Weight used for sorting.
+      weight: 1
+
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
+  highlight:
+    # See a complete list of available styles at https://xyproto.github.io/splash/docs/all.html
+    style: tango
+    # Uncomment if you want your chosen highlight style used for code blocks without a specified language
+    # guessSyntax: true
+
+menu:
+  main:
+    - name: "GitHub"
+      weight: 50
+      url: "https://github.com/navidrome/navidrome/"
+
+services:
+  googleAnalytics:
+    # Comment out the next line to disable GA tracking. Also disables the feature described in [params.ui.feedback].
+    id: "UA-2382675-17"
+
+# Everything below this are Site Params
+outputs:
+  section: [HTML, print, RSS]
+
+params:
+  copyright:
+    authors: "The Navidrome Authors"
+    from_year: 2020
+  privacy_policy: "https://policies.google.com/privacy"
+
+  # First one is picked as the X card image if not set on page.
+  # images:
+  #   - "images/project-illustration.png"
+
+  # Menu title if your navbar has a versions selector to access old versions of your site.
+  # This menu appears only if you have at least one [params.versions] set.
+  version_menu: "Releases"
+
+  # Flag used in the "version-banner" partial to decide whether to display a
+  # banner on every page indicating that this is an archived version of the docs.
+  # Set this flag to "true" if you want to display the banner.
+  archived_version: false
+
+  # The version number for the version of the docs represented in this doc set.
+  # Used in the "version-banner" partial to display a version number for the
+  # current doc set.
+  version: "0.0"
+
+  # A link to latest version of the docs. Used in the "version-banner" partial to
+  # point people to the main doc site.
+  url_latest_version: "https://navidrome.org"
+
+  # Repository configuration (URLs for in-page links to opening issues and suggesting changes)
+  github_repo: "https://github.com/navidrome/website"
+  # An optional link to a related project repo. For example, the sibling repository where your product code lives.
+  # github_project_repo: "https://github.com/navidrome/navidrome"
+
+  github_branch: "master"
+
+  # Specify a value here if your content directory is not in your repo's root directory
+  # github_subdir: ""
+
+  # Google Custom Search Engine ID. Remove or comment out to disable search.
+  # gcs_engine_id: "011737558837375720776:fsdu1nryfng"
+
+  # Enable Lunr.js offline search
+  offlineSearch: true
+
+  # User interface configuration
+  ui:
+    # Set to true to disable breadcrumb navigation.
+    breadcrumb_disable: false
+    # Set to false if you don't want to display a logo (/assets/icons/logo.svg) in the top nav bar
+    navbar_logo: true
+    # Set to true if you don't want the top navbar to be translucent when over a `block/cover`, like on the homepage.
+    navbar_translucent_over_cover_disable: false
+    # Enable to show the side bar menu in its compact state.
+    sidebar_menu_compact: false
+    # Set to true to hide the sidebar search box (the top nav search box will still be displayed if search is enabled)
+    sidebar_search_disable: false
+    # Set to true to enable the About link in the site footer
+    footer_about_enable: false
+
+    # Adds a H2 section titled "Feedback" to the bottom of each doc. The responses are sent to Google Analytics as events.
+    # This feature depends on [services.googleAnalytics] and will be disabled if "services.googleAnalytics.id" is not set.
+    # If you want this feature, but occasionally need to remove the "Feedback" section from a single page,
+    # add "hide_feedback: true" to the page's front matter.
+    feedback:
+      enable: true
+      # The responses that the user sees after clicking "yes" (the page was helpful) or "no" (the page was not helpful).
+      yes: 'Glad to hear it! Please <a href="https://github.com/navidrome/website/issues/new">tell us how we can make it even better</a>.'
+      no: 'Sorry to hear that. Please <a href="https://github.com/navidrome/website/issues/new">tell us how we can improve</a>.'
+
+    showLightDarkModeMenu: true
+
+  links:
+    user:
+      - name: "Reddit"
+        url: "https://www.reddit.com/r/navidrome/"
+        icon: "fab fa-reddit"
+        desc: "Discussion and help from your fellow users"
+      - name: "Discord"
+        url: "https://discord.gg/xh7j7yF"
+        icon: "fab fa-discord"
+        desc: "Chat with other users and project developers"
+      - name: "X"
+        url: "https://x.com/navidrome"
+        icon: "fab fa-x-twitter"
+        desc: "Follow us on X"
+      - name: "Lemmy (Community moderated)"
+        url: "https://discuss.tchncs.de/c/navidrome"
+        icon: "fa-regular fa-comment"
+        desc: "Discuss and help from fellow users on the fediverse"
+    developer:
+      - name: "GitHub"
+        url: "https://github.com/navidrome/navidrome"
+        icon: "fab fa-github"
+        desc: "Development takes place here!"
+      - name: "Donate"
+        url: "https://ko-fi.com/deluan"
+        icon: "fas fa-heart"
+        desc: "Want to thank the developer? Feel free to buy them a coffee ;)"
+
+# background credit: Photo by Travis Yewell on Unsplash
+
+# hugo module configuration
+module:
+  # uncomment line below for temporary local development of module
+  # replacements: "github.com/google/docsy -> ../../docsy"
+  hugoVersion:
+    extended: true
+    min: "0.75.0"
+  imports:
+    - path: "github.com/google/docsy"
+      disable: false
+    - path: "github.com/google/docsy/dependencies"
+      disable: false

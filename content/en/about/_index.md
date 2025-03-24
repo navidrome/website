@@ -18,8 +18,8 @@ layout: docs
 {{< /blocks/cover >}}
 
 
+{{% blocks/section color="primary" %}}
 
-{{< blocks/section type="section" color="primary">}}
 ### What exactly is Navidrome?
 It is a piece of software that allows you to listen to your own digital music in the same way you 
 would with services like Spotify, Apple Music and others. It also allows you to easily share 
@@ -43,4 +43,4 @@ albums and artists
 </p>
 
 
-{{< /blocks/section >}}
+{{% /blocks/section %}}

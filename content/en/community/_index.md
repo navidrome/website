@@ -5,7 +5,7 @@ menu:
     weight: 40
 ---
 
-{{< blocks/section type="section" color="white">}}
+{{% blocks/section color="white" %}}
 
 ## Navidrome Articles
 Here are some articles written by and for members of the Navidrome community. If you write or find any interesting blog post about Navidrome, feel free to [add to this list](https://github.com/navidrome/website/edit/master/content/en/community/_index.md).
@@ -29,4 +29,4 @@ Here are some articles written by and for members of the Navidrome community. If
 * [スマホでの音楽環境のためメディアサーバを探した話 (A story about searching for a media server)](https://blog.asterism.xyz/posts/2020-09-02/) - Japanese blog post, 02/Sep/2020 by aries
 * [Les Tutos: Docker No. 14: Navidrome - Serveur de streaming de musique](https://www.youtube.com/watch?v=FJ0pFRPdVjs) - French installation video, 25/Apr/2020 by Tonton Jo
 
-{{< /blocks/section >}}
+{{% /blocks/section %}}

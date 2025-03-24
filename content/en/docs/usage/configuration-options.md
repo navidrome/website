@@ -24,9 +24,9 @@ Navidrome tries to load the configuration from a `navidrome.toml` file in the cu
 directory, if it exists. You can create this file and put any of the [configuration options below](#available-options)
 in it. Example of a configuration file (select your OS):
 
-{{< tabpane >}}
+{{< tabpane lang="toml">}}
 {{< tab header="**Example**:" disabled=true />}}
-{{< tab header="Windows" lang="windows" highlight="guessSyntax=true">}}
+{{< tab header="Windows"  highlight="guessSyntax=true">}}
 # This is just an example! Please see available options to customize Navidrome for your needs at
 # https://www.navidrome.org/docs/usage/configuration-options/#available-options
 

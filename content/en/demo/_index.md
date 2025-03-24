@@ -17,7 +17,7 @@ layout: docs
 
 {{< /blocks/cover >}}
 
-{{< blocks/section type="section" color="white">}}
+{{% blocks/section color="white" %}}
 
 #### Want to try Navidrome before installing it? Not a problem!
 Just head to our [demo site](https://demo.navidrome.org) and enjoy some free music, courtesy of the fine folks from [Jamendo Music](https://jamendo.com), [Chillhop Music](https://chillhop.com), [Nine Inch Nails](https://www.nin.com/nine-inch-nails-ghosts-v-vi-available-now/), [NCS Music](https://www.ncsmusic.com/), [blocSonic](https://blocsonic.com/) and the respective artists.
@@ -44,4 +44,4 @@ A share of the revenue helps fund the development of Navidrome at no additional 
 
 [![PikaPods](https://www.pikapods.com/static/run-button.svg)](https://www.pikapods.com/pods?run=navidrome)
 
-{{< /blocks/section >}}
+{{% /blocks/section %}}
