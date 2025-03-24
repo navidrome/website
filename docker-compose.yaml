@@ -1,6 +1,6 @@
 services:
   site:
-    image: floryn90/hugo:0.140.2-ext-ubuntu
+    image: floryn90/hugo:0.145.0-ext-ubuntu
     command: server
     ports:
       - "1313:1313"
