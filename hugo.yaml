@@ -65,6 +65,7 @@ markup:
     style: tango
     # Uncomment if you want your chosen highlight style used for code blocks without a specified language
     # guessSyntax: true
+    noClasses: false # Required for dark-mode
 
 menu:
   main:
