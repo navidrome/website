@@ -36,4 +36,4 @@ More packages available, with links to download/install instructions:
 
 
 If you create, or know of, other Navidrome packages that are publicly available, please 
-[add to the list above](https://github.com/navidrome/website/edit/master/content/en/docs/Installation/packages.md).
+[add to the list above](https://github.com/navidrome/website/edit/master/content/en/docs/installation/packages.md).
