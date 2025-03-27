@@ -4,8 +4,8 @@
   "description": "Navidrome Music Server site",
   "main": "none.js",
   "scripts": {
-    "start": "hugo server",
-    "build": "hugo build",
+    "start": "docker compose up",
+    "build": "docker compose run --remove-orphans site build",
     "sync-images": "./sync-images.sh 20072696"
   },
   "repository": {

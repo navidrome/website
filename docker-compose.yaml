@@ -4,5 +4,8 @@ services:
     command: server
     ports:
       - "1313:1313"
+    environment:
+      - HUGO_CACHEDIR=/tmp/hugo_cache
     volumes:
       - .:/src
+      - ./.hugo_cache:/tmp/hugo_cache
