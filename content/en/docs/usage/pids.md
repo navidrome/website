@@ -2,7 +2,7 @@
 title: Customizing Persistent IDs in Navidrome
 linkTitle: Persistent IDs (PIDs)
 date: 2017-01-02
-weight: 45
+weight: 15
 description: >
     Learn how to configure and customize Persistent IDs (PIDs) in Navidrome to customize disambiguation
     and improve media management.

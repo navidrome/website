@@ -2,7 +2,7 @@
 title: Using custom tags with Navidrome
 linkTitle: Custom Tags
 date: 2017-01-02
-weight: 45
+weight: 11
 description: >
   How to import and use custom tags in Navidrome. This page explains the available options to configure custom tags,
   including aliases, tag type, maximum length, custom separators and album-level settings.
@@ -26,6 +26,10 @@ If you want to use a configuration file with Docker, you can do so by creating a
 host folder that is mapped to your `/data` volume, and set the env var `ND_CONFIGFILE=/data/navidrome.toml`.
 {{< /alert >}}
 
+{{< alert color="warning" >}}
+**Important:** After making changes to tag configurations, you must perform a **full scan** for the changes to take effect.
+A quick scan will not process the updated tag configurations.
+{{< /alert >}}
 
 Custom tags are defined under the `Tags` configuration section. A custom tag configuration accepts the following properties:
 
@@ -99,6 +103,18 @@ If you want to disable splitting for a tag, you can set the `Split` option to an
 ```toml
 Tags.Genre.Split = []
 ```
+
+### Artist splitting
+By default, Navidrome will split the `artist` tag value by various common separators (e.g., `feat.`, `ft.`, `/`, etc.) 
+to identify multiple artists. To customize the separators used for artist splitting, you can configure the 
+`Tags.Artists.Split` option:
+
+```toml
+Tags.Artists.Split = ["/", " / ", " feat. ", " feat ", " ft. ", " ft ", "; "]
+```
+
+Note that case sensitivity matters here. For example, `FEAT.` (uppercase) will be recognized by default, but 
+`feat.` (lowercase) requires explicit configuration.
 
 ### Separating Writer and Composer tags
 By default, Navidrome maps both `composer` and `writer` tag values to a single (multi-valued) `composer` field in its 
