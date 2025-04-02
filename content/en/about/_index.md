@@ -32,15 +32,33 @@ it available through a nice web player and also by using any
 Your music becomes searchable and you can create playlists, rate and "favourite" your loved tracks, 
 albums and artists
 
-<p align="center">
-    <br>
-    <br>
-    <br>
-    <img height="300" src="/screenshots/mobile-login.png">
-    <img height="300" src="/screenshots/light-albums-view.png">
-    <img height="300" src="/screenshots/dark-mobile-albums-view.png">
-    <img height="300" src="/screenshots/dark-album-view.png">
-</p>
+<div class="row mt-5 justify-content-center">
+  <!-- Portrait (mobile) images -->
+  <div class="col-12 col-sm-6 col-md-3 mb-4">
+    <a href="/screenshots/mobile-login.png" target="_blank">
+      <img class="img-fluid rounded shadow-sm" src="/screenshots/mobile-login.png" alt="Mobile login screen">
+    </a>
+  </div>
+  <div class="col-12 col-sm-6 col-md-3 mb-4">
+    <a href="/screenshots/dark-mobile-albums-view.png" target="_blank">
+      <img class="img-fluid rounded shadow-sm" src="/screenshots/dark-mobile-albums-view.png" alt="Dark theme mobile albums view">
+    </a>
+  </div>
+</div>
+  
+<div class="row mt-2 mb-4 justify-content-center">
+  <!-- Landscape (desktop) images -->
+  <div class="col-12 col-md-6 mb-4">
+    <a href="/screenshots/light-albums-view.png" target="_blank">
+      <img class="img-fluid rounded shadow-sm" src="/screenshots/light-albums-view.png" alt="Light theme albums view">
+    </a>
+  </div>
+  <div class="col-12 col-md-6 mb-4">
+    <a href="/screenshots/dark-album-view.png" target="_blank">
+      <img class="img-fluid rounded shadow-sm" src="/screenshots/dark-album-view.png" alt="Dark theme album view">
+    </a>
+  </div>
+</div>
 
 
 {{% /blocks/section %}}
