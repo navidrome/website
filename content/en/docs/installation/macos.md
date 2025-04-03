@@ -58,16 +58,18 @@ To stop the service, run:
 launchctl stop navidrome
 ```
 
-### Error: Navidrome is damaged
+{{% alert title="macOS Quarantine Error" color="warning" %}}
+If you download the binary directly from GitHub, you may see an error message saying:
 
-If you download the binary directly from Github, you may see an error like `“navidrome” is damaged and can’t be opened. You should move it to the Bin`.
-This error likely means that the `navidrome` executable was quarantined by Gatekeeper.
+```
+"navidrome" is damaged and can't be opened. You should move it to the Bin.
+```
 
-To fix this issue, you can run the following command in a terminal application:
+This error occurs because macOS's Gatekeeper has quarantined the `navidrome` executable as it was downloaded from the internet. To fix this issue, open Terminal and run:
 
-~~~bash
+```bash
 sudo xattr -d com.apple.quarantine /path/to/navidrome
-~~~
+```
 
-Replace `/path/to/navidrome` with the actual path to your binary.
-This will remove the quarantine flag from the `navidrome` binary and allow it to run.
+Replace `/path/to/navidrome` with the actual path to your binary (e.g., `/opt/navidrome/navidrome`). This will remove the quarantine flag from the navidrome binary and allow it to run.
+{{% /alert %}}
