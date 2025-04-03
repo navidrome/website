@@ -7,7 +7,6 @@
     "start": "docker compose up",
     "build": "docker compose run --remove-orphans site build",
     "sync-images": "./sync-images.sh 20072696",
-    "mcp-server": "npx @agentdeskai/browser-tools-server@latest"
   },
   "repository": {
     "type": "git",
