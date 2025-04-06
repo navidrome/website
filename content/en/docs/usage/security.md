@@ -34,6 +34,8 @@ When reverse proxy authentication is enabled, Navidrome trusts the reverse proxy
 
 In principle, the reverse proxy user header is ignored if requests don't come from a reverse proxy trusted with the `ReverseProxyWhitelist` option. This check can however be fooled by requests with a forged source IP address if the reverse proxy can be bypassed (e.g. sent by a compromised service running next to Navidrome).
 
+When using reverse proxy authentication in a fresh installation, the first user created through this method will automatically be granted admin privileges, consistent with the behavior when creating the first user through the web interface.
+
 ### Listening on a UNIX socket
 
 If you are listening on a UNIX socket (`Address` option) and enable reverse proxy authentication (`ReverseProxyWhitelist` configured with the special value `@`), any process able to write to the socket can forge authenticated requests.

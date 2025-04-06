@@ -17,7 +17,7 @@ When enabled via the `ReverseProxyWhitelist` option, Navidrome validates the req
 
 With reverse proxy authentication enabled, Navidrome gets the username of the authenticated user from incoming requests' `Remote-User` HTTP header. The header can be changed via the `ReverseProxyUserHeader` configuration option.
 
-If a user is successfully authenticated by the proxy but does not exist in the Navidrome DB, it will be created with a random password.
+If a user is successfully authenticated by the proxy but does not exist in the Navidrome DB, it will be created with a random password. The first user created in a fresh installation (whether through reverse proxy authentication or direct login) will always be an admin user.
 
 You might also be interested in the `EnableUserEditing` option, which allows disabling the User page that lets users change their Navidrome password.
 
