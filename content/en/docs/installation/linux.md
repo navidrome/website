@@ -32,10 +32,10 @@ sudo apt upgrade
 
 1. **Visit the Navidrome Releases Page**: Go to the [Navidrome releases page](https://github.com/navidrome/navidrome/releases) on GitHub to find the latest .deb package suitable for your system architecture (e.g., amd64 for 64-bit systems).
 
-2. **Download the .deb File**: Use wget or your browser to download the .deb file. Replace navidrome_0.XX.X_amd64.deb with the actual file name from the releases page.
+2. **Download the .deb File**: Use wget or your browser to download the .deb file. Replace navidrome_0.XX.X_linux_amd64.deb with the actual file name from the releases page.
 
 ~~~bash
-wget https://github.com/navidrome/navidrome/releases/download/v0.XX.X/navidrome_0.XX.X_amd64.deb
+wget https://github.com/navidrome/navidrome/releases/download/v0.XX.X/navidrome_0.XX.X_linux_amd64.deb
 ~~~
 
 ### Install and Configure
