@@ -7,158 +7,264 @@ description: >
   Delegate authentication to another system
 ---
 
-## Configuration
+## What is Reverse Proxy Authentication?
 
-By default, reverse proxy authentication is disabled. To enable the feature, configure a trusted reverse proxy with the `ReverseProxyWhitelist` option. This option takes a comma-separated list of either:
-* An IPv4 or IPv6 range in CIDR notation.
-* An `@` (at sign) when listening on a UNIX socket (see the `Address` option).
+Reverse proxy authentication allows you to use an external system (like your existing authentication service) to handle user login for Navidrome. Instead of managing user credentials in Navidrome itself, you can delegate this responsibility to services like Authelia, Authentik, or any authentication system that works with your reverse proxy (Nginx, Caddy, Traefik, etc.).
 
-When enabled via the `ReverseProxyWhitelist` option, Navidrome validates the requests' source IP address against the ranges configured in `ReverseProxyWhitelist`. If no range matches the address, reverse proxy authentication is not used even if the reverse proxy user header is present (see below), and falls back to a standard authentication mechanism. For requests received through a UNIX socket, IPs can't be validated and Navidrome will use the reverse proxy user header if and only if `ReverseProxyWhitelist` contains `@`.
+This approach offers several benefits:
+- **Single sign-on**: Users can log in once and access multiple services
+- **Centralized user management**: Manage all your users in one place
+- **Enhanced security**: Leverage advanced authentication methods (2FA, OAuth, etc.)
 
-With reverse proxy authentication enabled, Navidrome gets the username of the authenticated user from incoming requests' `Remote-User` HTTP header. The header can be changed via the `ReverseProxyUserHeader` configuration option.
-
-If a user is successfully authenticated by the proxy but does not exist in the Navidrome DB, it will be created with a random password. The first user created in a fresh installation (whether through reverse proxy authentication or direct login) will always be an admin user.
-
-You might also be interested in the `EnableUserEditing` option, which allows disabling the User page that lets users change their Navidrome password.
-
-### Sharing endpoint
-
-If you plan to use the Sharing feature, where you can create unauthenticated links to parts of your library, you'll need to whitelist the `/share/*` URLs.
-
-### Subsonic endpoint
-
-The subsonic endpoint also supports reverse proxy authentication, and will ignore the subsonic authentication parameters (`u`, `p`, `t` and `s`) if the reverse proxy user header is present. If the header is absent or has an empty value, Navidrome will fall back to the standard subsonic authentication scheme.
-
-If your reverse proxy does not support the standard subsonic authentication scheme, or if the subsonic clients you want to use don't support an alternate authentication mechanism also supported by your proxy (such as BasicAuth), you can still configure your proxy to bypass authentication on `/rest/*` URLs and let Navidrome perform authentication for those requests. In that case, your users will have to update their (initially random) password in Navidrome, to use it with their subsonic client.
-
-{{< alert title="Note" >}}
-Most reverse proxies and authentication services don't support the subsonic authentication scheme out of the box.
-
-A handful of clients claim to support BasicAuth (e.g. DSub and Symfonium on Android, and play:Sub on iOS), but even then it might not work as you expect (as it is not standardized by the subsonic specification): you will likely need to generate a subsonic error response instead of a proper BasicAuth authentication failure response. Otherwise, some clients might display an unexpected error such as "server unreachable" when the credentials are incorrect, and other clients might refuse to connect altogether even with valid credentials.
+{{< alert title="For Beginners" color="primary" >}}
+If you're new to reverse proxies, they act as intermediaries between your users and Navidrome. They can handle things like SSL certificates, load balancing, and authentication before requests reach Navidrome.
 {{< /alert >}}
 
-### Navidrome Web App
+## Quick Start
 
-The Navidrome web app uses a mix of internal and subsonic APIs, and receives subsonic credentials from the server to use for requests against the subsonic API. As the credentials received from the server likely won't match those in your dedicated authentication service, you need to handle subsonic requests from the Navidrome web app (identified as the subsonic client `NavidromeUI` via the `c` query parameter) in a special way. You can either:
-* Ignore the subsonic authentication parameters and authenticate those requests the same way as non-subsonic requests. This relies on the fact that requests to the subsonic API will look the same to the proxy as requests to the internal API (e.g. same session cookies).
-* Bypass authentication on your proxy for those requests and let Navidrome handle it. This relies on the fact that the web app receives the subsonic credentials from the server when it loads, and it can load only if the proxy has already authenticated the user.
+Here's the basic process for setting up reverse proxy authentication:
 
-Note that if you don't intend to support third-party subsonic clients, you can simply place the subsonic endpoint behind the same protection rule as the rest of the application, i.e. you don't need any special handling to bypass authentication.
+1. Configure your reverse proxy with authentication (varies by proxy)
+2. Set up the reverse proxy to pass the username to Navidrome via HTTP header
+3. Configure Navidrome to trust your reverse proxy
+4. Test the setup
 
-## Security
+## Configuration
 
-Make sure to check the reverse proxy authentication section in the dedicated [Security Considerations](../security#reverse-proxy-authentication) page.
+### Basic Navidrome Setup
 
-## Examples
+By default, reverse proxy authentication is disabled. To enable it:
 
-For the examples below, it is assumed that you are familiar with the various products in use, i.e. reverse proxy, authentication service but also Navidrome.
+1. Set the `ReverseProxyWhitelist` option to tell Navidrome which IP addresses to trust
+2. Optionally customize the `ReverseProxyUserHeader` if your proxy uses a different header than the default `Remote-User`
 
-The examples focus on the integration between the products, and provide configuration snippets stripped down to the relevant parts, which you can adapt to the specifics of your deployment.
-
-### Caddy with forward_auth
-
-In this example, Navidrome is behind the [Caddy](https://caddyserver.com) reverse proxy, and [Authentik](https://goauthentik.io) is used to authenticate requests, with the help of Caddy's [forward_auth](https://caddyserver.com/docs/caddyfile/directives/forward_auth) middleware.
-
-`Caddyfile` excerpt stripped down to the relevant parts:
-```Caddyfile
-example.com
-
-reverse_proxy /outpost.goauthentik.io/* http://authentik:9000
-
-@protected not path /share/* /rest/*
-forward_auth @protected http://authentik:9000 {
-  uri /outpost.goauthentik.io/auth/caddy
-  copy_headers X-Authentik-Username>Remote-User
-}
-
-# Authentik uses the Authorization header if present, so should be able to
-# authenticate subsonic clients that support BasicAuth. Requests from the
-# Navidrome Web App will be authenticated via the existing session cookie.
-# If you want to have Navidrome authenticate subsonic requests, remove this
-# forward_auth block.
-@subsonic path /rest/*
-forward_auth @subsonic http://authentik:9000 {
-  uri /outpost.goauthentik.io/auth/caddy
-  copy_headers X-Authentik-Username>Remote-User
-
-  # Some clients that claim to support basicauth still expect a subsonic
-  # response in case of authentication failure instead of a proper basicauth
-  # response.
-  @error status 1xx 3xx 4xx 5xx
-  handle_response @error {
-    respond <<SUBSONICERR
-      <subsonic-response xmlns="http://subsonic.org/restapi" status="failed" version="1.16.1" type="proxy-auth" serverVersion="n/a" openSubsonic="true">
-        <error code="40" message="Invalid credentials or unsupported client"></error>
-      </subsonic-response>
-      SUBSONICERR 200
-  }
-}
-
-reverse_proxy navidrome:4533
+```
+# In your Navidrome configuration:
+ND_REVERSEPROXYWHITELIST=192.168.1.10/32  # IP address of your reverse proxy
+# Optional: Change the header if needed (defaults to Remote-User)
+ND_REVERSEPROXYUSERHEADER=X-Auth-User
 ```
 
-Note that if you want to whitelist the unprotected paths as part of your Authentik configuration instead of doing it in Caddy, the `copy_headers` subdirective [won't work as expected](https://caddy.community/t/stop-copying-empty-forward-auth-header/17485): Authentik won't set the `X-Authentik-Username` header for whitelisted paths, but Caddy will still copy the header with an incorrect value. In order to make it work, you need a workaround:
+{{< alert title="Security Note" color="warning" >}}
+Only add IP addresses you trust to the whitelist. Navidrome will accept the username from any requests coming from these addresses without further verification.
+{{< /alert >}}
 
-```Caddyfile
-forward_auth http://authentik:9000 {
-  uri /outpost.goauthentik.io/auth/caddy
-  # copy_headers subdirective removed
-}
+### How It Works
 
-# Only set the Remote-User header if the request was actually authentified (user
-# header set by Authentik), as opposed to whitelisted (user header not set).
-@hasUsername `{http.reverse_proxy.header.X-Authentik-Username} != null`
-request_header @hasUsername Remote-User {http.reverse_proxy.header.X-Authentik-Username}
+When configured correctly:
+
+1. Your reverse proxy authenticates the user
+2. The proxy adds a header with the username (e.g., `Remote-User: john`)
+3. Navidrome checks if the request comes from a trusted IP (in `ReverseProxyWhitelist`)
+4. If trusted, Navidrome uses the username from the header to identify the user
+5. If the user doesn't exist in Navidrome's database, a new account is created automatically
+
+### Special Value for UNIX Sockets
+
+If you're using UNIX sockets (with the `Address` option), add `@` to your `ReverseProxyWhitelist` to accept authentication from the socket:
+
+```
+ND_ADDRESS=/var/run/navidrome.sock
+ND_REVERSEPROXYWHITELIST=@
 ```
 
-### Traefik with ForwardAuth
+## User Management
 
-In this example, Navidrome is behind the [Traefik](https://traefik.io) reverse proxy, and [Authelia](https://www.authelia.com) is used to authenticate requests, with the help of Traefik's [ForwardAuth](https://doc.traefik.io/traefik/middlewares/http/forwardauth/) middleware. Each service has its own subdomain. Docker Compose is used to deploy the whole thing.
+When using reverse proxy authentication:
 
-The error response rewriting for subsonic authentication failure is not implemented, which means that subsonic clients are expected to handle correctly BasicAuth error responses (HTTP 401 with `WWW-Authenticate` header).
+- The first user authenticated through the proxy will be granted admin privileges (just like the first user in a fresh installation)
+- New users are created automatically with random passwords 
+- Consider setting `EnableUserEditing=false` to prevent users from changing their Navidrome passwords (since they're managed by your auth service)
 
-`docker-compose.yml` excerpt stripped down to the relevant parts:
+```
+# Disable password editing in Navidrome
+ND_ENABLEUSEREDITING=false
+```
+
+## Feature-Specific Configurations
+
+### Sharing Feature
+
+If you plan to use Navidrome's Sharing feature (for creating unauthenticated links to your library), you'll need to:
+
+1. Configure your reverse proxy to **bypass authentication** for URLs starting with `/share/`
+2. This allows unauthenticated access to shared content via public links
+
+### Subsonic API Integration
+
+The Subsonic API (used by mobile apps and third-party clients) can work with reverse proxy authentication, but requires special consideration:
+
+{{< alert title="Advanced Topic" >}}
+This section is more advanced. For basic setup, you can skip this initially and return when you need to support Subsonic clients.
+{{< /alert >}}
+
+Navidrome's Subsonic API endpoint can use reverse proxy authentication in two ways:
+
+1. **Proxy handles authentication**: The proxy authenticates users and passes the username to Navidrome
+2. **Bypass mode**: The proxy allows unauthenticated access to `/rest/*` URLs, and Navidrome handles authentication
+
+#### Option 1: Proxy Authentication for Subsonic
+
+If your proxy and Subsonic clients support compatible authentication methods (like BasicAuth):
+
+- Configure your proxy to authenticate requests to `/rest/*`
+- Pass the authenticated username to Navidrome
+- Navidrome will ignore standard Subsonic authentication parameters
+
+#### Option 2: Bypass Authentication for Subsonic
+
+If your clients don't support proxy authentication methods:
+
+- Configure your proxy to bypass authentication for `/rest/*` URLs
+- Let Navidrome handle authentication using standard Subsonic parameters
+- Users will need to set passwords in Navidrome for their Subsonic clients
+
+### Navidrome Web App Handling
+
+The Navidrome web interface uses both internal and Subsonic APIs. You have two options:
+
+1. **Same authentication for all requests**: Configure your proxy to authenticate all requests the same way
+2. **Selective bypass**: Allow unauthenticated access to Subsonic API requests from the web app (identified by `c=NavidromeUI` parameter)
+
+## Security Considerations
+
+Make sure to check the [Security Considerations](../security#reverse-proxy-authentication) page for important security information.
+
+Key security points:
+- Never run Navidrome as root
+- Properly secure UNIX sockets if used
+- Be careful with dynamic IP addresses in Docker environments
+- Ensure your reverse proxy is properly configured to set authentication headers
+
+## Visual Guide
+
+```
+┌─────────────┐     ┌─────────────┐     ┌─────────────┐
+│    User     │ --> │   Reverse   │ --> │  Navidrome  │
+│   Browser   │     │    Proxy    │     │    Server   │
+└─────────────┘     └─────────────┘     └─────────────┘
+                          │
+                          V
+                    Authentication
+                        System
+```
+
+## Example Configurations
+
+Here are some example configurations for popular reverse proxies. You can adapt these to your specific setup.
+
+### Caddy with Authentik
+
+This example shows Navidrome behind Caddy with Authentik for authentication.
+
+```Caddyfile
+example.com {
+    # Authentik outpost endpoint
+    reverse_proxy /outpost.goauthentik.io/* http://authentik:9000
+
+    # Protect everything except share and subsonic endpoints
+    @protected not path /share/* /rest/*
+    forward_auth @protected http://authentik:9000 {
+        uri /outpost.goauthentik.io/auth/caddy
+        copy_headers X-Authentik-Username>Remote-User
+    }
+
+    # Handle subsonic API authentication
+    @subsonic path /rest/*
+    forward_auth @subsonic http://authentik:9000 {
+        uri /outpost.goauthentik.io/auth/caddy
+        copy_headers X-Authentik-Username>Remote-User
+
+        # Handle authentication errors
+        @error status 1xx 3xx 4xx 5xx
+        handle_response @error {
+            respond <<SUBSONICERR
+                <subsonic-response xmlns="http://subsonic.org/restapi" status="failed" version="1.16.1" type="proxy-auth" serverVersion="n/a" openSubsonic="true">
+                    <error code="40" message="Invalid credentials or unsupported client"></e>
+                </subsonic-response>
+                SUBSONICERR 200
+        }
+    }
+
+    # Forward everything to Navidrome
+    reverse_proxy navidrome:4533
+}
+```
+
+### Traefik with Authelia
+
+This example uses Traefik with Authelia for authentication, using Docker Compose.
+
 ```yaml
 services:
   authelia:
     image: authelia/authelia:4.38.8
     labels:
-      # The login page and user dashboard need to be reachable from the web
+      # Login page
       traefik.http.routers.authelia.rule: Host(`auth.example.com`)
       traefik.http.routers.authelia.entrypoints: https
-      # Standard authentication middleware to be used by web services
+      
+      # Standard web authentication
       traefik.http.middlewares.authelia.forwardauth.address: http://authelia:9091/api/verify?rd=https://auth.example.com/
       traefik.http.middlewares.authelia.forwardauth.authResponseHeaders: Remote-User
-      # Basicauth middleware for subsonic clients
+      
+      # Basic auth for subsonic clients
       traefik.http.middlewares.authelia-basicauth.forwardauth.address: http://authelia:9091/api/verify?auth=basic
       traefik.http.middlewares.authelia-basicauth.forwardauth.authResponseHeaders: Remote-User
 
   navidrome:
     image: deluan/navidrome:0.52.0
     labels:
-      # Default rule which uses Authelia's web-based authentication. If you enable
-      # navidrome's Sharing feature, you can configure Authelia to bypass
-      # authentication for /share/* URLs, so you don't need an extra rule here.
+      # Main Navidrome access with web authentication
       traefik.http.routers.navidrome.rule: Host(`music.example.com`)
       traefik.http.routers.navidrome.entrypoints: https
       traefik.http.routers.navidrome.middlewares: authelia@docker
-      # Requests to the subsonic endpoint use the basicauth middleware, unless
-      # they come from the Navidrome Web App ("NavidromeUI" subsonic client), in
-      # which case the default authelia middleware is used.
+      
+      # Special handling for subsonic API
       traefik.http.routers.navidrome-subsonic.rule: Host(`music.example.com`) && PathPrefix(`/rest/`) && !Query(`c`, `NavidromeUI`)
       traefik.http.routers.navidrome-subsonic.entrypoints: https
       traefik.http.routers.navidrome-subsonic.middlewares: authelia-basicauth@docker
     environment:
-      # Navidrome does not resolve hostnames in this option, and by default
-      # traefik will get assigned an IP address dynamically, so all IPs must be
-      # trusted.
-      # This means that any other service in the same docker network can make
-      # requests to navidrome, and easily impersonate an admin.
-      # If you assign a static IP to your traefik service, configure it here.
+      # Trust all IPs in Docker network - use more specific IP if possible
       ND_REVERSEPROXYWHITELIST: 0.0.0.0/0
-      # Since authentication is entirely handled by Authelia, users don't need to
-      # manage their password in Navidrome anymore.
+      # Disable password editing in Navidrome
       ND_ENABLEUSEREDITING: false
 ```
 
-If you want to add support for the subsonic authentication scheme in order to support all subsonic clients, you can have a look at the Traefik plugin [BasicAuth adapter for Subsonic](https://plugins.traefik.io/plugins/6521c6de39e2d7caa2181888/basic-auth-adapter-for-subsonic) which transforms subsonic authentication parameters into a BasicAuth header that Authelia can handle, and performs the error response rewriting.
+## Troubleshooting
+
+Common issues and solutions:
+
+1. **Authentication not working**
+   - Check that your reverse proxy IP is in the `ReverseProxyWhitelist`
+   - Verify the correct header is being sent (`Remote-User` by default)
+   - Check proxy logs to confirm authentication is successful
+
+2. **New users not being created**
+   - Ensure the header contains the correct username
+   - Check Navidrome logs for any errors
+
+3. **Subsonic clients can't connect**
+   - Verify your proxy configuration for the `/rest/*` endpoint
+   - Check if your client supports the authentication method you're using
+
+4. **Shared links not working**
+   - Make sure your proxy allows unauthenticated access to `/share/*` URLs
+
+## FAQ
+
+**Q: Can I use this with my existing OAuth provider?**  
+A: Yes, as long as your reverse proxy can integrate with your OAuth provider and pass the username to Navidrome.
+
+**Q: What if I want to switch back to Navidrome's authentication?**  
+A: Remove or comment out the `ReverseProxyWhitelist` configuration.
+
+**Q: Can I mix authentication methods?**  
+A: Yes, Navidrome will fall back to standard authentication if the reverse proxy header is not present.
+
+## See Also
+
+- [Security Considerations](../security) for Navidrome
+- [Configuration Options](../configuration-options) for all available settings
+- [Caddy Forward Auth documentation](https://caddyserver.com/docs/caddyfile/directives/forward_auth)
+- [Traefik ForwardAuth middleware](https://doc.traefik.io/traefik/middlewares/http/forwardauth/)
