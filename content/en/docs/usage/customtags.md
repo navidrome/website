@@ -23,7 +23,7 @@ metadata beyond the default supported tags. This functionality can be configured
 This customization is only available when using a [configuration file](/docs/usage/configuration-options).
 
 If you want to use a configuration file with Docker, you can do so by creating a `navidrome.toml` config file in the
-host folder that is mapped to your `/data` volume, and set the env var `ND_CONFIGFILE=/data/navidrome.toml`.
+host folder that is mapped to your `/data` volume. Docker installations automatically look for a `navidrome.toml` file in the `/data` folder.
 {{< /alert >}}
 
 {{< alert color="warning" >}}
