@@ -107,14 +107,13 @@ Tags.Genre.Split = []
 ### Artist splitting
 By default, Navidrome will split the `artist` tag value by various common separators (e.g., `feat.`, `ft.`, `/`, etc.) 
 to identify multiple artists. To customize the separators used for artist splitting, you can configure the 
-`Tags.Artists.Split` option:
+`Tags.Artist.Split` option:
 
 ```toml
-Tags.Artists.Split = ["/", " / ", " feat. ", " feat ", " ft. ", " ft ", "; "]
+Tags.Artist.Split = ["/", " / ", " feat. ", " feat ", " ft. ", " ft ", "; "]
 ```
 
-Note that case sensitivity matters here. For example, `FEAT.` (uppercase) will be recognized by default, but 
-`feat.` (lowercase) requires explicit configuration.
+Note that the separators are case insensitive, so both `FEAT.` and `feat.` will be recognized by default.
 
 ### Separating Writer and Composer tags
 By default, Navidrome maps both `composer` and `writer` tag values to a single (multi-valued) `composer` field in its 
