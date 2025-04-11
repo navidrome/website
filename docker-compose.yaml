@@ -9,10 +9,3 @@ services:
     volumes:
       - .:/src
       - ./.hugo_cache:/tmp/hugo_cache
-  browser-tools:
-    image: node:20-alpine
-    command: sh -c "npx @agentdeskai/browser-tools-server@latest"
-    ports:
-      - "3025:3025"
-    volumes:
-      - ./tmp/mcp-screenshot:/root/Downloads/mcp-screenshots
