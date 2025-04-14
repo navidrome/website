@@ -27,6 +27,7 @@ send your scrobbles to Last.fm. For these features to work, you'll need to set t
 </p>
 
 3) Copy the values above to your [configuration file](/docs/usage/configuration-options#configuration-file) as `LastFM.ApiKey` and `LastFM.Secret` (or set them as environment variables `ND_LASTFM_APIKEY` and `ND_LASTFM_SECRET`)
+4) After the configuration is done, you can set up [scrobbling](/docs/usage/scrobbling#last.fm) for your user.
 
 
 ## Spotify
