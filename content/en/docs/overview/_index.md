@@ -67,7 +67,7 @@ confirmed to work properly:
 
 {{% tab header="Android" %}}
 - [Symfonium](https://symfonium.app/)
-- [DSub](https://play.google.com/store/apps/details?id=github.daneren2005.dsub)
+- [DSub](https://f-droid.org/en/packages/github.daneren2005.dsub/)
 - [StreamMusic](https://music.aqzscn.cn/docs/versions/latest/)
 - [substreamer](https://substreamerapp.com/)
 - [Tempo](https://github.com/CappielloAntonio/tempo#readme)
@@ -102,8 +102,8 @@ confirmed to work properly:
 - [StreamMusic](https://music.aqzscn.cn/docs/versions/latest/) <i class="fa-brands fa-windows" style="color:gray"/></i>&nbsp;<i class="fa-brands fa-apple" style="color:gray"></i>
 - [Aonsoku](https://github.com/victoralvesf/aonsoku) <i class="fa-brands fa-windows" style="color:gray"/></i>&nbsp;<i class="fa-brands fa-apple" style="color:gray"></i>&nbsp;<i class="fa-brands fa-linux" style="color:gray"></i>
 - [Amperfy](https://github.com/BLeeEZ/amperfy#readme) <i class="fa-brands fa-apple" style="color:gray"></i>
-- [Sonixd](https://github.com/jeffvli/sonixd) <i class="fa-brands fa-windows" style="color:gray"/></i>&nbsp;<i class="fa-brands fa-apple" style="color:gray"></i>&nbsp;<i class="fa-brands fa-linux" style="color:gray"></i>   
-- [Sublime Music](https://sublimemusic.app/) <i class="fa-brands fa-linux" style="color:gray"></i>
+- [Sonixd](https://github.com/jeffvli/sonixd) (undergoing a full rewrite under the name Feishin) <i class="fa-brands fa-windows" style="color:gray"/></i>&nbsp;<i class="fa-brands fa-apple" style="color:gray"></i>&nbsp;<i class="fa-brands fa-linux" style="color:gray"></i>   
+- [Sublime Music](https://sublimemusic.app/) (has reached [end of maintenance](http://sumnerevans.com/posts/projects/sublime-music-eom/)) <i class="fa-brands fa-linux" style="color:gray"></i>
 - CLI: 
   - [STMP](https://github.com/wildeyedskies/stmp#readme) <i class="fa-brands fa-apple" style="color:gray"></i>&nbsp;<i class="fa-brands fa-linux" style="color:gray"></i>
   - [STMPS](https://github.com/spezifisch/stmps#readme) <i class="fa-brands fa-apple" style="color:gray"></i>&nbsp;<i class="fa-brands fa-linux" style="color:gray"></i>
