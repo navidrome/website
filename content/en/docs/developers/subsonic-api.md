@@ -115,7 +115,7 @@ between Navidrome and Subsonic:
 
 | _User Management_        |                                                                                                          |
 |--------------------------|----------------------------------------------------------------------------------------------------------|
-| `getUser`                | Hardcoded all roles. Ignores `username` parameter, and returns the user identified in the authentication |
+| `getUser`                | Ignores username parameter, and returns the user identified in the authentication. Roles reflect actual server capabilities and user permissions. For example: `downloadRole` depends on download being enabled, `jukeboxRole` depends on jukebox being enabled, etc. Note that some features like ratings and favorites are always available to all users regardless of roles |
 | `getUsers`               | Returns only the user identified in the authentication                                                   |
 
 | _Media library scanning_ |                                                                 |
