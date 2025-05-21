@@ -73,6 +73,7 @@ confirmed to work properly:
 - [Tempo](https://github.com/CappielloAntonio/tempo#readme)
 - [Subtracks](https://github.com/austinried/subtracks#readme)
 - [Ultrasonic](https://ultrasonic.gitlab.io/)
+- [project blue](https://github.com/namehillsoftware/projectBlue)
 {{% /tab %}}
 
 {{% tab header="iOS" %}}
