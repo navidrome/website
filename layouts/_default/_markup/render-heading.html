@@ -1,1 +1,7 @@
-{{ template "_default/_markup/td-render-heading.html" . }}
+{{- /* Render link for every non-empty heading */ -}}
+{{- $context := . -}}
+{{- $id := .Anchor -}}
+<h{{ .Level }} id="{{ $id }}" {{- with .Attributes.class }} class="{{ . }}" {{- end -}}>
+{{- .Text | safeHTML -}}
+<a class="td-heading-self-link" href="#{{ $id }}" aria-label="Heading self-link"></a>
+</h{{ .Level }}>
