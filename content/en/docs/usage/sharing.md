@@ -24,6 +24,24 @@ Please note that at this time, there is no way to set specific sharing permissio
 
 Due to this, we advise you to enable this feature only if you are comfortable with these permissions. Future updates may include more granular permission controls for sharing.
 
+### Default Expiration for Shares
+
+By default, new shares (public links) expire after 1 year ("8760h"). You can set a different default expiration time for all new shares using the `DefaultShareExpiration` config option. This sets how long new shares will be valid, unless you manually change the expiration when creating the share.
+
+Set it in your config file:
+
+```toml
+DefaultShareExpiration = "8760h"  # Shares expire after 1 year by default
+```
+
+Or as an environment variable:
+
+```sh
+ND_DEFAULTSHAREEXPIRATION=8760h
+```
+
+Use values like `"24h"` or `"1h30m"`. Valid suffixes are `"h"` (hours), `"m"` (minutes), and `"s"` (seconds).
+
 ### Using the Sharing Feature
 Once the Sharing feature is enabled, all users will be able to access current shares, modify descriptions and expiration, and create new ones. However, as of the initial implementation, there is currently no way to set permissions per user.
 When browsing your music collection, you will notice a "Share" button or menu item available for each item, be it a track, album, artist, or playlist. To share an item, simply click on this "Share" button.
