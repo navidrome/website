@@ -1,11 +1,12 @@
 services:
   site:
-    image: floryn90/hugo:0.145.0-ext-ubuntu
+    image: floryn90/hugo:0.147.5-ext-ubuntu
     command: server
     ports:
       - "1313:1313"
     environment:
       - HUGO_CACHEDIR=/tmp/hugo_cache
+#      - HUGO_ENV=production
     volumes:
       - .:/src
       - ./.hugo_cache:/tmp/hugo_cache
