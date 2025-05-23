@@ -25,7 +25,35 @@
         {{ range $language := $data.result.languages }}
         {{ if gt $language.percentage 70 }}
         <tr>
-            <td>{{ $language.name }}</td>
+            <td>
+              {{ $lang := lower $language.code }}
+              {{ if eq $lang "eo" }}
+                <img src="https://upload.wikimedia.org/wikipedia/commons/f/f5/Flag_of_Esperanto.svg" alt="Esperanto flag" style="vertical-align:middle; margin-right:6px; width:24px; height:18px; border-radius:2px;">
+              {{ else }}
+                {{ $flagMap := dict
+                  "eu" "es-ba" "ca" "es-ct" "zh-hans" "cn" "zh-hant" "tw" "cs" "cz" "da" "dk" "en" "gb" "et" "ee" "gl" "es-ga" "el" "gr" "hi" "in" "ja" "jp" "ko" "kr" "fa" "ir" "pt-br" "br" "sr" "rs" "sl" "si" "sw" "tz" "sv" "se" "uk" "ua" "yi" "il"
+                }}
+                {{ $flagCode := index $flagMap $lang }}
+                {{ if $flagCode }}
+                  <img
+                    class="poeditor-flag"
+                    src="https://poeditor.com/public/stylesheets/ui/flags/flags/4x3/{{ $flagCode }}.svg"
+                    alt="{{ $language.code }} flag"
+                    style="vertical-align:middle; margin-right:6px; width:24px; height:18px; border-radius:2px;"
+                    data-lang="{{ $lang }}"
+                  >
+                {{ else }}
+                  <img
+                    class="poeditor-flag"
+                    src="https://poeditor.com/public/stylesheets/ui/flags/flags/4x3/{{ $lang }}.svg"
+                    alt="{{ $language.code }} flag"
+                    style="vertical-align:middle; margin-right:6px; width:24px; height:18px; border-radius:2px;"
+                    data-lang="{{ $lang }}"
+                  >
+                {{ end }}
+              {{ end }}
+              {{ $language.name }}
+            </td>
             <td>{{ $language.code }}</td>
             <td>{{ printf "%.2f%%" $language.percentage }}</td>
             <td>{{ time.AsTime $language.updated | time.Format "2006-01-02" }}</td>
