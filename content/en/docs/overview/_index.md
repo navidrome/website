@@ -48,7 +48,7 @@ It can also work as a lightweight Subsonic-API compatible server, that can be us
 - Artist Bio from Last.fm
 - Artist Images from [Spotify (requires configuration)](/docs/usage/external-integrations/#spotify)
 - Album images and description from Last.fm
-- Lyrics (currently only from embedded tags)
+- Lyrics (from embedded tags and external files)
 - Internet Radios
 - [Jukebox mode](/docs/usage/jukebox)
 - Shares ([experimental support](https://github.com/navidrome/navidrome/pull/2106))
