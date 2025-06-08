@@ -88,12 +88,12 @@ confirmed to work properly:
 {{% tab header="Web" %}}
 - [Feishin](https://feishin.vercel.app/)
 - [Thunderdrome](https://thunderdrome.netlify.app/)
-- [Airsonic Refix](https://airsonic.netlify.app/)
+- [Airsonic Refix](https://airsonic-refix.netlify.app/)
 - [Aonsoku](https://aonsoku.vercel.app/)
 - [Subplayer](https://subplayer.netlify.app/)
 - [Aurial](https://shrimpza.github.io/aurial/)
 - [Subfire](https://p.subfireplayer.net/)
-- [Jamstash](https://tsquillario.github.io/Jamstash)
+- [Jamstash](https://github.com/sqrlmstr5000/Jamstash)
 {{% /tab %}}
 
 {{% tab header="Desktop" %}}
