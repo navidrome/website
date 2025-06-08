@@ -28,7 +28,7 @@ Navidrome is open source software distributed **free of charge** under the terms
 
 {{< blocks/section color="light" type="row" >}}
 
-{{% blocks/feature icon="fa-mobile-alt" title="Access your music from anywhere!" url="/docs/overview" %}}
+{{% blocks/feature icon="fa-mobile-alt" title="Access your music from anywhere!" url="/docs/overview/#apps" %}}
 Choose from a large selection of mobile clients or use the integrated web player
 {{% /blocks/feature %}}
 
