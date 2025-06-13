@@ -78,7 +78,28 @@ Some examples bellow:
 	- if you used [WinSW](https://github.com/winsw/winsw), the log file is in the same directory as the WinSW configuration file for the Navidrome service.
 
 ---
+## ▶︎ Why are my multi-valued tags (ARTISTS, ALBUMARTISTS, etc.) not working properly in AAC/M4A files?
+
+If you have AAC/M4A files where multi-valued tags like `ARTISTS`, `ALBUMARTISTS`, or `COMPOSER` are not being read correctly by Navidrome (showing only one artist instead of multiple), this is likely due to how some tagging applications write these tags.
+
+**The Problem**: Some tag editors (including MP3Tag) may create duplicate "atoms" (metadata containers) when writing multi-valued tags to AAC/M4A files, rather than storing multiple values within a single atom. TagLib (the library Navidrome uses to read metadata) ignores duplicate atoms by design and only reads the first occurrence, causing the additional values to be lost.
+
+**The Workaround**: Re-save your files using MusicBrainz Picard:
+1. Open the affected files in MusicBrainz Picard
+2. Without making any changes to the tags, simply save the files again
+3. Picard will consolidate the duplicate atoms into properly formatted multi-valued tags
+4. Rescan your library in Navidrome
+
+Check Picard's configuration to make sure it preserves all your existing tag data while fixing the underlying storage format issue.
+
+**Prevention**: When tagging new AAC/M4A files, using MusicBrainz Picard consistently should avoid this issue. If you prefer other tag editors, test a few files to ensure multi-valued tags display correctly in Navidrome before batch-processing your entire library.
+
+{{< alert color="info" title="Note" >}}
+This issue is specific to AAC/M4A files. Other formats like FLAC, MP3, and Ogg Vorbis handle multi-valued tags differently and are not affected by this problem.
+{{< /alert >}}
+
+---
 ## ▶︎ Which cloud providers help fund the project with a revenue share?
-[PikaPods](https://www.pikapods.com) has partnered with us to offer you an 
-[officially supported, cloud-hosted solution](/docs/installation/managed/#pikapods). 
+[PikaPods](https://www.pikapods.com) has partnered with us to offer you an
+[officially supported, cloud-hosted solution](/docs/installation/managed/#pikapods).
 A share of the revenue helps fund the development of Navidrome at no additional cost for you.
