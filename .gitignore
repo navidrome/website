@@ -7,3 +7,4 @@ package-lock.json
 .DS_Store
 .hugo_cache
 tmp/*
+static/charts
