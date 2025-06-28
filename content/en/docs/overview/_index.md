@@ -45,8 +45,8 @@ It can also work as a lightweight Subsonic-API compatible server, that can be us
 - Get/Save Play Queue (to continue listening in a different device)
 - Last.fm and ListenBrainz scrobbling
 - Artist Bio from [Last.fm](/docs/usage/external-integrations/#lastfm)
-- Artist Images from [Last.fm](/docs/usage/external-integrations/#lastfm), [Spotify (requires configuration)](/docs/usage/external-integrations/#spotify) and [Deezer](/docs/usage/external-integrations/#deezer)
-- Album images and description from Last.fm
+- Artist Images from [Last.fm](/docs/usage/external-integrations/#lastfm), [Spotify](/docs/usage/external-integrations/#spotify) and [Deezer](/docs/usage/external-integrations/#deezer)
+- Album images and description from [Last.fm](/docs/usage/external-integrations/#lastfm)
 - Lyrics (from embedded tags and external files)
 - Internet Radios
 - [Jukebox mode](/docs/usage/jukebox)
