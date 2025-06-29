@@ -13,7 +13,7 @@ Here are some articles written by and for members of the Navidrome community. If
 <!-- Please add new entries in reverse chronological order -->
 #### English
 
-* [[How-To] Install Navidrome on Fedora using Podman (https://medium.com/@shettynico/podman-for-running-navidrome-42d20b354b93) - 11/Jan/2025 by Nico Shetty
+* [How-To Install Navidrome on Fedora using Podman](https://medium.com/@shettynico/podman-for-running-navidrome-42d20b354b93) - 11/Jan/2025 by Nico Shetty
 * [Use folders as playlists in Navidrome](https://flemmingss.com/use-folders-as-playlists-in-navidrome/) - 25/Oct/2022 by Flemming S. Skaret
 * [Migrating from Google Music to Navidrome on Kubernetes](https://andrewmichaelsmith.com/2020/11/migrating-from-google-music-to-navidrome-on-kubernetes/) - 22/Nov/2020 by Andy Smith
 * [[How-To] Install Navidrome Using docker-compose (an Airsonic/Booksonic Alternative)](https://forum.openmediavault.org/index.php?thread/36635-how-to-install-navidrome-using-docker-compose-an-airsonic-booksonic-alternative/) - 14/Nov/2020 by Agricola
