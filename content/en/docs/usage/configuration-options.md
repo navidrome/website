@@ -13,10 +13,10 @@ or using command line arguments.
 ## Configuration File
 
 {{< alert >}}
-Some options are only configurable using a configuration file. If you are using environment variables 
+Some options are only configurable using a configuration file. If you are using environment variables
 (ex: with Docker), you may not be able to set all options.
 
-If you want to use a configuration file with Docker, you can do so by creating a `navidrome.toml` config file in the 
+If you want to use a configuration file with Docker, you can do so by creating a `navidrome.toml` config file in the
 host folder that is mapped to your `/data` volume. Docker installations automatically look for a `navidrome.toml` file in the `/data` folder.
 {{< /alert >}}
 
@@ -27,7 +27,9 @@ in it. Example of a configuration file (select your OS):
 {{< tabpane lang="toml">}}
 {{< tab header="**Example**:" disabled=true />}}
 {{< tab header="Windows"  highlight="guessSyntax=true">}}
+
 # This is just an example! Please see available options to customize Navidrome for your needs at
+
 # https://www.navidrome.org/docs/usage/configuration-options/#available-options
 
 LogLevel = 'DEBUG'
@@ -35,13 +37,17 @@ Scanner.Schedule = '@every 24h'
 TranscodingCacheSize = '150MiB'
 
 # IMPORTANT: Use single quotes for paths in Windows
+
 MusicFolder = 'C:\Users\JohnDoe\Music'
 
 # Set this to the path of your ffmpeg executable
+
 FFmpegPath = 'C:\Program Files\ffmpeg\bin\ffmpeg.exe'
 {{< /tab >}}
 {{< tab header="macOS" lang="macos" >}}
+
 # This is just an example! Please see available options to customize Navidrome for your needs at
+
 # https://www.navidrome.org/docs/usage/configuration-options/#available-options
 
 LogLevel = 'DEBUG'
@@ -50,10 +56,13 @@ TranscodingCacheSize = '150MiB'
 MusicFolder = '/Users/JohnDoe/Music'
 
 # This is the default path for Homebrew installed ffmpeg
+
 FFmpegPath = '/opt/homebrew/bin/ffmpeg'
 {{< /tab >}}
 {{< tab header="Unix-based systems" lang="unix" >}}
+
 # This is just an example! Please see available options to customize Navidrome for your needs at
+
 # https://www.navidrome.org/docs/usage/configuration-options/#available-options
 
 LogLevel = 'DEBUG'
@@ -113,24 +122,25 @@ make it all uppercase. Ex: `ND_LOGLEVEL=debug`. See below for all available opti
 
 ### Basic configuration
 
-| In config file          | As an env var                | Description                                                                                                         | Default Value                 |
-|-------------------------|------------------------------|---------------------------------------------------------------------------------------------------------------------|-------------------------------|
-|                         | `ND_CONFIGFILE`              | Load configurations from an external config file                                                                    | `"./navidrome.toml"`          |
-| MusicFolder             | `ND_MUSICFOLDER`             | Folder where your music library is stored. Can be read-only                                                         | `"./music"`                   |
-| DataFolder              | `ND_DATAFOLDER`              | Folder to store application data (DB)                                                                               | `"./data"`                    |
-| CacheFolder             | `ND_CACHEFOLDER`             | Folder to store cache data (transcoding, images...)                                                                 | `"<DataFolder>/cache"`        |
-| LogLevel                | `ND_LOGLEVEL`                | Log level. Useful for troubleshooting. Possible values: `error`, `warn`, `info`, `debug`, `trace`                   | `"info"`                      |
-| Address                 | `ND_ADDRESS`                 | Address the server will bind to. Can be an IPv4, IPv6 or a UNIX socket file (`unix:/path/to/file`)                  | `0.0.0.0` and `::` (all IPs)  |
-| BaseUrl                 | `ND_BASEURL`                 | Base URL to configure Navidrome behind a proxy (examples: `/music`, `https://music.example.com`)                    | _Empty_                       |
-| Port                    | `ND_PORT`                    | HTTP port Navidrome will listen to                                                                                  | `4533`                        |
-| EnableInsightsCollector | `ND_ENABLEINSIGHTSCOLLECTOR` | Controls whether the server will run its [Anonymous Data Collection][insights] feature to help improve the project. | `true`                        |
+| In config file          | As an env var                | Description                                                                                                         | Default Value                |
+| ----------------------- | ---------------------------- | ------------------------------------------------------------------------------------------------------------------- | ---------------------------- |
+|                         | `ND_CONFIGFILE`              | Load configurations from an external config file                                                                    | `"./navidrome.toml"`         |
+| MusicFolder             | `ND_MUSICFOLDER`             | Folder where your music library is stored. Can be read-only                                                         | `"./music"`                  |
+| DataFolder              | `ND_DATAFOLDER`              | Folder to store application data (DB)                                                                               | `"./data"`                   |
+| CacheFolder             | `ND_CACHEFOLDER`             | Folder to store cache data (transcoding, images...)                                                                 | `"<DataFolder>/cache"`       |
+| LogLevel                | `ND_LOGLEVEL`                | Log level. Useful for troubleshooting. Possible values: `error`, `warn`, `info`, `debug`, `trace`                   | `"info"`                     |
+| Address                 | `ND_ADDRESS`                 | Address the server will bind to. Can be an IPv4, IPv6 or a UNIX socket file (`unix:/path/to/file`)                  | `0.0.0.0` and `::` (all IPs) |
+| BaseUrl                 | `ND_BASEURL`                 | Base URL to configure Navidrome behind a proxy (examples: `/music`, `https://music.example.com`)                    | _Empty_                      |
+| Port                    | `ND_PORT`                    | HTTP port Navidrome will listen to                                                                                  | `4533`                       |
+| EnableInsightsCollector | `ND_ENABLEINSIGHTSCOLLECTOR` | Controls whether the server will run its [Anonymous Data Collection][insights] feature to help improve the project. | `true`                       |
 
 ### Advanced configuration
 
 <!-- This table is easier to be edited when Word Wrap is toggled off. Please keep it sorted -->
 
 | In config file                                 | As an environment variable                       | Description                                                                                                                                                                                                                                                                                                                           | Default Value                                                               |
-|------------------------------------------------|--------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------|
+| ---------------------------------------------- | ------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
+| Agents                                         | `ND_AGENTS`                                      | Comma-separated list of metadata agents to use for retrieving artist information, biographies, and images. Available agents: `lastfm`, `spotify`, and `deezer`. The order determines priority - agents are tried in the specified order until one succeeds. Only [enabled and configured](external-integrations) agents will be used. | `"lastfm,spotify,deezer"`                                                   |
 | AlbumPlayCountMode                             | `ND_ALBUMPLAYCOUNTMODE`                          | Change how album play count is computed. When set to `"normalized"`, album play count will be divided by the number of album tracks                                                                                                                                                                                                   | `"absolute"`                                                                |
 | AuthRequestLimit[\*][limit-login-attempts]     | `ND_AUTHREQUESTLIMIT`                            | How many login requests can be processed from a single IP during the `AuthWindowLength`. Set to `0` to disable the limit rater                                                                                                                                                                                                        | `5`                                                                         |
 | AuthWindowLength[\*][limit-login-attempts]     | `ND_AUTHWINDOWLENGTH`                            | Window Length for the authentication rate limit                                                                                                                                                                                                                                                                                       | `"20s"`                                                                     |
@@ -142,6 +152,7 @@ make it all uppercase. Ex: `ND_LOGLEVEL=debug`. See below for all available opti
 | Backup.Count                                   | `ND_BACKUP_COUNT`                                | Number of backups to keep                                                                                                                                                                                                                                                                                                             | `0` (disabled)                                                              |
 | CoverArtPriority[\*][albumcoverart]            | `ND_COVERARTPRIORITY`                            | Configure the order to look for cover art images. Use special `embedded` value to get embedded images from the audio files                                                                                                                                                                                                            | `cover.*, folder.*, front.*, embedded, external`                            |
 | CoverJpegQuality                               | `ND_COVERJPEGQUALITY`                            | Set JPEG quality percentage for resized cover art images                                                                                                                                                                                                                                                                              | `75`                                                                        |
+| Deezer.Enabled[\*][deezer-integration]         | `ND_DEEZER_ENABLED`                              | Set this to `false` to completely disable Deezer integration for artist images                                                                                                                                                                                                                                                        | `true`                                                                      |
 | DefaultDownsamplingFormat                      | `ND_DEFAULTDOWNSAMPLINGFORMAT`                   | Format to transcode to when client requests downsampling (specify maxBitrate without a format)                                                                                                                                                                                                                                        | `"opus"`                                                                    |
 | DefaultLanguage                                | `ND_DEFAULTLANGUAGE`                             | Sets the default language used by the UI when logging in from a new browser. This value must match one of the file names in the [resources/i18n][i18n]. Ex: for Chinese Simplified it has to be `zh-Hans` (case sensitive)                                                                                                            | `"en"`                                                                      |
 | DefaultTheme                                   | `ND_DEFAULTTHEME`                                | Sets the default theme used by the UI when logging in from a new browser. This value must match one of the options in the UI                                                                                                                                                                                                          | "Dark"                                                                      |
@@ -155,6 +166,7 @@ make it all uppercase. Ex: `ND_LOGLEVEL=debug`. See below for all available opti
 | EnableGravatar                                 | `ND_ENABLEGRAVATAR`                              | Use [Gravatar](https://gravatar.com/) images as the user profile image. Needs the user's email to be filled                                                                                                                                                                                                                           | `false`                                                                     |
 | EnableLogRedacting                             | `ND_ENABLELOGREDACTING`                          | Whether or not sensitive information (like tokens and passwords) should be redacted (hidden) in the logs                                                                                                                                                                                                                              | `true`                                                                      |
 | EnableMediaFileCoverArt[\*][mediafilecoverart] | `ND_ENABLEMEDIAFILECOVERART`                     | If set to false, it will return the album CoverArt when a song CoverArt is requested                                                                                                                                                                                                                                                  | `true`                                                                      |
+| EnableNowPlaying                               | `ND_ENABLENOWPLAYING`                            | Enable/disable the Now Playing feature that tracks what songs users are currently listening to. When disabled, the "Now Playing" functionality and admin panel will be unavailable                                                                                                                                                    | `true`                                                                      |
 | EnableReplayGain                               | `ND_ENABLEREPLAYGAIN`                            | Enable ReplayGain options in the UI                                                                                                                                                                                                                                                                                                   | `true`                                                                      |
 | EnableSharing                                  | `ND_ENABLESHARING`                               | Enable the Sharing feature                                                                                                                                                                                                                                                                                                            | `false`                                                                     |
 | EnableStarRating                               | `ND_ENABLESTARRATING`                            | Enable 5-star ratings in the UI                                                                                                                                                                                                                                                                                                       | `true`                                                                      |
@@ -183,13 +195,13 @@ make it all uppercase. Ex: `ND_LOGLEVEL=debug`. See below for all available opti
 | PasswordEncryptionKey[\*][encrypt-passwords]   | `ND_PASSWORDENCRYPTIONKEY`                       | Passphrase used to encrypt passwords in the DB. Click [here][encrypt-passwords] for details                                                                                                                                                                                                                                           | -                                                                           |
 | PID.Album                                      | `ND_PID_ALBUM`                                   | Set the tag(s) to use as the Album ID. Click [here][pids] for details                                                                                                                                                                                                                                                                 | `musicbrainz_albumid\|albumartistid,album,albumversion,releasedate`         |
 | PID.Track                                      | `ND_PID_TRACK`                                   | Set the tag(s) to use as the Track ID. Click [here][pids] for details                                                                                                                                                                                                                                                                 | `musicbrainz_trackid\|albumid,discnumber,tracknumber,title`                 |
-| PlaylistsPath                                  | `ND_PLAYLISTSPATH`                               | Limit where to search for and import playlists from. Can be a list of folders/globs (separated by `:` (or `;` on Windows). Paths **MUST** be relative to `MusicFolder`                                                                                                                                                                | _Empty_  (meaning any playlist files in your library will be imported)      |
-| PreferSortTags                                 | `ND_PREFERSORTTAGS`                              | Use Sort_* tags to sort columns in the UI.                                                                                                                                                                                                                                                                                            | `false`                                                                     |
+| PlaylistsPath                                  | `ND_PLAYLISTSPATH`                               | Limit where to search for and import playlists from. Can be a list of folders/globs (separated by `:` (or `;` on Windows). Paths **MUST** be relative to `MusicFolder`                                                                                                                                                                | _Empty_ (meaning any playlist files in your library will be imported)       |
+| PreferSortTags                                 | `ND_PREFERSORTTAGS`                              | Use Sort\_\* tags to sort columns in the UI.                                                                                                                                                                                                                                                                                          | `false`                                                                     |
 | Prometheus.Enabled                             | `ND_PROMETHEUS_ENABLED`                          | Enable extra endpoint with [Prometheus](https://prometheus.io/docs/introduction/overview/) metrics.                                                                                                                                                                                                                                   | `false`                                                                     |
 | Prometheus.MetricsPath                         | `ND_PROMETHEUS_METRICSPATH`                      | Custom path for Prometheus metrics. Useful for blocking unauthorized metrics requests.                                                                                                                                                                                                                                                | `"/metrics"`                                                                |
 | RecentlyAddedByModTime                         | `ND_RECENTLYADDEDBYMODTIME`                      | Uses music files' modification time when sorting by "Recently Added". Otherwise use import time                                                                                                                                                                                                                                       | `false`                                                                     |
 | ReverseProxyUserHeader[\*][reverse-proxy-auth] | `ND_REVERSEPROXYUSERHEADER`                      | HTTP header containing the user name from an authenticating proxy. Click [here][reverse-proxy-config] for details.                                                                                                                                                                                                                    | `"Remote-User"`                                                             |
-| ReverseProxyWhitelist[\*][reverse-proxy-auth]  | `ND_REVERSEPROXYWHITELIST`                       | Comma separated list of IP CIDRs (or when listening on a UNIX socket the special value `@`) which are allowed to use reverse proxy authentication. Empty means "deny all". Click [here][reverse-proxy-config] for details. Note: This option is unnecessary for most reverse proxy setups, only for *authenticating* reverse proxies. | _Empty_                                                                     |
+| ReverseProxyWhitelist[\*][reverse-proxy-auth]  | `ND_REVERSEPROXYWHITELIST`                       | Comma separated list of IP CIDRs (or when listening on a UNIX socket the special value `@`) which are allowed to use reverse proxy authentication. Empty means "deny all". Click [here][reverse-proxy-config] for details. Note: This option is unnecessary for most reverse proxy setups, only for _authenticating_ reverse proxies. | _Empty_                                                                     |
 | Scanner.Enabled                                | `ND_SCANNER_ENABLED`                             | Enable/disable the scanner. Set to `false` to disable automatic scanning of the music library.                                                                                                                                                                                                                                        | `true`                                                                      |
 | Scanner.Schedule                               | `ND_SCANNER_SCHEDULE`                            | Schedule for automatic scans. Use [Cron syntax][cronspec]                                                                                                                                                                                                                                                                             | `0` (disabled)                                                              |
 | Scanner.WatcherWait                            | `ND_SCANNER_WATCHERWAIT`                         | Time to wait after a file change is detected before starting a scan. Useful to avoid scanning incomplete files. Set it to `0` to disable the watcher                                                                                                                                                                                  | `"5s"`                                                                      |
@@ -226,29 +238,31 @@ make it all uppercase. Ex: `ND_LOGLEVEL=debug`. See below for all available opti
   even has their [own guide](https://developer.mozilla.org/en-US/docs/Web/Media/Formats/Audio_codecs) about audio
   codecs).
 
-[limit-login-attempts]: /docs/usage/security#limit-login-attempts  "Login Limit Rating"
-[transcoding]:          /docs/usage/security#transcoding-configuration "Transcoding configuration"
-[language-codes]:       https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes "List of language codes"
-[spotify-integration]:  /docs/usage/external-integrations/#spotify
-[lastfm-integration]:   /docs/usage/external-integrations/#lastfm
-[encrypt-passwords]:    /docs/usage/security/#encrypted-passwords
-[reverse-proxy-auth]:   /docs/usage/security/#reverse-proxy-authentication "Reverse Proxy Authentication"
+[limit-login-attempts]: /docs/usage/security#limit-login-attempts "Login Limit Rating"
+[transcoding]: /docs/usage/security#transcoding-configuration "Transcoding configuration"
+[language-codes]: https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes "List of language codes"
+[external-integrations]: /docs/usage/external-integrations
+[lastfm-integration]: /docs/usage/external-integrations/#lastfm
+[spotify-integration]: /docs/usage/external-integrations/#spotify
+[deezer-integration]: /docs/usage/external-integrations/#deezer
+[encrypt-passwords]: /docs/usage/security/#encrypted-passwords
+[reverse-proxy-auth]: /docs/usage/security/#reverse-proxy-authentication "Reverse Proxy Authentication"
 [reverse-proxy-config]: /docs/usage/reverse-proxy
-[unix-socket]:          /docs/usage/security/#listening-on-a-unix-socket
-[albumcoverart]:        /docs/usage/artwork/#albums
-[artistcoverart]:        /docs/usage/artwork/#artists
-[mediafilecoverart]:    /docs/usage/artwork/#mediafiles
-[jukebox-mode]:         /docs/usage/jukebox
-[jukebox-config]:       /docs/usage/jukebox/#configuration
-[jukebox-cmd]:          /docs/usage/jukebox/#the-mpvcmdtemplate--snapcast-integration
-[maloja]:               https://github.com/krateng/maloja
-[i18n]:                 https://github.com/navidrome/navidrome/tree/master/resources/i18n
-[share-url]:            https://github.com/navidrome/navidrome/discussions/3117
-[insights]:             /docs/getting-started/insights
-[smart-playlists]:      /docs/usage/smartplaylists
-[custom-tags]:          /docs/usage/customtags
-[pids]:                 /docs/usage/pids
-[cronspec]:             https://en.wikipedia.org/wiki/Cron#CRON_expression
-[unsplash]:             https://unsplash.com/collections/20072696/navidrome
-[opensubsonic]:         https://opensubsonic.netlify.app/
-[backup]:              /docs/usage/backup
+[unix-socket]: /docs/usage/security/#listening-on-a-unix-socket
+[albumcoverart]: /docs/usage/artwork/#albums
+[artistcoverart]: /docs/usage/artwork/#artists
+[mediafilecoverart]: /docs/usage/artwork/#mediafiles
+[jukebox-mode]: /docs/usage/jukebox
+[jukebox-config]: /docs/usage/jukebox/#configuration
+[jukebox-cmd]: /docs/usage/jukebox/#the-mpvcmdtemplate--snapcast-integration
+[maloja]: https://github.com/krateng/maloja
+[i18n]: https://github.com/navidrome/navidrome/tree/master/resources/i18n
+[share-url]: https://github.com/navidrome/navidrome/discussions/3117
+[insights]: /docs/getting-started/insights
+[smart-playlists]: /docs/usage/smartplaylists
+[custom-tags]: /docs/usage/customtags
+[pids]: /docs/usage/pids
+[cronspec]: https://en.wikipedia.org/wiki/Cron#CRON_expression
+[unsplash]: https://unsplash.com/collections/20072696/navidrome
+[opensubsonic]: https://opensubsonic.netlify.app/
+[backup]: /docs/usage/backup

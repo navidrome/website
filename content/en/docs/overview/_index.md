@@ -6,10 +6,9 @@ description: >
   Learn more about Navidrome's features
 ---
 
-Navidrome can be used as a standalone server, that allows you to browse and listen to your music collection using a web browser. 
+Navidrome can be used as a standalone server, that allows you to browse and listen to your music collection using a web browser.
 
-
-It can also work as a lightweight Subsonic-API compatible server, that can be used with any 
+It can also work as a lightweight Subsonic-API compatible server, that can be used with any
 [Subsonic compatible client](/docs/overview/#apps).
 
 ## Features
@@ -22,7 +21,7 @@ It can also work as a lightweight Subsonic-API compatible server, that can be us
 - **Multi-user**, each user has their own play counts, playlists, favorites, etc..
 - **Multi-platform**, runs on macOS, Linux and Windows. **Docker** images are also provided
 - Ready to use, official, **Raspberry Pi** binaries and Docker images available
-- Automatically **monitors your library** for changes, importing new files and reloading new metadata 
+- Automatically **monitors your library** for changes, importing new files and reloading new metadata
 - **Themeable**, modern and responsive **Web interface** based on [Material UI](https://material-ui.com) and [React-Admin](https://marmelab.com/react-admin/)
 - **Compatible** with all Subsonic/Madsonic/Airsonic clients. See below for a list of tested clients
 - **Transcoding** on the fly. Can be set per user/player. **Opus encoding is supported**
@@ -45,27 +44,29 @@ It can also work as a lightweight Subsonic-API compatible server, that can be us
 - Transcoding and Downsampling
 - Get/Save Play Queue (to continue listening in a different device)
 - Last.fm and ListenBrainz scrobbling
-- Artist Bio from Last.fm
-- Artist Images from [Spotify (requires configuration)](/docs/usage/external-integrations/#spotify)
-- Album images and description from Last.fm
+- Artist Bio from [Last.fm](/docs/usage/external-integrations/#lastfm)
+- Artist Images from [Last.fm](/docs/usage/external-integrations/#lastfm), [Spotify](/docs/usage/external-integrations/#spotify) and [Deezer](/docs/usage/external-integrations/#deezer)
+- Album images and description from [Last.fm](/docs/usage/external-integrations/#lastfm)
 - Lyrics (from embedded tags and external files)
 - Internet Radios
 - [Jukebox mode](/docs/usage/jukebox)
 - Shares ([experimental support](https://github.com/navidrome/navidrome/pull/2106))
 
 {{< alert color="warning" title="NOTE" >}}
-Navidrome [**does not support**](/docs/faq/#can-you-add-a-browsing-by-folder-optionmode-to-navidrome) 
-browsing by folders, but simulates it based on the tags with a structure like: 
+Navidrome [**does not support**](/docs/faq/#can-you-add-a-browsing-by-folder-optionmode-to-navidrome)
+browsing by folders, but simulates it based on the tags with a structure like:
 `/AlbumArtist/Album/01-Song.ext`
 {{</alert>}}
+
 ## Apps
 
-Besides its own Web UI, Navidrome should be compatible with all Subsonic clients. The following clients are tested and 
+Besides its own Web UI, Navidrome should be compatible with all Subsonic clients. The following clients are tested and
 confirmed to work properly:
 
 {{< tabpane text=true >}}
 
 {{% tab header="Android" %}}
+
 - [Symfonium](https://symfonium.app/)
 - [DSub](https://f-droid.org/en/packages/github.daneren2005.dsub/)
 - [StreamMusic](https://music.aqzscn.cn/docs/versions/latest/)
@@ -74,18 +75,20 @@ confirmed to work properly:
 - [Subtracks](https://github.com/austinried/subtracks#readme)
 - [Ultrasonic](https://ultrasonic.gitlab.io/)
 - [project blue](https://github.com/namehillsoftware/projectBlue)
-{{% /tab %}}
+  {{% /tab %}}
 
 {{% tab header="iOS" %}}
-- [play:Sub](http://michaelsapps.dk/playsubapp/) 
+
+- [play:Sub](http://michaelsapps.dk/playsubapp/)
 - [StreamMusic](https://apps.apple.com/ca/app/stream-music-enjoy-music/id6449966496)
 - [substreamer](https://substreamerapp.com/)
-- [Amperfy](https://github.com/BLeeEZ/amperfy#readme) 
+- [Amperfy](https://github.com/BLeeEZ/amperfy#readme)
 - [flo](https://client.flooo.club/)
 - [iSub](https://isub.app/)
-{{% /tab %}}
+  {{% /tab %}}
 
 {{% tab header="Web" %}}
+
 - [Feishin](https://feishin.vercel.app/)
 - [Thunderdrome](https://thunderdrome.netlify.app/)
 - [Airsonic Refix](https://airsonic-refix.netlify.app/)
@@ -94,47 +97,45 @@ confirmed to work properly:
 - [Aurial](https://shrimpza.github.io/aurial/)
 - [Subfire](https://p.subfireplayer.net/)
 - [Jamstash](https://github.com/sqrlmstr5000/Jamstash)
-{{% /tab %}}
+  {{% /tab %}}
 
 {{% tab header="Desktop" %}}
-- [Feishin](https://github.com/jeffvli/feishin) <i class="fa-brands fa-windows" style="color:gray"/></i>&nbsp;<i class="fa-brands fa-apple" style="color:gray"></i>&nbsp;<i class="fa-brands fa-linux" style="color:gray"></i> 
-- [Supersonic](https://github.com/dweymouth/supersonic) <i class="fa-brands fa-windows" style="color:gray"/></i>&nbsp;<i class="fa-brands fa-apple" style="color:gray"></i>&nbsp;<i class="fa-brands fa-linux" style="color:gray"></i> 
+
+- [Feishin](https://github.com/jeffvli/feishin) <i class="fa-brands fa-windows" style="color:gray"/></i>&nbsp;<i class="fa-brands fa-apple" style="color:gray"></i>&nbsp;<i class="fa-brands fa-linux" style="color:gray"></i>
+- [Supersonic](https://github.com/dweymouth/supersonic) <i class="fa-brands fa-windows" style="color:gray"/></i>&nbsp;<i class="fa-brands fa-apple" style="color:gray"></i>&nbsp;<i class="fa-brands fa-linux" style="color:gray"></i>
 - [Submariner](https://submarinerapp.com/) <i class="fa-brands fa-apple" style="color:gray"></i>
 - [StreamMusic](https://music.aqzscn.cn/docs/versions/latest/) <i class="fa-brands fa-windows" style="color:gray"/></i>&nbsp;<i class="fa-brands fa-apple" style="color:gray"></i>
 - [Aonsoku](https://github.com/victoralvesf/aonsoku) <i class="fa-brands fa-windows" style="color:gray"/></i>&nbsp;<i class="fa-brands fa-apple" style="color:gray"></i>&nbsp;<i class="fa-brands fa-linux" style="color:gray"></i>
 - [Amperfy](https://github.com/BLeeEZ/amperfy#readme) <i class="fa-brands fa-apple" style="color:gray"></i>
-- [Sonixd](https://github.com/jeffvli/sonixd) (undergoing a full rewrite under the name Feishin) <i class="fa-brands fa-windows" style="color:gray"/></i>&nbsp;<i class="fa-brands fa-apple" style="color:gray"></i>&nbsp;<i class="fa-brands fa-linux" style="color:gray"></i>   
+- [Sonixd](https://github.com/jeffvli/sonixd) (undergoing a full rewrite under the name Feishin) <i class="fa-brands fa-windows" style="color:gray"/></i>&nbsp;<i class="fa-brands fa-apple" style="color:gray"></i>&nbsp;<i class="fa-brands fa-linux" style="color:gray"></i>
 - [Sublime Music](https://sublimemusic.app/) (has reached [end of maintenance](http://sumnerevans.com/posts/projects/sublime-music-eom/)) <i class="fa-brands fa-linux" style="color:gray"></i>
-- CLI: 
+- CLI:
   - [STMP](https://github.com/wildeyedskies/stmp#readme) <i class="fa-brands fa-apple" style="color:gray"></i>&nbsp;<i class="fa-brands fa-linux" style="color:gray"></i>
   - [STMPS](https://github.com/spezifisch/stmps#readme) <i class="fa-brands fa-apple" style="color:gray"></i>&nbsp;<i class="fa-brands fa-linux" style="color:gray"></i>
   - [termsonic](https://git.sixfoisneuf.fr/termsonic/about/) <i class="fa-brands fa-linux" style="color:gray"></i>
   - [Jellycli](https://github.com/tryffel/jellycli#readme) <i class="fa-brands fa-windows" style="color:gray"/></i>&nbsp;<i class="fa-brands fa-linux" style="color:gray"></i>
-{{% /tab %}}
+    {{% /tab %}}
 
 {{% tab header="Other" %}}
+
 - Apple TV:
   - [SubSwift](https://apps.apple.com/us/app/subswift/id6504658929)
 - Connected Speakers:
   - Sonos: [bonob](https://github.com/simojenki/bonob#readme)
   - Alexa: [AskSonic](https://github.com/srichter/asksonic#readme)
-- Other: 
+- Other:
   - [Subsonic Kodi Plugin](https://github.com/warwickh/plugin.audio.subsonic#readme)
   - [Navidrome Kodi Plugin](https://github.com/BobHasNoSoul/plugin.audio.navidrome#readme)
   - [HTTPDirFS](https://github.com/fangfufu/httpdirfs#readme)
   - [upmpdcli](https://www.lesbonscomptes.com/upmpdcli/index.html): expose Navidrome as a UPnP/DLNA media library. See the [discussion](https://github.com/navidrome/navidrome/discussions/2324).
-{{% /tab %}}
-{{< /tabpane >}}
-
-For more options, look at the [list of clients](https://airsonic.github.io/docs/apps/) maintained by 
-the Airsonic project.
+    {{% /tab %}}
+    {{< /tabpane >}}
 
 ## Road map
 
-This project is in active development. Expect a more polished experience and new features/releases 
-on a frequent basis. Some upcoming features planned: 
+This project is in active development. Expect a more polished experience and new features/releases
+on a frequent basis. Some upcoming features planned:
 
-- [Multiple libraries](https://github.com/navidrome/navidrome/issues/192)
+- [Multiple libraries](https://github.com/navidrome/navidrome/pull/4181)
 - New UI, including a [Smart playlists editor](/docs/usage/smartplaylists)
 - Plugins
-

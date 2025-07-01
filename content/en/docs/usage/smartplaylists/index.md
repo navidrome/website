@@ -79,6 +79,19 @@ This playlist includes all songs in a random order. Note: This is not recommende
 }
 ```
 
+### Example 5: Multi-Field Sorting
+This playlist demonstrates multiple sort fields - songs from the 2000s, sorted by year (descending), then by rating (descending), then by title (ascending).
+```json
+{
+  "name": "2000s Hits by Year and Rating", 
+  "all": [
+    {"inTheRange": {"year": [2000, 2009]}}
+  ],
+  "sort": "-year,-rating,title",
+  "limit": 200
+}
+```
+
 ## Creating Smart Playlists using the UI
 Currently Smart Playlists can only be created by manually editing `.nsp` files. We plan to add a UI for creating and
 editing Smart Playlists in future releases.
@@ -137,7 +150,14 @@ If you encounter issues with conditions like `contains` or `endsWith`, especiall
 underscores (`_`), be aware that these might be ignored in some computations. Adjust your conditions accordingly.
 
 ### Sorting by multiple fields
-Currently, sorting by multiple fields is not supported.
+You can now sort by multiple fields by separating them with commas. You can also control the sort direction for each field by prefixing it with `+` (ascending, default) or `-` (descending).
+
+Examples:
+- `"sort": "year,title"` - Sort by year first (ascending), then by title (ascending)
+- `"sort": "year,-rating"` - Sort by year (ascending), then by rating (descending)
+- `"sort": "-lastplayed,title"` - Sort by last played date (descending), then by title (ascending)
+
+The global `order` field can still be used and will reverse the direction of all sort fields.
 
 ### Deleting Users with Shared Smart Playlists
 If you encounter issues deleting users with shared Smart Playlists, check if the playlists are used by other users.
