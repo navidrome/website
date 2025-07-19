@@ -19,6 +19,7 @@ It can also work as a lightweight Subsonic-API compatible server, that can be us
 - Reads and uses all your beautifully curated **metadata**
 - Great support for **compilations** (Various Artists albums) and **box sets** (multi-disc albums)
 - **Multi-user**, each user has their own play counts, playlists, favorites, etc..
+- **Multi-library** support with user-specific access controls to separate different music collections
 - **Multi-platform**, runs on macOS, Linux and Windows. **Docker** images are also provided
 - Ready to use, official, **Raspberry Pi** binaries and Docker images available
 - Automatically **monitors your library** for changes, importing new files and reloading new metadata
