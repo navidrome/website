@@ -2,6 +2,9 @@
 title: "FAQ"
 linkTitle: "FAQ"
 weight: 10
+menu:
+  main:
+    weight: 30
 description: >
   Frequently Asked Questions
 ---
