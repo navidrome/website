@@ -114,6 +114,7 @@ Some examples bellow:
 - **FreeBSD** by default logs are writen to `/var/log/debug.log`
 
 - **Windows**: depending on what you used to install Navidrome as a service, the logs will be in different locations by default:
+  - if you used the **MSI installer**, logs are written to `C:\ProgramData\Navidrome\navidrome.log` by default (configurable via the `DataFolder` setting).
   - if you used [Shawl](https://github.com/mtkennerly/shawl), just check the `shawl_for_navidrome_*.log` files created in the same location as the Shawl executable.
   - if you used [NSSM](http://nssm.cc/), the location of the logs are specified by the `AppStdout` attribute.
   - if you used [WinSW](https://github.com/winsw/winsw), the log file is in the same directory as the WinSW configuration file for the Navidrome service.
