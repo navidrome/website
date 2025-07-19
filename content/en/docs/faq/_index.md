@@ -71,6 +71,35 @@ is correctly tagged.
 
 ---
 
+## ▶︎ How can I upload music to Navidrome?
+
+Navidrome does not include built-in upload functionality, and this is by design. As [explained](https://github.com/navidrome/navidrome/issues/770#issuecomment-776272032) by the project maintainer, upload functionality is not a good fit for Navidrome itself, which focuses on streaming and organizing existing music libraries.
+
+However, there are several excellent solutions you can use alongside Navidrome to enable music uploads:
+
+**Recommended Solutions:**
+
+1. **FileBrowser** - A [web-based file manager](https://filebrowser.org/) that provides a clean interface for uploading files directly to your music directory. It's lightweight, secure, and integrates well with Navidrome setups.
+
+2. **FTP/SFTP Server** - Set up an FTP or SFTP server pointing to your music directory. This allows uploads using any FTP client and provides secure file transfer.
+
+3. **Network Shares** - Use SMB/CIFS (Windows), NFS (Linux), or AFP (macOS) to share your music directory on your local network for easy file copying.
+
+4. **Docker Stacks** - If you're using Docker, consider using a complete music stack that includes FileBrowser alongside Navidrome, such as the [Docker Music Stack](https://github.com/geekedtv/Docker-Music-Stack) example.
+
+**With Multi-Library Support:**
+
+Since Navidrome now supports [multi-library setups](/docs/usage/multi-library/), you can create a dedicated "Upload" library that automatically scans and makes available any new files you add. This workflow allows you to:
+
+- Set up a separate upload directory with its own library
+- Use any of the upload solutions above to add files to this directory
+- Have Navidrome automatically detect and catalog new uploads
+- Move or organize files later using your preferred file management tools
+
+This approach maintains Navidrome's security model while providing flexible upload capabilities through specialized tools designed for file management.
+
+---
+
 ## ▶︎ Where are the logs?
 
 To achieve maximum compatibility with a great number of platforms, Navidrome follows the [Twelve Factor App](https://12factor.net/) methodology
