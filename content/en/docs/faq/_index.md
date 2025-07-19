@@ -144,8 +144,14 @@ This issue is specific to AAC/M4A files. Other formats like FLAC, MP3, and Ogg V
 
 ---
 
-## ▶︎ Which cloud providers help fund the project with a revenue share?
+## ▶︎ Can I run Navidrome in the cloud without managing my own server?
 
-[PikaPods](https://www.pikapods.com) has partnered with us to offer you an
-[officially supported, cloud-hosted solution](/docs/installation/managed/#pikapods).
-A share of the revenue helps fund the development of Navidrome at no additional cost for you.
+Yes, there are several options for running Navidrome in the cloud:
+
+**Managed Hosting**: [PikaPods](https://www.pikapods.com) offers an [officially supported, cloud-hosted solution](/docs/installation/managed/#pikapods) that supports the project through revenue sharing.
+
+**Self-Managed Cloud**: You can also deploy Navidrome on various cloud platforms like AWS, Google Cloud, DigitalOcean, or Linode using their VPS offerings. This gives you full control but requires managing the server yourself.
+
+**Docker-based Platforms**: Many cloud platforms support Docker deployments, making it easy to run Navidrome using the official Docker image.
+
+Check our [installation documentation](/docs/installation/) for specific guides on different deployment methods.
