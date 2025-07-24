@@ -18,8 +18,8 @@ Navidrome allows the usage of a `.ndignore` file to exclude content from being a
 - **Cascading**: Patterns from parent directories apply to all subdirectories
 - **Multiple files**: You can place `.ndignore` files in different directories
 
-{{< alert color="warning" >}}
-**Important:** Upon adding or updating an `.ndignore` file, you will need to trigger a Full Library Scan for it to be picked up.  
+{{< alert color="info" >}}
+A new or updated `.ndignore` file should be auto-detected by Navidrome, or can be detected with a Quick Scan. 
 {{< /alert >}}
 
 ## Syntax Usage and Examples
@@ -44,7 +44,6 @@ For example, if your `~/Music` folder is mounted to Navidrome then you could cre
 
 ## Limitations
 - Brace expansion like `*.{flac,mp3}` don't work -- use separate lines instead
-- Changes require a full library rescan to be picked up. 
 
 ## Technical Details
 - The `.ndignore` syntax utilizes the [go-gitignore](https://pkg.go.dev/github.com/sabhiram/go-gitignore) library. See documentation for additional syntax usage. 
