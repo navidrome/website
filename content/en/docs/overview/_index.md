@@ -26,7 +26,7 @@ It can also work as a lightweight Subsonic-API compatible server, that can be us
 - **Themeable**, modern and responsive **Web interface** based on [Material UI](https://material-ui.com) and [React-Admin](https://marmelab.com/react-admin/)
 - **Compatible** with all Subsonic/Madsonic/Airsonic clients. See below for a list of tested clients
 - **Transcoding** on the fly. Can be set per user/player. **Opus encoding is supported**
-- Translated to **17 languages** ([and counting](/docs/developers/translations/))
+- Translated to **34 languages** ([and counting](/docs/developers/translations/))
 - Full support for **playlists**, with option to auto-import `.m3u` files and to keep them in sync
 - **Smart**/dynamic playlists (similar to iTunes). More info [here](https://github.com/navidrome/navidrome/issues/1417)
 - Scrobbling to **Last.fm**, **ListenBrainz** and **Maloja** (via custom ListenBrainz URL)
