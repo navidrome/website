@@ -19,7 +19,7 @@ Check the "Notes" column for limitations/missing behavior. Also keep in mind the
 between Navidrome and Subsonic:
 
 - Navidrome will not implement any video related functionality, it is focused on Music only
-- Right now, Navidrome only works with a single Music Library (Music Folder)
+- Navidrome supports [multiple Music Libraries (Music Folders)](/docs/usage/multi-library/) with user-specific access controls
 - There are currently no plans to support browse-by-folder. Endpoints for this functionality (Ex: `getIndexes`, `getMusicDirectory`)
   returns a simulated directory tree, using the format: `/Artist/Album/01 - Song.mp3`.
 - Navidrome does not mark songs as played by calls to `stream`, only when
@@ -36,7 +36,7 @@ between Navidrome and Subsonic:
 
 | _Browsing_          |                                                                      |
 | ------------------- | -------------------------------------------------------------------- |
-| `getMusicFolders`   | Hardcoded to just one, set with ND_MUSICFOLDER configuration         |
+| `getMusicFolders`   | Returns all libraries accessible to the authenticated user           |
 | `getIndexes`        | Doesn't support `shortcuts`, nor direct children                     |
 | `getMusicDirectory` |                                                                      |
 | `getSong`           |                                                                      |

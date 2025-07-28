@@ -12,7 +12,6 @@ aliases:
 **NOTE:** These instructions were created for the Ubuntu distribution, and even though they contain specific Ubuntu/Debian instructions (ex: `apt`) the concepts are generic enough and can be applied on most Linux distributions, even on those not based on Debian (ex: CentOS and OpenSUSE)
 {{% /pageinfo %}}
 
-
 {{% alert color="warning" title="Important note" %}}
 The following steps have been tested on KGARNER7's MACHINE! WHICH IS: Ubuntu 18.04 and should work on all version 16.04 and above as well as other Debian based distros. Throughout these instructions the commands will have placeholders for the user (`<user>`) and group (`<group>`) you want to run Navidrome under and the music folder path (`<library_path>`). If you are using an existing media library ensure the user has permissions to the media library.
 {{% /alert %}}
@@ -23,10 +22,10 @@ To install Navidrome on a Linux system using a .deb file, you can follow a strea
 
 Before you begin, ensure that your system is up to date and that you have ffmpeg installed, as it is a requirement for Navidrome to function properly.
 
-~~~bash
+```bash
 sudo apt update
 sudo apt upgrade
-~~~
+```
 
 ### Download the .deb File
 
@@ -34,9 +33,9 @@ sudo apt upgrade
 
 2. **Download the .deb File**: Use wget or your browser to download the .deb file. Replace navidrome_0.XX.X_linux_amd64.deb with the actual file name from the releases page.
 
-~~~bash
+```bash
 wget https://github.com/navidrome/navidrome/releases/download/v0.XX.X/navidrome_0.XX.X_linux_amd64.deb
-~~~
+```
 
 ### Install and Configure
 
@@ -44,50 +43,51 @@ There are two ways to install the package, `apt` and `dpkg`. `apt` is the usual 
 
 Using `apt`:
 
-~~~bash
+```bash
 sudo apt install ./navidrome_0.XX.X_linux_amd64.deb
-~~~
+```
 
 Using `dpkg`:
 
 Install the package and then resolve the dependancies:
 
-~~~bash
+```bash
 sudo dpkg -i ./navidrome_0.XX.X_amd64.deb
 sudo apt install -f
-~~~
+```
 
 **Configuration File**: After installation, Navidrome MUST be configured to run. The default path for the configuration file is /etc/navidrome/navidrome.toml. Create and edit the file using nano directly.
 
-~~~bash
+```bash
 sudo nano /etc/navidrome/navidrome.toml
-~~~
+```
 
 Add/update the following line to specify your music library path:
 
-~~~conf
+```conf
 MusicFolder = "/path/to/your/music/library"
-~~~
+```
 
 If the MusicFolder is not set, that the default music path is `/opt/navidrome/music` and it will be running as user `navidrome`.
+
+**Note**: This becomes your default library. You can add additional libraries through the web interface after installation. See the [Multi-Library documentation](/docs/usage/multi-library/) for more details.
 
 For additional configuration options see the [configuration options page](https://www.navidrome.org/docs/usage/configuration-options/).
 
 **Start the Navidrome Service**: Use systemctl to start the Navidrome service and set it to run on startup.
 
-~~~bash
+```bash
 sudo systemctl enable --now navidrome
-~~~
+```
 
 **Check Service Status**: Verify that Navidrome is running correctly.
 
-~~~bash
+```bash
 sudo systemctl status navidrome
 sudo journalctl -u navidrome -f
-~~~
+```
 
 If everything is set up correctly, Navidrome will be accessible via web browser: http://localhost:4533.
-
 
 ## Migrate from manual installation to .deb Pre-built package
 
@@ -95,38 +95,36 @@ Migrating from a manually installed Navidrome instance to the new pre-built .deb
 
 Before starting the migration, ensure you have:
 
-* **Backup**: Always back up your current Navidrome configuration and music library. This includes the navidrome.toml configuration file and any other custom settings you may have.
-* **System Update**: Make sure your system is up to date.
+- **Backup**: Always back up your current Navidrome configuration and music library. This includes the navidrome.toml configuration file and any other custom settings you may have.
+- **System Update**: Make sure your system is up to date.
 
-~~~bash
+```bash
 sudo apt update
 sudo apt upgrade
-~~~
+```
 
 ### Remove Existing Program
 
 First, stop the currently running Navidrome service to prevent any conflicts during the installation of the new package.
 
-~~~bash
+```bash
 sudo systemctl stop navidrome.service
-~~~
+```
 
 Navigate to the directory where your self-built Navidrome is located and remove the files. Be cautious not to delete your configuration or music library.
 
-~~~bash
+```bash
 sudo rm -rf /opt/navidrome
-~~~
+```
 
 ### Installation
 
 The machine is now clean and ready for installation. Follow the regular [Linux installation instructions](#install-navidrome-using-pre-built-binary) above. Just be sure to place the config file and database in appropriate locations (/etc/navidrome/navidrome.toml).
 
-
 ### Additional Considerations
 
-* **Permissions**: Ensure that the user `navidrone` which is used by the program has the necessary permissions to access your music library.
-* **Environment Variables**: If you had any custom environment variables set in your previous setup, make sure to configure them in the new setup as well.
-
+- **Permissions**: Ensure that the user `navidrome` which is used by the program has the necessary permissions to access your music library.
+- **Environment Variables**: If you had any custom environment variables set in your previous setup, make sure to configure them in the new setup as well.
 
 ## Manual installation on Linux
 
