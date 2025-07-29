@@ -136,7 +136,7 @@ For a basic setup, you can let Navidrome handle the Subsonic authentication:
 
 ## Security Considerations
 
-Make sure to check the [Security Considerations](../security#reverse-proxy-authentication) page for important security information.
+Make sure to check the [Security Considerations](../security#externalized-authentication) page for important security information.
 
 Key security points:
 * Never run Navidrome as root

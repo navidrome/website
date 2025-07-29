@@ -47,7 +47,7 @@ Note that if you don't intend to support third-party subsonic clients, you can s
 
 ## Security
 
-Make sure to check the reverse proxy authentication section in the dedicated [Security Considerations](../security#reverse-proxy-authentication) page.
+Make sure to check the reverse proxy authentication section in the dedicated [Security Considerations](../security#externalized-authentication) page.
 
 ## Examples
 
