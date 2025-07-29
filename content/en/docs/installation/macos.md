@@ -1,7 +1,7 @@
 ---
 title: "macOS Install"
 linkTitle: "macOS"
-date: 2017-01-04
+date: 2025-07-28
 description: >
   Steps to install on macOS
 ---
@@ -17,45 +17,23 @@ The example shown assumes a few things:
 1. The binary has been downloaded and extracted to the `/opt/navidrome` folder.
 2. A [configuration file](https://www.navidrome.org/docs/usage/configuration-options) for Navidrome has been created and is named `navidrome.toml` in that folder. Be sure to set the `DataFolder` option as well.
 3. A log file for Navidrome has been created and is named `navidrome.log` in that folder.
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0">
-    <dict>
-        <key>Label</key>
-        <string>navidrome</string>
-        <key>ProgramArguments</key>
-        <array>
-            <string>/opt/navidrome/navidrome</string>
-            <string>-c</string>
-            <string>/opt/navidrome/navidrome.toml</string>
-        </array>
-        <key>RunAtLoad</key>
-        <true/>
-        <key>StandardOutPath</key>
-        <string>/opt/navidrome/navidrome.log</string>
-        <key>StandardErrorPath</key>
-        <string>/opt/navidrome/navidrome.log</string>
-    </dict>
-</plist>
-```
+4. Navidrome is added to the Full Disk Access list under System Preferences -> Privacy and Security. This is required for Navidrome to access your music library.
 
 Then to load the service, run:
 ```bash
-launchctl load ~/Library/LaunchAgents/navidrome.plist
+sudo /opt/navidrome/navidrome svc install
 ```
 
 To start the service, run:
 ```bash
-launchctl start navidrome
+sudo /opt/navidrome/navidrome svc start
 ```
 
-You can verify that Navidrome has started by navigating to [http://localhost:4533](http://localhost:4533), by running `launchctl list | grep navidrome` or by checking the log file specified.
+You can verify that Navidrome has started by navigating to [http://localhost:4533](http://localhost:4533) or by checking the log file specified.
 
 To stop the service, run:
 ```bash
-launchctl stop navidrome
+sudo /opt/navidrome/navidrome svc stop
 ```
 
 {{% alert title="macOS Quarantine Error" color="warning" %}}
