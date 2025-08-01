@@ -21,13 +21,13 @@ In other cases, enabling the feature without securing the reverse proxy configur
 
 ## Configuration
 
-Externalized authentication is disabled by default. To enable the feature, configure a trusted authentication source (your reverse proxy) with the `ReverseProxyWhitelist` option. This option takes a comma-separated list of either:
+Externalized authentication is disabled by default. To enable the feature, configure a trusted authentication source (your reverse proxy) with the `ExtAuth.TrustedSources` option. This option takes a comma-separated list of either:
 * An IPv4 or IPv6 range in CIDR notation.
 * An `@` (at sign) when listening on a UNIX socket (see the `Address` option).
 
-When enabled via the `ReverseProxyWhitelist` option, Navidrome validates the requests' source IP address against the ranges configured in `ReverseProxyWhitelist`. If no range matches the address, externalized authentication is not used even if the authenticated user header is present (see below), and falls back to a standard authentication mechanism. For requests received through a UNIX socket, IPs can't be validated and Navidrome will use the authenticated user header if and only if `ReverseProxyWhitelist` contains `@`.
+When enabled via the `ExtAuth.TrustedSources` option, Navidrome validates the requests' source IP address against the ranges configured in `ExtAuth.TrustedSources`. If no range matches the address, externalized authentication is not used even if the authenticated user header is present (see below), and falls back to a standard authentication mechanism. For requests received through a UNIX socket, IPs can't be validated and Navidrome will use the authenticated user header if and only if `ExtAuth.TrustedSources` contains `@`.
 
-With externalized authentication enabled, Navidrome gets the username of the authenticated user from incoming requests' `Remote-User` HTTP header. The header can be changed via the `ReverseProxyUserHeader` configuration option.
+With externalized authentication enabled, Navidrome gets the username of the authenticated user from incoming requests' `Remote-User` HTTP header. The header can be changed via the `ExtAuth.UserHeader` configuration option.
 
 If a user is successfully authenticated by the proxy but does not exist in the Navidrome database, it will be created with a random password. The first user created in a fresh installation (whether through externalized authentication or direct login) will always be an admin user.
 
@@ -167,7 +167,7 @@ services:
       # This means that any other service in the same docker network can make
       # requests to navidrome, and easily impersonate an admin.
       # If you assign a static IP to your traefik service, configure it here.
-      ND_REVERSEPROXYWHITELIST: 0.0.0.0/0
+      ND_EXTAUTH_TRUSTEDSOURCES: 0.0.0.0/0
       # Since authentication is entirely handled by Authelia, users don't need to
       # manage their password in Navidrome anymore.
       ND_ENABLEUSEREDITING: false

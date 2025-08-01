@@ -30,21 +30,21 @@ in your computer, and only listen to `localhost`. This can be achieved by settin
 
 ## Externalized authentication
 
-When externalized authentication is enabled, Navidrome trusts the authenticated user header (configured with the `ReverseProxyUserHeader` option, by default `Remote-User`).
+When externalized authentication is enabled, Navidrome trusts the authenticated user header (configured with the `ExtAuth.UserHeader` option, by default `Remote-User`).
 
-In principle, the authenticated user header is ignored if requests don't come from a reverse proxy trusted with the `ReverseProxyWhitelist` option. This check can however be fooled by requests with a forged source IP address if the reverse proxy can be bypassed (e.g. a request sent by a compromised service running next to Navidrome).
+In principle, the authenticated user header is ignored if requests don't come from a reverse proxy trusted with the `ExtAuth.TrustedSources` option. This check can however be fooled by requests with a forged source IP address if the reverse proxy can be bypassed (e.g. a request sent by a compromised service running next to Navidrome).
 
 When using externalized authentication in a fresh installation, the first user created through this method will automatically be granted admin privileges, consistent with the behavior when creating the first user through the web interface.
 
 ### Listening on a UNIX socket
 
-If you are listening on a UNIX socket (`Address` option) and enable externalized authentication (`ReverseProxyWhitelist` configured with the special value `@`), any process able to write to the socket can forge authenticated requests.
+If you are listening on a UNIX socket (`Address` option) and enable externalized authentication (`ExtAuth.TrustedSources` configured with the special value `@`), any process able to write to the socket can forge authenticated requests.
 
 Make sure to properly protect the socket with user access controls (see the `UnixSocketPerm` option).
 
 ### Reverse proxy with a dynamic IP address
 
-Navidrome does not support resolving hostnames in the `ReverseProxyWhitelist` configuration option.
+Navidrome does not support resolving hostnames in the `ExtAuth.TrustedSources` configuration option.
 
 In scenarios where the reverse proxy has a dynamic IP address, for example when you use docker, you might consider using `0.0.0.0/0` to allow requests from the reverse proxy. This essentially disables the check, so you have to make sure that only the reverse proxy can send requests to Navidrome.
 

@@ -47,7 +47,7 @@ In other cases, enabling the feature without securing the reverse proxy configur
 
 1. Your reverse proxy authenticates the user
 2. The proxy adds a header with the username (e.g., `Remote-User: john`) to the request, then forwards it to Navidrome
-3. Navidrome checks that the request comes from a trusted IP (using `ReverseProxyWhitelist`, more on that below)
+3. Navidrome checks that the request comes from a trusted IP (using `ExtAuth.TrustedSources`, more on that below)
 4. If trusted, Navidrome uses the username from the header to identify the user
 5. If the user doesn't exist in Navidrome's database, a new account is created automatically
 
@@ -69,29 +69,29 @@ Here's the basic process for setting up externalized authentication:
 By default, externalized authentication is disabled.
 To enable it:
 
-1. Set the `ReverseProxyWhitelist` option to tell Navidrome which IP address to trust.
-2. Optionally customize the `ReverseProxyUserHeader` option if your proxy uses a different header than the default `Remote-User`
+1. Set the `ExtAuth.TrustedSources` option to tell Navidrome which IP address to trust.
+2. Optionally customize the `ExtAuth.UserHeader` option if your proxy uses a different header than the default `Remote-User`
 
 In your Navidrome configuration:
 ```
 ## IP address of your reverse proxy (CIDR notation)
-ND_REVERSEPROXYWHITELIST=192.168.1.10/32
+ND_EXTAUTH_TRUSTEDSOURCES=192.168.1.10/32
 ## Optional: Change the header if needed (this is the default)
-ND_REVERSEPROXYUSERHEADER=Remote-User
+ND_EXTAUTH_USERHEADER=Remote-User
 ```
 
 {{< alert title="Security Note" color="warning" >}}
-Only add IP addresses you trust to the whitelist.
+Only add IP addresses you trust to the trusted sources.
 Navidrome will accept the username from any requests coming from these addresses without further verification.
 {{< /alert >}}
 
 #### Special Value for UNIX Sockets
 
-If you're using UNIX sockets (with the `Address` option), use `@` in your `ReverseProxyWhitelist` option to accept the authentication header of requests from the socket:
+If you're using UNIX sockets (with the `Address` option), use `@` in your `ExtAuth.TrustedSources` option to accept the authentication header of requests from the socket:
 
 ```
 ND_ADDRESS=/var/run/navidrome.sock
-ND_REVERSEPROXYWHITELIST=@
+ND_EXTAUTH_TRUSTEDSOURCES=@
 ```
 
 ### User Management
@@ -172,7 +172,7 @@ services:
       traefik.http.routers.navidrome-public.entrypoints: https
     environment:
       # Trust all IPs in Docker network - use more specific IP if possible
-      ND_REVERSEPROXYWHITELIST: 0.0.0.0/0
+      ND_EXTAUTH_TRUSTEDSOURCES: 0.0.0.0/0
 ```
 
 ## Security Considerations
@@ -189,7 +189,7 @@ Key security points:
 
 Common issues and solutions:
 1. **Authentication not working**
-   - Check that your reverse proxy IP is in the `ReverseProxyWhitelist` option and in CIDR format: `X.X.X.X/32`
+   - Check that your reverse proxy IP is in the `ExtAuth.TrustedSources` option and in CIDR format: `X.X.X.X/32`
    - Verify the correct that header is being sent by the reverse proxy (`Remote-User` by default)
    - Check the proxy logs to confirm that the authentication is successful
 
@@ -210,7 +210,7 @@ Common issues and solutions:
 A: Yes, as long as your reverse proxy can integrate with your OAuth provider and pass the username to Navidrome.
 
 **Q: What if I want to switch back to Navidrome's authentication?**<br>
-A: Remove or comment out the `ReverseProxyWhitelist` configuration.
+A: Remove or comment out the `ExtAuth.TrustedSources` configuration.
 
 **Q: Can I mix authentication methods?**<br>
 A: Yes, Navidrome will fall back to standard authentication if the reverse proxy header is not present or the request's source not trusted.
