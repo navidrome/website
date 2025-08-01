@@ -1,23 +1,35 @@
 ---
-title: "Reverse proxy authentication"
-linkTitle: "Reverse proxy authentication"
+title: Externalized Authentication
+linkTitle: Externalized Authentication
 date: 2024-04-27
 weight: 60
 description: >
   Delegate authentication to another system
 ---
 
+{{< alert title="For Beginners" color="primary" >}}
+Externalized authentication is a relatively advanced topic.
+You can check the [Quick Start guide](/docs/getting-started/extauth-quickstart/) for a beginner-friendly introduction.
+{{< /alert >}}
+
+{{< alert title="Security Note" color="warning" >}}
+**Navidrome works out of the box behind a reverse proxy without enabling externalized authentication.**
+
+You only need to enable externalized authentication if you want the proxy to handle the authentication.
+In other cases, enabling the feature without securing the reverse proxy configuration **can leave your Navidrome setup vulnerable** to impersonation attacks.
+{{< /alert >}}
+
 ## Configuration
 
-By default, reverse proxy authentication is disabled. To enable the feature, configure a trusted reverse proxy with the `ReverseProxyWhitelist` option. This option takes a comma-separated list of either:
+Externalized authentication is disabled by default. To enable the feature, configure a trusted authentication source (your reverse proxy) with the `ReverseProxyWhitelist` option. This option takes a comma-separated list of either:
 * An IPv4 or IPv6 range in CIDR notation.
 * An `@` (at sign) when listening on a UNIX socket (see the `Address` option).
 
-When enabled via the `ReverseProxyWhitelist` option, Navidrome validates the requests' source IP address against the ranges configured in `ReverseProxyWhitelist`. If no range matches the address, reverse proxy authentication is not used even if the reverse proxy user header is present (see below), and falls back to a standard authentication mechanism. For requests received through a UNIX socket, IPs can't be validated and Navidrome will use the reverse proxy user header if and only if `ReverseProxyWhitelist` contains `@`.
+When enabled via the `ReverseProxyWhitelist` option, Navidrome validates the requests' source IP address against the ranges configured in `ReverseProxyWhitelist`. If no range matches the address, externalized authentication is not used even if the authenticated user header is present (see below), and falls back to a standard authentication mechanism. For requests received through a UNIX socket, IPs can't be validated and Navidrome will use the authenticated user header if and only if `ReverseProxyWhitelist` contains `@`.
 
-With reverse proxy authentication enabled, Navidrome gets the username of the authenticated user from incoming requests' `Remote-User` HTTP header. The header can be changed via the `ReverseProxyUserHeader` configuration option.
+With externalized authentication enabled, Navidrome gets the username of the authenticated user from incoming requests' `Remote-User` HTTP header. The header can be changed via the `ReverseProxyUserHeader` configuration option.
 
-If a user is successfully authenticated by the proxy but does not exist in the Navidrome DB, it will be created with a random password. The first user created in a fresh installation (whether through reverse proxy authentication or direct login) will always be an admin user.
+If a user is successfully authenticated by the proxy but does not exist in the Navidrome database, it will be created with a random password. The first user created in a fresh installation (whether through externalized authentication or direct login) will always be an admin user.
 
 You might also be interested in the `EnableUserEditing` option, which allows disabling the User page that lets users change their Navidrome password.
 
@@ -27,7 +39,7 @@ If you plan to use the Sharing feature, where you can create unauthenticated lin
 
 ### Subsonic endpoint
 
-The subsonic endpoint also supports reverse proxy authentication, and will ignore the subsonic authentication parameters (`u`, `p`, `t` and `s`) if the reverse proxy user header is present. If the header is absent or has an empty value, Navidrome will fall back to the standard subsonic authentication scheme.
+The subsonic endpoint also supports externalized authentication, and will ignore the subsonic authentication parameters (`u`, `p`, `t` and `s`) if the authenticated user header is present. If the header is absent or has an empty value, Navidrome will fall back to the standard subsonic authentication scheme.
 
 If your reverse proxy does not support the standard subsonic authentication scheme, or if the subsonic clients you want to use don't support an alternate authentication mechanism also supported by your proxy (such as BasicAuth), you can still configure your proxy to bypass authentication on `/rest/*` URLs and let Navidrome perform authentication for those requests. In that case, your users will have to update their (initially random) password in Navidrome, to use it with their subsonic client.
 
@@ -47,7 +59,7 @@ Note that if you don't intend to support third-party subsonic clients, you can s
 
 ## Security
 
-Make sure to check the reverse proxy authentication section in the dedicated [Security Considerations](../security#externalized-authentication) page.
+Make sure to check the externalized authentication section in the dedicated [Security Considerations](../security#externalized-authentication) page.
 
 ## Examples
 

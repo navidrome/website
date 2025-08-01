@@ -31,7 +31,7 @@ It can also work as a lightweight Subsonic-API compatible server, that can be us
 - **Smart**/dynamic playlists (similar to iTunes). More info [here](https://github.com/navidrome/navidrome/issues/1417)
 - Scrobbling to **Last.fm**, **ListenBrainz** and **Maloja** (via custom ListenBrainz URL)
 - **Sharing** public links to albums/songs/playlists
-- **Reverse Proxy** authentication[\*](/docs/usage/security/#reverse-proxy-authentication)
+- **Externalized authentication** to use your own authentication service instead of Navidrome's built-in one
 - [Jukebox mode](/docs/usage/jukebox) allows playing music on an audio device attached to the server, and control from a client
 
 ### Features supported by the Subsonic API

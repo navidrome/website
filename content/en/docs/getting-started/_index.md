@@ -35,4 +35,4 @@ done with the `touch` command.
 or managing family libraries), check out the [Multi-Library documentation](/docs/usage/multi-library/) to learn how to
 set up additional libraries with user-specific access controls.
 
-**Externalized Authentication**: Navidrome supports delegating authentication to another system, which can be useful e.g. if you want to integrate it into your homelab setup. Check out the [Externalized Authentication Quick Start guide](./extauth-quickstart/) to learn the basics, or the [Externalized Authentication documentation](/docs/usage/reverse-proxy/) for a comprehensive overview of the functionality and hints for more advanced integration scenarios.
+**Externalized Authentication**: Navidrome supports delegating authentication to another system, which can be useful e.g. if you want to integrate it into your homelab setup. Check out the [Externalized Authentication Quick Start guide](./extauth-quickstart/) to learn the basics, or the [Externalized Authentication documentation](/docs/usage/externalized-authentication/) for a comprehensive overview of the functionality and hints for more advanced integration scenarios.

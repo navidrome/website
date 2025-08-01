@@ -30,9 +30,9 @@ in your computer, and only listen to `localhost`. This can be achieved by settin
 
 ## Externalized authentication
 
-When externalized authentication is enabled, Navidrome trusts the reverse proxy user header (configured with the `ReverseProxyUserHeader` option, by default `Remote-User`).
+When externalized authentication is enabled, Navidrome trusts the authenticated user header (configured with the `ReverseProxyUserHeader` option, by default `Remote-User`).
 
-In principle, the reverse proxy user header is ignored if requests don't come from a reverse proxy trusted with the `ReverseProxyWhitelist` option. This check can however be fooled by requests with a forged source IP address if the reverse proxy can be bypassed (e.g. a request sent by a compromised service running next to Navidrome).
+In principle, the authenticated user header is ignored if requests don't come from a reverse proxy trusted with the `ReverseProxyWhitelist` option. This check can however be fooled by requests with a forged source IP address if the reverse proxy can be bypassed (e.g. a request sent by a compromised service running next to Navidrome).
 
 When using externalized authentication in a fresh installation, the first user created through this method will automatically be granted admin privileges, consistent with the behavior when creating the first user through the web interface.
 
@@ -54,7 +54,7 @@ In particular with docker and docker-compose, without extra configuration contai
 
 When externalized authentication is enabled, Navidrome currently does not disable the other authentication methods. This could potentially create an HTTP Parameter Pollution vulnerability if the reverse proxy is misconfigured, or due to a bug or oversight in Navidrome.
 
-You should make sure that the reverse proxy user header is always set for requests against protected endpoints. As a rule of thumb, for an externalized authentication setup, the only endpoints that are not protected are `/rest/*` (depending on whether your proxy can handle the subsonic authentication scheme) and `/share/*`.
+You should make sure that the authenticated user header is always set for requests against protected endpoints. As a rule of thumb, for an externalized authentication setup, the only endpoints that are not protected are `/rest/*` (depending on whether your proxy can handle the subsonic authentication scheme) and `/share/*`.
 
 ## Transcoding configuration
 

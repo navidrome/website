@@ -167,6 +167,6 @@ A: Yes, Navidrome will fall back to standard authentication if the reverse proxy
 
 - [Security Considerations](/docs/usage/security) for Navidrome
 - [Configuration Options](/docs/usage/configuration-options) for all available settings
-- [Externalized Authentication](/docs/usage/reverse-proxy/) for the detailed documentation of the feature
+- [Externalized Authentication](/docs/usage/externalized-authentication/) for the detailed documentation of the feature
 - [Caddy Forward Auth documentation](https://caddyserver.com/docs/caddyfile/directives/forward_auth)
 - [Traefik ForwardAuth middleware](https://doc.traefik.io/traefik/middlewares/http/forwardauth/)
