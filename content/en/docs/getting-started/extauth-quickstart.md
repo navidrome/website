@@ -1,24 +1,20 @@
 ---
-title: Externalized authentication
-linkTitle: Externalized authentication
+title: Externalized Authentication
+linkTitle: Externalized Authentication
 date: 2025-07-29
-weight: 60
-description: Delegate authentication to another system
+description: Quick Start guide
 ---
 
 ## What is externalized authentication
 
 Externalized authentication allows you to use an external system to handle authentication for Navidrome.
-Instead of managing user credentials in Navidrome itself, the responsibility is delegated to the external authentication service.
+Instead of managing user credentials in Navidrome itself, the responsibility is delegated to an external authentication service.
 
 The external system comprises a reverse proxy (nginx, Caddy, Traefik, etc.) and an authentication service (Authelia, Authentik, or any other authentication service that works with your reverse proxy).
 
 {{< alert title="For Beginners" color="primary" >}}
 If you're new to reverse proxies, they act as intermediaries between your users and Navidrome.
 They can handle things like SSL certificates, load balancing, and authentication before requests reach Navidrome.
-{{< /alert >}}
-
-Navidrome supports a header-based mechanism to retrieve data about the authenticated user from the reverse proxy.
 
 ```
 ┌─────────────┐     ┌─────────────┐     ┌─────────────┐
@@ -30,6 +26,9 @@ Navidrome supports a header-based mechanism to retrieve data about the authentic
                     Authentication
                         Service
 ```
+{{< /alert >}}
+
+Navidrome supports a header-based mechanism to retrieve data about the authenticated user from the reverse proxy.
 
 This approach is usually called "reverse proxy authentication", and offers several benefits:
 
@@ -113,26 +112,16 @@ ND_ENABLEUSEREDITING=false
 
 The integration depends on your chosen reverse proxy and authentication service, so you should first get familiar with their documentation.
 
-We provide a few examples for some of them:
+Some Navidrome features also require specific configuration of your reverse proxy:
+* **Public Shares**: If you plan to use Navidrome's sharing feature (for creating public links to your library), you need to configure your reverse proxy to bypass authentication for URLs starting with `/share/`, allowing unauthenticated access to the public shares.
+* **Subsonic Clients**: For a basic setup, you can let Navidrome handle the Subsonic authentication by configuring your reverse proxy to bypass authentication for URLs starting with `/rest/`.
+  Your users will have to set a password in Navidrome and use it with their Subsonic client (note that this is incompatible with `EnableUserEditing=false`).
+
+We provide a few examples:
 * [Traefik with Authelia](#TODO)
 * [Caddy with Authentik](#TODO)
 
 Note that the examples might get outdated, you should always double-check the official documentation of your reverse proxy and authentication service.
-
-### Feature-Specific Configurations
-
-#### Public Shares
-
-If you plan to use Navidrome's Sharing feature (for creating public links to your library), you'll need to configure your reverse proxy to bypass authentication for URLs starting with `/share/`, allowing unauthenticated access to the public shares.
-
-#### Subsonic Clients
-
-The Subsonic API (used by mobile apps and third-party clients) can work with externalized authentication, but requires special consideration as no dedicated third-party authentication service supports Subsonic's authentication scheme out of the box.
-
-For a basic setup, you can let Navidrome handle the Subsonic authentication:
-* Configure your reverse proxy to bypass authentication for URLs starting with `/rest/`.
-* Your users will have to set a password in Navidrome and use that one with their Subsonic client.
-  Note that this is incompatible with `EnableUserEditing=false`.
 
 ## Security Considerations
 
@@ -176,7 +165,8 @@ A: Yes, Navidrome will fall back to standard authentication if the reverse proxy
 
 ### See Also
 
-- [Security Considerations](../security) for Navidrome
-- [Configuration Options](../configuration-options) for all available settings
+- [Security Considerations](/docs/usage/security) for Navidrome
+- [Configuration Options](/docs/usage/configuration-options) for all available settings
+- [Externalized Authentication](/docs/usage/reverse-proxy/) for the detailed documentation of the feature
 - [Caddy Forward Auth documentation](https://caddyserver.com/docs/caddyfile/directives/forward_auth)
 - [Traefik ForwardAuth middleware](https://doc.traefik.io/traefik/middlewares/http/forwardauth/)
