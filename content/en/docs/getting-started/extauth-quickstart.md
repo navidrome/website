@@ -76,8 +76,8 @@ In your Navidrome configuration:
 ```
 ## IP address of your reverse proxy (CIDR notation)
 ND_REVERSEPROXYWHITELIST=192.168.1.10/32
-## Optional: Change the header if needed (defaults to Remote-User)
-ND_REVERSEPROXYUSERHEADER=X-Auth-User
+## Optional: Change the header if needed (this is the default)
+ND_REVERSEPROXYUSERHEADER=Remote-User
 ```
 
 {{< alert title="Security Note" color="warning" >}}
@@ -117,11 +117,63 @@ Some Navidrome features also require specific configuration of your reverse prox
 * **Subsonic Clients**: For a basic setup, you can let Navidrome handle the Subsonic authentication by configuring your reverse proxy to bypass authentication for URLs starting with `/rest/`.
   Your users will have to set a password in Navidrome and use it with their Subsonic client (note that this is incompatible with `EnableUserEditing=false`).
 
-We provide a few examples:
-* [Traefik with Authelia](#TODO)
-* [Caddy with Authentik](#TODO)
-
+We give some example configurations for popular reverse proxies.
+You can adapt these to your specific setup.
 Note that the examples might get outdated, you should always double-check the official documentation of your reverse proxy and authentication service.
+
+#### Example: Caddy with Authentik
+
+This example shows Navidrome behind Caddy with Authentik for authentication.
+
+```Caddyfile
+example.com {
+   # Authentik output endpoint
+   reverse_proxy /outpost.goauthentik.io/* http://authentik:9000
+
+   # Protect everything except share and subsonic endpoints
+   @protected not path /share/* /rest/*
+   forward_auth @protected http://authentik:9000 {
+      uri /outpost.goauthentik.io/auth/caddy
+      copy_headers X-Authentik-Username>Remote-User
+   }
+
+   # Forward everything to Navidrome
+   reverse_proxy navidrome:4533
+}
+```
+
+#### Example: Traefik with Authelia
+
+This example uses Traefik with Authelia for authentication, using Docker Compose.
+
+```yaml
+services:
+  authelia:
+    image: authelia/authelia:4.38.8
+    labels:
+      # Login page
+      traefik.http.routers.authelia.rule: Host(`auth.example.com`)
+      traefik.http.routers.authelia.entrypoints: https
+
+      # Authentication middleware
+      traefik.http.middlewares.authelia.forwardauth.address: http://authelia:9091/api/verify?rd=https://auth.example.com/
+      traefik.http.middlewares.authelia.forwardauth.authResponseHeaders: Remote-User
+
+  navidrome:
+    image: deluan/navidrome:0.52.0
+    labels:
+      # Main Navidrome access with web authentication
+      traefik.http.routers.navidrome.rule: Host(`music.example.com`)
+      traefik.http.routers.navidrome.entrypoints: https
+      traefik.http.routers.navidrome.middlewares: authelia@docker
+
+      # Authentication bypass for share and subsonic endpoints
+      traefik.http.routers.navidrome-public.rule: Host(`music.example.com`) && (PathPrefix(`/share/`) || PathPrefix(`/rest/`))
+      traefik.http.routers.navidrome-public.entrypoints: https
+    environment:
+      # Trust all IPs in Docker network - use more specific IP if possible
+      ND_REVERSEPROXYWHITELIST: 0.0.0.0/0
+```
 
 ## Security Considerations
 
@@ -131,7 +183,7 @@ Key security points:
 * Never run Navidrome as root
 * Properly secure UNIX sockets if used
 * Be careful with dynamic IP addresses in Docker environments
-* Ensure your reverse proxy is properly configured to set the authentication header and remove the same header from client requests
+* Ensure that your reverse proxy is properly configured to remove the authentication header if set by clients (some, but not all, do it by default; some do it by default only for specific header names)
 
 ## Troubleshooting
 
