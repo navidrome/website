@@ -92,11 +92,13 @@ Each library should have its own root folder structure:
 ├── Author 2/
 └── ...
 
-/music/lossless/       # High-quality library
+/other_path/lossless/       # High-quality library
 ├── Artist 1/
 ├── Artist 2/
 └── ...
 ```
+
+It is up to the user where to save music collections. You can store your artists in `/music` or any other path you want to use.
 
 ### Permissions
 
