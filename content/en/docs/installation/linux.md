@@ -39,7 +39,7 @@ wget https://github.com/navidrome/navidrome/releases/download/v0.XX.X/navidrome_
 
 ### Install and Configure
 
-There are two ways to install the package, `apt` and `dpkg`. `apt` is the usual method because it will automatically determine dependancies and install them (ffmpeg).
+There are two ways to install the package, `apt` and `dpkg`. `apt` is the usual method because it will automatically determine dependencies and install them (ffmpeg).
 
 Using `apt`:
 
@@ -49,7 +49,7 @@ sudo apt install ./navidrome_0.XX.X_linux_amd64.deb
 
 Using `dpkg`:
 
-Install the package and then resolve the dependancies:
+Install the package and then resolve the dependencies:
 
 ```bash
 sudo dpkg -i ./navidrome_0.XX.X_amd64.deb
