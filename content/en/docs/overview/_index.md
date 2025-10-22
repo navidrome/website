@@ -76,6 +76,7 @@ confirmed to work properly:
 - [Subtracks](https://github.com/austinried/subtracks#readme)
 - [Ultrasonic](https://ultrasonic.gitlab.io/)
 - [project blue](https://github.com/namehillsoftware/projectBlue)
+- [Chora](https://github.com/CraftWorksMC/Chora)
   {{% /tab %}}
 
 {{% tab header="iOS" %}}
