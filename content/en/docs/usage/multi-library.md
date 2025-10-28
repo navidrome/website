@@ -9,7 +9,7 @@ description: >
 
 ## Overview
 
-Navidrome supports multiple music libraries, allowing you to organize your music into separate collections with user-specific access controls. This feature is perfect for:
+Navidrome supports multiple music libraries since v0.58.0, allowing you to organize your music into separate collections with user-specific access controls. This feature is perfect for:
 
 - Separating different types of content (music vs. audiobooks)
 - Organizing by quality (lossy vs. lossless)
