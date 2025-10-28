@@ -13,15 +13,15 @@ on Linux.
 
 1. Build the docker image
 
-   ```bash
-   docker compose build
-   ```
+```bash
+docker compose build
+```
 
 2. Run the built image
 
-   ```bash
-   docker compose up
-   ```
+```bash
+docker compose up
+```
 
    > NOTE: You can run both commands at once with `docker compose up --build`.
 
@@ -51,72 +51,72 @@ documentation](https://docs.docker.com/compose/gettingstarted/).
     - [Hugo][] (0.107.0 or newer)
     - [Node.js][]
    
-   ### Linux
-   #### Debian-based distributions (e.g., Ubuntu)
-   ```bash
-   # Install Go
-   sudo apt update
-   sudo apt install golang-go
+### Linux
+#### Debian-based distributions (e.g., Ubuntu)
+```bash
+# Install Go
+sudo apt update
+sudo apt install golang-go
 
-   # Install Hugo
-   sudo apt install hugo
+# Install Hugo
+sudo apt install hugo
 
-   # Install Node.js
-   sudo apt install nodejs npm
-   ```
+# Install Node.js
+sudo apt install nodejs npm
+```
 
-   #### Arch Linux
-   ```bash
-   # Install Go
-   sudo pacman -S go
+#### Arch Linux
+```bash
+# Install Go
+sudo pacman -S go
 
-   # Install Hugo
-   sudo pacman -S hugo
+# Install Hugo
+sudo pacman -S hugo
 
-   # Install Node.js
-   sudo pacman -S nodejs npm
-   ```
+# Install Node.js
+sudo pacman -S nodejs npm
+```
 
-   ### macOS
-   ```bash
-   # Install Homebrew if not already installed
-   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+### macOS
+```bash
+# Install Homebrew if not already installed
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
-   # Install Go
-   brew install go
+# Install Go
+brew install go
 
-   # Install Hugo (extended version)
-   brew install hugo
+# Install Hugo (extended version)
+brew install hugo
 
-   # Install Node.js
-   brew install node
-   ```
+# Install Node.js
+brew install node
+```
 
-   ### Windows
-   ```powershell
-   # Install Chocolatey (if not already installed)
-   Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+### Windows
+```powershell
+# Install Chocolatey (if not already installed)
+Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
 
-   # Install Go
-   choco install golang
+# Install Go
+choco install golang
 
-   # Install Hugo (extended version)
-   choco install hugo-extended
+# Install Hugo (extended version)
+choco install hugo-extended
 
-   # Install Node.js
-   choco install nodejs
-   ```
+# Install Node.js
+choco install nodejs
+```
 
 2. Clone this repository:
-   ```bash
-   git clone https://github.com/navidrome/website
-   cd website
-   ```
+```bash
+git clone https://github.com/navidrome/website
+cd website
+```
 
 3. If you want to do SCSS edits and want to publish these, you need to install `PostCSS`:
-   ```bash
-   npm install
-   ```
+```bash
+npm install
+```
 
 > NOTE: For Windows users, be sure to install the extended edition of Hugo via `choco install hugo-extended`.
 
