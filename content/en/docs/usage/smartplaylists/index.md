@@ -227,6 +227,7 @@ Here's a table of fields you can use in your Smart Playlists:
 | `catalognumber`        | Catalog number                           |
 | `filepath`             | File path, relative to the MusicFolder   |
 | `filetype`             | File type                                |
+| `grouping`             | Grouping                                 |
 | `duration`             | Track duration                           |
 | `bitrate`              | Bitrate                                  |
 | `bitdepth`             | Bit depth                                |
