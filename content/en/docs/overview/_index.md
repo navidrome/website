@@ -69,7 +69,7 @@ confirmed to work properly:
 {{% tab header="Android" %}}
 
 - [Symfonium](https://symfonium.app/)
-- [StreamMusic](https://music.aqzscn.cn/docs/versions/latest/)
+- [Musiver](https://music.aqzscn.cn/docs/versions/latest/)
 - [substreamer](https://substreamerapp.com/)
 - [DSub2000](https://github.com/paroj/DSub2000) (fork of DSub)
 - [Tempus](https://eddyizm.github.io/tempus/) (fork of Tempo)
@@ -85,7 +85,7 @@ confirmed to work properly:
 {{% tab header="iOS" %}}
 
 - [play:Sub](http://michaelsapps.dk/playsubapp/)
-- [StreamMusic](https://apps.apple.com/ca/app/stream-music-enjoy-music/id6449966496)
+- [Musiver](https://apps.apple.com/ca/app/musiver-enjoy-music/id6449966496)
 - [substreamer](https://substreamerapp.com/)
 - [Arpeggi](https://www.reddit.com/r/arpeggiApp/)
 - [Amperfy](https://github.com/BLeeEZ/amperfy#readme)
@@ -111,7 +111,7 @@ confirmed to work properly:
 - [Feishin](https://github.com/jeffvli/feishin) <i class="fa-brands fa-windows" style="color:gray"/></i>&nbsp;<i class="fa-brands fa-apple" style="color:gray"></i>&nbsp;<i class="fa-brands fa-linux" style="color:gray"></i>
 - [Supersonic](https://github.com/dweymouth/supersonic) <i class="fa-brands fa-windows" style="color:gray"/></i>&nbsp;<i class="fa-brands fa-apple" style="color:gray"></i>&nbsp;<i class="fa-brands fa-linux" style="color:gray"></i>
 - [Submariner](https://submarinerapp.com/) <i class="fa-brands fa-apple" style="color:gray"></i>
-- [StreamMusic](https://music.aqzscn.cn/docs/versions/latest/) <i class="fa-brands fa-windows" style="color:gray"/></i>&nbsp;<i class="fa-brands fa-apple" style="color:gray"></i>
+- [Musiver](https://music.aqzscn.cn/docs/versions/latest/) <i class="fa-brands fa-windows" style="color:gray"/></i>&nbsp;<i class="fa-brands fa-apple" style="color:gray"></i>
 - [Aonsoku](https://github.com/victoralvesf/aonsoku) <i class="fa-brands fa-windows" style="color:gray"/></i>&nbsp;<i class="fa-brands fa-apple" style="color:gray"></i>&nbsp;<i class="fa-brands fa-linux" style="color:gray"></i>
 - [Amperfy](https://github.com/BLeeEZ/amperfy#readme) <i class="fa-brands fa-apple" style="color:gray"></i>
 - [Sonixd](https://github.com/jeffvli/sonixd) (undergoing a full rewrite under the name Feishin) <i class="fa-brands fa-windows" style="color:gray"/></i>&nbsp;<i class="fa-brands fa-apple" style="color:gray"></i>&nbsp;<i class="fa-brands fa-linux" style="color:gray"></i>
@@ -143,6 +143,5 @@ confirmed to work properly:
 This project is in active development. Expect a more polished experience and new features/releases
 on a frequent basis. Some upcoming features planned:
 
-- [Multiple libraries](https://github.com/navidrome/navidrome/pull/4181)
 - New UI, including a [Smart playlists editor](/docs/usage/smartplaylists)
 - Plugins
