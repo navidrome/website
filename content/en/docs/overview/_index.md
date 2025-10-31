@@ -69,14 +69,17 @@ confirmed to work properly:
 {{% tab header="Android" %}}
 
 - [Symfonium](https://symfonium.app/)
-- [DSub](https://f-droid.org/en/packages/github.daneren2005.dsub/)
 - [StreamMusic](https://music.aqzscn.cn/docs/versions/latest/)
 - [substreamer](https://substreamerapp.com/)
+- [DSub2000](https://github.com/paroj/DSub2000) (fork of DSub)
+- [Tempus](https://eddyizm.github.io/tempus/) (fork of Tempo)
+- [Chora](https://github.com/CraftWorksMC/Chora)
+- [Castafiore](https://github.com/sawyerf/Castafiore)
+- [DSub](https://f-droid.org/en/packages/github.daneren2005.dsub/)
 - [Tempo](https://github.com/CappielloAntonio/tempo#readme)
 - [Subtracks](https://github.com/austinried/subtracks#readme)
 - [Ultrasonic](https://ultrasonic.gitlab.io/)
 - [project blue](https://github.com/namehillsoftware/projectBlue)
-- [Chora](https://github.com/CraftWorksMC/Chora)
   {{% /tab %}}
 
 {{% tab header="iOS" %}}
@@ -84,6 +87,7 @@ confirmed to work properly:
 - [play:Sub](http://michaelsapps.dk/playsubapp/)
 - [StreamMusic](https://apps.apple.com/ca/app/stream-music-enjoy-music/id6449966496)
 - [substreamer](https://substreamerapp.com/)
+- [Arpeggi](https://www.reddit.com/r/arpeggiApp/)
 - [Amperfy](https://github.com/BLeeEZ/amperfy#readme)
 - [flo](https://client.flooo.club/)
 - [iSub](https://isub.app/)
@@ -92,13 +96,14 @@ confirmed to work properly:
 {{% tab header="Web" %}}
 
 - [Feishin](https://feishin.vercel.app/)
-- [Thunderdrome](https://thunderdrome.netlify.app/)
 - [Airsonic Refix](https://airsonic-refix.netlify.app/)
+- [Castafiore](https://sawyerf.github.io/Castafiore/)
 - [Aonsoku](https://aonsoku.vercel.app/)
+- [Thunderdrome](https://thunderdrome.netlify.app/)
 - [Subplayer](https://subplayer.netlify.app/)
 - [Aurial](https://shrimpza.github.io/aurial/)
 - [Subfire](https://p.subfireplayer.net/)
-- [Jamstash](https://github.com/sqrlmstr5000/Jamstash)
+- [Jamstash](https://sqrlmstr5000.github.io/Jamstash)
   {{% /tab %}}
 
 {{% tab header="Desktop" %}}
