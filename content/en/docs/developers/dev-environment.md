@@ -76,9 +76,9 @@ To build Navidrome with Docker, you need to have Docker installed on your system
 download it from [Docker's website](https://www.docker.com/products/docker-desktop).
 {{% /alert %}}
 
-If you want to build Navidrome for a different platform than your own dev environment, use `make docker-build` and specify the OS/Platform as parameters. Example for Linux/ARM:
+If you want to build Navidrome for a different platform than your own dev environment, use `make docker-build` and specify the OS/Platform as parameters. Example for Windows/386:
 ```shell
-make docker-build PLATFORMS=linux/amd64,windows/amd64
+make docker-build PLATFORMS=windows/386
 ```
 
 To get a list of all available platforms, run `make docker-platforms`.
@@ -88,7 +88,7 @@ The built image will be tagged locally as `deluan/navidrome:develop`. This can b
 Use `IMAGE_PLATFORMS` to specify the platforms you want to build the image for. Example:
 
 ```shell
-make docker-image IMAGE_PLATFORMS=linux/amd64,windows/amd64 DOCKER_TAG=mytag
+make docker-image IMAGE_PLATFORMS=linux/amd64,linux/arm64 DOCKER_TAG=mytag
 ```
 
 ### Windows (using WSL)
