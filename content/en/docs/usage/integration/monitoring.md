@@ -95,7 +95,7 @@ scrape_configs:
 ```
 
 ### Dashboard
-Grafana dashboard available here: [#18038](https://grafana.com/grafana/dashboards/18038-navidrome/).
+Grafana dashboards are available here: [#24397](https://grafana.com/grafana/dashboards/24397-navidrome-observability/) [#18038](https://grafana.com/grafana/dashboards/18038-navidrome/).
 
 Simple to install but fully fledged Grafana docker compose configuration
 can be found [here](https://github.com/Einsteinish/Docker-Compose-Prometheus-and-Grafana).
