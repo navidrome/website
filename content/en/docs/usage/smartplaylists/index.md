@@ -236,6 +236,7 @@ Here's a table of fields you can use in your Smart Playlists:
 | `loved`                | Track is loved                           |
 | `dateloved`            | Date track was loved                     |
 | `lastplayed`           | Date track was last played               |
+| `daterated`            | Date track was lrated                    |
 | `playcount`            | Number of times track was played         |
 | `rating`               | Track rating                             |
 | `mbz_album_id`         | MusicBrainz Album ID                     |
