@@ -86,7 +86,7 @@ params:
   copyright:
     authors: "The Navidrome Authors"
     from_year: 2020
-#  privacy_policy: "https://policies.google.com/privacy"
+  #  privacy_policy: "https://policies.google.com/privacy"
 
   # First one is picked as the X card image if not set on page.
   # images:
@@ -176,6 +176,10 @@ params:
         url: "https://github.com/navidrome/navidrome"
         icon: "fab fa-github"
         desc: "Development takes place here!"
+      - name: "Analytics"
+        url: "/analytics/"
+        icon: "fas fa-chart-line"
+        desc: "View Navidrome usage statistics"
       - name: "Donate"
         url: "https://ko-fi.com/deluan"
         icon: "fas fa-heart"

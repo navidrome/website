@@ -1,0 +1,199 @@
+{{ define "main" }}
+<div class="container">
+  <div class="analytics-page">
+    <h1 class="text-center my-4">Navidrome Usage Statistics</h1>
+    <p class="lead text-center mb-4">
+      These charts display anonymous, aggregated data from Navidrome
+      installations worldwide. Understanding how the software is used helps
+      prioritize features and improvements.
+    </p>
+    <p class="text-center mb-5">
+      <a href="/docs/getting-started/insights/"
+        >Learn more about how this data is gathered</a
+      >
+    </p>
+    <div id="charts-container">
+      <div class="loading text-center py-5 text-muted">Loading charts...</div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .analytics-page {
+    max-width: 1024px;
+    margin: 0 auto;
+    padding-top: 80px;
+    padding-bottom: 20px;
+  }
+  .chart-container {
+    background: var(--bs-body-bg);
+    border: 1px solid var(--bs-border-color);
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    padding: 20px;
+  }
+  .chart {
+    width: 100%;
+    height: 500px;
+  }
+  .error {
+    text-align: center;
+    padding: 50px;
+    color: #d32f2f;
+  }
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+<script>
+  function isDarkMode() {
+    const bsTheme = document.documentElement.getAttribute("data-bs-theme");
+    if (bsTheme === "dark") return true;
+    if (bsTheme === "light") return false;
+    return window.matchMedia("(prefers-color-scheme: dark)").matches;
+  }
+
+  function getThemeColors() {
+    const dark = isDarkMode();
+    return {
+      textColor: dark ? "#e0e0e0" : "#333333",
+      legendTextColor: dark ? "#cccccc" : "#000000",
+    };
+  }
+
+  function buildThemedOptions(options, themeColors) {
+    const themed = {
+      ...options,
+      backgroundColor: "transparent",
+      textStyle: { ...options.textStyle, color: themeColors.textColor },
+      title: {
+        ...options.title,
+        textStyle: { ...options.title?.textStyle, color: themeColors.textColor },
+        subtextStyle: { ...options.title?.subtextStyle, color: themeColors.textColor },
+      },
+      legend: {
+        ...options.legend,
+        textStyle: {
+          ...options.legend?.textStyle,
+          color: themeColors.legendTextColor,
+        },
+      },
+    };
+    if (options.xAxis) {
+      themed.xAxis = Array.isArray(options.xAxis)
+        ? options.xAxis.map((ax) => ({
+            ...ax,
+            axisLabel: { ...ax.axisLabel, color: themeColors.textColor },
+            axisLine: {
+              ...ax.axisLine,
+              lineStyle: {
+                ...ax.axisLine?.lineStyle,
+                color: themeColors.textColor,
+              },
+            },
+          }))
+        : {
+            ...options.xAxis,
+            axisLabel: {
+              ...options.xAxis.axisLabel,
+              color: themeColors.textColor,
+            },
+            axisLine: {
+              ...options.xAxis.axisLine,
+              lineStyle: {
+                ...options.xAxis.axisLine?.lineStyle,
+                color: themeColors.textColor,
+              },
+            },
+          };
+    }
+    if (options.yAxis) {
+      themed.yAxis = Array.isArray(options.yAxis)
+        ? options.yAxis.map((ax) => ({
+            ...ax,
+            axisLabel: { ...ax.axisLabel, color: themeColors.textColor },
+            axisLine: {
+              ...ax.axisLine,
+              lineStyle: {
+                ...ax.axisLine?.lineStyle,
+                color: themeColors.textColor,
+              },
+            },
+          }))
+        : {
+            ...options.yAxis,
+            axisLabel: {
+              ...options.yAxis.axisLabel,
+              color: themeColors.textColor,
+            },
+            axisLine: {
+              ...options.yAxis.axisLine,
+              lineStyle: {
+                ...options.yAxis.axisLine?.lineStyle,
+                color: themeColors.textColor,
+              },
+            },
+          };
+    }
+    return themed;
+  }
+
+  async function loadCharts() {
+    const container = document.getElementById("charts-container");
+    const chartInstances = [];
+
+    try {
+      const response = await fetch("/data/charts.json");
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      }
+      const chartsData = await response.json();
+      const themeColors = getThemeColors();
+
+      container.innerHTML = "";
+
+      for (const { id, options } of chartsData) {
+        const wrapper = document.createElement("div");
+        wrapper.className = "chart-container";
+
+        const chartDiv = document.createElement("div");
+        chartDiv.id = id;
+        chartDiv.className = "chart";
+
+        wrapper.appendChild(chartDiv);
+        container.appendChild(wrapper);
+
+        const chart = echarts.init(chartDiv);
+        const themedOptions = buildThemedOptions(options, themeColors);
+        chart.setOption(themedOptions);
+        chartInstances.push({ chart, options });
+
+        window.addEventListener("resize", () => chart.resize());
+      }
+
+      const updateTheme = () => {
+        const newColors = getThemeColors();
+        chartInstances.forEach(({ chart, options }) => {
+          const themedOptions = buildThemedOptions(options, newColors);
+          chart.setOption(themedOptions, { notMerge: true });
+        });
+      };
+
+      const observer = new MutationObserver(updateTheme);
+      observer.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ["data-bs-theme"],
+      });
+
+      window
+        .matchMedia("(prefers-color-scheme: dark)")
+        .addEventListener("change", updateTheme);
+    } catch (error) {
+      container.innerHTML = `<div class="error">Failed to load charts: ${error.message}</div>`;
+      console.error("Error loading charts:", error);
+    }
+  }
+
+  loadCharts();
+</script>
+{{ end }}
