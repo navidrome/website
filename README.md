@@ -17,7 +17,14 @@ on Linux.
 docker compose build
 ```
 
-2. Run the built image
+2. Set required environment variables for analytics charts:
+
+```bash
+export CHARTS_URL="https://your-charts-endpoint.com/api/charts"
+export CHARTS_API_KEY="your-api-key"
+```
+
+3. Run the built image
 
 ```bash
 docker compose up

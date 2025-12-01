@@ -4,6 +4,7 @@
 # Default build settings
 [build]
   publish = "public"
+  command = "./fetch-charts.sh && hugo"
 
 [build.environment]
 HUGO_VERSION = "0.152.2"
