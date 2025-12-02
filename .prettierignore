@@ -1,0 +1,2 @@
+# Hugo template files - Prettier breaks Go template syntax
+layouts/**/*.html
