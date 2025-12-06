@@ -1,5 +1,5 @@
 ---
-title: Externalized Authentication
+title: Externalized Authentication Quick Start
 linkTitle: Externalized Authentication
 date: 2025-07-29
 description: Quick Start guide
