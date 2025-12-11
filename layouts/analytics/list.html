@@ -62,6 +62,26 @@
   }
 
   function buildThemedOptions(options, themeColors) {
+    // Calculate appropriate grid.right based on legend text length
+    const hasVerticalLegend = options.legend?.orient === 'vertical';
+    let gridRight = options.grid?.[0]?.right || '280';
+    
+    // If there's a vertical legend, calculate required space based on longest label
+    if (hasVerticalLegend && options.series && options.series.length > 0) {
+      // Find the longest legend label
+      const maxLabelLength = Math.max(
+        ...options.series.map(s => (s.name || '').length)
+      );
+      
+      // Estimate width needed:
+      // - ~7px per character (approximate for most fonts)
+      // - 35px for the legend symbol/color box
+      const estimatedWidth = maxLabelLength * 7 + 35;
+      
+      // Use at least 280px, but increase if labels are long
+      gridRight = Math.max(280, estimatedWidth).toString();
+    }
+    
     const themed = {
       ...options,
       backgroundColor: "transparent",
@@ -78,6 +98,10 @@
           color: themeColors.legendTextColor,
         },
       },
+      grid: options.grid ? options.grid.map((g, i) => ({
+        ...g,
+        right: i === 0 ? gridRight : g.right
+      })) : undefined,
     };
     if (options.xAxis) {
       themed.xAxis = Array.isArray(options.xAxis)
