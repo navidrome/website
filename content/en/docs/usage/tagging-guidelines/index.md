@@ -328,6 +328,10 @@ again. See details [here](/docs/usage/pids/#handling-file-moves-and-retagging).
 - In Picard’s settings, you can enable options to embed cover art *and* save a cover image file. Doing both 
     is ideal (embed for portability, and cover.jpg for any software that looks for it). Picard also allows scripting 
     for file naming — handy if you want to auto-organize your folders as mentioned.
+- Because Navidrome matches artists based on their name, enable the "Use standardized artist names" option in Picard
+  (Preferences -> Metadata). This helps ensure consistent naming (e.g., always using 
+  "[Osees](https://musicbrainz.org/artist/194272cc-dcc8-4640-a4a6-66da7d250d5c)" instead of variations like "Thee Oh Sees",
+  "Oh Sees", etc.).
 - For a better integration with Navidrome, you can add the following scripts to your Picard configuration, to add 
   extra tags that can help Navidrome organize your library:
     ```shell
