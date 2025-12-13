@@ -1,0 +1,99 @@
+// Project-specific style overrides.
+// Docsy automatically picks this file up when present.
+
+.config-options {
+  table {
+    width: 100%;
+  }
+
+  th,
+  td {
+    vertical-align: top;
+  }
+
+  // Prevent long inline code (like ND_HTTPSECURITYHEADERS_...) from forcing the table wider.
+  code {
+    white-space: normal;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+
+  // Keep env var tokens readable on wide screens (no mid-word breaks).
+  td:nth-child(2) code {
+    white-space: nowrap;
+    overflow-wrap: normal;
+    word-break: normal;
+  }
+
+  @media (max-width: 1199.98px) {
+    // Convert wide 4-column tables into stacked "option cards".
+    table,
+    tbody,
+    tr,
+    td {
+      display: block;
+      width: 100%;
+    }
+
+    thead {
+      display: none;
+    }
+
+    tr {
+      padding: 0.75rem 0;
+      border-bottom: 1px solid var(--bs-border-color);
+    }
+
+    td {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      padding: 0.25rem 0;
+
+      // Ensure flex items can shrink/wrap (e.g., long env vars).
+      > * {
+        min-width: 0;
+      }
+
+      &::before {
+        flex: 0 0 9.5rem;
+        font-weight: 600;
+        color: var(--bs-secondary-color);
+      }
+
+      // Give longer, prose-heavy fields normal text flow (keeps inline code inline).
+      &:nth-child(3),
+      &:nth-child(4) {
+        display: block;
+
+        &::before {
+          display: block;
+          margin-bottom: 0.25rem;
+        }
+      }
+
+      &:nth-child(1)::before {
+        content: "Config";
+      }
+
+      &:nth-child(2)::before {
+        content: "Env var";
+      }
+
+      &:nth-child(3)::before {
+        content: "Description";
+      }
+
+      &:nth-child(4)::before {
+        content: "Default";
+      }
+    }
+
+    // In stacked mode, allow env vars to wrap to avoid overflow.
+    td:nth-child(2) code {
+      white-space: normal;
+      overflow-wrap: anywhere;
+      word-break: break-word;
+    }
+  }
+}

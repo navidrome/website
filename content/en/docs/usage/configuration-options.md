@@ -122,9 +122,11 @@ make it all uppercase. Ex: `ND_LOGLEVEL=debug`. See below for all available opti
 
 ### Basic configuration
 
+<div class="config-options">
+
 | In config file          | As an env var                | Description                                                                                                                  | Default Value                |
-| ----------------------- | ---------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------- |
-|                         | `ND_CONFIGFILE`              | Load configurations from an external config file                                                                             | `"./navidrome.toml"`         |
+|-------------------------|------------------------------|------------------------------------------------------------------------------------------------------------------------------|------------------------------|
+| -                       | `ND_CONFIGFILE`              | Load configurations from an external config file                                                                             | `"./navidrome.toml"`         |
 | MusicFolder             | `ND_MUSICFOLDER`             | Folder where your music library is stored. Can be read-only. This becomes the default library when using multi-library setup | `"./music"`                  |
 | DataFolder              | `ND_DATAFOLDER`              | Folder to store application data (DB)                                                                                        | `"./data"`                   |
 | CacheFolder             | `ND_CACHEFOLDER`             | Folder to store cache data (transcoding, images...)                                                                          | `"<DataFolder>/cache"`       |
@@ -135,9 +137,13 @@ make it all uppercase. Ex: `ND_LOGLEVEL=debug`. See below for all available opti
 | Port                    | `ND_PORT`                    | HTTP port Navidrome will listen to                                                                                           | `4533`                       |
 | EnableInsightsCollector | `ND_ENABLEINSIGHTSCOLLECTOR` | Controls whether the server will run its [Anonymous Data Collection][insights] feature to help improve the project.          | `true`                       |
 
+</div>
+
 ### Advanced configuration
 
 <!-- This table is easier to be edited when Word Wrap is toggled off. Please keep it sorted -->
+
+<div class="config-options">
 
 | In config file                                 | As an environment variable                       | Description                                                                                                                                                                                                                                                                                                                           | Default Value                                                         |
 |------------------------------------------------|--------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------|
@@ -182,7 +188,6 @@ make it all uppercase. Ex: `ND_LOGLEVEL=debug`. See below for all available opti
 | ExtAuth.UserHeader[\*][extauth-security]       | `ND_EXTAUTH_USERHEADER`                          | HTTP header containing the user name from an authenticating proxy. Click [here][extauth-config] for details.                                                                                                                                                                                                                          | `"Remote-User"`                                                       |
 | FFmpegPath                                     | `ND_FFMPEGPATH`                                  | Path to `ffmpeg` executable. Use it when Navidrome cannot find it, or you want to use a specific version                                                                                                                                                                                                                              | _Empty_ (search in the PATH)                                          |
 | GATrackingID                                   | `ND_GATRACKINGID`                                | Send basic info to your own Google Analytics account. Must be in the format `UA-XXXXXXXX`                                                                                                                                                                                                                                             | _Empty_ (disabled)                                                    |
-| HTTPSecurityHeaders.CustomFrameOptionsValue    | `ND_HTTPSECURITYHEADERS_CUSTOMFRAMEOPTIONSVALUE` | Allows the `X-Frame-Options` header value to be set with a custom value. Ex: `"SAMEORIGIN"`                                                                                                                                                                                                                                           | `"DENY"`                                                              |
 | IgnoredArticles                                | `ND_IGNOREDARTICLES`                             | List of ignored articles when sorting/indexing artists                                                                                                                                                                                                                                                                                | `"The El La Los Las Le Les Os As O A"`                                |
 | ImageCacheSize                                 | `ND_IMAGECACHESIZE`                              | Size of image (art work) cache. Set to `"0"` to disable cache                                                                                                                                                                                                                                                                         | `"100MB"`                                                             |
 | Inspect.BacklogLimit                           | `ND_INSPECT_BACKLOGLIMIT`                        | Backlog limit for inspect request throttling                                                                                                                                                                                                                                                                                          | `100`                                                                 |
@@ -237,6 +242,8 @@ make it all uppercase. Ex: `ND_LOGLEVEL=debug`. See below for all available opti
 | UILoginBackgroundUrl                           | `ND_UILOGINBACKGROUNDURL`                        | Change background image used in the Login page                                                                                                                                                                                                                                                                                        | _random music image from this [Unsplash.com][unsplash] collection_    |
 | UIWelcomeMessage                               | `ND_UIWELCOMEMESSAGE`                            | Add a welcome message to the login screen                                                                                                                                                                                                                                                                                             | _Empty_                                                               |
 | UnixSocketPerm                                 | `ND_UNIXSOCKETPERM`                              | Set file permissions for Unix Socket File.[\*][unix-socket]                                                                                                                                                                                                                                                                           | `"0660"`                                                              |
+
+</div>
 
 #### Notes
 
