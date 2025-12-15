@@ -146,6 +146,7 @@ Most Subsonic-compatible clients that support multiple music folders will work w
 - Verify the path exists and is readable by the Navidrome user
 - Check the logs for permission errors
 - Ensure the path doesn't overlap with other libraries
+- If using systemd, like on NixOS, ensure that each library folder is listed in the `BindReadOnlyPath` path.
 
 ### User Cannot Access Library
 
