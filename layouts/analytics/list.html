@@ -171,7 +171,8 @@
       if (!response.ok) {
         throw new Error(`HTTP ${response.status}: ${response.statusText}`);
       }
-      const chartsData = await response.json();
+      const data = await response.json();
+      const chartsData = data.charts || data; // Support both old and new format
       const themeColors = getThemeColors();
 
       container.innerHTML = "";
