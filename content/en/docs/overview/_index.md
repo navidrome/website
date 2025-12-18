@@ -61,7 +61,7 @@ browsing by folders, but simulates it based on the tags with a structure like:
 
 ## Apps
 
-Besides its own Web UI, Navidrome should be compatible with all Subsonic clients. The following clients are tested and
+Besides its own Web UI, Navidrome should be compatible with all Subsonic clients. The following clients are tested by the community and
 confirmed to work properly:
 
 {{< tabpane text=true >}}
