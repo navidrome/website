@@ -88,6 +88,8 @@ confirmed to work properly:
 - [Musiver](https://apps.apple.com/ca/app/musiver-enjoy-music/id6449966496)
 - [substreamer](https://substreamerapp.com/)
 - [Arpeggi](https://www.reddit.com/r/arpeggiApp/)
+- [Narjo](https://www.reddit.com/r/NarjoApp/)
+- [Nautiline](https://nautiline.app/)
 - [Amperfy](https://github.com/BLeeEZ/amperfy#readme)
 - [flo](https://client.flooo.club/)
 - [iSub](https://isub.app/)
