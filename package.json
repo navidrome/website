@@ -5,7 +5,7 @@
   "main": "none.js",
   "scripts": {
     "start": "docker compose up",
-    "build": "docker compose run --remove-orphans site build",
+    "build": "docker compose run --remove-orphans site hugo build",
     "sync-images": "./sync-images.sh 20072696",
     "validate:app": "node validate-app-entry.js",
     "convert:images": "./convert-app-images.sh"

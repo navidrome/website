@@ -1,6 +1,6 @@
 services:
   site:
-    image: floryn90/hugo:0.152.2-ext-ubuntu
+    image: floryn90/hugo:0.153.0-ext-ubuntu
     entrypoint: ["/bin/sh", "-c"]
     command: ["./fetch-charts.sh && hugo server"]
     ports:
