@@ -37,21 +37,30 @@ jobs:
                   # Get list of changed files in assets/apps/
                   git diff --name-only origin/${{ github.base_ref }}...HEAD | grep '^assets/apps/' > changed_files.txt || true
 
-                  # Extract unique app names (excluding _template)
+                  # Extract unique app names (excluding _template and non-directories)
                   apps=$(cat changed_files.txt | sed 's|^assets/apps/||' | cut -d'/' -f1 | grep -v '^_template$' | sort -u)
 
-                  if [ -z "$apps" ]; then
+                  # Filter to only actual directories
+                  validated_apps=""
+                  for app in $apps; do
+                    if [ -d "assets/apps/$app" ]; then
+                      validated_apps="$validated_apps $app"
+                    fi
+                  done
+
+                  # Trim whitespace
+                  validated_apps=$(echo "$validated_apps" | xargs)
+
+                  if [ -z "$validated_apps" ]; then
                     echo "No app entries to validate"
                     echo "apps=" >> $GITHUB_OUTPUT
                     exit 0
                   fi
 
                   echo "Apps to validate:"
-                  echo "$apps"
+                  echo "$validated_apps"
 
-                  # Convert to space-separated list for matrix
-                  apps_list=$(echo "$apps" | tr '\n' ' ' | sed 's/ $//')
-                  echo "apps=$apps_list" >> $GITHUB_OUTPUT
+                  echo "apps=$validated_apps" >> $GITHUB_OUTPUT
 
             - name: Validate apps
               id: validate
