@@ -17,7 +17,7 @@ The Navidrome website needs a page to showcase compatible client apps. App devel
 - Clear visual indicators for platforms and open source status
 
 ### Non-Goals
-- Filtering/search (future enhancement)
+- Filtering/search (implemented in separate change: `add-apps-filtering-search`)
 - User ratings or reviews
 - Automated app validation
 - Multiple languages (English only for now)
