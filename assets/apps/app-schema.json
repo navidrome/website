@@ -112,6 +112,15 @@
     "isFree": {
       "type": "boolean",
       "description": "Whether the app is free (no purchase required)"
+    },
+    "keywords": {
+      "type": "array",
+      "maxItems": 6,
+      "items": {
+        "type": "string",
+        "minLength": 3
+      },
+      "description": "Additional search terms (alternative names, abbreviations, features) - not displayed on app card"
     }
   },
   "additionalProperties": false

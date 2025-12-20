@@ -31,7 +31,8 @@
 {{ $isActuallyFree := or $isFree $repoUrl }}
 {{ $freeAttr := cond $isActuallyFree "true" "false" }}
 
-{{ $searchable := printf "%s %s" $name $description | lower }}
+{{ $keywords := default (slice) .keywords }}
+{{ $searchable := printf "%s %s %s" $name $description (delimit $keywords " ") | lower }}
 
 <div class="app-card" 
      data-platforms="{{ $platformsAttr }}" 

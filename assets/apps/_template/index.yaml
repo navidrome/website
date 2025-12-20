@@ -23,3 +23,7 @@ screenshots:
 repoUrl: https://github.com/my/awesome/app
 # Optional: Only include if the app is free (no purchase required)
 isFree: true
+# Optional: Additional search terms (not displayed on app card)
+keywords:
+  - alternative-name
+  - feature

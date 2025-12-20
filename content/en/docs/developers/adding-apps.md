@@ -92,6 +92,12 @@ screenshots:
   gallery:
     - screen1.webp
     - screen2.webp
+
+keywords:
+  - dlna
+  - chromecast
+  - carplay
+  - android auto
 ```
 
 ## Image Guidelines
