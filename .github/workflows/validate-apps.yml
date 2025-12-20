@@ -1,0 +1,136 @@
+name: Validate App Entries
+
+on:
+  pull_request:
+    paths:
+      - 'assets/apps/**'
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  validate-apps:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Install WebP tools
+        run: sudo apt-get update && sudo apt-get install -y webp
+      
+      - name: Detect changed app entries
+        id: detect
+        run: |
+          # Get list of changed files in assets/apps/
+          git diff --name-only origin/${{ github.base_ref }}...HEAD | grep '^assets/apps/' > changed_files.txt || true
+          
+          # Extract unique app names (excluding _template)
+          apps=$(cat changed_files.txt | sed 's|^assets/apps/||' | cut -d'/' -f1 | grep -v '^_template$' | sort -u)
+          
+          if [ -z "$apps" ]; then
+            echo "No app entries to validate"
+            echo "apps=" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+          
+          echo "Apps to validate:"
+          echo "$apps"
+          
+          # Convert to space-separated list for matrix
+          apps_list=$(echo "$apps" | tr '\n' ' ' | sed 's/ $//')
+          echo "apps=$apps_list" >> $GITHUB_OUTPUT
+      
+      - name: Validate apps
+        id: validate
+        if: steps.detect.outputs.apps != ''
+        run: |
+          apps="${{ steps.detect.outputs.apps }}"
+          
+          # Create output file for validation results
+          output_file="validation_results.txt"
+          error_count=0
+          
+          echo "# App Validation Results" > $output_file
+          echo "" >> $output_file
+          echo "**Validation run:** $(date -u '+%Y-%m-%d %H:%M:%S UTC')" >> $output_file
+          echo "" >> $output_file
+          
+          for app in $apps; do
+            echo "---" >> $output_file
+            echo "" >> $output_file
+            echo "## Validating: \`$app\`" >> $output_file
+            echo "" >> $output_file
+            echo '```' >> $output_file
+            
+            # Run validation and capture output
+            if npm run validate:app $app >> $output_file 2>&1; then
+              echo '```' >> $output_file
+              echo "" >> $output_file
+              echo "✅ **Validation passed**" >> $output_file
+            else
+              echo '```' >> $output_file
+              echo "" >> $output_file
+              echo "❌ **Validation failed**" >> $output_file
+              error_count=$((error_count + 1))
+            fi
+            echo "" >> $output_file
+          done
+          
+          # Summary
+          echo "---" >> $output_file
+          echo "" >> $output_file
+          if [ $error_count -eq 0 ]; then
+            echo "## ✅ All validations passed!" >> $output_file
+          else
+            echo "## ❌ $error_count app(s) failed validation" >> $output_file
+            echo "" >> $output_file
+            echo "Please fix the errors above before merging." >> $output_file
+          fi
+          
+          # Save error count for later steps
+          echo "error_count=$error_count" >> $GITHUB_OUTPUT
+          
+          # Output the results to GitHub Actions log
+          cat $output_file
+      
+      - name: Find existing comment
+        if: steps.detect.outputs.apps != ''
+        uses: peter-evans/find-comment@v3
+        id: find-comment
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          comment-author: 'github-actions[bot]'
+          body-includes: 'App Validation Results'
+      
+      - name: Create or update comment
+        if: steps.detect.outputs.apps != ''
+        uses: peter-evans/create-or-update-comment@v4
+        with:
+          comment-id: ${{ steps.find-comment.outputs.comment-id }}
+          issue-number: ${{ github.event.pull_request.number }}
+          body-path: validation_results.txt
+          edit-mode: replace
+      
+      - name: Fail if validation errors
+        if: steps.validate.outputs.error_count != '0' && steps.validate.outputs.error_count != ''
+        run: |
+          echo "::error::${{ steps.validate.outputs.error_count }} app(s) failed validation"
+          exit 1
+      
+      - name: No apps to validate
+        if: steps.detect.outputs.apps == ''
+        run: |
+          echo "No app entries were modified in this PR"
