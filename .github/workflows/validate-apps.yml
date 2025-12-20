@@ -3,7 +3,7 @@ name: Validate App Entries
 on:
     pull_request:
         paths:
-            - "assets/apps/**"
+            - "assets/apps/*/**"
 
 permissions:
     contents: read
