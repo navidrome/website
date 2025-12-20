@@ -1,0 +1,16 @@
+name: Feishin
+url: https://feishin.vercel.app/
+platforms:
+  windows: true
+  macos: true
+  linux: true
+  web: true
+apis:
+  - OpenSubsonic
+description: "A modern self-hosted music player with MPV and web player backends, featuring a modern UI, smart playlist editor for Navidrome, synchronized/unsynchronized lyrics support, and scrobbling capabilities. Rewrite of Sonixd with enhanced features."
+screenshots:
+  thumbnail: screen1.png
+  gallery:
+    - screen2.png
+    - screen3.png
+repoUrl: https://github.com/jeffvli/feishin

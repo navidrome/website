@@ -1,0 +1,17 @@
+name: Aonsoku
+url: https://aonsoku.vercel.app/
+platforms:
+  windows: true
+  macos: true
+  linux: true
+  web: true
+apis:
+  - OpenSubsonic
+description: "A modern desktop client for Navidrome/Subsonic servers built with React and Electron. Features include podcast support, synchronized and unsynchronized lyrics from LRCLIB, radio support, scrobbling, and an intuitive modern interface."
+screenshots:
+  thumbnail: thumbnail.png
+  gallery:
+    - screen1.png
+    - screen2.png
+    - screen3.png
+repoUrl: https://github.com/victoralvesf/aonsoku

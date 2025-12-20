@@ -1,0 +1,15 @@
+name: DSub2000
+url: https://github.com/paroj/DSub2000
+platforms:
+  android:
+    store: https://github.com/paroj/DSub2000/releases
+apis:
+  - Subsonic
+description: "An Android client for Subsonic servers and a fork of the original DSub project. Features drag-and-drop playlist management, gapless playback, lockscreen controls, and a highly customizable UI with user-defined cache size and network settings."
+screenshots:
+  thumbnail: 1.jpg
+  gallery:
+    - 2.png
+    - 3.jpg
+    - 4.jpg
+repoUrl: https://github.com/paroj/DSub2000

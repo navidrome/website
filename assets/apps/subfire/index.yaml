@@ -1,0 +1,10 @@
+name: Subfire
+url: https://p.subfireplayer.net/
+platforms:
+  web: true
+apis:
+  - Subsonic
+description: "HTML5-based music player supporting web browsers, Chrome, Firefox, and Amazon Fire devices. Features playlist management with collage cover art, responsive design, and works across platforms from 360px to 1080p+ displays."
+screenshots:
+  thumbnail: thumbnail.png
+repoUrl: https://github.com/acroyear/subfire

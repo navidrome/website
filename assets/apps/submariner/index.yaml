@@ -1,5 +1,5 @@
 name: Submariner
-url: http://www.read-write.fr/subapp/index.php
+url: https://submariner.io/
 platforms:
   macos: true
 apis:
@@ -7,3 +7,4 @@ apis:
 description: "A free Subsonic desktop application for Mac with a clean user interface. Features cache streaming and download capabilities for offline listening."
 screenshots:
   thumbnail: thumbnail.png
+repoUrl: https://github.com/submariner-io/submariner
