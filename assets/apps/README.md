@@ -15,7 +15,13 @@ To add your app to the listing:
    - Additional gallery images (optional) - Max 1000x1000px each
    - Formats: PNG or WebP preferred
 
-4. **Submit a Pull Request** with your new app folder
+4. **Validate your app** (optional but recommended):
+   ```bash
+   npm install  # Install dependencies first
+   npm run validate:app <your-app-name>
+   ```
+
+5. **Submit a Pull Request** with your new app folder
 
 ## App Folder Structure
 
@@ -53,6 +59,37 @@ Your `index.yaml` must include:
 - **Gallery images**: 1000x1000px max, any aspect ratio
 - **Formats**: PNG or WebP recommended
 - **File size**: Keep under 500KB per image when possible
+
+## Validating Your App Entry
+
+Before submitting your PR, you can validate your app entry to catch common issues:
+
+```bash
+npm install  # Install dependencies (first time only)
+npm run validate:app your-app-name
+```
+
+The validation script checks:
+- ✅ YAML syntax and structure
+- ✅ Required fields are present and valid
+- ✅ APIs are correctly specified (OpenSubsonic, Subsonic, Navidrome)
+- ✅ Image files exist in the app folder
+- ✅ URLs are valid and reachable
+- ✅ File sizes (warns if images > 500KB)
+
+Example output:
+```bash
+$ npm run validate:app feishin
+
+Validating app: feishin
+
+Checking URLs (this may take a moment)...
+
+⚠️  Found 2 warning(s):
+  1. Gallery image screen2.png is 644KB (recommended: < 500KB)
+```
+
+**Note:** URL checks may timeout on slow connections - these are warnings, not errors.
 
 ## Questions?
 
