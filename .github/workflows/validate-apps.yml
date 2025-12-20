@@ -7,7 +7,6 @@ on:
 
 permissions:
     contents: read
-    pull-requests: write
 
 jobs:
     validate-apps:
@@ -15,12 +14,12 @@ jobs:
 
         steps:
             - name: Checkout code
-              uses: actions/checkout@v4
+              uses: actions/checkout@v6
               with:
                   fetch-depth: 0
 
             - name: Setup Node.js
-              uses: actions/setup-node@v4
+              uses: actions/setup-node@v6
               with:
                   node-version: "20"
                   cache: "npm"
@@ -158,23 +157,13 @@ jobs:
                   # Output the results to GitHub Actions log
                   cat $output_file
 
-            - name: Find existing comment
+            - name: Upload validation results
               if: steps.detect.outputs.apps != ''
-              uses: peter-evans/find-comment@v3
-              id: find-comment
+              uses: actions/upload-artifact@v5
               with:
-                  issue-number: ${{ github.event.pull_request.number }}
-                  comment-author: "github-actions[bot]"
-                  body-includes: "App Validation Results"
-
-            - name: Create or update comment
-              if: steps.detect.outputs.apps != ''
-              uses: peter-evans/create-or-update-comment@v4
-              with:
-                  comment-id: ${{ steps.find-comment.outputs.comment-id }}
-                  issue-number: ${{ github.event.pull_request.number }}
-                  body-path: validation_results.txt
-                  edit-mode: replace
+                  name: validation-results
+                  path: validation_results.txt
+                  retention-days: 1
 
             - name: Fail if validation errors
               if: steps.validate.outputs.error_count != '0' && steps.validate.outputs.error_count != ''

@@ -1,0 +1,74 @@
+name: Comment Validation Results
+
+on:
+    workflow_run:
+        workflows: ["Validate App Entries"]
+        types:
+            - completed
+
+permissions:
+    contents: read
+    pull-requests: write
+
+jobs:
+    comment:
+        runs-on: ubuntu-latest
+        if: >
+            github.event.workflow_run.event == 'pull_request' &&
+            github.event.workflow_run.conclusion != 'cancelled'
+
+        steps:
+            - name: Download validation results
+              uses: actions/download-artifact@v5
+              with:
+                  name: validation-results
+                  github-token: ${{ secrets.GITHUB_TOKEN }}
+                  run-id: ${{ github.event.workflow_run.id }}
+              continue-on-error: true
+
+            - name: Check if results exist
+              id: check-results
+              run: |
+                  if [ -f validation_results.txt ]; then
+                    echo "results_exist=true" >> $GITHUB_OUTPUT
+                  else
+                    echo "results_exist=false" >> $GITHUB_OUTPUT
+                    echo "No validation results found (likely no apps were modified)"
+                  fi
+
+            - name: Get PR number
+              id: get-pr
+              if: steps.check-results.outputs.results_exist == 'true'
+              uses: actions/github-script@v7
+              with:
+                  script: |
+                      const response = await github.rest.search.issuesAndPullRequests({
+                        q: `repo:${context.repo.owner}/${context.repo.repo} is:pr ${context.payload.workflow_run.head_sha}`,
+                      });
+                      
+                      const items = response.data.items;
+                      if (items.length === 0) {
+                        core.warning('No PR found for this workflow run');
+                        return '';
+                      }
+                      
+                      return items[0].number;
+                  result-encoding: string
+
+            - name: Find existing comment
+              if: steps.check-results.outputs.results_exist == 'true' && steps.get-pr.outputs.result != ''
+              uses: peter-evans/find-comment@v3
+              id: find-comment
+              with:
+                  issue-number: ${{ steps.get-pr.outputs.result }}
+                  comment-author: "github-actions[bot]"
+                  body-includes: "App Validation Results"
+
+            - name: Create or update comment
+              if: steps.check-results.outputs.results_exist == 'true' && steps.get-pr.outputs.result != ''
+              uses: peter-evans/create-or-update-comment@v4
+              with:
+                  comment-id: ${{ steps.find-comment.outputs.comment-id }}
+                  issue-number: ${{ steps.get-pr.outputs.result }}
+                  body-path: validation_results.txt
+                  edit-mode: replace
