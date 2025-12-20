@@ -1,0 +1,38 @@
+id: my-awesome-app
+name: My Awesome App
+url: https://my.awesome.app
+platforms:
+  android:
+    store: https://play.google.com/store/apps/details?id=
+  ios:
+    store: https://itunes.apple.com/us/app/
+  windows:
+  linux:
+  macos:
+  web:
+  other: # for apps that don't fit into the above categories. specify in the notes field
+    notes:
+apis:
+  - subsonic
+  - opensubsonic
+  - navidrome
+description:
+  short: "A short description of the app, two or three sentences."
+  long: |
+    A longer description of the app, including features, etc.
+# Add screenshots to a folder with the same name as the app id. See DSub as an example
+# Max 1000x1000 pixels
+screenshots:
+  thumbnail: screenshots/my-awesome-app/thumbnail.png
+  examples:
+    - screenshots/my-awesome-app/screen1.png
+    - screenshots/my-awesome-app/screen2.png
+    - screenshots/my-awesome-app/screen3.png
+
+# Optional fields
+license: MIT
+licenseUrl: https://opensource.org/licenses/MIT
+# If the app is open source, provide the repo URL
+repoUrl: https://github.com/my/awesome/app
+# If the app is web-based, provide a demo URL if available
+demoUrl: https://my.awesome.app/demo
