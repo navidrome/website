@@ -7,7 +7,8 @@
     "start": "docker compose up",
     "build": "docker compose run --remove-orphans site build",
     "sync-images": "./sync-images.sh 20072696",
-    "validate:app": "node validate-app-entry.js"
+    "validate:app": "node validate-app-entry.js",
+    "convert:images": "./convert-app-images.sh"
   },
   "repository": {
     "type": "git",

@@ -12,7 +12,7 @@ To add your app to the listing:
 
 3. **Add screenshots** to the same folder:
    - `thumbnail.png` (required) - Max 400x400px
-   - Additional gallery images (optional) - Max 1000x1000px each
+   - Additional gallery images (optional) - Max 1200x1200px each
    - Formats: PNG or WebP preferred
 
 4. **Validate your app** (optional but recommended):
@@ -55,10 +55,12 @@ Your `index.yaml` must include:
 
 ## Screenshot Guidelines
 
-- **Thumbnail**: 400x400px max, square aspect ratio preferred
-- **Gallery images**: 1000x1000px max, any aspect ratio
-- **Formats**: PNG or WebP recommended
+- **Thumbnail**: 1200x1200px max, square aspect ratio preferred
+- **Gallery images**: 1200x1200px max, any aspect ratio
+- **Formats**: WebP recommended (PNG or JPEG will be auto-converted)
 - **File size**: Keep under 500KB per image when possible
+
+All images are automatically converted to WebP format and resized to max 1200px during build.
 
 ## Validating Your App Entry
 
