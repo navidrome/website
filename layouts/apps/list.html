@@ -2,7 +2,7 @@
 
 {{ .Content }}
 
-<div class="td-content">
+<div class="td-content apps-page-content">
   {{/* Load all app data from apps/ directory */}}
   {{ $apps := slice }}
   {{ range (resources.Match "apps/*/index.yaml") }}

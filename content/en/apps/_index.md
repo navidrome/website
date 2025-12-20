@@ -9,7 +9,7 @@ menu:
 {{< blocks/cover title="Compatible Client Apps" image_anchor="bottom" color="primary" height="min" >}}
 
 <div class="mx-auto">
-	<p class="lead mt-3">Navidrome is compatible with all music players that support the OpenSubsonic API. Find the perfect app with our collection for Android, iOS, desktop, and web.</p>
+	<p class="lead mt-3">Stream your music anywhere with apps for Android, iOS, desktop, and web. Any app that supports the OpenSubsonic API works with Navidrome.</p>
 </div>
 
 {{< /blocks/cover >}}

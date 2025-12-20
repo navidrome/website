@@ -99,20 +99,20 @@
 }
 
 // Apps page styles
+.apps-page-content {
+  max-width: 960px;
+  margin: 0 auto;
+}
+
 .apps-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
   margin-top: 0rem;
 
-  @media (max-width: 991.98px) {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
-  }
-
   @media (max-width: 767.98px) {
     grid-template-columns: repeat(2, 1fr);
-    gap: 1.25rem;
+    gap: 1.5rem;
   }
 
   @media (max-width: 575.98px) {
