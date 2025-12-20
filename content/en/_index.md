@@ -26,7 +26,7 @@ Navidrome is open source software distributed **free of charge** under the terms
 [GNU GPL v3](https://www.gnu.org/licenses/gpl-3.0) license.
 {{% /blocks/lead %}}
 
-{{< blocks/section color="light" type="row" >}}
+{{< blocks/section color="white" type="row" >}}
 
 {{% blocks/feature icon="fa-mobile-alt" title="Access your music from anywhere!" url="/apps" %}}
 Choose from a large selection of mobile clients or use the integrated web player
