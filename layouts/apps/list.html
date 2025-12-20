@@ -23,6 +23,98 @@
   {{/* Sort apps alphabetically by name */}}
   {{ $apps = sort $apps "name" }}
 
+  {{/* Filter panel */}}
+  <div class="app-filters" role="search">
+    {{/* Mobile toggle button */}}
+    <button id="filter-toggle" class="filter-toggle" aria-expanded="false">
+      <i class="fas fa-filter"></i> Filter & Search (<span class="filter-count">{{ len $apps }}</span> apps)
+    </button>
+
+    {{/* Filter controls */}}
+    <div id="filter-panel" class="filter-panel">
+      {{/* Search box */}}
+      <div class="filter-row filter-search">
+        <input 
+          type="search" 
+          id="app-search" 
+          class="app-search-input" 
+          placeholder="Search apps..."
+          aria-label="Search apps by name or description"
+        >
+        <i class="fas fa-search search-icon"></i>
+      </div>
+
+      {{/* Platform filters */}}
+      <div class="filter-row filter-platforms">
+        <span class="filter-label">Platform:</span>
+        <div class="filter-checkboxes">
+          <label class="filter-checkbox">
+            <input type="checkbox" name="platform" value="android">
+            <span><i class="fab fa-android"></i> Android</span>
+          </label>
+          <label class="filter-checkbox">
+            <input type="checkbox" name="platform" value="ios">
+            <span><i class="fas fa-mobile-alt"></i> iOS</span>
+          </label>
+          <label class="filter-checkbox">
+            <input type="checkbox" name="platform" value="windows">
+            <span><i class="fab fa-windows"></i> Windows</span>
+          </label>
+          <label class="filter-checkbox">
+            <input type="checkbox" name="platform" value="linux">
+            <span><i class="fab fa-linux"></i> Linux</span>
+          </label>
+          <label class="filter-checkbox">
+            <input type="checkbox" name="platform" value="macos">
+            <span><i class="fab fa-apple"></i> macOS</span>
+          </label>
+          <label class="filter-checkbox">
+            <input type="checkbox" name="platform" value="web">
+            <span><i class="fas fa-globe"></i> Web</span>
+          </label>
+        </div>
+      </div>
+
+      {{/* API & OSS filters */}}
+      <div class="filter-row filter-apis-oss">
+        <div class="filter-apis">
+          <span class="filter-label">API:</span>
+          <div class="filter-checkboxes">
+            <label class="filter-checkbox">
+              <input type="checkbox" name="api" value="opensubsonic">
+              <span>OpenSubsonic</span>
+            </label>
+            <label class="filter-checkbox">
+              <input type="checkbox" name="api" value="navidrome">
+              <span>Navidrome</span>
+            </label>
+          </div>
+        </div>
+
+        <label class="filter-checkbox filter-oss">
+          <input type="checkbox" id="filter-oss" name="oss">
+          <span><i class="fab fa-github"></i> Open Source Only</span>
+        </label>
+
+        <button id="clear-filters" class="clear-filters-btn">
+          <i class="fas fa-times"></i> Clear All Filters
+        </button>
+      </div>
+
+      {{/* Results count */}}
+      <div class="filter-results" aria-live="polite">
+        <span id="results-count">Showing all {{ len $apps }} apps</span>
+      </div>
+    </div>
+
+    {{/* Empty state */}}
+    <div id="empty-state" class="empty-state" style="display: none;">
+      <i class="fas fa-search"></i>
+      <p>No apps found</p>
+      <p class="empty-state-hint">Try adjusting your filters</p>
+    </div>
+  </div>
+
   <div class="apps-grid">
     {{ range $apps }}
       {{ partial "app-card.html" . }}
@@ -31,6 +123,9 @@
 
   {{/* Include gallery modal */}}
   {{ partial "app-gallery.html" . }}
+
+  {{/* Include app filters script */}}
+  <script src="{{ "js/app-filters.js" | relURL }}"></script>
 </div>
 
 {{ end }}
