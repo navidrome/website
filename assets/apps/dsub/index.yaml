@@ -1,8 +1,8 @@
 name: DSub
-url: https://play.google.com/store/apps/details?id=github.daneren2005.dsub
+url: https://github.com/daneren2005/Subsonic
 platforms:
   android:
-    store: https://play.google.com/store/apps/details?id=github.daneren2005.dsub
+    store: https://github.com/daneren2005/Subsonic/releases
 apis:
   - OpenSubsonic
 description: "A comprehensive Android music streaming app with automatic full song caching, gapless playback, jukebox mode, podcast support, and Bluetooth controls. Features infinite shuffle playlists based on folders, years, and genres."
@@ -10,3 +10,4 @@ screenshots:
   thumbnail: thumbnail.png
   gallery:
     - screen1.png
+repoUrl: https://github.com/daneren2005/Subsonic
