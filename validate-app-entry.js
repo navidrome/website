@@ -35,7 +35,7 @@ const colors = isCI
     };
 
 class AppValidator {
-  constructor(appName) {
+  constructor(appName, options = {}) {
     this.appName = appName;
     this.appDir = path.join(process.cwd(), "assets", "apps", appName);
     this.yamlPath = path.join(this.appDir, "index.yaml");
@@ -47,6 +47,7 @@ class AppValidator {
     );
     this.errors = [];
     this.warnings = [];
+    this.quiet = options.quiet || false;
   }
 
   log(message, color = "reset") {
@@ -271,12 +272,14 @@ class AppValidator {
 
   // Main validation method
   async validate() {
-    if (isCI) {
-      console.log(`App: ${this.appName}`);
-    } else {
-      this.log(
-        `\nValidating app: ${colors.cyan}${this.appName}${colors.reset}\n`
-      );
+    if (!this.quiet) {
+      if (isCI) {
+        console.log(`App: ${this.appName}`);
+      } else {
+        this.log(
+          `\nValidating app: ${colors.cyan}${this.appName}${colors.reset}\n`
+        );
+      }
     }
 
     // Check directory
@@ -294,7 +297,7 @@ class AppValidator {
     this.validateImages(data);
 
     // Validate URLs
-    if (!isCI) {
+    if (!isCI && !this.quiet) {
       this.log("Checking URLs (this may take a moment)...", "blue");
     }
     await this.validateUrls(data);
@@ -305,11 +308,16 @@ class AppValidator {
   // Print validation results
   printResults() {
     if (this.errors.length === 0 && this.warnings.length === 0) {
-      if (isCI) {
-        console.log("Status: PASSED ✅");
-      } else {
-        console.log("");
-        this.log("✅ Validation passed! No errors or warnings found.", "green");
+      if (!this.quiet) {
+        if (isCI) {
+          console.log("Status: PASSED ✅");
+        } else {
+          console.log("");
+          this.log(
+            "✅ Validation passed! No errors or warnings found.",
+            "green"
+          );
+        }
       }
       return 0;
     }
@@ -353,14 +361,10 @@ class AppValidator {
 
 // Main execution
 async function main() {
-  const appName = process.argv[2];
-
-  if (!appName) {
-    console.error(`${colors.red}Error: App name is required${colors.reset}`);
-    console.log(`\nUsage: node validate-app-entry.js <app-name>`);
-    console.log(`Example: node validate-app-entry.js dsub\n`);
-    process.exit(1);
-  }
+  // Parse arguments
+  const args = process.argv.slice(2);
+  const quiet = args.includes("-q") || args.includes("--quiet");
+  const appName = args.find((arg) => !arg.startsWith("-"));
 
   // Check for required dependencies
   const requiredModules = ["js-yaml", "ajv", "ajv-formats"];
@@ -383,7 +387,65 @@ async function main() {
     process.exit(1);
   }
 
-  const validator = new AppValidator(appName);
+  // If no app name provided, validate all apps
+  if (!appName) {
+    const appsDir = path.join(process.cwd(), "assets", "apps");
+
+    if (!fs.existsSync(appsDir)) {
+      console.error(
+        `${colors.red}Error: Apps directory not found: ${appsDir}${colors.reset}`
+      );
+      process.exit(1);
+    }
+
+    const appDirs = fs
+      .readdirSync(appsDir, { withFileTypes: true })
+      .filter((dirent) => dirent.isDirectory() && dirent.name !== "_template")
+      .map((dirent) => dirent.name)
+      .sort();
+
+    if (appDirs.length === 0) {
+      console.log("No app entries found to validate");
+      process.exit(0);
+    }
+
+    if (!quiet) {
+      console.log(`Validating ${appDirs.length} app(s)...\n`);
+    }
+
+    let totalErrors = 0;
+    let failedApps = [];
+
+    for (const app of appDirs) {
+      const validator = new AppValidator(app, { quiet });
+      const exitCode = await validator.validate();
+
+      if (exitCode !== 0) {
+        totalErrors++;
+        failedApps.push(app);
+      }
+
+      // Add separator between apps (except for last one) when not quiet
+      if (!quiet && app !== appDirs[appDirs.length - 1]) {
+        console.log("\n" + "=".repeat(60) + "\n");
+      }
+    }
+
+    console.log("\n" + "=".repeat(60));
+    console.log("\nValidation Summary:");
+    console.log(`  Total apps: ${appDirs.length}`);
+    console.log(`  Passed: ${appDirs.length - totalErrors}`);
+    console.log(`  Failed: ${totalErrors}`);
+
+    if (failedApps.length > 0) {
+      console.log(`\nFailed apps: ${failedApps.join(", ")}`);
+    }
+
+    process.exit(totalErrors > 0 ? 1 : 0);
+  }
+
+  // Single app validation
+  const validator = new AppValidator(appName, { quiet });
   const exitCode = await validator.validate();
   process.exit(exitCode);
 }
