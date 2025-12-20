@@ -214,6 +214,17 @@
       color: var(--bs-primary);
     }
   }
+
+  .app-free-badge {
+    font-size: 0.875rem;
+    color: #28a745; // Green for free
+    margin-left: 0.5rem;
+    cursor: help;
+
+    [data-bs-theme="dark"] & {
+      color: #4ade80; // Lighter green for dark mode
+    }
+  }
 }
 
 .app-description {

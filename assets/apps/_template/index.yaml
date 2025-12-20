@@ -21,3 +21,5 @@ screenshots:
     - screen3.png
 # Optional: Only include if the app is open source
 repoUrl: https://github.com/my/awesome/app
+# Optional: Only include if the app is free (no purchase required)
+isFree: true

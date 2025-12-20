@@ -3,14 +3,7 @@
   "title": "Navidrome Client App",
   "description": "Schema for Navidrome client app metadata",
   "type": "object",
-  "required": [
-    "name",
-    "url",
-    "platforms",
-    "api",
-    "description",
-    "screenshots"
-  ],
+  "required": ["name", "url", "platforms", "api", "description", "screenshots"],
   "properties": {
     "name": {
       "type": "string",
@@ -115,6 +108,10 @@
     "repoUrl": {
       "type": "string",
       "format": "uri"
+    },
+    "isFree": {
+      "type": "boolean",
+      "description": "Whether the app is free (no purchase required)"
     }
   },
   "additionalProperties": false
