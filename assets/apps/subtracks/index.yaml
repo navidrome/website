@@ -1,0 +1,13 @@
+name: Subtracks
+url: https://github.com/austinried/subtracks
+platforms:
+  android: true
+apis:
+  - Subsonic
+description: "An Android open source music streaming app for Subsonic-compatible servers, designed to give you clean and convenient access to your music. Features include gapless playback, multiple server support, filterable library views, and scrobble support."
+screenshots:
+  thumbnail: thumbnail.webp
+  gallery:
+    - screen1.webp
+    - screen2.webp
+repoUrl: https://github.com/austinried/subtracks

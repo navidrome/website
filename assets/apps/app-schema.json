@@ -1,0 +1,125 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Navidrome Client App",
+  "description": "Schema for Navidrome client app metadata",
+  "type": "object",
+  "required": [
+    "name",
+    "url",
+    "platforms",
+    "apis",
+    "description",
+    "screenshots"
+  ],
+  "properties": {
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Display name of the app"
+    },
+    "url": {
+      "type": "string",
+      "format": "uri",
+      "description": "Official app website or homepage"
+    },
+    "platforms": {
+      "type": "object",
+      "minProperties": 1,
+      "properties": {
+        "android": {
+          "oneOf": [
+            { "type": "boolean" },
+            {
+              "type": "object",
+              "required": ["store"],
+              "properties": {
+                "store": { "type": "string", "format": "uri" }
+              },
+              "additionalProperties": false
+            }
+          ]
+        },
+        "ios": {
+          "oneOf": [
+            { "type": "boolean" },
+            {
+              "type": "object",
+              "required": ["store"],
+              "properties": {
+                "store": { "type": "string", "format": "uri" }
+              },
+              "additionalProperties": false
+            }
+          ]
+        },
+        "macos": {
+          "oneOf": [
+            { "type": "boolean" },
+            {
+              "type": "object",
+              "required": ["store"],
+              "properties": {
+                "store": { "type": "string", "format": "uri" }
+              },
+              "additionalProperties": false
+            }
+          ]
+        },
+        "windows": {
+          "oneOf": [
+            { "type": "boolean" },
+            {
+              "type": "object",
+              "required": ["store"],
+              "properties": {
+                "store": { "type": "string", "format": "uri" }
+              },
+              "additionalProperties": false
+            }
+          ]
+        },
+        "linux": { "type": "boolean" },
+        "web": { "type": "boolean" },
+        "other": { "type": "boolean" }
+      },
+      "additionalProperties": false
+    },
+    "apis": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "enum": ["OpenSubsonic", "Subsonic", "Navidrome"]
+      }
+    },
+    "description": {
+      "type": "string",
+      "minLength": 10,
+      "maxLength": 500
+    },
+    "screenshots": {
+      "type": "object",
+      "required": ["thumbnail"],
+      "properties": {
+        "thumbnail": {
+          "type": "string",
+          "pattern": "\\.(png|webp|jpg|jpeg)$"
+        },
+        "gallery": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "\\.(png|webp|jpg|jpeg)$"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "repoUrl": {
+      "type": "string",
+      "format": "uri"
+    }
+  },
+  "additionalProperties": false
+}

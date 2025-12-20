@@ -1,0 +1,15 @@
+name: Castafiore
+url: https://sawyerf.github.io/Castafiore/
+platforms:
+  android:
+    store: https://play.google.com/store/apps/details?id=com.sawyerf.castafiore
+  web: true
+apis:
+  - Subsonic
+description: "A music player supporting Navidrome and Subsonic API, available as a PWA and Android app. Features customizable home page, offline music, favorites, playlists, radio, lyrics, and Listenbrainz integration."
+screenshots:
+  thumbnail: screen1.webp
+  gallery:
+    - screen2.webp
+    - screen3.webp
+repoUrl: https://github.com/sawyerf/Castafiore

@@ -1,0 +1,9 @@
+name: Narjo
+url: https://www.reddit.com/r/NarjoApp/
+platforms:
+  ios: true
+apis:
+  - OpenSubsonic
+description: "A feature-rich iOS client for Navidrome with support for Emby, advanced caching options, lyrics display, crossfade/gapless playback, and extensive customization including widgets, CarPlay, UPNP/Sonos support, and smart playlists."
+screenshots:
+  thumbnail: thumbnail.webp

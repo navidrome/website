@@ -1,0 +1,12 @@
+name: Nautiline
+url: https://nautiline.app/
+platforms:
+  ios:
+    store: https://apps.apple.com/app/id6755918140
+apis:
+  - OpenSubsonic
+description: "A modern OpenSubsonic client for iOS with a beautiful interface featuring gapless playback, automatic caching, offline mode, synced lyrics, CarPlay support, and seeking in transcoded files."
+screenshots:
+  thumbnail: thumbnail.webp
+  gallery:
+    - screen1.webp

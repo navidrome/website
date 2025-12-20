@@ -1,0 +1,11 @@
+name: Termsonic
+url: https://git.sixfoisneuf.fr/termsonic/about/
+platforms:
+  windows: true
+  linux: true
+apis:
+  - Subsonic
+description: "A terminal-based user interface (TUI) client for Subsonic-compatible servers. Features browsing by artists and albums, playlist management, play queue control, and playback support for OGG, FLAC, and MP3 files."
+screenshots:
+  thumbnail: thumbnail.webp
+repoUrl: https://git.sixfoisneuf.fr/termsonic
