@@ -73,19 +73,19 @@
         {{ if $platforms.ios }}
           {{ if isset $platforms.ios "store" }}
             <a href="{{ $platforms.ios.store }}" target="_blank" rel="noopener" title="iOS">
-              <i class="fas fa-mobile-alt"></i>
+              <i class="fab fa-apple"></i>
             </a>
           {{ else }}
-            <span title="iOS"><i class="fas fa-mobile-alt"></i></span>
+            <span title="iOS"><i class="fab fa-apple"></i></span>
           {{ end }}
         {{ end }}
         {{ if $platforms.macos }}
           {{ if isset $platforms.macos "store" }}
             <a href="{{ $platforms.macos.store }}" target="_blank" rel="noopener" title="macOS">
-              <i class="fab fa-apple"></i>
+              <i class="fas fa-laptop"></i>
             </a>
           {{ else }}
-            <span title="macOS"><i class="fab fa-apple"></i></span>
+            <span title="macOS"><i class="fas fa-laptop"></i></span>
           {{ end }}
         {{ end }}
         {{ if $platforms.windows }}
