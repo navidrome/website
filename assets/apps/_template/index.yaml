@@ -10,6 +10,7 @@ platforms:
   windows: true
   linux: true
   web: true
+  other: true
 apis:
   - OpenSubsonic # Use "OpenSubsonic" for modern API support
   - Subsonic # Use "Subsonic" only for legacy Subsonic API
