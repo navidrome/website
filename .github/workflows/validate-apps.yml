@@ -27,9 +27,6 @@ jobs:
             - name: Install dependencies
               run: npm ci
 
-            - name: Install WebP tools
-              run: sudo apt-get update && sudo apt-get install -y webp
-
             - name: Detect changed app entries
               id: detect
               run: |
@@ -72,7 +69,7 @@ jobs:
                   # Run convert script on each app
                   for app in $apps; do
                     echo "Processing $app..."
-                    ./convert-app-images.sh "$app" || true
+                    node convert-app-images.js "$app" || true
                   done
 
                   # Check if any files were modified
@@ -93,13 +90,13 @@ jobs:
             - name: Fail if images not optimized
               if: steps.check-images.outputs.images_optimized == 'true'
               run: |
-                  echo "::error::Images need to be optimized. Please run './convert-app-images.sh <app-name>' locally and commit the changes."
+                  echo "::error::Images need to be optimized. Please run 'node convert-app-images.js <app-name>' locally and commit the changes."
                   echo ""
                   echo "Modified files:"
                   echo "${{ steps.check-images.outputs.modified_files }}"
                   echo ""
                   echo "To fix this, run the following command locally:"
-                  echo "  ./convert-app-images.sh <your-app-name>"
+                  echo "  node convert-app-images.js <your-app-name>"
                   echo ""
                   echo "Then commit and push the optimized images."
                   exit 1

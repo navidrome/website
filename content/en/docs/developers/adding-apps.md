@@ -122,17 +122,16 @@ keywords:
 If your images don't meet the guidelines, run the conversion script:
 
 ```bash
-./convert-app-images.sh my-app
+npm run convert:images my-app
 ```
 
-This automatically converts images to WebP format, resizes them to max 1200px, and optimizes file sizes. You'll need `cwebp` installed (`brew install webp` on macOS).
+This automatically converts images to WebP format, resizes them to max 1200px, and optimizes file sizes.
 
 ## Validating Your Entry
 
 Before submitting, validate your app entry:
 
 ```bash
-npm install           # First time only
 npm run validate:app my-app
 ```
 

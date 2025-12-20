@@ -8,7 +8,7 @@
     "build": "docker compose run --remove-orphans site hugo build",
     "sync-images": "./sync-images.sh 20072696",
     "validate:app": "node validate-app-entry.js",
-    "convert:images": "./convert-app-images.sh"
+    "convert:images": "node convert-app-images.js"
   },
   "repository": {
     "type": "git",
@@ -28,6 +28,7 @@
     "hugo-extended": "0.152.2",
     "js-yaml": "^4.1.0",
     "postcss-cli": "^11.0.0",
-    "rtlcss": "^4.3.0"
+    "rtlcss": "^4.3.0",
+    "sharp": "^0.33.5"
   }
 }
