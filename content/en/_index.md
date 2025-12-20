@@ -48,11 +48,6 @@ Organize your music into separate libraries with user-specific access controls (
 Converts/reduces your music files as you play them, so you don't nuke your data plan
 {{% /blocks/feature %}}
 
-{{% blocks/feature icon="fa-certificate" title="Modern and up-to-date" url="/docs/overview" %}}
-Built with new technologies ([GoLang](https://golang.org), [ReactJS](https://reactjs.org), [Material-UI](https://material-ui.com/)),
-to ensure modern features and compatibility
-{{% /blocks/feature %}}
-
 {{% blocks/feature icon="icon-subsonic" title="Subsonic API" url="/docs/overview/#apps" %}}
 Compatible with the de facto standard Music API, supporting all its clients and ecosystem
 {{% /blocks/feature %}}
