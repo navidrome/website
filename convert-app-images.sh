@@ -48,18 +48,7 @@ convert_image() {
     local output_file="${input_file%.*}.webp"
     local temp_file="${input_file}.resized.tmp"
     
-    # Skip if already a webp file
-    if [[ "$input_file" == *.webp ]]; then
-        return
-    fi
-    
-    # Skip if output already exists
-    if [ -f "$output_file" ]; then
-        echo "  ✓ $output_file already exists, skipping"
-        return
-    fi
-    
-    # Get image dimensions
+    # Get image dimensions first
     width=$(sips -g pixelWidth "$input_file" | tail -n1 | awk '{print $2}')
     height=$(sips -g pixelHeight "$input_file" | tail -n1 | awk '{print $2}')
     
@@ -69,18 +58,37 @@ convert_image() {
         max_dimension=$height
     fi
     
-    # Skip if image is already smaller than MAX_SIZE
-    if [ "$max_dimension" -le "$MAX_SIZE" ]; then
-        echo "  ⊘ Skipping $input_file (${width}x${height}) - already smaller than ${MAX_SIZE}px"
+    # Skip ONLY if already webp AND smaller than MAX_SIZE
+    if [[ "$input_file" == *.webp ]] && [ "$max_dimension" -le "$MAX_SIZE" ]; then
+        echo "  ⊘ Skipping $input_file (${width}x${height}) - already WebP and smaller than ${MAX_SIZE}px"
         return
     fi
     
-    # Process image (only if larger than MAX_SIZE)
-    echo "  → Resizing and converting $input_file (${width}x${height})"
-    # Resize to max dimension while maintaining aspect ratio
-    sips -Z "$MAX_SIZE" "$input_file" --out "$temp_file" > /dev/null 2>&1
-    cwebp -q "$QUALITY" "$temp_file" -o "$output_file" > /dev/null 2>&1
-    rm "$temp_file"
+    # If already webp but too large, resize it in place
+    if [[ "$input_file" == *.webp ]]; then
+        echo "  → Resizing $input_file (${width}x${height})"
+        sips -Z "$MAX_SIZE" "$input_file" --out "$temp_file" > /dev/null 2>&1
+        mv "$temp_file" "$input_file"
+        echo "  ✓ Resized $input_file"
+        return
+    fi
+    
+    # For non-webp files: check if output already exists
+    if [ -f "$output_file" ]; then
+        echo "  ✓ $output_file already exists, skipping"
+        return
+    fi
+    
+    # Process non-webp image
+    if [ "$max_dimension" -gt "$MAX_SIZE" ]; then
+        echo "  → Resizing and converting $input_file (${width}x${height})"
+        sips -Z "$MAX_SIZE" "$input_file" --out "$temp_file" > /dev/null 2>&1
+        cwebp -q "$QUALITY" "$temp_file" -o "$output_file" > /dev/null 2>&1
+        rm "$temp_file"
+    else
+        echo "  → Converting $input_file (${width}x${height})"
+        cwebp -q "$QUALITY" "$input_file" -o "$output_file" > /dev/null 2>&1
+    fi
     
     echo "  ✓ Created $output_file"
     

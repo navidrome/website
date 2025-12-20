@@ -6,5 +6,5 @@ apis:
   - OpenSubsonic
 description: "A free Subsonic desktop application for Mac with a clean user interface. Features cache streaming and download capabilities for offline listening."
 screenshots:
-  thumbnail: thumbnail.png
+  thumbnail: thumbnail.webp
 repoUrl: https://github.com/submariner-io/submariner
