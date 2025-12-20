@@ -41,6 +41,12 @@
     padding: 1.5rem;
     margin-bottom: 1rem;
 
+    // Dark mode support
+    [data-bs-theme="dark"] & {
+      background: #212529;
+      border-color: #495057;
+    }
+
     @media (max-width: 768px) {
       display: none; // Hidden by default on mobile
 
@@ -72,6 +78,16 @@
       font-size: 1rem;
       transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 
+      [data-bs-theme="dark"] & {
+        background: #343a40;
+        border-color: #495057;
+        color: #f8f9fa;
+
+        &::placeholder {
+          color: #adb5bd;
+        }
+      }
+
       &:focus {
         outline: none;
         border-color: #80bdff;
@@ -95,6 +111,10 @@
     margin-right: 0.75rem;
     color: #495057;
     white-space: nowrap;
+
+    [data-bs-theme="dark"] & {
+      color: #adb5bd;
+    }
   }
 
   // Checkbox containers
@@ -116,6 +136,12 @@
     transition: all 0.15s ease-in-out;
     user-select: none;
 
+    [data-bs-theme="dark"] & {
+      background: #343a40;
+      border-color: #495057;
+      color: #f8f9fa;
+    }
+
     input[type="checkbox"] {
       margin-right: 0.375rem;
       cursor: pointer;
@@ -132,6 +158,10 @@
     &:hover {
       background: #f8f9fa;
       border-color: #80bdff;
+
+      [data-bs-theme="dark"] & {
+        background: #495057;
+      }
     }
 
     input[type="checkbox"]:checked + span,
@@ -139,6 +169,12 @@
       background: #e7f3ff;
       border-color: #007bff;
       font-weight: 500;
+
+      [data-bs-theme="dark"] & {
+        background: #0d3a5f;
+        border-color: #0d6efd;
+        color: #cfe2ff;
+      }
     }
   }
 
@@ -210,6 +246,12 @@
     transition: all 0.15s ease-in-out;
     white-space: nowrap;
 
+    [data-bs-theme="dark"] & {
+      background: #212529;
+      color: #ea868f;
+      border-color: #b02a37;
+    }
+
     i {
       margin-right: 0.25rem;
     }
@@ -217,6 +259,11 @@
     &:hover {
       background: #dc3545;
       color: white;
+
+      [data-bs-theme="dark"] & {
+        background: #b02a37;
+        color: white;
+      }
     }
 
     @media (max-width: 768px) {
@@ -230,10 +277,18 @@
     border-top: 1px solid #dee2e6;
     margin-top: 1rem;
 
+    [data-bs-theme="dark"] & {
+      border-top-color: #495057;
+    }
+
     #results-count {
       color: #6c757d;
       font-size: 0.9rem;
       font-style: italic;
+
+      [data-bs-theme="dark"] & {
+        color: #adb5bd;
+      }
     }
   }
 
@@ -242,6 +297,10 @@
     text-align: center;
     padding: 3rem 1rem;
     color: #6c757d;
+
+    [data-bs-theme="dark"] & {
+      color: #adb5bd;
+    }
 
     i {
       font-size: 3rem;
@@ -257,6 +316,10 @@
     .empty-state-hint {
       font-size: 0.9rem;
       color: #868e96;
+
+      [data-bs-theme="dark"] & {
+        color: #6c757d;
+      }
     }
   }
 }
