@@ -3,8 +3,7 @@ url: https://ultrasonic.gitlab.io/
 platforms:
   android:
     store: https://play.google.com/store/apps/details?id=org.moire.ultrasonic
-apis:
-  - Subsonic
+api: Subsonic
 description: "Free and open-source music streaming Android client for Subsonic API compatible servers. Features include offline mode, multiple server support, Material You theming with dark/light variants, bookmarks, playlists, and jukebox mode."
 screenshots:
   thumbnail: thumbnail.webp

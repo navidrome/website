@@ -3,8 +3,7 @@ url: https://eddyizm.github.io/tempus/
 platforms:
   android:
     store: https://eddyizm.github.io/tempus/
-apis:
-  - Subsonic
+api: Subsonic
 description: "An open-source and lightweight music client for Subsonic, designed natively for Android. Fork of Tempo that provides seamless music streaming with gapless playback, Android Auto, Chromecast, Last.fm/ListenBrainz scrobbling, podcast and radio support, and multi-library support."
 screenshots:
   thumbnail: screen1.webp

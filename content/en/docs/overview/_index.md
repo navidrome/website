@@ -61,9 +61,9 @@ browsing by folders, but simulates it based on the tags with a structure like:
 
 ## Apps
 
-Navidrome features a modern, responsive Web UI built with Material UI and React. Beyond the built-in web interface, Navidrome is compatible with a wide ecosystem of Subsonic and OpenSubsonic clients across all major platforms—including mobile apps for iOS and Android, desktop applications for Windows, macOS, and Linux, as well as specialized clients for Android TV, CarPlay, and Android Auto.
+Navidrome features a modern, responsive Web UI built with Material UI and React. Beyond the built-in web interface, Navidrome is compatible with a wide ecosystem of Subsonic and OpenSubsonic clients across all major platforms, including mobile apps for iOS and Android, desktop applications for Windows, macOS, and Linux, as well as specialized clients for Android TV, CarPlay, and Android Auto.
 
-Whether you prefer streaming on the go, managing your library from your desktop, or casting to your home entertainment system, there's a client app tailored to your needs. Check out our comprehensive [client apps directory](/apps/) to find the perfect player for your setup!
+Whether you prefer streaming on the go, listening to your library from your desktop, or casting to your home entertainment system, there's a client app tailored to your needs. Check out our comprehensive [client apps directory](/apps/) to find the perfect player for your setup!
 
 ## Road map
 

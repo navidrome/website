@@ -4,8 +4,7 @@ platforms:
   ios:
     store: https://apps.apple.com/app/amperfy-music/id1530145038
   macos: true
-apis:
-  - OpenSubsonic
+api: OpenSubsonic
 description: "An iOS/iPadOS/macOS music player with offline support, CarPlay integration, podcasts, equalizer, replay gain, and Siri voice commands. Features dark mode and full Apple ecosystem integration."
 screenshots:
   thumbnail: thumbnail.webp

@@ -3,8 +3,7 @@ url: https://symfonium.app/
 platforms:
   android:
     store: https://play.google.com/store/apps/details?id=app.symfonik.music.player
-apis:
-  - OpenSubsonic
+api: OpenSubsonic
 description: "A modern, highly customizable Android music player that aggregates music from multiple sources. Features advanced audio capabilities including up to 256-band equalizer, AutoEQ support, gapless playback, Android Auto, Wear OS support, and extensive format support."
 screenshots:
   thumbnail: screen1.webp

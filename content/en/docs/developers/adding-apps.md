@@ -46,7 +46,7 @@ Use the template at [`assets/apps/_template/index.yaml`](https://github.com/navi
 | `name` | Display name of your app |
 | `url` | Official app website or homepage |
 | `platforms` | At least one platform (see below) |
-| `apis` | Supported APIs: `OpenSubsonic`, `Subsonic`, and/or `Navidrome` |
+| `api` | Supported API: `OpenSubsonic`, `Subsonic`, or `Navidrome` |
 | `description` | Brief description (1-2 sentences) |
 | `screenshots.thumbnail` | Filename of thumbnail image |
 
@@ -83,9 +83,7 @@ platforms:
   web: true
   linux: true
 
-apis:
-  - OpenSubsonic
-  - Subsonic
+api: OpenSubsonic
 
 description: A beautiful music player with offline support and gapless playback.
 

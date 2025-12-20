@@ -3,8 +3,7 @@ url: https://github.com/namehillsoftware/projectBlue
 platforms:
   android:
     store: https://play.google.com/store/apps/details?id=com.lasthopesoftware.bluewater
-apis:
-  - Subsonic
+api: Subsonic
 description: "An open-source streaming music client for JRiver Media Center and Subsonic servers with features including audio file caching, device synchronization, local file playback, and Android TV support."
 screenshots:
   thumbnail: screen1.webp

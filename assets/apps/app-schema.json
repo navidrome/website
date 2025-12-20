@@ -7,7 +7,7 @@
     "name",
     "url",
     "platforms",
-    "apis",
+    "api",
     "description",
     "screenshots"
   ],
@@ -84,14 +84,10 @@
       },
       "additionalProperties": false
     },
-    "apis": {
-      "type": "array",
-      "minItems": 1,
-      "uniqueItems": true,
-      "items": {
-        "type": "string",
-        "enum": ["OpenSubsonic", "Subsonic", "Navidrome"]
-      }
+    "api": {
+      "type": "string",
+      "enum": ["OpenSubsonic", "Subsonic", "Navidrome"],
+      "description": "API supported by the app"
     },
     "description": {
       "type": "string",

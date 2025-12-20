@@ -2,8 +2,7 @@ name: Submariner
 url: https://submariner.io/
 platforms:
   macos: true
-apis:
-  - OpenSubsonic
+api: OpenSubsonic
 description: "A free Subsonic desktop application for Mac with a clean user interface. Features cache streaming and download capabilities for offline listening."
 screenshots:
   thumbnail: thumbnail.webp

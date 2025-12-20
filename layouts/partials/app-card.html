@@ -4,7 +4,7 @@
 {{ $url := .url }}
 {{ $description := .description }}
 {{ $platforms := .platforms }}
-{{ $apis := .apis }}
+{{ $api := .api }}
 {{ $screenshots := .screenshots }}
 {{ $repoUrl := .repoUrl }}
 
@@ -23,11 +23,7 @@
 {{ if $platforms.other }}{{ $platformsList = $platformsList | append "other" }}{{ end }}
 {{ $platformsAttr := delimit $platformsList " " }}
 
-{{ $apisLower := slice }}
-{{ range $apis }}
-  {{ $apisLower = $apisLower | append (lower .) }}
-{{ end }}
-{{ $apisAttr := delimit $apisLower " " }}
+{{ $apiLower := lower $api }}
 
 {{ $ossAttr := cond $repoUrl "true" "false" }}
 
@@ -35,7 +31,7 @@
 
 <div class="app-card" 
      data-platforms="{{ $platformsAttr }}" 
-     data-apis="{{ $apisAttr }}" 
+     data-apis="{{ $apiLower }}" 
      data-oss="{{ $ossAttr }}" 
      data-searchable="{{ $searchable }}">
   <div class="app-thumbnail-container" data-app-id="{{ $appId }}">
@@ -102,10 +98,8 @@
 
       {{/* API badges */}}
       <div class="app-apis">
-        {{ range $apis }}
-          {{ $apiClass := . | lower | replaceRE "[^a-z0-9]+" "-" }}
-          <span class="api-badge api-{{ $apiClass }}">{{ . }}</span>
-        {{ end }}
+        {{ $apiClass := $api | lower | replaceRE "[^a-z0-9]+" "-" }}
+        <span class="api-badge api-{{ $apiClass }}">{{ $api }}</span>
       </div>
     </div>
   </div>

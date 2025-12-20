@@ -3,8 +3,7 @@ url: https://github.com/paroj/DSub2000
 platforms:
   android:
     store: https://github.com/paroj/DSub2000/releases
-apis:
-  - Subsonic
+api: Subsonic
 description: "An Android client for Subsonic servers and a fork of the original DSub project. Features drag-and-drop playlist management, gapless playback, lockscreen controls, and a highly customizable UI with user-defined cache size and network settings."
 screenshots:
   thumbnail: 1.webp

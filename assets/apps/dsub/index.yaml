@@ -3,8 +3,7 @@ url: https://github.com/daneren2005/Subsonic
 platforms:
   android:
     store: https://github.com/daneren2005/Subsonic/releases
-apis:
-  - Subsonic
+api: Subsonic
 description: "A comprehensive Android music streaming app with automatic full song caching, gapless playback, jukebox mode, podcast support, and Bluetooth controls. Features infinite shuffle playlists based on folders, years, and genres."
 screenshots:
   thumbnail: thumbnail.webp
