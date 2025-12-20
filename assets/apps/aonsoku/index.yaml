@@ -9,9 +9,9 @@ apis:
   - OpenSubsonic
 description: "A modern desktop client for Navidrome/Subsonic servers built with React and Electron. Features include podcast support, synchronized and unsynchronized lyrics from LRCLIB, radio support, scrobbling, and an intuitive modern interface."
 screenshots:
-  thumbnail: thumbnail.png
+  thumbnail: thumbnail.webp
   gallery:
-    - screen1.png
-    - screen2.png
-    - screen3.png
+    - screen1.webp
+    - screen2.webp
+    - screen3.webp
 repoUrl: https://github.com/victoralvesf/aonsoku

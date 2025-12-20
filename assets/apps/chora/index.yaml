@@ -7,9 +7,9 @@ apis:
   - Subsonic
 description: "A simple and lightweight music player that streams music from Subsonic or Navidrome servers, or from local phone storage. Features Material 3 UI, offline mode with downloads, synced/unsynced lyrics, transcoding support, and Android Auto compatibility."
 screenshots:
-  thumbnail: thumbnail.png
+  thumbnail: thumbnail.webp
   gallery:
-    - screen1.png
-    - screen2.png
-    - screen3.png
+    - screen1.webp
+    - screen2.webp
+    - screen3.webp
 repoUrl: https://github.com/CraftWorksMC/Chora

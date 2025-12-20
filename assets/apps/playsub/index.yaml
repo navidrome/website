@@ -7,7 +7,7 @@ apis:
   - Subsonic
 description: "A beautifully designed iOS music streaming client with intuitive interface. Browse by folder or ID3-tags, automatic and manual caching, random discovery, and full iOS integration including AirPlay, Bluetooth, and lockscreen controls."
 screenshots:
-  thumbnail: thumbnail.png
+  thumbnail: thumbnail.webp
   gallery:
-    - screen1.png
-    - screen2.png
+    - screen1.webp
+    - screen2.webp

@@ -11,6 +11,6 @@ apis:
   - Navidrome
 description: "Cross-platform NAS music player supporting multiple servers with CarPlay, Android Auto, desktop lyrics, mini window mode, and global hotkeys. Features lyrics display, music roaming for discovery, desktop widgets, iOS shortcuts integration, and DLNA casting."
 screenshots:
-  thumbnail: thumbnail.png
+  thumbnail: thumbnail.webp
   gallery:
     - screen1.png

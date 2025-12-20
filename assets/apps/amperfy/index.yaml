@@ -8,8 +8,8 @@ apis:
   - OpenSubsonic
 description: "An iOS/iPadOS/macOS music player with offline support, CarPlay integration, podcasts, equalizer, replay gain, and Siri voice commands. Features dark mode and full Apple ecosystem integration."
 screenshots:
-  thumbnail: thumbnail.png
+  thumbnail: thumbnail.webp
   gallery:
-    - screen1.png
-    - screen2.png
+    - screen1.webp
+    - screen2.webp
 repoUrl: https://github.com/BLeeEZ/amperfy

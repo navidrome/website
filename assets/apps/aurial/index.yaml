@@ -6,9 +6,9 @@ apis:
   - Subsonic
 description: "A browser-based HTML/JavaScript client for streaming music from Subsonic-compatible servers. Provides a simple, intuitive interface focused exclusively on music library browsing and playback without requiring Flash plugins."
 screenshots:
-  thumbnail: screen1.png
+  thumbnail: screen1.webp
   gallery:
-    - screen2.png
-    - screen3.png
+    - screen2.webp
+    - screen3.webp
     - screen4.png
 repoUrl: https://github.com/shrimpza/aurial

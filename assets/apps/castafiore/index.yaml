@@ -8,8 +8,8 @@ apis:
   - Subsonic
 description: "A music player supporting Navidrome and Subsonic API, available as a PWA and Android app. Features customizable home page, offline music, favorites, playlists, radio, lyrics, and Listenbrainz integration."
 screenshots:
-  thumbnail: screen1.png
+  thumbnail: screen1.webp
   gallery:
-    - screen2.png
-    - screen3.png
+    - screen2.webp
+    - screen3.webp
 repoUrl: https://github.com/sawyerf/Castafiore
