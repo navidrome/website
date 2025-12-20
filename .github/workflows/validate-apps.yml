@@ -62,6 +62,49 @@ jobs:
 
                   echo "apps=$validated_apps" >> $GITHUB_OUTPUT
 
+            - name: Check image optimization
+              id: check-images
+              if: steps.detect.outputs.apps != ''
+              run: |
+                  apps="${{ steps.detect.outputs.apps }}"
+
+                  echo "Checking if images need optimization..."
+
+                  # Run convert script on each app
+                  for app in $apps; do
+                    echo "Processing $app..."
+                    ./convert-app-images.sh "$app" || true
+                  done
+
+                  # Check if any files were modified
+                  if git diff --quiet; then
+                    echo "images_optimized=false" >> $GITHUB_OUTPUT
+                    echo "✅ All images are already optimized"
+                  else
+                    echo "images_optimized=true" >> $GITHUB_OUTPUT
+                    echo "modified_files<<EOF" >> $GITHUB_OUTPUT
+                    git diff --name-only >> $GITHUB_OUTPUT
+                    echo "EOF" >> $GITHUB_OUTPUT
+                    
+                    echo "❌ Images need optimization!"
+                    echo "Modified files:"
+                    git diff --name-only
+                  fi
+
+            - name: Fail if images not optimized
+              if: steps.check-images.outputs.images_optimized == 'true'
+              run: |
+                  echo "::error::Images need to be optimized. Please run './convert-app-images.sh <app-name>' locally and commit the changes."
+                  echo ""
+                  echo "Modified files:"
+                  echo "${{ steps.check-images.outputs.modified_files }}"
+                  echo ""
+                  echo "To fix this, run the following command locally:"
+                  echo "  ./convert-app-images.sh <your-app-name>"
+                  echo ""
+                  echo "Then commit and push the optimized images."
+                  exit 1
+
             - name: Validate apps
               id: validate
               if: steps.detect.outputs.apps != ''

@@ -13,15 +13,21 @@ To add your app to the listing:
 3. **Add screenshots** to the same folder:
    - `thumbnail.png` (required) - Max 400x400px
    - Additional gallery images (optional) - Max 1200x1200px each
-   - Formats: PNG or WebP preferred
+   - Formats: WebP preferred, PNG or JPEG acceptable (will be converted to WebP in the next step)
 
-4. **Validate your app** (optional but recommended):
+4. **Process your images** (required if your image formats or sizes don't meet guidelines):
+   ```bash
+   ./convert-app-images.sh <your-app-name>
+   ```
+   This will automatically convert and optimize your images to WebP format with max 1200px dimension. You'll need cwebp installed for this script to work. Install it via your package manager (e.g., `brew install webp` on macOS).
+
+5. **Validate your app** (optional but recommended):
    ```bash
    npm install  # Install dependencies first
    npm run validate:app <your-app-name>
    ```
 
-5. **Submit a Pull Request** with your new app folder
+6. **Submit a Pull Request** with your new app folder
 
 ## App Folder Structure
 
@@ -57,10 +63,10 @@ Your `index.yaml` must include:
 
 - **Thumbnail**: 1200x1200px max, square aspect ratio preferred
 - **Gallery images**: 1200x1200px max, any aspect ratio
-- **Formats**: WebP recommended (PNG or JPEG will be auto-converted)
+- **Formats**: WebP only
 - **File size**: Keep under 500KB per image when possible
 
-All images are automatically converted to WebP format and resized to max 1200px during build.
+**Note**: Please run `./convert-app-images.sh <your-app-name>` on your app entry before submitting. This will automatically convert your images to WebP format, resize them to max 1200px, and optimize file sizes.
 
 ## Validating Your App Entry
 
