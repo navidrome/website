@@ -299,7 +299,7 @@ class AppValidator {
     }
     await this.validateUrls(data);
 
-    this.printResults();
+    return this.printResults();
   }
 
   // Print validation results
