@@ -4,9 +4,13 @@ platforms:
   android:
     store: https://github.com/daneren2005/Subsonic/releases
 api: Subsonic
-description: "A comprehensive Android music streaming app with automatic full song caching, gapless playback, jukebox mode, podcast support, and Bluetooth controls. Features infinite shuffle playlists based on folders, years, and genres."
+description: "A comprehensive Android music streaming app with automatic full song caching, gapless playback, jukebox mode, and Bluetooth controls. Features infinite shuffle playlists based on folders, years, and genres."
 screenshots:
   thumbnail: thumbnail.webp
   gallery:
     - screen1.webp
 repoUrl: https://github.com/daneren2005/Subsonic
+keywords:
+  - offline
+  - chromecast
+  - android auto
