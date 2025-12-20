@@ -61,84 +61,9 @@ browsing by folders, but simulates it based on the tags with a structure like:
 
 ## Apps
 
-Besides its own Web UI, Navidrome should be compatible with all Subsonic clients. The following clients are tested by the community and
-confirmed to work properly:
+Navidrome features a modern, responsive Web UI built with Material UI and React. Beyond the built-in web interface, Navidrome is compatible with a wide ecosystem of Subsonic and OpenSubsonic clients across all major platforms—including mobile apps for iOS and Android, desktop applications for Windows, macOS, and Linux, as well as specialized clients for Android TV, CarPlay, and Android Auto.
 
-{{< tabpane text=true >}}
-
-{{% tab header="Android" %}}
-
-- [Symfonium](https://symfonium.app/)
-- [Musiver](https://music.aqzscn.cn/docs/versions/latest/)
-- [substreamer](https://substreamerapp.com/)
-- [DSub2000](https://github.com/paroj/DSub2000) (fork of DSub)
-- [Tempus](https://eddyizm.github.io/tempus/) (fork of Tempo)
-- [Chora](https://github.com/CraftWorksMC/Chora)
-- [Castafiore](https://github.com/sawyerf/Castafiore)
-- [DSub](https://f-droid.org/en/packages/github.daneren2005.dsub/)
-- [Tempo](https://github.com/CappielloAntonio/tempo#readme)
-- [Subtracks](https://github.com/austinried/subtracks#readme)
-- [Ultrasonic](https://ultrasonic.gitlab.io/)
-- [project blue](https://github.com/namehillsoftware/projectBlue)
-  {{% /tab %}}
-
-{{% tab header="iOS" %}}
-
-- [play:Sub](http://michaelsapps.dk/playsubapp/)
-- [Musiver](https://apps.apple.com/ca/app/musiver-enjoy-music/id6449966496)
-- [substreamer](https://substreamerapp.com/)
-- [Arpeggi](https://www.reddit.com/r/arpeggiApp/)
-- [Narjo](https://www.reddit.com/r/NarjoApp/)
-- [Nautiline](https://nautiline.app/)
-- [Amperfy](https://github.com/BLeeEZ/amperfy#readme)
-- [flo](https://client.flooo.club/)
-- [iSub](https://isub.app/)
-  {{% /tab %}}
-
-{{% tab header="Web" %}}
-
-- [Feishin](https://feishin.vercel.app/)
-- [Airsonic Refix](https://airsonic-refix.netlify.app/)
-- [Castafiore](https://sawyerf.github.io/Castafiore/)
-- [Aonsoku](https://aonsoku.vercel.app/)
-- [Thunderdrome](https://thunderdrome.netlify.app/)
-- [Subplayer](https://subplayer.netlify.app/)
-- [Aurial](https://shrimpza.github.io/aurial/)
-- [Subfire](https://p.subfireplayer.net/)
-- [Jamstash](https://sqrlmstr5000.github.io/Jamstash)
-  {{% /tab %}}
-
-{{% tab header="Desktop" %}}
-
-- [Feishin](https://github.com/jeffvli/feishin) <i class="fa-brands fa-windows" style="color:gray"/></i>&nbsp;<i class="fa-brands fa-apple" style="color:gray"></i>&nbsp;<i class="fa-brands fa-linux" style="color:gray"></i>
-- [Supersonic](https://github.com/dweymouth/supersonic) <i class="fa-brands fa-windows" style="color:gray"/></i>&nbsp;<i class="fa-brands fa-apple" style="color:gray"></i>&nbsp;<i class="fa-brands fa-linux" style="color:gray"></i>
-- [Submariner](https://submarinerapp.com/) <i class="fa-brands fa-apple" style="color:gray"></i>
-- [Musiver](https://music.aqzscn.cn/docs/versions/latest/) <i class="fa-brands fa-windows" style="color:gray"/></i>&nbsp;<i class="fa-brands fa-apple" style="color:gray"></i>
-- [Aonsoku](https://github.com/victoralvesf/aonsoku) <i class="fa-brands fa-windows" style="color:gray"/></i>&nbsp;<i class="fa-brands fa-apple" style="color:gray"></i>&nbsp;<i class="fa-brands fa-linux" style="color:gray"></i>
-- [Amperfy](https://github.com/BLeeEZ/amperfy#readme) <i class="fa-brands fa-apple" style="color:gray"></i>
-- [Sonixd](https://github.com/jeffvli/sonixd) (undergoing a full rewrite under the name Feishin) <i class="fa-brands fa-windows" style="color:gray"/></i>&nbsp;<i class="fa-brands fa-apple" style="color:gray"></i>&nbsp;<i class="fa-brands fa-linux" style="color:gray"></i>
-- [Sublime Music](https://sublimemusic.app/) (has reached [end of maintenance](http://sumnerevans.com/posts/projects/sublime-music-eom/)) <i class="fa-brands fa-linux" style="color:gray"></i>
-- CLI:
-  - [STMP](https://github.com/wildeyedskies/stmp#readme) <i class="fa-brands fa-apple" style="color:gray"></i>&nbsp;<i class="fa-brands fa-linux" style="color:gray"></i>
-  - [STMPS](https://github.com/spezifisch/stmps#readme) <i class="fa-brands fa-apple" style="color:gray"></i>&nbsp;<i class="fa-brands fa-linux" style="color:gray"></i>
-  - [termsonic](https://git.sixfoisneuf.fr/termsonic/about/) <i class="fa-brands fa-linux" style="color:gray"></i>
-  - [Jellycli](https://github.com/tryffel/jellycli#readme) <i class="fa-brands fa-windows" style="color:gray"/></i>&nbsp;<i class="fa-brands fa-linux" style="color:gray"></i>
-    {{% /tab %}}
-
-{{% tab header="Other" %}}
-
-- Apple TV:
-  - [SubSwift](https://apps.apple.com/us/app/subswift/id6504658929)
-- Connected Speakers:
-  - Sonos: [bonob](https://github.com/simojenki/bonob#readme)
-  - Alexa: [AskSonic](https://github.com/srichter/asksonic#readme)
-- Other:
-  - [Subsonic Kodi Plugin](https://github.com/warwickh/plugin.audio.subsonic#readme)
-  - [Navidrome Kodi Plugin](https://github.com/BobHasNoSoul/plugin.audio.navidrome#readme)
-  - [HTTPDirFS](https://github.com/fangfufu/httpdirfs#readme)
-  - [upmpdcli](https://www.lesbonscomptes.com/upmpdcli/index.html): expose Navidrome as a UPnP/DLNA media library. See the [discussion](https://github.com/navidrome/navidrome/discussions/2324).
-    {{% /tab %}}
-    {{< /tabpane >}}
+Whether you prefer streaming on the go, managing your library from your desktop, or casting to your home entertainment system, there's a client app tailored to your needs. Check out our comprehensive [client apps directory](/apps/) to find the perfect player for your setup!
 
 ## Road map
 
