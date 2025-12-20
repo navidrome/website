@@ -70,7 +70,7 @@
       {{/* Platform icons */}}
       <div class="app-platforms">
         {{ if $platforms.android }}
-          {{ if isset $platforms.android "store" }}
+          {{ if and (ne (printf "%T" $platforms.android) "bool") (isset $platforms.android "store") }}
             <a href="{{ $platforms.android.store }}" target="_blank" rel="noopener" title="Android">
               <i class="fab fa-android"></i>
             </a>
@@ -79,7 +79,7 @@
           {{ end }}
         {{ end }}
         {{ if $platforms.ios }}
-          {{ if isset $platforms.ios "store" }}
+          {{ if and (ne (printf "%T" $platforms.ios) "bool") (isset $platforms.ios "store") }}
             <a href="{{ $platforms.ios.store }}" target="_blank" rel="noopener" title="iOS">
               <i class="fab fa-apple"></i>
             </a>
@@ -88,7 +88,7 @@
           {{ end }}
         {{ end }}
         {{ if $platforms.macos }}
-          {{ if isset $platforms.macos "store" }}
+          {{ if and (ne (printf "%T" $platforms.macos) "bool") (isset $platforms.macos "store") }}
             <a href="{{ $platforms.macos.store }}" target="_blank" rel="noopener" title="macOS">
               <i class="fas fa-laptop"></i>
             </a>
