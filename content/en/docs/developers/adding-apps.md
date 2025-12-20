@@ -41,22 +41,24 @@ Use the template at [`assets/apps/_template/index.yaml`](https://github.com/navi
 
 ### Required Fields
 
-| Field | Description |
-|-------|-------------|
-| `name` | Display name of your app |
-| `url` | Official app website or homepage |
-| `platforms` | At least one platform (see below) |
-| `api` | Supported API: `OpenSubsonic`, `Subsonic`, or `Navidrome` |
-| `description` | Brief description (1-2 sentences) |
-| `screenshots.thumbnail` | Filename of thumbnail image |
+| Field                   | Description                                               |
+|-------------------------|-----------------------------------------------------------|
+| `name`                  | Display name of your app                                  |
+| `url`                   | Official app website or homepage                          |
+| `platforms`             | At least one platform (see below)                         |
+| `api`                   | Supported API: `OpenSubsonic`, `Subsonic`, or `Navidrome` |
+| `description`           | Brief description (1-2 sentences)                         |
+| `screenshots.thumbnail` | Filename of thumbnail image                               |
 
 ### Optional Fields
 
-| Field | Description |
-|-------|-------------|
-| `repoUrl` | GitHub repository URL (displays an open source badge) |
-| `screenshots.gallery` | Array of additional screenshot filenames |
-| `platforms.*.store` | Platform-specific store URLs |
+| Field                 | Description                                                 |
+|-----------------------|-------------------------------------------------------------|
+| `repoUrl`             | GitHub repository URL (displays an open source badge)       |
+| `isFree`              | Whether the app is free (no purchase required) - boolean    |
+| `keywords`            | Additional search terms (max 6) - not displayed on app card |
+| `screenshots.gallery` | Array of additional screenshot filenames                    |
+| `platforms.*.store`   | Platform-specific store URLs                                |
 
 ### Supported Platforms
 
