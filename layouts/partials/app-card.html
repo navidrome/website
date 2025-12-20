@@ -20,6 +20,7 @@
 {{ if $platforms.linux }}{{ $platformsList = $platformsList | append "linux" }}{{ end }}
 {{ if $platforms.macos }}{{ $platformsList = $platformsList | append "macos" }}{{ end }}
 {{ if $platforms.web }}{{ $platformsList = $platformsList | append "web" }}{{ end }}
+{{ if $platforms.other }}{{ $platformsList = $platformsList | append "other" }}{{ end }}
 {{ $platformsAttr := delimit $platformsList " " }}
 
 {{ $apisLower := slice }}
