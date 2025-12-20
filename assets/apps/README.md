@@ -34,15 +34,16 @@ Your `index.yaml` must include:
 
 - `name` - Display name of your app
 - `url` - Official app website or homepage
-- `platforms` - At least one platform (android, ios, windows, linux, macos, web)
-- `apis` - Supported APIs (`opensubsonic` and/or `navidrome`)
+- `platforms` - At least one platform (android, ios, macos, windows, linux, web)
+- `apis` - Supported APIs (`OpenSubsonic`, `Subsonic`, and/or `Navidrome`)
 - `description` - Brief description (1-2 sentences)
 - `screenshots.thumbnail` - Path to thumbnail image (relative to folder)
 
 ## Optional Fields
 
 - `platforms.android.store` - Google Play Store URL
-- `platforms.ios.store` - Apple App Store URL  
+- `platforms.ios.store` - Apple App Store URL
+- `platforms.macos.store` - Mac App Store URL (optional, set to `true` if no store link)
 - `screenshots.gallery` - Array of additional screenshot paths
 - `repoUrl` - GitHub repository URL (displays OSS badge)
 

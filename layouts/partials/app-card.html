@@ -38,7 +38,7 @@
       {{/* Platform icons */}}
       <div class="app-platforms">
         {{ if $platforms.android }}
-          {{ if $platforms.android.store }}
+          {{ if isset $platforms.android "store" }}
             <a href="{{ $platforms.android.store }}" target="_blank" rel="noopener" title="Android">
               <i class="fab fa-android"></i>
             </a>
@@ -47,12 +47,21 @@
           {{ end }}
         {{ end }}
         {{ if $platforms.ios }}
-          {{ if $platforms.ios.store }}
+          {{ if isset $platforms.ios "store" }}
             <a href="{{ $platforms.ios.store }}" target="_blank" rel="noopener" title="iOS">
+              <i class="fas fa-mobile-alt"></i>
+            </a>
+          {{ else }}
+            <span title="iOS"><i class="fas fa-mobile-alt"></i></span>
+          {{ end }}
+        {{ end }}
+        {{ if $platforms.macos }}
+          {{ if isset $platforms.macos "store" }}
+            <a href="{{ $platforms.macos.store }}" target="_blank" rel="noopener" title="macOS">
               <i class="fab fa-apple"></i>
             </a>
           {{ else }}
-            <span title="iOS"><i class="fab fa-apple"></i></span>
+            <span title="macOS"><i class="fab fa-apple"></i></span>
           {{ end }}
         {{ end }}
         {{ if $platforms.windows }}
@@ -60,9 +69,6 @@
         {{ end }}
         {{ if $platforms.linux }}
           <span title="Linux"><i class="fab fa-linux"></i></span>
-        {{ end }}
-        {{ if $platforms.macos }}
-          <span title="macOS"><i class="fab fa-apple"></i></span>
         {{ end }}
         {{ if $platforms.web }}
           <span title="Web"><i class="fas fa-globe"></i></span>
@@ -72,7 +78,8 @@
       {{/* API badges */}}
       <div class="app-apis">
         {{ range $apis }}
-          <span class="api-badge">{{ . }}</span>
+          {{ $apiClass := . | lower | replaceRE "[^a-z0-9]+" "-" }}
+          <span class="api-badge api-{{ $apiClass }}">{{ . }}</span>
         {{ end }}
       </div>
     </div>
