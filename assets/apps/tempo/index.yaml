@@ -1,0 +1,13 @@
+name: Tempo
+url: https://github.com/CappielloAntonio/tempo
+platforms:
+  android: true
+apis:
+  - OpenSubsonic
+description: "Open-source and lightweight music client for Subsonic, built natively for Android with Material You design. Features gapless playback, Android Auto support, Chromecast, Last.fm scrobbling, and offline mode."
+screenshots:
+  thumbnail: thumbnail.png
+  gallery:
+    - screen1.png
+    - screen2.png
+repoUrl: https://github.com/CappielloAntonio/tempo

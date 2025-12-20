@@ -1,0 +1,16 @@
+name: Musiver
+url: https://music.aqzscn.cn/
+platforms:
+  android: true
+  ios:
+    store: https://apps.apple.com/app/id6449966496
+  windows:
+    store: https://apps.microsoft.com/detail/9ng5zw78qc1s
+  macos: true
+apis:
+  - Navidrome
+description: "Cross-platform NAS music player supporting multiple servers with CarPlay, Android Auto, desktop lyrics, mini window mode, and global hotkeys. Features lyrics display, music roaming for discovery, desktop widgets, iOS shortcuts integration, and DLNA casting."
+screenshots:
+  thumbnail: thumbnail.png
+  gallery:
+    - screen1.png

@@ -6,7 +6,7 @@ platforms:
   linux: true
   web: true
 apis:
-  - OpenSubsonic
+  - Navidrome
 description: "A modern self-hosted music player with MPV and web player backends, featuring a modern UI, smart playlist editor for Navidrome, synchronized/unsynchronized lyrics support, and scrobbling capabilities. Rewrite of Sonixd with enhanced features."
 screenshots:
   thumbnail: screen1.png

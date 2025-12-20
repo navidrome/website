@@ -4,7 +4,6 @@ platforms:
   ios:
     store: https://apps.apple.com/app/isub-music-streamer/id362920532
 apis:
-  - OpenSubsonic
   - Subsonic
 description: "Stream your personal music collection from your home computer directly to your iPhone or iPad with native support for multiple formats. Features gapless playback, full parametric equalizer, automatic caching, and works with any Subsonic-compatible server."
 screenshots:

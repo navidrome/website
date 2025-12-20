@@ -1,0 +1,17 @@
+name: Supersonic
+url: https://github.com/dweymouth/supersonic
+platforms:
+  macos: true
+  windows: true
+  linux: true
+  other: true
+apis:
+  - OpenSubsonic
+description: "A lightweight cross-platform desktop client featuring high-quality gapless playback powered by MPV, with waveform seekbar, built-in 15-band equalizer, and ReplayGain support. Offers native UI with light/dark themes, MPRIS/SMTC media integration, lyrics support, DLNA casting, and comprehensive library management."
+screenshots:
+  thumbnail: thumbnail.png
+  gallery:
+    - screen1.png
+    - screen2.png
+    - screen3.png
+repoUrl: https://github.com/dweymouth/supersonic

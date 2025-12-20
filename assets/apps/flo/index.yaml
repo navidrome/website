@@ -4,8 +4,7 @@ platforms:
   ios:
     store: https://apps.apple.com/id/app/flo-navidrome-client/id6529533140
 apis:
-  - OpenSubsonic
-  - Subsonic
+  - Navidrome
 description: "An open source Navidrome client written in Swift with a modern SwiftUI interface. Free app with offline listening and scrobbling support for ListenBrainz and Last.fm."
 screenshots:
   thumbnail: thumbnail.png
