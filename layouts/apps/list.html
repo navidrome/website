@@ -1,9 +1,8 @@
 {{ define "main" }}
 
-<div class="td-content">
-  <h1>{{ .Title }}</h1>
-  {{ .Content }}
+{{ .Content }}
 
+<div class="td-content">
   {{/* Load all app data from apps/ directory */}}
   {{ $apps := slice }}
   {{ range (resources.Match "apps/*/index.yaml") }}

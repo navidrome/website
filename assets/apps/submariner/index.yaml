@@ -1,0 +1,9 @@
+name: Submariner
+url: http://www.read-write.fr/subapp/index.php
+platforms:
+  macos: true
+apis:
+  - opensubsonic
+description: "A free Subsonic desktop application for Mac with a clean user interface. Features cache streaming and download capabilities for offline listening."
+screenshots:
+  thumbnail: thumbnail.png

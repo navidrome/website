@@ -1,0 +1,15 @@
+name: Amperfy
+url: https://github.com/BLeeEZ/amperfy
+platforms:
+  ios:
+    store: https://apps.apple.com/app/amperfy-music/id1530145038
+  macos: true
+apis:
+  - opensubsonic
+description: "An iOS/iPadOS/macOS music player with offline support, CarPlay integration, podcasts, equalizer, replay gain, and Siri voice commands. Features dark mode and full Apple ecosystem integration."
+screenshots:
+  thumbnail: thumbnail.png
+  gallery:
+    - screen1.png
+    - screen2.png
+repoUrl: https://github.com/BLeeEZ/amperfy
