@@ -12,15 +12,27 @@ const path = require("path");
 const https = require("https");
 const http = require("http");
 
-// Color codes for terminal output
-const colors = {
-  reset: "\x1b[0m",
-  red: "\x1b[31m",
-  green: "\x1b[32m",
-  yellow: "\x1b[33m",
-  blue: "\x1b[34m",
-  cyan: "\x1b[36m",
-};
+// Detect if running in CI environment
+const isCI = process.env.CI === "true" || process.env.GITHUB_ACTIONS === "true";
+
+// Color codes for terminal output (disabled in CI)
+const colors = isCI
+  ? {
+      reset: "",
+      red: "",
+      green: "",
+      yellow: "",
+      blue: "",
+      cyan: "",
+    }
+  : {
+      reset: "\x1b[0m",
+      red: "\x1b[31m",
+      green: "\x1b[32m",
+      yellow: "\x1b[33m",
+      blue: "\x1b[34m",
+      cyan: "\x1b[36m",
+    };
 
 class AppValidator {
   constructor(appName) {
@@ -38,7 +50,12 @@ class AppValidator {
   }
 
   log(message, color = "reset") {
-    console.log(`${colors[color]}${message}${colors.reset}`);
+    if (isCI) {
+      // In CI, just output plain text
+      console.log(message);
+    } else {
+      console.log(`${colors[color]}${message}${colors.reset}`);
+    }
   }
 
   addError(message) {
@@ -254,9 +271,13 @@ class AppValidator {
 
   // Main validation method
   async validate() {
-    this.log(
-      `\nValidating app: ${colors.cyan}${this.appName}${colors.reset}\n`
-    );
+    if (isCI) {
+      console.log(`App: ${this.appName}`);
+    } else {
+      this.log(
+        `\nValidating app: ${colors.cyan}${this.appName}${colors.reset}\n`
+      );
+    }
 
     // Check directory
     if (!this.checkDirectory()) {
@@ -273,7 +294,9 @@ class AppValidator {
     this.validateImages(data);
 
     // Validate URLs
-    this.log("Checking URLs (this may take a moment)...", "blue");
+    if (!isCI) {
+      this.log("Checking URLs (this may take a moment)...", "blue");
+    }
     await this.validateUrls(data);
 
     this.printResults();
@@ -281,25 +304,46 @@ class AppValidator {
 
   // Print validation results
   printResults() {
-    console.log("");
-
     if (this.errors.length === 0 && this.warnings.length === 0) {
-      this.log("✅ Validation passed! No errors or warnings found.", "green");
+      if (isCI) {
+        console.log("Status: PASSED ✅");
+      } else {
+        console.log("");
+        this.log("✅ Validation passed! No errors or warnings found.", "green");
+      }
       return 0;
     }
 
+    if (isCI) {
+      console.log("Status: FAILED ❌\n");
+    }
+
     if (this.errors.length > 0) {
-      this.log(`\n❌ Found ${this.errors.length} error(s):`, "red");
-      this.errors.forEach((error, index) => {
-        this.log(`  ${index + 1}. ${error}`, "red");
-      });
+      if (isCI) {
+        console.log(`Errors (${this.errors.length}):`);
+        this.errors.forEach((error, index) => {
+          console.log(`  ${index + 1}. ${error}`);
+        });
+      } else {
+        this.log(`\n❌ Found ${this.errors.length} error(s):`, "red");
+        this.errors.forEach((error, index) => {
+          this.log(`  ${index + 1}. ${error}`, "red");
+        });
+      }
     }
 
     if (this.warnings.length > 0) {
-      this.log(`\n⚠️  Found ${this.warnings.length} warning(s):`, "yellow");
-      this.warnings.forEach((warning, index) => {
-        this.log(`  ${index + 1}. ${warning}`, "yellow");
-      });
+      if (isCI) {
+        console.log(`\nWarnings (${this.warnings.length}):`);
+        this.warnings.forEach((warning, index) => {
+          console.log(`  ${index + 1}. ${warning}`);
+        });
+      } else {
+        this.log(`\n⚠️  Found ${this.warnings.length} warning(s):`, "yellow");
+        this.warnings.forEach((warning, index) => {
+          this.log(`  ${index + 1}. ${warning}`, "yellow");
+        });
+      }
     }
 
     console.log("");
