@@ -1,9 +1,13 @@
 name: Submariner
-url: https://submariner.io/
+url: https://submarinerapp.com/
 platforms:
-  macos: true
+  macos:
+    store: https://apps.apple.com/app/submariner/id6444016180
 api: OpenSubsonic
 description: "A free Subsonic desktop application for Mac with a clean user interface. Features cache streaming and download capabilities for offline listening."
 screenshots:
   thumbnail: thumbnail.webp
-repoUrl: https://github.com/submariner-io/submariner
+repoUrl: https://github.com/SubmarinerApp/Submariner
+keywords:
+  - airplay
+  - native
