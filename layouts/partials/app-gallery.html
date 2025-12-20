@@ -1,0 +1,22 @@
+{{/* Lightbox gallery modal for app screenshots */}}
+<div id="app-gallery-modal" class="app-gallery-modal">
+  <div class="app-gallery-overlay"></div>
+  <div class="app-gallery-content">
+    <button class="app-gallery-close" aria-label="Close gallery">
+      <i class="fas fa-times"></i>
+    </button>
+    <button class="app-gallery-prev" aria-label="Previous image">
+      <i class="fas fa-chevron-left"></i>
+    </button>
+    <button class="app-gallery-next" aria-label="Next image">
+      <i class="fas fa-chevron-right"></i>
+    </button>
+    <div class="app-gallery-image-container">
+      <img id="app-gallery-image" src="" alt="">
+    </div>
+    <div class="app-gallery-counter"></div>
+  </div>
+</div>
+
+{{/* Load gallery JavaScript */}}
+<script src="{{ "js/app-gallery.js" | relURL }}"></script>

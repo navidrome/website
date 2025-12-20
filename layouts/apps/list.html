@@ -1,0 +1,37 @@
+{{ define "main" }}
+
+<div class="td-content">
+  <h1>{{ .Title }}</h1>
+  {{ .Content }}
+
+  {{/* Load all app data from apps/ directory */}}
+  {{ $apps := slice }}
+  {{ range (resources.Match "apps/*/index.yaml") }}
+    {{ $appData := . | transform.Unmarshal }}
+    {{/* Extract app ID from path (e.g., "apps/dsub/index.yaml" -> "dsub") */}}
+    {{ $pathParts := split .Name "/" }}
+    {{ $appId := "" }}
+    {{ if ge (len $pathParts) 2 }}
+      {{ $appId = index $pathParts (sub (len $pathParts) 2) }}
+    {{ end }}
+    {{/* Skip template */}}
+    {{ if and (ne $appId "_template") (ne $appId "") }}
+      {{ $appData = merge $appData (dict "id" $appId) }}
+      {{ $apps = $apps | append $appData }}
+    {{ end }}
+  {{ end }}
+
+  {{/* Sort apps alphabetically by name */}}
+  {{ $apps = sort $apps "name" }}
+
+  <div class="apps-grid">
+    {{ range $apps }}
+      {{ partial "app-card.html" . }}
+    {{ end }}
+  </div>
+
+  {{/* Include gallery modal */}}
+  {{ partial "app-gallery.html" . }}
+</div>
+
+{{ end }}

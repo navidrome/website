@@ -1,0 +1,23 @@
+name: My Awesome App
+url: https://my.awesome.app
+platforms:
+  android:
+    store: https://play.google.com/store/apps/details?id=com.example.app
+  ios:
+    store: https://itunes.apple.com/us/app/my-app/id123456789
+  windows: true
+  linux: true
+  macos: true
+  web: true
+apis:
+  - opensubsonic
+  - navidrome  # Only if app has Navidrome-specific features
+description: "A short description of the app, two or three sentences max. Highlight key features that make this app unique."
+screenshots:
+  thumbnail: thumbnail.png
+  gallery:
+    - screen1.png
+    - screen2.png
+    - screen3.png
+# Optional: Only include if the app is open source
+repoUrl: https://github.com/my/awesome/app

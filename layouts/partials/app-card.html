@@ -1,0 +1,93 @@
+{{/* App card partial - displays a single app */}}
+{{ $appId := .id }}
+{{ $name := .name }}
+{{ $url := .url }}
+{{ $description := .description }}
+{{ $platforms := .platforms }}
+{{ $apis := .apis }}
+{{ $screenshots := .screenshots }}
+{{ $repoUrl := .repoUrl }}
+
+{{/* Build full path to thumbnail */}}
+{{ $thumbnailPath := printf "apps/%s/%s" $appId $screenshots.thumbnail }}
+{{ $thumbnail := resources.Get $thumbnailPath }}
+
+<div class="app-card">
+  <div class="app-thumbnail-container" data-app-id="{{ $appId }}">
+    {{ if $thumbnail }}
+      <img src="{{ $thumbnail.RelPermalink }}" alt="{{ $name }}" class="app-thumbnail" loading="lazy">
+    {{ end }}
+    <div class="app-thumbnail-overlay">
+      <i class="fas fa-search-plus"></i>
+    </div>
+  </div>
+
+  <div class="app-content">
+    <h3 class="app-name">
+      <a href="{{ $url }}" target="_blank" rel="noopener">{{ $name }}</a>
+      {{ if $repoUrl }}
+        <a href="{{ $repoUrl }}" target="_blank" rel="noopener" class="app-oss-badge" title="Open Source">
+          <i class="fab fa-github"></i>
+        </a>
+      {{ end }}
+    </h3>
+
+    <p class="app-description">{{ $description }}</p>
+
+    <div class="app-metadata">
+      {{/* Platform icons */}}
+      <div class="app-platforms">
+        {{ if $platforms.android }}
+          {{ if $platforms.android.store }}
+            <a href="{{ $platforms.android.store }}" target="_blank" rel="noopener" title="Android">
+              <i class="fab fa-android"></i>
+            </a>
+          {{ else }}
+            <span title="Android"><i class="fab fa-android"></i></span>
+          {{ end }}
+        {{ end }}
+        {{ if $platforms.ios }}
+          {{ if $platforms.ios.store }}
+            <a href="{{ $platforms.ios.store }}" target="_blank" rel="noopener" title="iOS">
+              <i class="fab fa-apple"></i>
+            </a>
+          {{ else }}
+            <span title="iOS"><i class="fab fa-apple"></i></span>
+          {{ end }}
+        {{ end }}
+        {{ if $platforms.windows }}
+          <span title="Windows"><i class="fab fa-windows"></i></span>
+        {{ end }}
+        {{ if $platforms.linux }}
+          <span title="Linux"><i class="fab fa-linux"></i></span>
+        {{ end }}
+        {{ if $platforms.macos }}
+          <span title="macOS"><i class="fab fa-apple"></i></span>
+        {{ end }}
+        {{ if $platforms.web }}
+          <span title="Web"><i class="fas fa-globe"></i></span>
+        {{ end }}
+      </div>
+
+      {{/* API badges */}}
+      <div class="app-apis">
+        {{ range $apis }}
+          <span class="api-badge">{{ . }}</span>
+        {{ end }}
+      </div>
+    </div>
+  </div>
+
+  {{/* Hidden data for gallery */}}
+  {{ if $screenshots.gallery }}
+    <div class="app-gallery-data" data-app-id="{{ $appId }}" style="display:none;">
+      {{ range $screenshots.gallery }}
+        {{ $galleryPath := printf "apps/%s/%s" $appId . }}
+        {{ $galleryImg := resources.Get $galleryPath }}
+        {{ if $galleryImg }}
+          <span data-src="{{ $galleryImg.RelPermalink }}"></span>
+        {{ end }}
+      {{ end }}
+    </div>
+  {{ end }}
+</div>
