@@ -48,7 +48,7 @@ Organize your music into separate libraries with user-specific access controls (
 Converts/reduces your music files as you play them, so you don't nuke your data plan
 {{% /blocks/feature %}}
 
-{{% blocks/feature icon="icon-subsonic" title="Subsonic API" url="/docs/overview/#apps" %}}
+{{% blocks/feature icon="icon-subsonic" title="OpenSubsonic API" url="/docs/overview/#apps" %}}
 Compatible with the de facto standard Music API, supporting all its clients and ecosystem
 {{% /blocks/feature %}}
 
