@@ -110,7 +110,15 @@
       {{/* API badges */}}
       <div class="app-apis">
         {{ $apiClass := $api | lower | replaceRE "[^a-z0-9]+" "-" }}
-        <span class="api-badge api-{{ $apiClass }}">{{ $api }}</span>
+        {{ $apiTooltip := "" }}
+        {{ if eq $apiClass "subsonic" }}
+          {{ $apiTooltip = "Original Subsonic API - basic music streaming features" }}
+        {{ else if eq $apiClass "opensubsonic" }}
+          {{ $apiTooltip = "Modern extension of Subsonic API with additional features like multi-valued tags and more" }}
+        {{ else if eq $apiClass "navidrome" }}
+          {{ $apiTooltip = "Navidrome-specific API with advanced features beyond OpenSubsonic" }}
+        {{ end }}
+        <span class="api-badge api-{{ $apiClass }}" title="{{ $apiTooltip }}">{{ $api }}</span>
       </div>
     </div>
   </div>
