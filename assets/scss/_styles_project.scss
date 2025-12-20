@@ -109,6 +109,7 @@
   grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
   margin-top: 0rem;
+  margin-bottom: 2rem;
 
   @media (max-width: 767.98px) {
     grid-template-columns: repeat(2, 1fr);
