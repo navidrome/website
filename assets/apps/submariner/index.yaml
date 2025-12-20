@@ -7,6 +7,8 @@ api: OpenSubsonic
 description: "A free Subsonic desktop application for Mac with a clean user interface. Features cache streaming and download capabilities for offline listening."
 screenshots:
   thumbnail: thumbnail.webp
+  gallery:
+    - dark-mode.webp
 repoUrl: https://github.com/SubmarinerApp/Submariner
 keywords:
   - airplay
