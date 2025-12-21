@@ -1,7 +1,8 @@
 name: Aurial
-url: https://shrimpza.github.io/aurial/
+url: https://github.com/shrimpza/aurial
 platforms:
-  web: true
+  web:
+    url: https://shrimpza.github.io/aurial/
 api: Subsonic
 description: "A browser-based HTML/JavaScript client for streaming music from Subsonic-compatible servers. Provides a simple, intuitive interface focused exclusively on music library browsing and playback without requiring Flash plugins."
 screenshots:

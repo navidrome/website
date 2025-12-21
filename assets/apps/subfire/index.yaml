@@ -1,7 +1,8 @@
 name: Subfire
-url: https://p.subfireplayer.net/
+url: https://github.com/acroyear/subfire
 platforms:
-  web: true
+  web:
+    url: https://p.subfireplayer.net/
   other: true
 api: Subsonic
 description: "HTML5-based music player supporting web browsers, Chrome, Firefox, and Amazon Fire devices. Features playlist management with collage cover art, responsive design, and works across platforms from 360px to 1080p+ displays."

@@ -1,12 +1,13 @@
 name: Feishin
-url: https://feishin.vercel.app/
+url: https://github.com/jeffvli/feishin
 platforms:
   windows: true
   macos: true
   linux: true
   docker:
     store: https://ghcr.io/jeffvli/feishin:latest
-  web: true
+  web:
+    url: https://feishin.vercel.app/
 api: Navidrome
 description: "A modern self-hosted music player with MPV and web player backends, featuring a modern UI, smart playlist editor for Navidrome, synchronized/unsynchronized lyrics support, and scrobbling capabilities. Rewrite of Sonixd with enhanced features."
 screenshots:

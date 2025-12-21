@@ -1,7 +1,8 @@
 name: Thunderdrome
-url: https://thunderdrome.netlify.app/
+url: https://github.com/bricej13/thunderdrome
 platforms:
-  web: true
+  web:
+    url: https://thunderdrome.netlify.app/
   docker: true
 api: Navidrome
 description: "An alternative UI for Navidrome featuring global search across artists, tracks & albums, built-in equalizer with presets, bulk track actions (rate, favorite, add to playlist), and a modern web interface built with Vue.js and Nuxt."

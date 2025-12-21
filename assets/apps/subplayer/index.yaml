@@ -1,7 +1,8 @@
 name: Subplayer
-url: https://subplayer.netlify.app/
+url: https://github.com/peguerosdc/subplayer
 platforms:
-  web: true
+  web:
+    url: https://subplayer.netlify.app/
   docker:
     store: https://hub.docker.com/r/peguerosdc/subplayer
 api: Subsonic

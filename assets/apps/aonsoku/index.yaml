@@ -1,10 +1,11 @@
 name: Aonsoku
-url: https://aonsoku.vercel.app/
+url: https://github.com/victoralvesf/aonsoku
 platforms:
   windows: true
   macos: true
   linux: true
-  web: true
+  web:
+    url: https://aonsoku.vercel.app/
   docker:
     store: https://github.com/victoralvesf/aonsoku/pkgs/container/aonsoku
 api: OpenSubsonic

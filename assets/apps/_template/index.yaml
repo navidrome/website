@@ -9,7 +9,8 @@ platforms:
     store: https://apps.apple.com/app/my-app/id123456789 # Optional: Mac App Store link
   windows: true
   linux: true
-  web: true
+  web:
+    url: https://my-awesome.netlify.app # Hosted web app URL, if available
   docker: true # Or docker: { store: https://hub.docker.com/r/... }
   other: true
 api: OpenSubsonic # Use "OpenSubsonic" for modern API support, "Subsonic" for legacy API, or "Navidrome" for Navidrome-specific features

@@ -85,7 +85,19 @@
           ]
         },
         "linux": { "type": "boolean" },
-        "web": { "type": "boolean" },
+        "web": {
+          "oneOf": [
+            { "type": "boolean" },
+            {
+              "type": "object",
+              "required": ["url"],
+              "properties": {
+                "url": { "type": "string", "format": "uri" }
+              },
+              "additionalProperties": false
+            }
+          ]
+        },
         "docker": {
           "oneOf": [
             { "type": "boolean" },

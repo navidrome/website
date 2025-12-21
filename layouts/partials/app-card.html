@@ -128,7 +128,13 @@
           <span title="Linux"><i class="fab fa-linux"></i></span>
         {{ end }}
         {{ if $platforms.web }}
-          <span title="Web"><i class="fas fa-globe"></i></span>
+          {{ if and (ne (printf "%T" $platforms.web) "bool") (isset $platforms.web "url") }}
+            <a href="{{ $platforms.web.url }}" target="_blank" rel="noopener" title="Web">
+              <i class="fas fa-globe"></i>
+            </a>
+          {{ else }}
+            <span title="Web"><i class="fas fa-globe"></i></span>
+          {{ end }}
         {{ end }}
         {{ if $platforms.docker }}
           {{ if and (ne (printf "%T" $platforms.docker) "bool") (isset $platforms.docker "store") }}
