@@ -2,6 +2,8 @@ name: Airsonic Refix
 url: https://github.com/tamland/airsonic-refix
 platforms:
   web: true
+  docker:
+    store: https://hub.docker.com/r/tamland/airsonic-refix
 api: OpenSubsonic
 description: "Modern responsive web frontend for Subsonic-compatible music servers. Features responsive desktop/mobile UI, persistent playback queue, playlist management with drag-and-drop, MediaSession integration, internet radio, and podcast support."
 screenshots:

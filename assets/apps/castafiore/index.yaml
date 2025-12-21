@@ -4,6 +4,7 @@ platforms:
   android:
     store: https://play.google.com/store/apps/details?id=com.sawyerf.castafiore
   web: true
+  docker: true
 api: Subsonic
 description: "A music player supporting Navidrome and Subsonic API, available as a PWA and Android app. Features customizable home page, offline music, favorites, playlists, radio, lyrics, and Listenbrainz integration."
 screenshots:

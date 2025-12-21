@@ -5,6 +5,8 @@ platforms:
   macos: true
   linux: true
   web: true
+  docker:
+    store: https://github.com/victoralvesf/aonsoku/pkgs/container/aonsoku
 api: OpenSubsonic
 description: "A modern desktop client for Navidrome/Subsonic servers built with React and Electron. Features include podcast support, synchronized and unsynchronized lyrics from LRCLIB, radio support, scrobbling, and an intuitive modern interface."
 screenshots:

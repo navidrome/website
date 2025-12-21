@@ -2,6 +2,8 @@ name: Subplayer
 url: https://subplayer.netlify.app/
 platforms:
   web: true
+  docker:
+    store: https://hub.docker.com/r/peguerosdc/subplayer
 api: Subsonic
 description: "A lightweight, React-based web music player designed as a functional and aesthetically pleasing frontend for Subsonic-compatible backends. Features playlist management, search capabilities, genre browsing, theming support, and scrobbling."
 screenshots:
