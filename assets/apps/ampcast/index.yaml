@@ -1,0 +1,14 @@
+name: ampcast
+url: https://ampcast.app/
+platforms:
+  windows: true
+  macos: true
+  linux: true
+  docker:
+    store: https://ghcr.io/rekkyrosso/ampcast:latest
+  web: true
+api: Navidrome
+description: "Browse/playback from Navidrome, Spotify, Apple Music, YouTube and others. Scrobbling via last.fm/ListenBrainz. Visualizers (including Milkdrop). Gapless playback / ReplayGain."
+screenshots:
+  thumbnail: thumbnail.webp
+repoUrl: https://github.com/rekkyrosso/ampcast
