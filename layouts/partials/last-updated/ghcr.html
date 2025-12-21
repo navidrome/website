@@ -1,0 +1,43 @@
+{{/*
+  GitHub Container Registry (GHCR) Last Updated Partial
+  
+  Fetches the latest package version date from GitHub Packages API.
+  
+  Parameters:
+    - storeUrl: GHCR URL (e.g., https://ghcr.io/owner/repo:tag)
+  
+  Returns: YYYY-MM-DD formatted date string, or empty string if unavailable
+*/}}
+
+{{ $storeUrl := .storeUrl }}
+{{ $date := "" }}
+
+{{/* Extract owner/repo from URL */}}
+{{/* Format: https://ghcr.io/owner/repo:tag or ghcr.io/owner/repo */}}
+{{ $path := replaceRE "^https?://(www\\.)?" "" $storeUrl }}
+{{ $path = replaceRE "^ghcr\\.io/" "" $path }}
+{{ $path = replaceRE ":.*$" "" $path }}  {{/* Remove :tag suffix */}}
+{{ $path = strings.TrimSuffix "/" $path }}
+{{ $parts := split $path "/" }}
+
+{{ if ge (len $parts) 2 }}
+  {{ $owner := index $parts 0 }}
+  {{ $repo := index $parts 1 }}
+  
+  {{/* Fetch package versions from GitHub API */}}
+  {{/* Note: This endpoint returns public packages without auth */}}
+  {{ $apiUrl := printf "https://api.github.com/users/%s/packages/container/%s/versions?per_page=1" $owner $repo }}
+  
+  {{ $result := try (resources.GetRemote $apiUrl) }}
+  {{ with $result.Value }}
+    {{ $data := .Content | transform.Unmarshal }}
+    {{ if and $data (gt (len $data) 0) }}
+      {{ $latestVersion := index $data 0 }}
+      {{ with $latestVersion.updated_at }}
+        {{ $date = time.Format "2006-01-02" (time .) }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+{{ return $date }}

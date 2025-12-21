@@ -192,9 +192,17 @@
   flex-direction: column;
 }
 
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
 .app-name {
   font-size: 1.25rem;
-  margin: 0 0 0.5rem 0;
+  margin: 0;
   line-height: 1.4;
 
   a {
@@ -258,6 +266,24 @@
 
   a:hover {
     color: var(--bs-primary);
+  }
+}
+
+.app-updated {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.75rem;
+  color: var(--bs-secondary);
+  white-space: nowrap;
+  flex-shrink: 0;
+
+  i {
+    font-size: 0.7rem;
+  }
+
+  span {
+    font-variant-numeric: tabular-nums;
   }
 }
 

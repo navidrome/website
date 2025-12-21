@@ -12,18 +12,20 @@
    * Initialize the filtering functionality
    */
   function init() {
-    // Only run on apps page
-    const appsGrid = document.querySelector(".apps-grid");
+    // Only run on apps page - select the apps-grid inside apps-page-content
+    const appsGrid = document.querySelector(".apps-page-content .apps-grid");
     if (!appsGrid) return;
 
     // Cache all DOM elements
     elements = {
+      appsGrid: appsGrid,
       cards: document.querySelectorAll(".app-card"),
       searchInput: document.getElementById("app-search"),
       platformCheckboxes: document.querySelectorAll('input[name="platform"]'),
       apiCheckboxes: document.querySelectorAll('input[name="api"]'),
       ossCheckbox: document.getElementById("filter-oss"),
       freeCheckbox: document.getElementById("filter-free"),
+      sortSelect: document.getElementById("sort-select"),
       clearButton: document.getElementById("clear-filters"),
       resultsCount: document.getElementById("results-count"),
       emptyState: document.getElementById("empty-state"),
@@ -101,6 +103,14 @@
     // Free checkbox
     if (elements.freeCheckbox) {
       elements.freeCheckbox.addEventListener("change", applyFilters);
+    }
+
+    // Sort select
+    if (elements.sortSelect) {
+      elements.sortSelect.addEventListener("change", function () {
+        sortCards(this.value);
+        updateURL();
+      });
     }
 
     // Clear all button
@@ -198,6 +208,34 @@
   }
 
   /**
+   * Sort app cards by the specified criteria
+   */
+  function sortCards(sortBy) {
+    const cards = Array.from(elements.cards);
+
+    cards.sort((a, b) => {
+      if (sortBy === "updated") {
+        const dateA = a.dataset.lastUpdated || "";
+        const dateB = b.dataset.lastUpdated || "";
+        // Empty strings (N/A) sort to end
+        if (!dateA && dateB) return 1;
+        if (dateA && !dateB) return -1;
+        if (!dateA && !dateB) {
+          // Both N/A: sort alphabetically by name
+          return (a.dataset.name || "").localeCompare(b.dataset.name || "");
+        }
+        // Both have dates: sort descending (newest first)
+        return dateB.localeCompare(dateA);
+      }
+      // Default: alphabetical by name
+      return (a.dataset.name || "").localeCompare(b.dataset.name || "");
+    });
+
+    // Re-append cards in new order
+    cards.forEach((card) => elements.appsGrid.appendChild(card));
+  }
+
+  /**
    * Update the results count display
    */
   function updateResultsCount(visibleCount) {
@@ -236,6 +274,12 @@
     }
     if (elements.freeCheckbox) {
       elements.freeCheckbox.checked = false;
+    }
+
+    // Reset sort to default
+    if (elements.sortSelect) {
+      elements.sortSelect.value = "name";
+      sortCards("name");
     }
 
     // Apply filters (will show all apps)
@@ -279,6 +323,7 @@
       oss: params.get("oss") === "true",
       free: params.get("free") === "true",
       search: params.get("q") || "",
+      sort: params.get("sort") || "name",
     };
   }
 
@@ -317,6 +362,12 @@
       elements.freeCheckbox.checked = true;
     }
 
+    // Set sort select and apply sort
+    if (elements.sortSelect && state.sort) {
+      elements.sortSelect.value = state.sort;
+      sortCards(state.sort);
+    }
+
     // Apply filters immediately
     applyFilters();
   }
@@ -353,6 +404,11 @@
     const searchQuery = elements.searchInput.value.trim();
     if (searchQuery) {
       params.set("q", searchQuery);
+    }
+
+    // Add sort param (only if not default)
+    if (elements.sortSelect && elements.sortSelect.value !== "name") {
+      params.set("sort", elements.sortSelect.value);
     }
 
     // Update URL without reload

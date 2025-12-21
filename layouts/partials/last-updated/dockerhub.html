@@ -1,0 +1,42 @@
+{{/*
+  Docker Hub Last Updated Partial
+  
+  Fetches the latest tag push date from Docker Hub API.
+  
+  Parameters:
+    - storeUrl: Docker Hub URL (e.g., https://hub.docker.com/r/owner/repo)
+  
+  Returns: YYYY-MM-DD formatted date string, or empty string if unavailable
+*/}}
+
+{{ $storeUrl := .storeUrl }}
+{{ $date := "" }}
+
+{{/* Extract owner/repo from URL */}}
+{{/* Format: https://hub.docker.com/r/owner/repo */}}
+{{ $path := replaceRE "^https?://(www\\.)?hub\\.docker\\.com/r/" "" $storeUrl }}
+{{ $path = strings.TrimSuffix "/" $path }}
+{{ $parts := split $path "/" }}
+
+{{ if ge (len $parts) 2 }}
+  {{ $owner := index $parts 0 }}
+  {{ $repo := index $parts 1 }}
+  
+  {{/* Fetch latest tag from Docker Hub API */}}
+  {{ $apiUrl := printf "https://hub.docker.com/v2/repositories/%s/%s/tags?page_size=1&ordering=last_updated" $owner $repo }}
+  
+  {{ $result := try (resources.GetRemote $apiUrl) }}
+  {{ with $result.Value }}
+    {{ $data := .Content | transform.Unmarshal }}
+    {{ with $data.results }}
+      {{ if gt (len .) 0 }}
+        {{ $latestTag := index . 0 }}
+        {{ with $latestTag.tag_last_pushed }}
+          {{ $date = time.Format "2006-01-02" (time .) }}
+        {{ end }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+{{ return $date }}

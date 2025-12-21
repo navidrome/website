@@ -13,6 +13,11 @@
 {{ $thumbnailPath := printf "apps/%s/%s" $appId $screenshots.thumbnail }}
 {{ $thumbnail := resources.Get $thumbnailPath }}
 
+{{/* Fetch last updated date */}}
+{{ $lastUpdatedData := partial "last-updated.html" (dict "repoUrl" $repoUrl "platforms" $platforms) }}
+{{ $lastUpdated := $lastUpdatedData.display }}
+{{ $lastUpdatedAttr := $lastUpdatedData.attr }}
+
 {{/* Build data attributes for filtering */}}
 {{ $platformsList := slice }}
 {{ if $platforms.android }}{{ $platformsList = $platformsList | append "android" }}{{ end }}
@@ -40,6 +45,8 @@
      data-apis="{{ $apiLower }}" 
      data-oss="{{ $ossAttr }}" 
      data-free="{{ $freeAttr }}" 
+     data-name="{{ $name }}"
+     data-last-updated="{{ $lastUpdatedAttr }}"
      data-searchable="{{ $searchable }}">
   <div class="app-thumbnail-container" data-app-id="{{ $appId }}">
     {{ if $thumbnail }}
@@ -51,20 +58,26 @@
   </div>
 
   <div class="app-content">
-    <h3 class="app-name">
-      <a href="{{ $url }}" target="_blank" rel="noopener">{{ $name }}</a>
-      {{ if $repoUrl }}
-        <a href="{{ $repoUrl }}" target="_blank" rel="noopener" class="app-oss-badge" title="Open Source">
-          <i class="fab fa-github"></i>
-        </a>
-      {{ end }}
-      {{/* Show free badge only if free but not open source (to avoid redundancy) */}}
-      {{ if and $isActuallyFree (not $repoUrl) }}
-        <span class="app-free-badge" title="Free">
-          <i class="fas fa-tag"></i>
-        </span>
-      {{ end }}
-    </h3>
+    <div class="app-header">
+      <h3 class="app-name">
+        <a href="{{ $url }}" target="_blank" rel="noopener">{{ $name }}</a>
+        {{ if $repoUrl }}
+          <a href="{{ $repoUrl }}" target="_blank" rel="noopener" class="app-oss-badge" title="Open Source">
+            <i class="fab fa-github"></i>
+          </a>
+        {{ end }}
+        {{/* Show free badge only if free but not open source (to avoid redundancy) */}}
+        {{ if and $isActuallyFree (not $repoUrl) }}
+          <span class="app-free-badge" title="Free">
+            <i class="fas fa-tag"></i>
+          </span>
+        {{ end }}
+      </h3>
+      <div class="app-updated" title="Last updated">
+        <i class="fas fa-clock"></i>
+        <span>{{ $lastUpdated }}</span>
+      </div>
+    </div>
 
     <p class="app-description">{{ $description }}</p>
 

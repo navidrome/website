@@ -1,0 +1,41 @@
+{{- /*
+  Last Updated Partial
+  
+  Fetches the last release/update date from various sources at build time.
+  
+  Parameters:
+    - repoUrl: Repository URL (GitHub or GitLab)
+    - platforms: Platform dict with potential docker.store URL
+  
+  Returns: dict with:
+    - display: YYYY-MM-DD formatted date string for display, or "N/A" if unavailable
+    - attr: YYYY-MM-DD formatted date string for data attribute (empty if unavailable)
+*/ -}}
+{{- $repoUrl := .repoUrl -}}
+{{- $platforms := .platforms -}}
+{{- $date := "" -}}
+{{- /* Try GitHub first */ -}}
+{{- if and (not $date) $repoUrl (strings.Contains $repoUrl "github.com") -}}
+  {{- $date = partial "last-updated/github.html" (dict "repoUrl" $repoUrl) -}}
+{{- end -}}
+{{- /* Try GitLab */ -}}
+{{- if and (not $date) $repoUrl (strings.Contains $repoUrl "gitlab.com") -}}
+  {{- $date = partial "last-updated/gitlab.html" (dict "repoUrl" $repoUrl) -}}
+{{- end -}}
+{{- /* Try Docker Hub from platforms.docker.store */ -}}
+{{- if and (not $date) $platforms $platforms.docker -}}
+  {{- $dockerStore := "" -}}
+  {{- if ne (printf "%T" $platforms.docker) "bool" -}}
+    {{- if isset $platforms.docker "store" -}}
+      {{- $dockerStore = $platforms.docker.store -}}
+    {{- end -}}
+  {{- end -}}
+  {{- if and $dockerStore (strings.Contains $dockerStore "hub.docker.com") -}}
+    {{- $date = partial "last-updated/dockerhub.html" (dict "storeUrl" $dockerStore) -}}
+  {{- else if and $dockerStore (strings.Contains $dockerStore "ghcr.io") -}}
+    {{- $date = partial "last-updated/ghcr.html" (dict "storeUrl" $dockerStore) -}}
+  {{- end -}}
+{{- end -}}
+{{- /* Return dict with display and attr values */ -}}
+{{- $date = strings.TrimSpace $date -}}
+{{- return dict "display" (cond (eq $date "") "N/A" $date) "attr" $date -}}
