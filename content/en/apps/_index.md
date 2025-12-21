@@ -6,7 +6,7 @@ menu:
     weight: 15
 ---
 
-{{< blocks/cover title="Compatible Client Apps" image_anchor="bottom" color="primary" height="min" >}}
+{{< blocks/cover title="Apps & Players" image_anchor="bottom" color="primary" height="min" >}}
 
 <div class="mx-auto">
 	<p class="lead mt-3">Stream your music anywhere with apps for Android, iOS, desktop, and web. Any app that supports the OpenSubsonic API works with Navidrome.</p>
