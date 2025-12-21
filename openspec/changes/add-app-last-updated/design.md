@@ -83,8 +83,8 @@ All dates normalized to `YYYY-MM-DD` using Hugo's `dateFormat`.
 
 **UI Changes**:
 - Add "Sort by:" dropdown next to existing filter controls
-- Options: "Name (A-Z)" (default), "Last Updated (Newest)"
-- Sort by Last Updated: descending order, "N/A" entries at end
+- Options: "Name (A-Z)" (default), "Last Updated"
+- Sort by Last Updated: descending order (newest first), "N/A" entries at end
 
 **Data Attribute**:
 ```html
