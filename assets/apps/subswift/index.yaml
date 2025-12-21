@@ -1,0 +1,12 @@
+name: SubSwift
+url: https://apps.apple.com/us/app/subswift/id6504658929
+platforms:
+  tvos:
+    store: https://apps.apple.com/us/app/subswift/id6504658929
+api: Subsonic
+description: "A minimalist client for Apple TV to stream music from Subsonic-compatible servers. Features a clean SwiftUI interface, home view with recently played and new albums, unified search, and streaming codec control."
+screenshots:
+  thumbnail: screen1.webp
+  gallery:
+    - screen2.webp
+    - screen3.webp

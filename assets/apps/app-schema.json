@@ -45,6 +45,19 @@
             }
           ]
         },
+        "tvos": {
+          "oneOf": [
+            { "type": "boolean" },
+            {
+              "type": "object",
+              "required": ["store"],
+              "properties": {
+                "store": { "type": "string", "format": "uri" }
+              },
+              "additionalProperties": false
+            }
+          ]
+        },
         "macos": {
           "oneOf": [
             { "type": "boolean" },

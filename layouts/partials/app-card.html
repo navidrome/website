@@ -22,6 +22,7 @@
 {{ $platformsList := slice }}
 {{ if $platforms.android }}{{ $platformsList = $platformsList | append "android" }}{{ end }}
 {{ if $platforms.ios }}{{ $platformsList = $platformsList | append "ios" }}{{ end }}
+{{ if $platforms.tvos }}{{ $platformsList = $platformsList | append "tvos" }}{{ end }}
 {{ if $platforms.windows }}{{ $platformsList = $platformsList | append "windows" }}{{ end }}
 {{ if $platforms.linux }}{{ $platformsList = $platformsList | append "linux" }}{{ end }}
 {{ if $platforms.macos }}{{ $platformsList = $platformsList | append "macos" }}{{ end }}
@@ -96,19 +97,28 @@
         {{ if $platforms.ios }}
           {{ if and (ne (printf "%T" $platforms.ios) "bool") (isset $platforms.ios "store") }}
             <a href="{{ $platforms.ios.store }}" target="_blank" rel="noopener" title="iOS">
-              <i class="fab fa-apple"></i>
+              <i class="fab fa-app-store"></i>
             </a>
           {{ else }}
-            <span title="iOS"><i class="fab fa-apple"></i></span>
+            <span title="iOS"><i class="fab fa-app-store"></i></span>
+          {{ end }}
+        {{ end }}
+        {{ if $platforms.tvos }}
+          {{ if and (ne (printf "%T" $platforms.tvos) "bool") (isset $platforms.tvos "store") }}
+            <a href="{{ $platforms.tvos.store }}" target="_blank" rel="noopener" title="tvOS (Apple TV)">
+              <i class="fab fa-app-store"></i>
+            </a>
+          {{ else }}
+            <span title="tvOS (Apple TV)"><i class="fab fa-app-store"></i></span>
           {{ end }}
         {{ end }}
         {{ if $platforms.macos }}
           {{ if and (ne (printf "%T" $platforms.macos) "bool") (isset $platforms.macos "store") }}
             <a href="{{ $platforms.macos.store }}" target="_blank" rel="noopener" title="macOS">
-              <i class="fas fa-laptop"></i>
+              <i class="fab fa-apple"></i>
             </a>
           {{ else }}
-            <span title="macOS"><i class="fas fa-laptop"></i></span>
+            <span title="macOS"><i class="fab fa-apple"></i></span>
           {{ end }}
         {{ end }}
         {{ if $platforms.windows }}
