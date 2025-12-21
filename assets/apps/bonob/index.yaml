@@ -1,0 +1,16 @@
+name: bonob
+url: https://github.com/simojenki/bonob
+repoUrl: https://github.com/simojenki/bonob
+
+platforms:
+  linux: true
+  other: true
+
+api: Subsonic
+
+description: A Sonos SMAPI implementation that integrates Subsonic API music servers with Sonos speakers, enabling browsing, playback, and scrobbling.
+
+screenshots:
+  thumbnail: thumbnail.webp
+  gallery:
+    - screen1.webp
