@@ -19,24 +19,15 @@ The website SHALL provide a top-level page at `/apps` that displays all compatib
 ---
 
 ### Requirement: App Card Display
-Each app card SHALL display essential information about the client application.
+Each app card SHALL display essential information about the client application and include data attributes for filtering.
 
-#### Scenario: App card content
+#### Scenario: App card data attributes for filtering
 - **WHEN** an app card is rendered
-- **THEN** it displays the app thumbnail image
-- **AND** it displays the app name as a link to the app URL
-- **AND** it displays platform icons for supported platforms (Android, iOS, Windows, Linux, macOS, Web)
-- **AND** it displays a short description of the app
-
-#### Scenario: Open source indicator
-- **WHEN** an app has a `repoUrl` defined
-- **THEN** the card displays a GitHub icon linking to the repository
-
-#### Scenario: Store links
-- **WHEN** an app has store URLs defined for platforms (Play Store, App Store)
-- **THEN** clicking the platform icon navigates to the respective store page
-
----
+- **THEN** it includes `data-platforms` attribute with space-separated lowercase platform names
+- **AND** it includes `data-apis` attribute with space-separated lowercase API names  
+- **AND** it includes `data-oss` attribute set to "true" if app has `repoUrl`, "false" otherwise
+- **AND** it includes `data-searchable` attribute with lowercase concatenation of name and description
+- **AND** these attributes enable client-side filtering without re-rendering DOM
 
 ### Requirement: Screenshot Gallery
 The page SHALL provide a lightbox gallery for viewing app screenshots.
