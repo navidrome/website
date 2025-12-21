@@ -2,6 +2,7 @@
   GitHub Last Updated Partial
   
   Fetches the latest release date from GitHub API.
+  Falls back to latest tag if no releases are found.
   
   Parameters:
     - repoUrl: GitHub repository URL (e.g., https://github.com/owner/repo)
@@ -29,6 +30,34 @@
     {{ $data := .Content | transform.Unmarshal }}
     {{ with $data.published_at }}
       {{ $date = time.Format "2006-01-02" (time .) }}
+    {{ end }}
+  {{ end }}
+  
+  {{/* Fallback to latest tag if no release found */}}
+  {{ if not $date }}
+    {{ $tagsUrl := printf "https://api.github.com/repos/%s/%s/tags?per_page=1" $owner $repo }}
+    {{ $tagsResult := try (resources.GetRemote $tagsUrl) }}
+    {{ with $tagsResult.Value }}
+      {{ $tagsData := try (.Content | transform.Unmarshal) }}
+      {{ with $tagsData.Value }}
+        {{ $tags := . }}
+        {{ if and $tags (reflect.IsSlice $tags) (gt (len $tags) 0) }}
+          {{ $tag := index $tags 0 }}
+          {{ with $tag.commit.sha }}
+            {{/* Get commit date for the tag */}}
+            {{ $commitUrl := printf "https://api.github.com/repos/%s/%s/commits/%s" $owner $repo . }}
+            {{ $commitResult := try (resources.GetRemote $commitUrl) }}
+            {{ with $commitResult.Value }}
+              {{ $commitData := try (.Content | transform.Unmarshal) }}
+              {{ with $commitData.Value }}
+                {{ with .commit.committer.date }}
+                  {{ $date = time.Format "2006-01-02" (time .) }}
+                {{ end }}
+              {{ end }}
+            {{ end }}
+          {{ end }}
+        {{ end }}
+      {{ end }}
     {{ end }}
   {{ end }}
 {{ end }}
