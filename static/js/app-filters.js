@@ -40,6 +40,34 @@
 
     // Bind event listeners
     bindEvents();
+
+    // Handle placeholder text for mobile
+    handlePlaceholderResize();
+    window.addEventListener("resize", handlePlaceholderResize);
+  }
+
+  /**
+   * Handle search placeholder text based on screen size
+   */
+  function handlePlaceholderResize() {
+    if (!elements.searchInput) return;
+
+    const isMobile = window.innerWidth < 768;
+    const mobilePlaceholder = elements.searchInput.dataset.placeholderMobile;
+    const desktopPlaceholder = elements.searchInput.getAttribute("placeholder");
+
+    if (isMobile && mobilePlaceholder) {
+      // Store desktop placeholder if not already stored
+      if (!elements.searchInput.dataset.placeholderDesktop) {
+        elements.searchInput.dataset.placeholderDesktop = desktopPlaceholder;
+      }
+      elements.searchInput.setAttribute("placeholder", mobilePlaceholder);
+    } else if (!isMobile && elements.searchInput.dataset.placeholderDesktop) {
+      elements.searchInput.setAttribute(
+        "placeholder",
+        elements.searchInput.dataset.placeholderDesktop
+      );
+    }
   }
 
   /**
