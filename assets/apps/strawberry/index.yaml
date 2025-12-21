@@ -1,0 +1,24 @@
+name: Strawberry
+url: https://www.strawberrymusicplayer.org/
+repoUrl: https://github.com/strawberrymusicplayer/strawberry
+
+platforms:
+  linux: true
+  macos: true
+  windows: true
+
+api: Subsonic
+
+description: Music player and collection organizer designed for audiophiles, featuring bit-perfect playback, extensive format support, and advanced playlist management.
+
+screenshots:
+  thumbnail: thumbnail.webp
+  gallery:
+    - screen1.webp
+    - screen2.webp
+    - screen3.webp
+    - screen4.webp
+
+keywords:
+  - tag-editor
+  - equalizer

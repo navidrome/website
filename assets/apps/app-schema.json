@@ -135,6 +135,7 @@
         },
         "gallery": {
           "type": "array",
+          "maxItems": 5,
           "items": {
             "type": "string",
             "pattern": "\\.(png|webp|jpg|jpeg)$"

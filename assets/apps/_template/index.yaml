@@ -17,7 +17,7 @@ api: OpenSubsonic # Use "OpenSubsonic" for modern API support, "Subsonic" for le
 description: "A short description of the app, two or three sentences max. Highlight key features that make this app unique."
 screenshots:
   thumbnail: thumbnail.png
-  gallery:
+  gallery: # Optional. Max 5 images.
     - screen1.png
     - screen2.png
     - screen3.png
