@@ -68,6 +68,7 @@ Use the template at [`assets/apps/_template/index.yaml`](https://github.com/navi
 - `windows` - Windows
 - `linux` - Linux
 - `web` - Web browser
+- `docker` - Docker container (optionally with Docker Hub link)
 - `other` - CLI tools, other platforms
 
 ### Example index.yaml

@@ -3,6 +3,7 @@ url: https://github.com/simojenki/bonob
 repoUrl: https://github.com/simojenki/bonob
 
 platforms:
+  docker: true
   linux: true
   other: true
 

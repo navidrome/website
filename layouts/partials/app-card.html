@@ -21,6 +21,7 @@
 {{ if $platforms.linux }}{{ $platformsList = $platformsList | append "linux" }}{{ end }}
 {{ if $platforms.macos }}{{ $platformsList = $platformsList | append "macos" }}{{ end }}
 {{ if $platforms.web }}{{ $platformsList = $platformsList | append "web" }}{{ end }}
+{{ if $platforms.docker }}{{ $platformsList = $platformsList | append "docker" }}{{ end }}
 {{ if $platforms.other }}{{ $platformsList = $platformsList | append "other" }}{{ end }}
 {{ $platformsAttr := delimit $platformsList " " }}
 
@@ -105,6 +106,15 @@
         {{ end }}
         {{ if $platforms.web }}
           <span title="Web"><i class="fas fa-globe"></i></span>
+        {{ end }}
+        {{ if $platforms.docker }}
+          {{ if and (ne (printf "%T" $platforms.docker) "bool") (isset $platforms.docker "store") }}
+            <a href="{{ $platforms.docker.store }}" target="_blank" rel="noopener" title="Docker">
+              <i class="fab fa-docker"></i>
+            </a>
+          {{ else }}
+            <span title="Docker"><i class="fab fa-docker"></i></span>
+          {{ end }}
         {{ end }}
       </div>
 
