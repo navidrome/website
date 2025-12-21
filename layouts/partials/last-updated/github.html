@@ -1,0 +1,36 @@
+{{/*
+  GitHub Last Updated Partial
+  
+  Fetches the latest release date from GitHub API.
+  
+  Parameters:
+    - repoUrl: GitHub repository URL (e.g., https://github.com/owner/repo)
+  
+  Returns: YYYY-MM-DD formatted date string, or empty string if unavailable
+*/}}
+
+{{ $repoUrl := .repoUrl }}
+{{ $date := "" }}
+
+{{/* Extract owner/repo from URL */}}
+{{ $path := replaceRE "^https?://(www\\.)?github\\.com/" "" $repoUrl }}
+{{ $path = strings.TrimSuffix "/" $path }}
+{{ $parts := split $path "/" }}
+
+{{ if ge (len $parts) 2 }}
+  {{ $owner := index $parts 0 }}
+  {{ $repo := index $parts 1 }}
+  
+  {{/* Fetch latest release from GitHub API */}}
+  {{ $apiUrl := printf "https://api.github.com/repos/%s/%s/releases/latest" $owner $repo }}
+  
+  {{ $result := try (resources.GetRemote $apiUrl) }}
+  {{ with $result.Value }}
+    {{ $data := .Content | transform.Unmarshal }}
+    {{ with $data.published_at }}
+      {{ $date = time.Format "2006-01-02" (time .) }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+{{ return $date }}
