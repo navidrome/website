@@ -39,9 +39,11 @@ that offer this functionality. We encourage you to explore these options if fold
 
 Navidrome only organises music by tags, it will not automatically group a folder containing a bunch of songs with different artists into one album.
 
-For a "Various Artists" compilation, the `Part Of Compilation` tag (`TCMP=1` for id3, `COMPILATION=1` for FLAC) must be set, for all tracks.
+For a "Various Artists" compilation, all tracks must either have the `Part Of Compilation` tag set (`TCMP=1` for id3, `COMPILATION=1` for FLAC), or have their `Album Artist` tags set to the same value (like "Various Artists").
 
 For a single-artist album with a different artist name for each track (for example "Alice feat. Bob" , "Alice feat. Carol"), the `Album Artist` tags must be the same ("Alice") for all tracks.
+
+Additionally, the `Date` tag must have the same value (or lack of value) for all tracks in an album.
 
 Also, take a look at the [Persistent IDs](/docs/usage/pids/) feature, which can help you group tracks that belong to
 the same album, even if they have different artist. You can group tracks by `folder`, for example, by setting
