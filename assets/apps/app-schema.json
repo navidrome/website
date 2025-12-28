@@ -111,7 +111,19 @@
             }
           ]
         },
-        "other": { "type": "boolean" }
+        "other": {
+          "oneOf": [
+            { "type": "boolean" },
+            {
+              "type": "object",
+              "required": ["store"],
+              "properties": {
+                "store": { "type": "string", "format": "uri" }
+              },
+              "additionalProperties": false
+            }
+          ]
+        }
       },
       "additionalProperties": false
     },
