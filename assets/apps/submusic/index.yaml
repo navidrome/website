@@ -10,5 +10,5 @@ screenshots:
   thumbnail: play.png
   gallery:
     - playlists.png
-    - submusic_icon.png
+    - submusic_icon.svg
 repoUrl: https://github.com/memen45/SubMusic
