@@ -145,6 +145,15 @@
             <span title="Docker"><i class="fab fa-docker"></i></span>
           {{ end }}
         {{ end }}
+        {{ if $platforms.other }}
+          {{ if and (ne (printf "%T" $platforms.other) "bool") (isset $platforms.other "store") }}
+            <a href="{{ $platforms.other.store }}" target="_blank" rel="noopener" title="Other platforms">
+              <i class="fas fa-cube"></i>
+            </a>
+          {{ else }}
+            <span title="Other platforms"><i class="fas fa-cube"></i></span>
+          {{ end }}
+        {{ end }}
       </div>
 
       {{/* API badges */}}
