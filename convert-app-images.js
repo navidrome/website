@@ -198,7 +198,7 @@ class ImageConverter {
   // Recursively find image files in a directory
   findImages(dir) {
     const images = [];
-    const imageExtensions = [".png", ".jpg", ".jpeg"];
+    const imageExtensions = [".png", ".jpg", ".jpeg", ".webp"];
 
     const walk = (currentDir) => {
       const items = fs.readdirSync(currentDir);
