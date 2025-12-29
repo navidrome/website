@@ -278,8 +278,8 @@
 
     // Reset sort to default
     if (elements.sortSelect) {
-      elements.sortSelect.value = "name";
-      sortCards("name");
+      elements.sortSelect.value = "updated";
+      sortCards("updated");
     }
 
     // Apply filters (will show all apps)
@@ -323,7 +323,7 @@
       oss: params.get("oss") === "true",
       free: params.get("free") === "true",
       search: params.get("q") || "",
-      sort: params.get("sort") || "name",
+      sort: params.get("sort") || "updated",
     };
   }
 
@@ -366,6 +366,9 @@
     if (elements.sortSelect && state.sort) {
       elements.sortSelect.value = state.sort;
       sortCards(state.sort);
+    } else if (elements.sortSelect) {
+      // Apply default sort when no URL state
+      sortCards("updated");
     }
 
     // Apply filters immediately
@@ -407,7 +410,7 @@
     }
 
     // Add sort param (only if not default)
-    if (elements.sortSelect && elements.sortSelect.value !== "name") {
+    if (elements.sortSelect && elements.sortSelect.value !== "updated") {
       params.set("sort", elements.sortSelect.value);
     }
 
