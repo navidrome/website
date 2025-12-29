@@ -187,6 +187,13 @@ params:
 
 # background credit: Photo by Travis Yewell on Unsplash
 
+# Cache configuration for remote resources (API calls)
+# maxAge: duration before cache expires (e.g., "1h", "24h", "7d")
+# -1 = never expires, 0 = disabled
+caches:
+  getresource:
+    maxAge: "20h"
+
 # hugo module configuration
 module:
   # uncomment line below for temporary local development of module
