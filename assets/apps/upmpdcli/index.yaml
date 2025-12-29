@@ -1,0 +1,22 @@
+name: Subsonic Plugin for upmpdcli
+url: https://www.lesbonscomptes.com/upmpdcli/
+platforms:
+  linux: true
+  docker:
+    store: https://hub.docker.com/r/giof71/upmpdcli
+api: OpenSubsonic
+description: "Expose your Navidrome or subsonic server as a UPnP Media Server. Play to your favorite renderer (e.g. Moode Audio, Volumio and most commercial streamers) using any UPnP Control Point application, including BubbleUPnP, mConnect Lite, upplay. Always tested with Navidrome."
+screenshots:
+  thumbnail: thumbnail.webp
+  gallery:
+    - screen1.webp
+    - screen2.webp
+    - screen3.webp
+    - screen4.webp
+    - screen5.webp
+repoUrl: https://framagit.org/medoc92/upmpdcli
+isFree: true
+keywords:
+  - upnp
+  - dlna
+  - chromecast
