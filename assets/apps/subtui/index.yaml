@@ -6,10 +6,10 @@ platforms:
 api: OpenSubsonic
 description: "Free and open-source terminal music player. Features playback, starring, browsing and scrobbeling with a focus on being light."
 screenshots:
-  thumbnail: thumbnail.png
+  thumbnail: thumbnail.webp
   gallery:
-    - screen1.png
-    - screen2.png
+    - screen1.webp
+    - screen2.webp
 repoUrl: https://github.com/MattiaPun/SubTUI
 isFree: true
 keywords:
