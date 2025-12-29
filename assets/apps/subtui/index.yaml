@@ -1,0 +1,17 @@
+name: SubTUI
+url: https://github.com/MattiaPun/SubTUI
+platforms:
+  macos: true
+  linux: true
+api: OpenSubsonic
+description: "Free and open-source terminal music player. Features playback, starring, browsing and scrobbeling with a focus on being light."
+screenshots:
+  thumbnail: thumbnail.webp
+  gallery:
+    - screen1.webp
+    - screen2.webp
+repoUrl: https://github.com/MattiaPun/SubTUI
+isFree: true
+keywords:
+  - terminal
+  - minimal
