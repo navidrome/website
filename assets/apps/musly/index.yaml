@@ -1,0 +1,19 @@
+name: Musly
+url: https://musly.devid.ink/
+platforms:
+  android:
+    store: https://musly.devid.ink/#download
+  ios: true
+  windows: true
+  linux: true
+  macos: true
+api: Subsonic
+description: "Beautiful open-source music streaming client with Apple Music-inspired interface. Features offline mode, playlist management, Android Auto support, smart search, and dark/light themes. Currently in beta with Android APK available, other platforms require building from source."
+screenshots:
+  thumbnail: Screenshot_20260101_024751.webp
+  gallery:
+    - Screenshot_20260101_024726.webp
+    - Screenshot_20260101_024746.webp
+    - Screenshot_20260101_024751.webp
+    - Screenshot_20260101_024803.webp
+repoUrl: https://github.com/dddevid/musly
