@@ -3,14 +3,10 @@ url: https://musly.devid.ink/
 platforms:
   android:
     store: https://musly.devid.ink/#download
-  ios:
-    source: https://github.com/dddevid/musly
-  windows:
-    source: https://github.com/dddevid/musly
-  linux:
-    source: https://github.com/dddevid/musly
-  macos:
-    source: https://github.com/dddevid/musly
+  ios: true
+  windows: true
+  linux: true
+  macos: true
 api: Subsonic
 description: "Beautiful open-source music streaming client with Apple Music-inspired interface. Features offline mode, playlist management, Android Auto support, smart search, and dark/light themes. Currently in beta with Android APK available, other platforms require building from source."
 screenshots:
@@ -21,4 +17,3 @@ screenshots:
     - Screenshot_20260101_024751.webp
     - Screenshot_20260101_024803.webp
 repoUrl: https://github.com/dddevid/musly
-license: CC BY-NC-SA 4.0
