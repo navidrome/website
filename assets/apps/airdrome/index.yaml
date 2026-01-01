@@ -1,0 +1,21 @@
+name: Airdrome
+url: https://github.com/JPGuillemin/Airdrome
+platforms:
+  android:
+    url: https://github.com/JPGuillemin/Airdrome/releases/download/4.1/Airdrome-4.1.apk
+  web:
+    url: https://github.com/JPGuillemin/Airdrome/releases
+  docker:
+    url: https://github.com/JPGuillemin/Airdrome/releases
+  linux:
+    url: https://github.com/JPGuillemin/Airdrome/releases
+  windows:
+    url: https://github.com/JPGuillemin/Airdrome/releases
+api: OpenSubsonic
+description: "Modern self-hosted Progressive Web App for (Open)Subsonic music servers. Features responsive desktop/mobile UI, persistent playback queue, dynamic playlist support, Full mediaSession integration, gapless playback and persistant cache management."
+screenshots:
+  thumbnail: thumbnail.webp
+  gallery:
+    - screen1.webp
+    - screen2.webp
+repoUrl: https://github.com/JPGuillemin/Airdrome
