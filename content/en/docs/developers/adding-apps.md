@@ -12,7 +12,7 @@ Want to list your app in the [Compatible Client Apps](/apps/) catalog? This guid
 
 - Your app must support the [OpenSubsonic](https://opensubsonic.netlify.app/), [Subsonic](https://subsonic.org/pages/api.jsp), or Navidrome API
 - You'll need a GitHub account to submit a pull request
-- Images should be in WebP, PNG, or JPEG format
+- Images must be in WebP format (PNG/JPEG needs to be [converted](https://www.navidrome.org/docs/developers/adding-apps/#processing-images))
 
 ## Quick Start
 
@@ -20,7 +20,15 @@ Want to list your app in the [Compatible Client Apps](/apps/) catalog? This guid
 2. Create a folder for your app in `assets/apps/` using kebab-case (e.g., `my-awesome-app`)
 3. Add an `index.yaml` file with your app's metadata
 4. Add a thumbnail image and optional gallery screenshots
-5. Submit a pull request
+5. Convert images if needed:
+    ```bash
+    npm run convert:images my-awesome-app
+    ```
+6. Validate your entry using the provided scripts:
+    ```bash
+    npm run validate:app my-awesome-app
+    ```
+7. Submit a pull request
 
 ## Folder Structure
 
@@ -109,13 +117,13 @@ keywords:
 
 - **Max size**: 1200×1200px
 - **Aspect ratio**: Square preferred
-- **Format**: WebP (PNG/JPEG will be converted)
+- **Format**: WebP (PNG/JPEG needs to be converted)
 
 ### Gallery Images (Optional)
 
 - **Max size**: 1200×1200px
 - **Aspect ratio**: Any
-- **Format**: WebP (PNG/JPEG will be converted)
+- **Format**: WebP (PNG/JPEG needs to be converted)
 - **File size**: Keep under 500KB per image
 
 ### Processing Images
