@@ -1,7 +1,8 @@
-# documentation-navigation Specification Delta
+# documentation-navigation Specification
 
-## ADDED Requirements
-
+## Purpose
+TBD - created by archiving change reorganize-docs-navigation. Update Purpose after archive.
+## Requirements
 ### Requirement: Hierarchical Usage Section
 The documentation SHALL organize usage content into logical sub-sections with collapsible navigation.
 
@@ -62,20 +63,3 @@ All internal documentation links SHALL point to canonical (new) URLs.
 - **THEN** the link uses the new canonical URL path
 - **AND** there are no broken internal links after build
 
----
-
-## MODIFIED Requirements
-
-### Requirement: Usage Section Structure
-The Usage section SHALL be restructured from a flat list to a hierarchical organization.
-
-#### Scenario: Before reorganization (previous behavior)
-- **WHEN** a user viewed the Usage section navigation
-- **THEN** all 18 pages appeared as a flat list under Usage
-- **AND** finding specific content required scanning the entire list
-
-#### Scenario: After reorganization (new behavior)
-- **WHEN** a user views the Usage section navigation
-- **THEN** pages are grouped into 5 logical sub-sections
-- **AND** each sub-section can be expanded/collapsed
-- **AND** users can quickly identify relevant content categories
