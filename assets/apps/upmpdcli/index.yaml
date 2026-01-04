@@ -14,8 +14,7 @@ screenshots:
     - screen3.webp
     - screen4.webp
     - screen5.webp
-repoUrl: https://framagit.org/medoc92/upmpdcli
-isFree: true
+repoUrl: https://github.com/GioF71/upmpdcli-docker
 keywords:
   - upnp
   - dlna
