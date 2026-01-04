@@ -137,6 +137,8 @@ params:
     navbar_translucent_over_cover_disable: false
     # Enable to show the side bar menu in its compact state.
     sidebar_menu_compact: false
+    # Enable foldable menu (expand/collapse arrows on sidebar sections)
+    sidebar_menu_foldable: false
     # Set to true to hide the sidebar search box (the top nav search box will still be displayed if search is enabled)
     sidebar_search_disable: false
     # Set to true to enable the About link in the site footer
