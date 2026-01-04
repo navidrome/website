@@ -18,12 +18,12 @@ send your scrobbles to Last.fm. For these features to work, you'll need to set t
 
 1. Go to https://www.last.fm/api/account/create and create an API account. Only the _Application Name_ field is mandatory:
 <p align="center">
-<img width="500" src="/screenshots/lastfm-create-account.png">
+<img width="500" src="/screenshots/lastfm-create-account.webp">
 </p>
 
 2. After submitting the form, you can get the _API Key_ and _Shared Secret_ from the _Account Created_ page:
 <p align="center">
-<img width="500" src="/screenshots/lastfm-account-created.png">
+<img width="500" src="/screenshots/lastfm-account-created.webp">
 </p>
 
 3. Copy the values above to your [configuration file](/docs/usage/configuration-options#configuration-file) as `LastFM.ApiKey` and `LastFM.Secret` (or set them as environment variables `ND_LASTFM_APIKEY` and `ND_LASTFM_SECRET`)
@@ -36,27 +36,27 @@ To obtain these values, create a free account in Spotify, then follow these step
 
 1. Click on the "Create app" button in Spotify's Developer dashboard: https://developer.spotify.com/dashboard/applications:
 <p align="center">
-<img width="500" src="/screenshots/spotify-dashboard.png">
+<img width="500" src="/screenshots/spotify-dashboard.webp">
 </p>
 
 2. Fill the name and description fields, fill the "Redirect URI" field with `http://localhost/` and click on the "Save" button:
 <p align="center">
-<img width="500" src="/screenshots/spotify-create-app.png">
+<img width="500" src="/screenshots/spotify-create-app.webp">
 </p>
 
 3. Go to "Settings":
 <p align="center">
-<img width="500" src="/screenshots/spotify-app-home.png">
+<img width="500" src="/screenshots/spotify-app-home.webp">
 </p>
 
 4. Click "View client secret":
 <p align="center">
-<img width="500" src="/screenshots/spotify-app-basic-info.png">
+<img width="500" src="/screenshots/spotify-app-basic-info.webp">
 </p>
 
 5. Copy the values of ID and secret to your [configuration file](/docs/usage/configuration-options#configuration-file) as `Spotify.ID` and `Spotify.Secret` (or set them as environment variables `ND_SPOTIFY_ID` and `ND_SPOTIFY_SECRET`):
 <p align="center">
-<img width="500" src="/screenshots/spotify-app-basic-info-secret.png">
+<img width="500" src="/screenshots/spotify-app-basic-info-secret.webp">
 </p>
 
 ## Deezer

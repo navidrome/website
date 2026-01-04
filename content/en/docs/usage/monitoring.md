@@ -13,7 +13,7 @@ Prometheus/[OpenMetrics](https://github.com/OpenObservability/OpenMetrics/blob/m
 standard. Example Grafana dashboard:
 
 <p align="center">
-<img width="1000" src="/screenshots/grafana-example.png">
+<img width="1000" src="/screenshots/grafana-example.webp">
 </p>
 
 ### Overview

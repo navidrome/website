@@ -37,35 +37,35 @@ albums and artists
     <div class="col-md-6">
       <div class="d-flex flex-wrap justify-content-center">
         <div class="p-2" style="max-width: 300px;">
-          <a href="/screenshots/mobile-login.png" target="_blank">
-            <img class="img-fluid rounded shadow-sm" src="/screenshots/mobile-login.png" alt="Mobile login screen">
+          <a href="/screenshots/mobile-login.webp" target="_blank">
+            <img class="img-fluid rounded shadow-sm" src="/screenshots/mobile-login.webp" alt="Mobile login screen">
           </a>
         </div>
         <div class="p-2" style="max-width: 300px;">
-          <a href="/screenshots/dark-mobile-albums-view.png" target="_blank">
-            <img class="img-fluid rounded shadow-sm" src="/screenshots/dark-mobile-albums-view.png" alt="Dark theme mobile albums view">
+          <a href="/screenshots/dark-mobile-albums-view.webp" target="_blank">
+            <img class="img-fluid rounded shadow-sm" src="/screenshots/dark-mobile-albums-view.webp" alt="Dark theme mobile albums view">
           </a>
         </div>
       </div>
     </div>
     <div class="col-md-6">
       <div class="p-2">
-        <a href="/screenshots/dark-album-view.png" target="_blank">
-          <img class="img-fluid rounded shadow-sm" src="/screenshots/dark-album-view.png" alt="Dark theme album view">
+        <a href="/screenshots/dark-album-view.webp" target="_blank">
+          <img class="img-fluid rounded shadow-sm" src="/screenshots/dark-album-view.webp" alt="Dark theme album view">
         </a>
       </div>
     </div>
     <div class="col-md-6">
       <div class="p-2">
-        <a href="/screenshots/light-albums-view.png" target="_blank">
-          <img class="img-fluid rounded shadow-sm" src="/screenshots/light-albums-view.jpg" alt="Light theme albums view">
+        <a href="/screenshots/light-albums-view.webp" target="_blank">
+          <img class="img-fluid rounded shadow-sm" src="/screenshots/light-albums-view.webp" alt="Light theme albums view">
         </a>
       </div>
     </div>
     <div class="col-md-6">
       <div class="p-2">
-        <a href="/screenshots/spotify-ish.jpg" target="_blank">
-          <img class="img-fluid rounded shadow-sm" src="/screenshots/spotify-ish.jpg" alt="Spotify-inspired theme view">
+        <a href="/screenshots/spotify-ish.webp" target="_blank">
+          <img class="img-fluid rounded shadow-sm" src="/screenshots/spotify-ish.webp" alt="Spotify-inspired theme view">
         </a>
       </div>
     </div>

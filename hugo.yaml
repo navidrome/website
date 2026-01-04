@@ -43,8 +43,9 @@ permalinks:
 # Image processing configuration.
 imaging:
   resampleFilter: "CatmullRom"
-  quality: 75
-  anchor: "smart"
+  quality: 80
+  anchor: "Smart"
+  hint: "photo" # WebP encoding hint for better compression
 
 # Language configuration
 languages:

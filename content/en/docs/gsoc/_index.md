@@ -15,7 +15,7 @@ Navidrome started in February 2016 as a modern and lightweight alternative to [S
 written in [Go]( https://golang.org/ )/[React](https://reactjs.org/), implementing the [subsonic API]( http://www.subsonic.org/pages/api.jsp ) and thus compatible with all the [subsonic clients]( http://www.subsonic.org/pages/apps.jsp ) in the world, licensed under GPL3, … Being relatively young, it does come/use modern development practices like continuous integration, a comprehensive testsuite, a relatively clean codebase, automatic dependency upgrades, automatic linting/CI/static analysis/… on each pull-request, [comprehensive documentation]( https://www.navidrome.org/docs/ ) … It recently gained popularity due to the decay of [Subsonic](http://subsonic.org)/[Airsonic](http://airsonic.org), and currently has more than 4M downloads of its [docker image]( https://hub.docker.com/r/deluan/navidrome ), and had its binaries downloaded more than 12k times.
 
 <p align="left">
-<img width="700" src="/screenshots/gsoc-2021/ss-desktop-player.png">
+<img width="700" src="/screenshots/gsoc-2021/ss-desktop-player.webp">
 </p>
 
 A demo version is available as well: https://demo.navidrome.org
@@ -81,7 +81,7 @@ A nice way to implement this would be to have a table of shares, with a shorturl
 We would also need a standalone player similar to what is provided by Spotify when you share music through their service. Ex:
 
 <p align="left">
-<img width="600" src="/screenshots/gsoc-2021/spotify-share.png">
+<img width="600" src="/screenshots/gsoc-2021/spotify-share.webp">
 </p>
 
 #### Steps

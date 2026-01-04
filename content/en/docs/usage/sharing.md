@@ -49,7 +49,7 @@ When browsing your music collection, you will notice a "Share" button or menu it
 Upon clicking the "Share" button, a dialog box will appear, allowing you to configure your share. This includes setting a description other configurations for the share.
 
 <p align="center">
-<img width="400" src="/screenshots/share-dialog.png">
+<img width="400" src="/screenshots/share-dialog.webp">
 </p>
 
 Once you have configured your share as desired, click the "Share" button. This will generate a unique shareable link, which you can then copy and share with your friends.
@@ -64,5 +64,5 @@ See the <a href="https://opensubsonic.netlify.app/categories/sharing/" target="_
 Meta-tags are added to the HTML to provide some information about the shared music on chat platforms. Example of a link shared in Discord:
 
 <p align="center">
-<img width="400" src="/screenshots/share-meta.png">
+<img width="400" src="/screenshots/share-meta.webp">
 </p>

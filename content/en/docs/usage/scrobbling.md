@@ -15,19 +15,19 @@ Navidrome allows you to easily scrobble your played songs to Last.fm and ListenB
 3) Toggle the option `Scrobble to Last.fm`, a new browser tab will open directing you to Last.fm.
 
 <p align="center">
-<img width="500" src="/screenshots/navidrome-personal-settings.png">
+<img width="500" src="/screenshots/navidrome-personal-settings.webp">
 </p>
 
 4) If you are not logged in, then log in with your Last.fm credentials.
 
 <p align="center">
-<img width="500" src="/screenshots/lastfm-login.png">
+<img width="500" src="/screenshots/lastfm-login.webp">
 </p>
 
 5) Click "Yes, allow access".
 
 <p align="center">
-<img width="500" src="/screenshots/lastfm-allow-access.png">
+<img width="500" src="/screenshots/lastfm-allow-access.webp">
 </p>
 
 ## ListenBrainz
@@ -36,13 +36,13 @@ Navidrome allows you to easily scrobble your played songs to Last.fm and ListenB
 2) Click on the appropriate link in the pop-up that opens.
 
 <p align="center">
-<img width="500" src="/screenshots/listenbrainz-popup.png">
+<img width="500" src="/screenshots/listenbrainz-popup.webp">
 </p>
 
 3) On the ListenBrainz website, either generate a new token or copy your existing one, then go back to your Navidrome tab.
 
 <p align="center">
-<img width="500" src="/screenshots/listenbrainz-token.png">
+<img width="500" src="/screenshots/listenbrainz-token.webp">
 </p>
 
 4) Paste the token in the pop-up and save.
