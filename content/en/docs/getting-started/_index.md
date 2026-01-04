@@ -47,6 +47,10 @@ Or check the path you specified in your LaunchAgent plist.
 {{% /tab %}}
 {{< /tabpane >}}
 
+{{% alert title="Note" color="info" %}}
+Can't find the logs? Read ["Where to Find Navidrome Logs"](docs/faq/#-where-are-the-logs).
+{{% /alert %}}
+
 **What success looks like:** You should see log entries showing Navidrome starting up and beginning to scan your music folder. Look for messages like:
 ```
 Creating DB Schema
