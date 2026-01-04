@@ -2,10 +2,12 @@
 title: Missing Files
 linkTitle: Missing Files
 date: 2017-01-02
-weight: 45
+weight: 30
 description: >
   Learn how to troubleshoot and resolve missing files in Navidrome, 
   including common causes and solutions for missing tracks and albums.
+aliases:
+  - /docs/usage/missing-files/
 ---
 
 ## Overview
@@ -36,7 +38,7 @@ to match the new paths with the old ones. This can happen when you move or renam
 operation.
 
 To learn how Navidrome matches missing files and newly discovered ones, see the documentation on
-[PIDs](/docs/usage/pids/#handling-file-moves-and-retagging)
+[PIDs](/docs/usage/configuration/persistent-ids/#handling-file-moves-and-retagging)
 To avoid getting into this situation, it is recommended to move or rename files first, trigger a quick scan,
 and then update the tags.
 

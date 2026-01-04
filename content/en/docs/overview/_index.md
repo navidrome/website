@@ -32,7 +32,7 @@ It can also work as a lightweight Subsonic-API compatible server, that can be us
 - Scrobbling to **Last.fm**, **ListenBrainz** and **Maloja** (via custom ListenBrainz URL)
 - **Sharing** public links to albums/songs/playlists
 - **Externalized authentication** to use your own authentication service instead of Navidrome's built-in one
-- [Jukebox mode](/docs/usage/jukebox) allows playing music on an audio device attached to the server, and control from a client
+- [Jukebox mode](/docs/usage/features/jukebox) allows playing music on an audio device attached to the server, and control from a client
 
 ### Features supported by the Subsonic API
 
@@ -45,12 +45,12 @@ It can also work as a lightweight Subsonic-API compatible server, that can be us
 - Transcoding and Downsampling
 - Get/Save Play Queue (to continue listening in a different device)
 - Last.fm and ListenBrainz scrobbling
-- Artist Bio from [Last.fm](/docs/usage/external-integrations/#lastfm)
-- Artist Images from [Last.fm](/docs/usage/external-integrations/#lastfm), [Spotify](/docs/usage/external-integrations/#spotify) and [Deezer](/docs/usage/external-integrations/#deezer)
-- Album images and description from [Last.fm](/docs/usage/external-integrations/#lastfm)
+- Artist Bio from [Last.fm](/docs/usage/integration/external-services/#lastfm)
+- Artist Images from [Last.fm](/docs/usage/integration/external-services/#lastfm), [Spotify](/docs/usage/integration/external-services/#spotify) and [Deezer](/docs/usage/integration/external-services/#deezer)
+- Album images and description from [Last.fm](/docs/usage/integration/external-services/#lastfm)
 - Lyrics (from embedded tags and external files)
 - Internet Radios
-- [Jukebox mode](/docs/usage/jukebox)
+- [Jukebox mode](/docs/usage/features/jukebox)
 - Shares ([experimental support](https://github.com/navidrome/navidrome/pull/2106))
 
 {{< alert color="warning" title="NOTE" >}}
@@ -74,5 +74,5 @@ Whether you prefer streaming on the go, listening to your library from your desk
 This project is in active development. Expect a more polished experience and new features/releases
 on a frequent basis. Some upcoming features planned:
 
-- New UI, including a [Smart playlists editor](/docs/usage/smartplaylists)
+- New UI, including a [Smart playlists editor](/docs/usage/features/smart-playlists)
 - Plugins

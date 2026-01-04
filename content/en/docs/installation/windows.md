@@ -34,7 +34,7 @@ shawl add --name Navidrome -- "C:\Services\navidrome\navidrome.exe" -c "C:\Servi
 sc start Navidrome
 ```
 
-{{% alert title="Note" %}}When using Shawl, you have to use absolute paths when specifying folders/files as arguments to the navidrome binary and in the configuration file (remember to escape the backslashes in the configuration file). Refer to the [configuration options page](https://www.navidrome.org/docs/usage/configuration-options) for more information about the available options.{{% /alert %}}
+{{% alert title="Note" %}}When using Shawl, you have to use absolute paths when specifying folders/files as arguments to the navidrome binary and in the configuration file (remember to escape the backslashes in the configuration file). Refer to the [configuration options page](https://www.navidrome.org/docs/usage/configuration/options) for more information about the available options.{{% /alert %}}
 
 ### Using NSSM
 

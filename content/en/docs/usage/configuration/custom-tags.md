@@ -6,6 +6,8 @@ weight: 11
 description: >
   How to import and use custom tags in Navidrome. This page explains the available options to configure custom tags,
   including aliases, tag type, maximum length, custom separators and album-level settings.
+aliases:
+  - /docs/usage/customtags/
 ---
 
 ## Overview
@@ -20,7 +22,7 @@ metadata beyond the default supported tags. This functionality can be configured
 ## Configuring custom tags
 
 {{< alert >}}
-This customization is only available when using a [configuration file](/docs/usage/configuration-options).
+This customization is only available when using a [configuration file](/docs/usage/configuration/options).
 
 If you want to use a configuration file with Docker, you can do so by creating a `navidrome.toml` config file in the
 host folder that is mapped to your `/data` volume. Docker installations automatically look for a `navidrome.toml` file in the `/data` folder.
@@ -128,10 +130,10 @@ This will allow you to filter or sort by `writer` in Smart Playlists.
 ### Adding tags for custom filtering/sorting in Smart Playlists
 If you want to create a Smart Playlist that filters or sorts by a custom tag, you can define the tag in the
 configuration file, then use it in the Smart Playlist as a regular 
-[field](/docs/usage/smartplaylists/#additional-resources).
+[field](/docs/usage/features/smart-playlists/#additional-resources).
 
 
-[config]: /docs/usage/configuration-options
+[config]: /docs/usage/configuration/options
 [mappings]: https://github.com/navidrome/navidrome/blob/master/resources/mappings.yaml
-[pid]: /docs/usage/pids
+[pid]: /docs/usage/configuration/persistent-ids
 

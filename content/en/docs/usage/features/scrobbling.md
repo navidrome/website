@@ -1,16 +1,18 @@
 ---
 title: "Scrobbling"
 linkTitle: "Scrobbling"
-weight: 35
+weight: 50
 description: >-
      Information on setting up scrobbling with Last.fm and ListenBrainz.
+aliases:
+  - /docs/usage/scrobbling/
 ---
 
 Navidrome allows you to easily scrobble your played songs to Last.fm and ListenBrainz.
 
 ## Last.fm
 
-1) Ensure you have the API Key and API Secret set according to the instructions in [External Integrations](/docs/usage/external-integrations#lastfm).
+1) Ensure you have the API Key and API Secret set according to the instructions in [External Integrations](/docs/usage/integration/external-services#lastfm).
 2) Go to your user profile's Personal Settings.
 3) Toggle the option `Scrobble to Last.fm`, a new browser tab will open directing you to Last.fm.
 

@@ -2,10 +2,11 @@
 title: "Exclude Content From Library"
 linkTitle: "Exclude Content From Library"
 date: 2025-07-05
-weight: 70
+weight: 40
 description: >
   Learn how to use `.ndignore` to exclude content from being added to Navidrome's library
-draft: false
+aliases:
+  - /docs/usage/ndignore/
 ---
 
 ## Overview

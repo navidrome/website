@@ -2,9 +2,11 @@
 title: Multi-Library Support
 linkTitle: Multi-Library
 date: 2025-07-18
-weight: 15
+weight: 20
 description: >
   Learn how to set up and manage multiple music libraries in Navidrome with user-specific access controls.
+aliases:
+  - /docs/usage/multi-library/
 ---
 
 ## Overview
@@ -165,6 +167,6 @@ Most Subsonic-compatible clients that support multiple music folders will work w
 
 ## Related Features
 
-- [Configuration Options](/docs/usage/configuration-options/): Basic setup and MusicFolder configuration
-- [Smart Playlists](/docs/usage/smartplaylists/): Create dynamic playlists with library-specific filters
-- [Backup](/docs/usage/backup/): Protecting your multi-library setup
+- [Configuration Options](/docs/usage/configuration/options/): Basic setup and MusicFolder configuration
+- [Smart Playlists](/docs/usage/features/smart-playlists/): Create dynamic playlists with library-specific filters
+- [Backup](/docs/usage/admin/backup/): Protecting your multi-library setup

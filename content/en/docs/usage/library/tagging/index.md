@@ -6,6 +6,8 @@ weight: 10
 description: >
     Learn how to tag your music library for optimal use with Navidrome, including best practices for tagging files, 
     handling multiple artists, and using tag editors.
+aliases:
+  - /docs/usage/tagging-guidelines/
 ---
 
 ## Why Proper Tagging is Important
@@ -66,7 +68,7 @@ Each tag field has a specific purpose. Here are the important ones and how to us
 
 {{< alert "info" >}}
 Here's a [complete list of tags](https://github.com/navidrome/navidrome/blob/master/resources/mappings.yaml) 
-that Navidrome import and use by default. For adding custom tags, see the [Custom Tags](/docs/usage/customtags) page.
+that Navidrome import and use by default. For adding custom tags, see the [Custom Tags](/docs/usage/configuration/custom-tags) page.
 {{< /alert >}}
 
 ### File and Folder Naming (Optional but Helpful)
@@ -104,7 +106,7 @@ Including album cover art enhances the Navidrome experience. Here's how to manag
 
 {{% alert "info" %}}
 Organizing your music in a logical and consistent folder structure can also help Navidrome find your artwork files.
-Check the [Artwork Resolution](/docs/usage/artwork) page for details.
+Check the [Artwork Resolution](/docs/usage/library/artwork) page for details.
 {{% /alert %}}
 
 
@@ -312,7 +314,7 @@ Here are some recommendations and tips on workflow:
 {{< alert color="warning" >}}
 **Caution**: If you are retagging files that are already in Navidrome, avoid retagging and moving in one step, as this 
 could cause Navidrome to lose track of the files. Instead, retag and save, rescan, then move the files and rescan 
-again. See details [here](/docs/usage/pids/#handling-file-moves-and-retagging).
+again. See details [here](/docs/usage/configuration/persistent-ids/#handling-file-moves-and-retagging).
 {{< /alert >}}
     6. **Rescan in Navidrome**: Navidrome usually auto-detects changes, but you can trigger a library rescan or 
          restart the server to be sure. Once scanned, check in the Navidrome interface that everything appears 

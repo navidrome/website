@@ -2,9 +2,11 @@
 title: How to Use Smart Playlists in Navidrome (Beta)
 linkTitle: Smart Playlists (Beta)
 date: 2017-01-02
-weight: 40
+weight: 10
 description: >
   Learn how to create and manage Smart Playlists in Navidrome, a dynamic way to organize and enjoy your music collection.
+aliases:
+  - /docs/usage/smartplaylists/
 ---
 
 Smart Playlists in Navidrome offer a dynamic way to organize and enjoy your music collection. They are created using
@@ -143,7 +145,7 @@ and assign ownership accordingly.
 Smart Playlists are refreshed automatically when they are accessed by the UI or any Subsonic client. This ensures
 that the playlist is up-to-date when you view it. To avoid unnecessary load, there is a minimum delay between refreshes.
 This delay can be adjusted by setting the
-[`SmartPlaylistRefreshDelay`](/docs/usage/configuration-options/#:~:text=SmartPlaylistRefreshDelay) configuration option.
+[`SmartPlaylistRefreshDelay`](/docs/usage/configuration/options/#:~:text=SmartPlaylistRefreshDelay) configuration option.
 By default, this is set to `5s`, meaning that Smart Playlists refreshes are spaced at least 5 seconds apart.
 You can adjust this value in the configuration file.
 
@@ -275,7 +277,7 @@ The following fields contain MusicBrainz IDs that can be used to create playlist
 Any tags imported from the music files, that are not listed above, can be also used as fields in your Smart Playlists.
 Check the [complete list of tags](https://github.com/navidrome/navidrome/blob/master/resources/mappings.yaml) imported
 by navidrome. You can also add your own custom tags to your music files and use them in your Smart Playlists.
-Check the [Custom Tags](/docs/usage/customtags) for more information.
+Check the [Custom Tags](/docs/usage/configuration/custom-tags) for more information.
 
 ### Operators
 

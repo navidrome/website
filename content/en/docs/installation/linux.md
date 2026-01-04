@@ -70,9 +70,9 @@ MusicFolder = "/path/to/your/music/library"
 
 If the MusicFolder is not set, that the default music path is `/opt/navidrome/music` and it will be running as user `navidrome`.
 
-**Note**: This becomes your default library. You can add additional libraries through the web interface after installation. See the [Multi-Library documentation](/docs/usage/multi-library/) for more details.
+**Note**: This becomes your default library. You can add additional libraries through the web interface after installation. See the [Multi-Library documentation](/docs/usage/features/multi-library/) for more details.
 
-For additional configuration options see the [configuration options page](https://www.navidrome.org/docs/usage/configuration-options/).
+For additional configuration options see the [configuration options page](https://www.navidrome.org/docs/usage/configuration/options/).
 
 **Start the Navidrome Service**: Use systemctl to start the Navidrome service and set it to run on startup.
 
@@ -164,7 +164,7 @@ In the directory `/etc/navidrome` create a new file named `navidrome.toml` with 
 MusicFolder = "<library_path>"
 ```
 
-For additional configuration options see the [configuration options page](https://www.navidrome.org/docs/usage/configuration-options/).
+For additional configuration options see the [configuration options page](https://www.navidrome.org/docs/usage/configuration/options/).
 
 ### Create a systemd Unit
 

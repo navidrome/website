@@ -74,7 +74,7 @@ sysrc navidrome_config="/path/to/new/config_file.toml"
 
 Make sure the user Navidrome is running as has permission to read the file.
 
-For additional configuration options see the [configuration options page](https://www.navidrome.org/docs/usage/configuration-options/).
+For additional configuration options see the [configuration options page](https://www.navidrome.org/docs/usage/configuration/options/).
 
 ### Data Folder
 

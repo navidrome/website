@@ -6,6 +6,8 @@ weight: 15
 description: >
     Learn how to configure and customize Persistent IDs (PIDs) in Navidrome to customize disambiguation
     and improve media management.
+aliases:
+  - /docs/usage/pids/
 ---
 
 ## Persistent IDs in Navidrome
@@ -19,7 +21,7 @@ Persistent IDs are unique, user-configurable identifiers for tracks and albums, 
 ### Key Features
 - **Configurable and Flexible:** Users can define their PID structure using various tags, including 
   `musicbrainz_trackid`, `albumid`, `discnumber`, `tracknumber`, `title`, `folder`, `albumartistid`, `catalognum`, 
-  Discogs IDs, or even [custom tags](/docs/usage/customtags/)
+  Discogs IDs, or even [custom tags](/docs/usage/configuration/custom-tags/)
 - **Accurate File Detection:** Navidrome recognizes moved or re-tagged files, preventing duplication or mismatches.
 - **Album Disambiguation:** Easily differentiate albums with identical names through custom tags like `albumversion` (e.g., Deluxe Editions).
 
@@ -95,4 +97,4 @@ If issues arise when enabling or configuring PIDs:
 
 
 [logs]: /docs/faq/#-where-are-the-logs
-[config]: /docs/usage/configuration-options
+[config]: /docs/usage/configuration/options

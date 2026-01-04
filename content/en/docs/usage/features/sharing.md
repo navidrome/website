@@ -5,6 +5,8 @@ date: 2017-01-02
 weight: 40
 description: >
   How to create links to your media to be shared on Facebook, X, WhatsApp
+aliases:
+  - /docs/usage/sharing/
 ---
 
 {{< alert color="warning" title="NOTE" >}}
@@ -15,7 +17,7 @@ Navidrome has a "Sharing" feature which allows users to generate a shareable lin
 
 ### Enabling the Sharing Feature
 The Sharing feature is disabled by default. To enable it, you need to adjust your Navidrome
-[configuration](/docs/usage/configuration-options). In your configuration file, set `EnableSharing=true`, or set the
+[configuration](/docs/usage/configuration/options). In your configuration file, set `EnableSharing=true`, or set the
 environment variable `ND_ENABLESHARING=true`.
 
 Once the Sharing feature is enabled, all users will have access to all existing shares. This includes the ability to change the description and expiration date of the shares, as well as the capability to create new shares.

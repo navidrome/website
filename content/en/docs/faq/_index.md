@@ -22,9 +22,9 @@ Here are a few situations where users might find folder browsing important, and 
    you can browse by genres in Subsonic clients, and it will have a dedicated Genre view in the future.
    There is support for the multivalued `grouping` tag, (with a dedicated view coming in a future release as well).
 2. Separating different types of content (music vs. audiobooks, lossy vs. lossless): Navidrome now supports
-   [multi-library setups](/docs/usage/multi-library/) where you can create separate libraries with user-specific access controls.
+   [multi-library setups](/docs/usage/features/multi-library/) where you can create separate libraries with user-specific access controls.
 3. Having different releases for the same album: This will is already supported, and is configurable via the
-   [Persistent IDs](/docs/usage/pids/) feature. You can group albums by `musicbrainz_albumid`, `discogs_release_id`,
+   [Persistent IDs](/docs/usage/configuration/persistent-ids/) feature. You can group albums by `musicbrainz_albumid`, `discogs_release_id`,
    `folder`, or any other tag you want.
 4. Users who don't have their library tagged: **We explicitly do not support this**, as it would make it very difficult
    to support all features Navidrome has and will have. We do not want to have code that "infers" that a folder with
@@ -43,9 +43,9 @@ For a "Various Artists" compilation, the `Part Of Compilation` tag (`TCMP=1` for
 
 For a single-artist album with a different artist name for each track (for example "Alice feat. Bob" , "Alice feat. Carol"), the `Album Artist` tags must be the same ("Alice") for all tracks.
 
-Also, take a look at the [Persistent IDs](/docs/usage/pids/) feature, which can help you group tracks that belong to
+Also, take a look at the [Persistent IDs](/docs/usage/configuration/persistent-ids/) feature, which can help you group tracks that belong to
 the same album, even if they have different artist. You can group tracks by `folder`, for example, by setting
-the configuration option `PID.Album="folder"`. Check the [PID documentation](/docs/usage/pids/) for more information.
+the configuration option `PID.Album="folder"`. Check the [PID documentation](/docs/usage/configuration/persistent-ids/) for more information.
 
 ---
 
@@ -66,7 +66,7 @@ Others: [mp3tag](https://www.mp3tag.de/en/index.html) (Windows, macOS), [ExifToo
 
 If you are new to organizing and tagging your library, take a look at this post about how to use Picard or beets with Navidrome: [Organizing music with Musicbrainz Picard](http://www.thedreaming.org/2020/11/22/musicbrainz-picard/)
 
-Don't forget to take a look at our [Tagging Guidelines](/docs/usage/tagging-guidelines/) to ensure your music library
+Don't forget to take a look at our [Tagging Guidelines](/docs/usage/library/tagging/) to ensure your music library
 is correctly tagged.
 
 ---
@@ -89,7 +89,7 @@ However, there are several excellent solutions you can use alongside Navidrome t
 
 **With Multi-Library Support:**
 
-Since Navidrome now supports [multi-library setups](/docs/usage/multi-library/), you can create a dedicated "Upload" library that automatically scans and makes available any new files you add. This workflow allows you to:
+Since Navidrome now supports [multi-library setups](/docs/usage/features/multi-library/), you can create a dedicated "Upload" library that automatically scans and makes available any new files you add. This workflow allows you to:
 
 - Set up a separate upload directory with its own library
 - Use any of the upload solutions above to add files to this directory

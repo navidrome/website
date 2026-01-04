@@ -15,7 +15,7 @@ We define a service as shown below and save that in a file named `navidrome.plis
 The example shown assumes a few things:
 
 1. The binary has been downloaded and extracted to the `/opt/navidrome` folder.
-2. A [configuration file](https://www.navidrome.org/docs/usage/configuration-options) for Navidrome has been created and is named `navidrome.toml` in that folder. Be sure to set the `DataFolder` option as well.
+2. A [configuration file](https://www.navidrome.org/docs/usage/configuration/options) for Navidrome has been created and is named `navidrome.toml` in that folder. Be sure to set the `DataFolder` option as well.
 3. A log file for Navidrome has been created and is named `navidrome.log` in that folder.
 
 ```xml

@@ -2,10 +2,11 @@
 title: "Monitoring Navidrome"
 linkTitle: "Monitoring"
 date: 2024-07-08
-weight: 50
+weight: 30
 description: >
   How to monitor status of your Navidrome instance
-draft: false
+aliases:
+  - /docs/usage/monitoring/
 ---
 
 Currently, Navidrome supports monitoring and alerting using

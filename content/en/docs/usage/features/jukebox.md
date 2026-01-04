@@ -2,9 +2,11 @@
 title: "Jukebox mode"
 linkTitle: "Jukebox mode"
 date: 2023-10-23
-weight: 60
+weight: 30
 description: >
   Activate Navidrome's Jukebox mode
+aliases:
+  - /docs/usage/jukebox/
 ---
 
 ## Introduction
@@ -74,7 +76,7 @@ Please use the full device name **if you do not want to use MPV's auto device**.
 
 ## Configuration
 
-Jukebox mode is enabled by setting this option in your [configuration file](/docs/usage/configuration-options)
+Jukebox mode is enabled by setting this option in your [configuration file](/docs/usage/configuration/options)
 (normally `navidrome.toml`):
 
 ```toml

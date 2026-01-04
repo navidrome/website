@@ -19,7 +19,7 @@ Check the "Notes" column for limitations/missing behavior. Also keep in mind the
 between Navidrome and Subsonic:
 
 - Navidrome will not implement any video related functionality, it is focused on Music only
-- Navidrome supports [multiple Music Libraries (Music Folders)](/docs/usage/multi-library/) with user-specific access controls
+- Navidrome supports [multiple Music Libraries (Music Folders)](/docs/usage/features/multi-library/) with user-specific access controls
 - There are currently no plans to support browse-by-folder. Endpoints for this functionality (Ex: `getIndexes`, `getMusicDirectory`)
   returns a simulated directory tree, using the format: `/Artist/Album/01 - Song.mp3`.
 - Navidrome does not mark songs as played by calls to `stream`, only when
@@ -44,13 +44,13 @@ between Navidrome and Subsonic:
 | `getArtist`         |                                                                      |
 | `getAlbum`          |                                                                      |
 | `getGenres`         |                                                                      |
-| `getArtistInfo`     | Requires [external integrations](/docs/usage/external-integrations/) |
-| `getArtistInfo2`    | Requires [external integrations](/docs/usage/external-integrations/) |
-| `getAlbumInfo`      | Requires [external integrations](/docs/usage/external-integrations/) |
-| `getAlbumInfo2`     | Requires [external integrations](/docs/usage/external-integrations/) |
-| `getTopSongs`       | Requires [Last.fm integration](/docs/usage/external-integrations/)   |
-| `getSimilarSongs`   | Requires [Last.fm integration](/docs/usage/external-integrations/)   |
-| `getSimilarSongs2`  | Requires [Last.fm integration](/docs/usage/external-integrations/)   |
+| `getArtistInfo`     | Requires [external integrations](/docs/usage/integration/external-services/) |
+| `getArtistInfo2`    | Requires [external integrations](/docs/usage/integration/external-services/) |
+| `getAlbumInfo`      | Requires [external integrations](/docs/usage/integration/external-services/) |
+| `getAlbumInfo2`     | Requires [external integrations](/docs/usage/integration/external-services/) |
+| `getTopSongs`       | Requires [Last.fm integration](/docs/usage/integration/external-services/)   |
+| `getSimilarSongs`   | Requires [Last.fm integration](/docs/usage/integration/external-services/)   |
+| `getSimilarSongs2`  | Requires [Last.fm integration](/docs/usage/integration/external-services/)   |
 
 | _Album/Songs Lists_ |     |
 | ------------------- | --- |

@@ -5,6 +5,8 @@ date: 2017-01-06
 weight: 10
 description: >
   How to customize Navidrome to your environment
+aliases:
+  - /docs/usage/configuration-options/
 ---
 
 Navidrome allows some customization using environment variables, loading from a configuration file
@@ -30,7 +32,7 @@ in it. Example of a configuration file (select your OS):
 
 # This is just an example! Please see available options to customize Navidrome for your needs at
 
-# https://www.navidrome.org/docs/usage/configuration-options/#available-options
+# https://www.navidrome.org/docs/usage/configuration/options/#available-options
 
 LogLevel = 'DEBUG'
 Scanner.Schedule = '@every 24h'
@@ -48,7 +50,7 @@ FFmpegPath = 'C:\Program Files\ffmpeg\bin\ffmpeg.exe'
 
 # This is just an example! Please see available options to customize Navidrome for your needs at
 
-# https://www.navidrome.org/docs/usage/configuration-options/#available-options
+# https://www.navidrome.org/docs/usage/configuration/options/#available-options
 
 LogLevel = 'DEBUG'
 Scanner.Schedule = '@every 24h'
@@ -63,7 +65,7 @@ FFmpegPath = '/opt/homebrew/bin/ffmpeg'
 
 # This is just an example! Please see available options to customize Navidrome for your needs at
 
-# https://www.navidrome.org/docs/usage/configuration-options/#available-options
+# https://www.navidrome.org/docs/usage/configuration/options/#available-options
 
 LogLevel = 'DEBUG'
 Scanner.Schedule = '@every 24h'
@@ -258,31 +260,31 @@ make it all uppercase. Ex: `ND_LOGLEVEL=debug`. See below for all available opti
   even has their [own guide](https://developer.mozilla.org/en-US/docs/Web/Media/Formats/Audio_codecs) about audio
   codecs).
 
-[limit-login-attempts]: /docs/usage/security#limit-login-attempts "Login Limit Rating"
-[transcoding]: /docs/usage/security#transcoding-configuration "Transcoding configuration"
+[limit-login-attempts]: /docs/usage/admin/security#limit-login-attempts "Login Limit Rating"
+[transcoding]: /docs/usage/admin/security#transcoding-configuration "Transcoding configuration"
 [language-codes]: https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes "List of language codes"
-[external-integrations]: /docs/usage/external-integrations
-[lastfm-integration]: /docs/usage/external-integrations/#lastfm
-[spotify-integration]: /docs/usage/external-integrations/#spotify
-[deezer-integration]: /docs/usage/external-integrations/#deezer
-[encrypt-passwords]: /docs/usage/security/#encrypted-passwords
-[extauth-security]: /docs/usage/security/#externalized-authentication "Externalized authentication"
-[extauth-config]: /docs/usage/externalized-authentication
-[unix-socket]: /docs/usage/security/#listening-on-a-unix-socket
-[albumcoverart]: /docs/usage/artwork/#albums
-[artistcoverart]: /docs/usage/artwork/#artists
-[mediafilecoverart]: /docs/usage/artwork/#mediafiles
-[jukebox-mode]: /docs/usage/jukebox
-[jukebox-config]: /docs/usage/jukebox/#configuration
-[jukebox-cmd]: /docs/usage/jukebox/#the-mpvcmdtemplate--snapcast-integration
+[external-integrations]: /docs/usage/integration/external-services
+[lastfm-integration]: /docs/usage/integration/external-services/#lastfm
+[spotify-integration]: /docs/usage/integration/external-services/#spotify
+[deezer-integration]: /docs/usage/integration/external-services/#deezer
+[encrypt-passwords]: /docs/usage/admin/security/#encrypted-passwords
+[extauth-security]: /docs/usage/admin/security/#externalized-authentication "Externalized authentication"
+[extauth-config]: /docs/usage/configuration/authentication
+[unix-socket]: /docs/usage/admin/security/#listening-on-a-unix-socket
+[albumcoverart]: /docs/usage/library/artwork/#albums
+[artistcoverart]: /docs/usage/library/artwork/#artists
+[mediafilecoverart]: /docs/usage/library/artwork/#mediafiles
+[jukebox-mode]: /docs/usage/features/jukebox
+[jukebox-config]: /docs/usage/features/jukebox/#configuration
+[jukebox-cmd]: /docs/usage/features/jukebox/#the-mpvcmdtemplate--snapcast-integration
 [maloja]: https://github.com/krateng/maloja
 [i18n]: https://github.com/navidrome/navidrome/tree/master/resources/i18n
 [share-url]: https://github.com/navidrome/navidrome/discussions/3117
-[insights]: /docs/getting-started/insights
-[smart-playlists]: /docs/usage/smartplaylists
-[custom-tags]: /docs/usage/customtags
-[pids]: /docs/usage/pids
+[insights]: /docs/usage/configuration/insights
+[smart-playlists]: /docs/usage/features/smart-playlists
+[custom-tags]: /docs/usage/configuration/custom-tags
+[pids]: /docs/usage/configuration/persistent-ids
 [cronspec]: https://en.wikipedia.org/wiki/Cron#CRON_expression
 [unsplash]: https://unsplash.com/collections/20072696/navidrome
 [opensubsonic]: https://opensubsonic.netlify.app/
-[backup]: /docs/usage/backup
+[backup]: /docs/usage/admin/backup

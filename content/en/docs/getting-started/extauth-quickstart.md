@@ -2,7 +2,10 @@
 title: Externalized Authentication Quick Start
 linkTitle: Externalized Authentication
 date: 2025-07-29
+weight: 16
 description: Quick Start guide
+aliases:
+  - /docs/getting-started/extauth-quickstart/
 ---
 
 ## What is externalized authentication
@@ -217,8 +220,8 @@ A: Yes, Navidrome will fall back to standard authentication if the reverse proxy
 
 ### See Also
 
-- [Security Considerations](/docs/usage/security) for Navidrome
-- [Configuration Options](/docs/usage/configuration-options) for all available settings
-- [Externalized Authentication](/docs/usage/externalized-authentication/) for the detailed documentation of the feature
+- [Security Considerations](/docs/usage/admin/security) for Navidrome
+- [Configuration Options](/docs/usage/configuration/options) for all available settings
+- [Externalized Authentication](/docs/usage/configuration/authentication/) for the detailed documentation of the feature
 - [Caddy Forward Auth documentation](https://caddyserver.com/docs/caddyfile/directives/forward_auth)
 - [Traefik ForwardAuth middleware](https://doc.traefik.io/traefik/middlewares/http/forwardauth/)

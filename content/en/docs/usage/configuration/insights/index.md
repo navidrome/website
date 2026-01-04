@@ -2,8 +2,11 @@
 title: Anonymous Data Collection
 linkTitle: Anonymous Data Collection
 date: 2024-12-08
+weight: 50
 description: >
   Information on how data is collected by the Navidrome project
+aliases:
+  - /docs/getting-started/insights/
 ---
 
 ## Overview
@@ -140,7 +143,7 @@ Across many deployments, they help illustrate general usage trends of the Navidr
 These are various Navidrome configuration flags and settings. In aggregate, they help show which features are commonly
 enabled or how the service is typically set up across the community. These are mostly boolean flags or simple settings,
 **NO** identifiable data is collected (paths, ids, tokens, etc..). For a reference of what each one represents, take a look at
-the [configuration options page](/docs/usage/configuration-options#available-options) in the documentation.
+the [configuration options page](/docs/usage/configuration/options#available-options) in the documentation.
 
 - **Config.LogLevel**
 - **Config.LogFileConfigured**

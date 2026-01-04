@@ -2,12 +2,15 @@
 title: Automated Backup
 linkTitle: Automated Backup
 date: 2024-12-21
+weight: 10
 description: >
   Information on the in-built backup system
+aliases:
+  - /docs/usage/backup/
 ---
 
 Navidrome version 0.54.x introduces a backup feature that allows the music server's data to get periodically exported. 
-This guide will walk you through configuring backups using both a [configuration](/docs/usage/configuration-options) 
+This guide will walk you through configuring backups using both a [configuration](/docs/usage/configuration/options) 
 file and environment variables, where to locate the backups, and how to restore from a backup.
 
 {{% alert %}}
@@ -99,6 +102,6 @@ Restoring a backup should ONLY be done when the service is NOT running. You've b
 
 ## Additional Resources
 
-For more detailed configuration options and examples, refer to the [Navidrome Configuration Options](/docs/usage/configuration-options) page. This resource provides comprehensive guidance on customizing Navidrome to fit your needs.
+For more detailed configuration options and examples, refer to the [Navidrome Configuration Options](/docs/usage/configuration/options) page. This resource provides comprehensive guidance on customizing Navidrome to fit your needs.
 
 By following this guide, you can effectively set up and manage backups for your Navidrome music server, ensuring your data is protected and easily recoverable.

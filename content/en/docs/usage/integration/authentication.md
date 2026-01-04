@@ -2,14 +2,16 @@
 title: Externalized Authentication
 linkTitle: Externalized Authentication
 date: 2024-04-27
-weight: 60
+weight: 17
 description: >
   Delegate authentication to another system
+aliases:
+  - /docs/usage/externalized-authentication/
 ---
 
 {{< alert title="For Beginners" color="primary" >}}
 Externalized authentication is a relatively advanced topic.
-You can check the [Quick Start guide](/docs/getting-started/extauth-quickstart/) for a beginner-friendly introduction.
+You can check the [Quick Start guide](/docs/usage/configuration/extauth-quickstart/) for a beginner-friendly introduction.
 {{< /alert >}}
 
 {{< alert title="Security Note" color="warning" >}}
