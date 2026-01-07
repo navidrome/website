@@ -3,10 +3,18 @@ url: https://itunes.apple.com/us/app/play-sub-subsonic-music-streamer/id95532938
 platforms:
   ios:
     store: https://itunes.apple.com/us/app/play-sub-subsonic-music-streamer/id955329386
+  macos: true
 api: Subsonic
-description: "A beautifully designed iOS music streaming client with intuitive interface. Browse by folder or ID3-tags, automatic and manual caching, random discovery, and full iOS integration including AirPlay, Bluetooth, and lockscreen controls."
+description: "A beautifully designed iOS music streaming client with intuitive interface. Browse by folder or ID3-tags, automatic and manual caching, random discovery, and full iOS integration including CarPlay, AirPlay, Bluetooth, and lockscreen controls."
 screenshots:
   thumbnail: thumbnail.webp
   gallery:
     - screen1.webp
     - screen2.webp
+    - screen3.webp
+    - screen4.webp
+    - screen5.webp
+    - screen6.webp
+    - screen7.webp
+    - screen8.webp
+    - screen9.webp
