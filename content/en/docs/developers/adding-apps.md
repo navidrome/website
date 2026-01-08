@@ -12,7 +12,7 @@ Want to list your app in the [Compatible Client Apps](/apps/) catalog? This guid
 
 - Your app must support the [OpenSubsonic](https://opensubsonic.netlify.app/), [Subsonic](https://subsonic.org/pages/api.jsp), or Navidrome API
 - You'll need a GitHub account to submit a pull request
-- Images must be in WebP format (PNG/JPEG needs to be [converted](https://www.navidrome.org/docs/developers/adding-apps/#processing-images))
+- Images must be in WebP format, max 1200px (PNG/JPEG needs to be [converted](https://www.navidrome.org/docs/developers/adding-apps/#processing-images))
 
 ## Quick Start
 
@@ -20,7 +20,7 @@ Want to list your app in the [Compatible Client Apps](/apps/) catalog? This guid
 2. Create a folder for your app in `assets/apps/` using kebab-case (e.g., `my-awesome-app`)
 3. Add an `index.yaml` file with your app's metadata
 4. Add a thumbnail image and optional gallery screenshots
-5. Convert images if needed:
+5. Convert (or resize) images if needed:
     ```bash
     npm run convert:images my-awesome-app
     ```
