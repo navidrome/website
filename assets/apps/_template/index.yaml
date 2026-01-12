@@ -1,31 +1,63 @@
+# Navidrome Client App Entry Template
+# See: https://www.navidrome.org/docs/developers/adding-apps/
+
+# Required: Display name of the app
 name: My Awesome App
+
+# Required: Official app website or homepage
 url: https://my.awesome.app
+
+# Optional: GitHub repository URL (displays an open source badge)
+repoUrl: https://github.com/example/my-app
+
+# Required: At least one platform must be specified
+# Platforms can be boolean (true) or object with store URL
 platforms:
+  # Android with Play Store link
   android:
     store: https://play.google.com/store/apps/details?id=com.example.app
+  # iOS with App Store link
   ios:
-    store: https://itunes.apple.com/us/app/my-app/id123456789
+    store: https://apps.apple.com/app/my-app/id123456789
+  # macOS with optional Mac App Store link
   macos:
-    store: https://apps.apple.com/app/my-app/id123456789 # Optional: Mac App Store link
+    store: https://apps.apple.com/app/my-app/id123456789
+  # Or just boolean for platforms without store links
   windows: true
   linux: true
+  # Web app with hosted URL
   web:
-    url: https://my-awesome.netlify.app # Hosted web app URL, if available
-  docker: true # Or docker: { store: https://hub.docker.com/r/... }
+    url: https://my-awesome.netlify.app
+  # Docker with optional Docker Hub/GHCR link
+  docker:
+    store: https://hub.docker.com/r/example/my-app
+  # CLI tools or other platforms
   other: true
-api: OpenSubsonic # Use "OpenSubsonic" for modern API support, "Subsonic" for legacy API, or "Navidrome" for Navidrome-specific features
-description: "A short description of the app, two or three sentences max. Highlight key features that make this app unique."
+
+# Required: API compatibility
+# Use "OpenSubsonic" for modern API support, "Subsonic" for legacy API, or "Navidrome" for Navidrome-specific features
+api: OpenSubsonic
+
+# Required: Brief description (1-2 sentences, max 500 characters)
+# Highlight key features that make this app unique
+description: "A beautiful music player with offline support, gapless playback, and Chromecast integration."
+
+# Required: Screenshots configuration
 screenshots:
-  thumbnail: thumbnail.png
-  gallery: # Optional. Max 5 images.
-    - screen1.png
-    - screen2.png
-    - screen3.png
-# Optional: Only include if the app is open source
-repoUrl: https://github.com/my/awesome/app
-# Optional: Only include if the app is free (no purchase required)
+  # Required: Thumbnail image filename (must exist in app folder)
+  thumbnail: thumbnail.webp
+  # Optional: Gallery screenshots (max 5 images)
+  gallery:
+    - screen1.webp
+    - screen2.webp
+    - screen3.webp
+
+# Optional: Set to true if the app is free (no purchase required)
 isFree: true
-# Optional: Additional search terms (not displayed on app card)
+
+# Optional: Additional search terms (max 6, not displayed on app card)
+# Use for alternative names, abbreviations, or key features
 keywords:
-  - alternative-name
-  - feature
+  - chromecast
+  - carplay
+  - offline
