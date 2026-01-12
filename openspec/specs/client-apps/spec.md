@@ -19,23 +19,22 @@ The website SHALL provide a top-level page at `/apps` that displays all compatib
 ---
 
 ### Requirement: App Card Display
-Each app card SHALL display essential information about the client application.
 
-#### Scenario: App card content
-- **WHEN** an app card is rendered
-- **THEN** it displays the app thumbnail image
-- **AND** it displays the app name as a link to the app URL
-- **AND** it displays platform icons for supported platforms (Android, iOS, Windows, Linux, macOS, Web, Docker)
-- **AND** it displays a short description of the app
-- **AND** it displays the last updated date (or "N/A")
+Each app card SHALL display essential information about the client application.
 
 #### Scenario: Open source indicator
 - **WHEN** an app has a `repoUrl` defined
+- **AND** the app has `isOpenSource` not set or set to `true`
 - **THEN** the card displays a GitHub icon linking to the repository
+- **AND** the app is considered open source for filtering purposes
 
-#### Scenario: Store links
-- **WHEN** an app has store URLs defined for platforms (Play Store, App Store)
-- **THEN** clicking the platform icon navigates to the respective store page
+#### Scenario: Repository without open source status
+- **WHEN** an app has a `repoUrl` defined
+- **AND** the app has `isOpenSource` set to `false`
+- **THEN** the card does NOT display the GitHub/OSS icon
+- **AND** the app is NOT considered open source for filtering purposes
+
+---
 
 ### Requirement: Screenshot Gallery
 The page SHALL provide a lightbox gallery for viewing app screenshots.
@@ -74,22 +73,18 @@ The apps grid SHALL adapt to different screen sizes.
 ---
 
 ### Requirement: App Data Contribution
+
 App developers SHALL be able to contribute their apps via YAML files.
-
-#### Scenario: Adding a new app
-- **WHEN** a developer wants to add their app to the listing
-- **THEN** they create a folder `apps/{app-id}/` with an `index.yaml` file following the template
-- **AND** they add screenshots to the same folder (thumbnail + optional gallery images)
-- **AND** they submit a pull request for review
-
-#### Scenario: Required app fields
-- **WHEN** an app YAML file is created
-- **THEN** it MUST include: `name`, `url`, `platforms` (at least one), `apis` (at least one: `opensubsonic` or `navidrome`), `description`, and `screenshots.thumbnail`
-- **AND** the app `id` is derived from the folder name
 
 #### Scenario: Optional app fields
 - **WHEN** an app YAML file is created
-- **THEN** it MAY include: `repoUrl`, `screenshots.gallery`, platform store URLs
+- **THEN** it MAY include: `repoUrl`, `isOpenSource`, `isFree`, `screenshots.gallery`, `keywords`, platform store URLs
+
+#### Scenario: Closed-source app with repository
+- **WHEN** an app has a GitHub/GitLab repository for releases or issue tracking
+- **AND** the source code is not publicly available under an open source license
+- **THEN** the entry SHOULD set `isOpenSource: false`
+- **AND** the `repoUrl` MAY still be included for release date tracking
 
 ### Requirement: App Last Updated Date Display
 Each app card SHALL display the last release date of the application.

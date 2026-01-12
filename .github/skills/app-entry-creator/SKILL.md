@@ -47,7 +47,29 @@ From the initial URL, find all related resources:
    - Developer website
    - GitHub link in description
 
-### Step 3: Determine API Support
+### Step 3: Determine Open Source Status
+
+If the app has a GitHub/GitLab repository, determine if it's truly open source:
+
+| Check | Result |
+|-------|--------|
+| Repository has source code (`.java`, `.swift`, `.ts`, `.py`, etc.) | Likely open source |
+| Repository only has releases, issues, or documentation | NOT open source - set `isOpenSource: false` |
+| Repository has a LICENSE file with OSI-approved license | Open source |
+| Repository marked as "Source available" but restrictive license | NOT open source - set `isOpenSource: false` |
+| Repository is empty or only contains binaries | NOT open source - set `isOpenSource: false` |
+
+**How to check:**
+1. Visit the repository URL
+2. Look at the file list - are there actual source code files?
+3. Check for a LICENSE file - is it an open source license (MIT, GPL, Apache, etc.)?
+4. If the repo only has Releases with no source, it's a releases-only repo
+
+**Default behavior:**
+- If `repoUrl` is set and `isOpenSource` is omitted → treated as open source
+- Only add `isOpenSource: false` when you've confirmed the source is NOT publicly available
+
+### Step 4: Determine API Support
 
 Check documentation/README for mentions of:
 - "OpenSubsonic" → `api: OpenSubsonic`
@@ -56,7 +78,7 @@ Check documentation/README for mentions of:
 
 Default to `Subsonic` if unclear but the app claims Subsonic compatibility.
 
-### Step 4: Identify Platforms
+### Step 5: Identify Platforms
 
 Map discovered information to platforms:
 
@@ -72,7 +94,7 @@ Map discovered information to platforms:
 | Docker image | `docker: { store: <url> }` or `docker: true` |
 | CLI tool | `other: true` |
 
-### Step 5: Download Screenshots
+### Step 6: Download Screenshots
 
 1. **Find screenshot sources** (in priority order):
    - App store listings (highest quality)
@@ -98,7 +120,7 @@ Map discovered information to platforms:
    npm run convert:images <app-name>
    ```
 
-### Step 6: Create the App Entry
+### Step 7: Create the App Entry
 
 1. **Create the folder** using kebab-case:
    ```bash
@@ -116,12 +138,13 @@ Map discovered information to platforms:
    - `screenshots.thumbnail`: Filename of downloaded thumbnail
 
 4. **Optional fields** (include if found):
-   - `repoUrl`: GitHub URL (shows OSS badge)
+   - `repoUrl`: Repository URL (for release date tracking)
+   - `isOpenSource`: Set to `false` if repo exists but source is not public (see Step 3)
    - `isFree`: Set to `true` if app is free
    - `screenshots.gallery`: Array of screenshot filenames (max 5)
    - `keywords`: Search terms not in name/description (max 6)
 
-### Step 7: Validate the Entry
+### Step 8: Validate the Entry
 
 Run validation to ensure correctness:
 ```bash
@@ -139,10 +162,11 @@ Given URL: `https://github.com/jeffvli/feishin`
 3. **Discover URLs**:
    - Website: https://feishin.vercel.app/ (from README)
    - Docker: ghcr.io/jeffvli/feishin (from README)
-4. **Determine API**: README mentions "Navidrome" → `api: Navidrome`
-5. **Identify platforms**: Windows, macOS, Linux (releases), Docker, Web
-6. **Download screenshots** from README images
-7. **Create entry**:
+4. **Check open source status**: Repo has TypeScript source code and MIT license → open source (no need to set `isOpenSource`)
+5. **Determine API**: README mentions "Navidrome" → `api: Navidrome`
+6. **Identify platforms**: Windows, macOS, Linux (releases), Docker, Web
+7. **Download screenshots** from README images
+8. **Create entry**:
    ```
    assets/apps/feishin/
      index.yaml
@@ -150,7 +174,7 @@ Given URL: `https://github.com/jeffvli/feishin`
      screen1.webp
      screen2.webp
    ```
-8. **Validate**: `npm run validate:app feishin`
+9. **Validate**: `npm run validate:app feishin`
 
 ## Output Format
 
