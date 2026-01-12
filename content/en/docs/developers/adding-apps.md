@@ -62,11 +62,24 @@ Use the template at [`assets/apps/_template/index.yaml`](https://github.com/navi
 
 | Field                 | Description                                                 |
 |-----------------------|-------------------------------------------------------------|
-| `repoUrl`             | GitHub repository URL (displays an open source badge)       |
+| `repoUrl`             | Repository URL (GitHub, GitLab) - used for release date tracking |
+| `isOpenSource`        | Whether the source code is publicly available (see below)   |
 | `isFree`              | Whether the app is free (no purchase required) - boolean    |
 | `keywords`            | Additional search terms (max 6) - not displayed on app card |
 | `screenshots.gallery` | Array of additional screenshot filenames                    |
 | `platforms.*.store`   | Platform-specific store URLs                                |
+
+### Open Source vs Repository URL
+
+The `repoUrl` field is used to fetch the app's last release date. If your app has a GitHub or GitLab repository, include it for accurate "last updated" information.
+
+The `isOpenSource` field controls whether the app displays an open source badge and appears in the "Open Source Only" filter:
+
+- If `repoUrl` is set and `isOpenSource` is **omitted** → app is treated as open source (default)
+- If `repoUrl` is set and `isOpenSource` is **`false`** → app is NOT treated as open source
+- If `repoUrl` is not set → app is NOT treated as open source (regardless of `isOpenSource`)
+
+**Use `isOpenSource: false`** when your app has a GitHub/GitLab repository for releases or issue tracking, but the source code is not publicly available under an open source license.
 
 ### Supported Platforms
 
@@ -84,7 +97,8 @@ Use the template at [`assets/apps/_template/index.yaml`](https://github.com/navi
 ```yaml
 name: My Music App
 url: https://example.com/my-app
-repoUrl: https://github.com/example/my-app  # Optional - shows OSS badge
+repoUrl: https://github.com/example/my-app  # Optional - used for release tracking
+# isOpenSource: false  # Uncomment if repo exists but source code is not public
 
 platforms:
   android:

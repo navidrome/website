@@ -1,0 +1,31 @@
+{{/*
+  Cgit Last Updated Partial
+  
+  Fetches the latest commit date from a cgit Atom feed.
+  Cgit is a plain CGI web interface for git repositories.
+  
+  Parameters:
+    - repoUrl: Cgit repository URL (e.g., https://git.example.com/repo)
+  
+  Returns: YYYY-MM-DD formatted date string, or empty string if unavailable
+*/}}
+
+{{ $repoUrl := .repoUrl }}
+{{ $date := "" }}
+
+{{/* Build Atom feed URL */}}
+{{ $atomUrl := printf "%s/atom/" (strings.TrimSuffix "/" $repoUrl) }}
+
+{{ $result := try (resources.GetRemote $atomUrl) }}
+{{ with $result.Value }}
+  {{ $content := .Content }}
+  {{/* Extract the first <updated> tag from the Atom feed */}}
+  {{ $match := findRE `<updated>([^<]+)</updated>` $content 1 }}
+  {{ if $match }}
+    {{ $updated := index $match 0 }}
+    {{ $updated = replaceRE `</?updated>` "" $updated }}
+    {{ $date = time.Format "2006-01-02" (time $updated) }}
+  {{ end }}
+{{ end }}
+
+{{ return $date }}

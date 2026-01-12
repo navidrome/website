@@ -1,0 +1,30 @@
+name: Yuzic
+
+url: https://eftpmc.github.io/yuzic-web
+
+repoUrl: https://github.com/eftpmc/yuzic
+
+platforms:
+  android:
+    store: https://play.google.com/store/apps/details?id=com.arinora.rawarr
+  ios:
+    store: https://apps.apple.com/us/app/yuzic-navidrome-jellyfin/id6740042497
+
+api: Subsonic
+
+description: "A cross-platform, free and open source music player for Navidrome with offline support, customizable UI, and a minimal, beautiful interface."
+
+screenshots:
+  thumbnail: thumbnail.webp
+  gallery:
+    - screen1.webp
+    - screen2.webp
+    - screen3.webp
+    - screen4.webp
+
+isFree: true
+
+keywords:
+  - jellyfin
+  - offline
+  - react native

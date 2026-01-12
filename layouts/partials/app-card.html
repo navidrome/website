@@ -8,6 +8,8 @@
 {{ $screenshots := .screenshots }}
 {{ $repoUrl := .repoUrl }}
 {{ $isFree := .isFree }}
+{{/* isOpenSource: if not set and repoUrl exists, default to true */}}
+{{ $isOpenSource := and $repoUrl (ne .isOpenSource false) }}
 
 {{/* Build full path to thumbnail */}}
 {{ $thumbnailPath := printf "apps/%s/%s" $appId $screenshots.thumbnail }}
@@ -33,9 +35,9 @@
 
 {{ $apiLower := lower $api }}
 
-{{ $ossAttr := cond $repoUrl "true" "false" }}
+{{ $ossAttr := cond $isOpenSource "true" "false" }}
 {{/* Open source apps are automatically considered free */}}
-{{ $isActuallyFree := or $isFree $repoUrl }}
+{{ $isActuallyFree := or $isFree $isOpenSource }}
 {{ $freeAttr := cond $isActuallyFree "true" "false" }}
 
 {{ $keywords := default (slice) .keywords }}
@@ -62,13 +64,13 @@
     <div class="app-header">
       <h3 class="app-name">
         <a href="{{ $url }}" target="_blank" rel="noopener">{{ $name }}</a>
-        {{ if $repoUrl }}
+        {{ if $isOpenSource }}
           <a href="{{ $repoUrl }}" target="_blank" rel="noopener" class="app-oss-badge" title="Open Source">
             <i class="fab fa-github"></i>
           </a>
         {{ end }}
         {{/* Show free badge only if free but not open source (to avoid redundancy) */}}
-        {{ if and $isActuallyFree (not $repoUrl) }}
+        {{ if and $isActuallyFree (not $isOpenSource) }}
           <span class="app-free-badge" title="Free">
             <i class="fas fa-tag"></i>
           </span>

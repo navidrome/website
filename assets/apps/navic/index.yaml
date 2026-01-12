@@ -1,0 +1,14 @@
+name: Navic
+url: https://github.com/paigely/Navic
+platforms:
+  android: true
+  ios: true
+api: Subsonic
+description: Subsonic client for Android and iOS with Material 3 Expressive design
+screenshots:
+  thumbnail: thumbnail.webp
+  gallery:
+    - screenshot1.webp
+    - screenshot2.webp
+    - screenshot3.webp
+repoUrl: https://github.com/paigely/Navic
