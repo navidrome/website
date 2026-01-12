@@ -22,6 +22,10 @@
 {{- if and (not $date) $repoUrl (strings.Contains $repoUrl "gitlab.com") -}}
   {{- $date = partial "last-updated/gitlab.html" (dict "repoUrl" $repoUrl) -}}
 {{- end -}}
+{{- /* Try cgit/self-hosted git repos via Atom feed */ -}}
+{{- if and (not $date) $repoUrl -}}
+  {{- $date = partial "last-updated/cgit.html" (dict "repoUrl" $repoUrl) -}}
+{{- end -}}
 {{- /* Try Docker Hub from platforms.docker.store */ -}}
 {{- if and (not $date) $platforms $platforms.docker -}}
   {{- $dockerStore := "" -}}
