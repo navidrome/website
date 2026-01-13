@@ -1,7 +1,5 @@
 # Navidrome Website
 
-![Netlify Status](https://api.netlify.com/api/v1/badges/fc69beaf-8f79-41a0-9032-5dc4e9221acf/deploy-status)
-
 ## Running in a container locally
 
 You can run this project inside a [Docker](https://docs.docker.com/)
