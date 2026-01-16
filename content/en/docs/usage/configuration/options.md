@@ -280,7 +280,7 @@ make it all uppercase. Ex: `ND_LOGLEVEL=debug`. See below for all available opti
 [maloja]: https://github.com/krateng/maloja
 [i18n]: https://github.com/navidrome/navidrome/tree/master/resources/i18n
 [share-url]: https://github.com/navidrome/navidrome/discussions/3117
-[insights]: /docs/usage/configuration/insights
+[insights]: /docs/usage/admin/insights
 [smart-playlists]: /docs/usage/features/smart-playlists
 [custom-tags]: /docs/usage/configuration/custom-tags
 [pids]: /docs/usage/configuration/persistent-ids
