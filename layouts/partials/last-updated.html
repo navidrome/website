@@ -40,6 +40,18 @@
     {{- $date = partial "last-updated/ghcr.html" (dict "storeUrl" $dockerStore) -}}
   {{- end -}}
 {{- end -}}
+{{- /* Try Play Store from platforms.android.store */ -}}
+{{- if and (not $date) $platforms $platforms.android -}}
+  {{- $playStore := "" -}}
+  {{- if ne (printf "%T" $platforms.android) "bool" -}}
+    {{- if isset $platforms.android "store" -}}
+      {{- $playStore = $platforms.android.store -}}
+    {{- end -}}
+  {{- end -}}
+  {{- if and $playStore (strings.Contains $playStore "play.google.com") -}}
+    {{- $date = partial "last-updated/playstore.html" (dict "storeUrl" $playStore) -}}
+  {{- end -}}
+{{- end -}}
 {{- /* Return dict with display and attr values */ -}}
 {{- $date = strings.TrimSpace $date -}}
 {{- return dict "display" (cond (eq $date "") "N/A" $date) "attr" $date -}}
