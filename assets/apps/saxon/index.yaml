@@ -4,8 +4,6 @@ url: https://github.com/kernelstub/Saxon
 
 repoUrl: https://github.com/kernelstub/Saxon
 
-openSource: true
-
 platforms:
   windows: true
   linux: true
