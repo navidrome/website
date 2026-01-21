@@ -1,0 +1,23 @@
+name: Saxon
+
+url: https://github.com/kernelstub/Saxon
+
+repoUrl: https://github.com/kernelstub/Saxon
+
+platforms:
+  windows: true
+  linux: true
+
+api: Subsonic
+
+description: "Fast, lightweight music client built with Rust and Tauri v2. Optimized for large libraries with EQ, crossfade, and normalization support."
+
+screenshots:
+  thumbnail: thumbnail.webp
+  gallery:
+    - image1.webp
+    - image2.webp
+    - image3.webp
+    - image4.webp
+
+isFree: true
