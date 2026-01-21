@@ -14,18 +14,22 @@
 {{- $repoUrl := .repoUrl -}}
 {{- $platforms := .platforms -}}
 {{- $date := "" -}}
+
 {{- /* Try GitHub first */ -}}
 {{- if and (not $date) $repoUrl (strings.Contains $repoUrl "github.com") -}}
   {{- $date = partial "last-updated/github.html" (dict "repoUrl" $repoUrl) -}}
 {{- end -}}
+
 {{- /* Try GitLab */ -}}
 {{- if and (not $date) $repoUrl (strings.Contains $repoUrl "gitlab.com") -}}
   {{- $date = partial "last-updated/gitlab.html" (dict "repoUrl" $repoUrl) -}}
 {{- end -}}
+
 {{- /* Try cgit/self-hosted git repos via Atom feed */ -}}
 {{- if and (not $date) $repoUrl -}}
   {{- $date = partial "last-updated/cgit.html" (dict "repoUrl" $repoUrl) -}}
 {{- end -}}
+
 {{- /* Try Docker Hub from platforms.docker.store */ -}}
 {{- if and (not $date) $platforms $platforms.docker -}}
   {{- $dockerStore := "" -}}
@@ -40,6 +44,20 @@
     {{- $date = partial "last-updated/ghcr.html" (dict "storeUrl" $dockerStore) -}}
   {{- end -}}
 {{- end -}}
+
+{{- /* Try Apple App Store from platforms.ios.store */ -}}
+{{- if and (not $date) $platforms $platforms.ios -}}
+  {{- $iosStore := "" -}}
+  {{- if ne (printf "%T" $platforms.ios) "bool" -}}
+    {{- if isset $platforms.ios "store" -}}
+      {{- $iosStore = $platforms.ios.store -}}
+    {{- end -}}
+  {{- end -}}
+  {{- if and $iosStore (or (strings.Contains $iosStore "apps.apple.com") (strings.Contains $iosStore "itunes.apple.com")) -}}
+    {{- $date = partial "last-updated/apple.html" (dict "storeUrl" $iosStore) -}}
+  {{- end -}}
+{{- end -}}
+
 {{- /* Try Play Store from platforms.android.store */ -}}
 {{- if and (not $date) $platforms $platforms.android -}}
   {{- $playStore := "" -}}
@@ -52,6 +70,7 @@
     {{- $date = partial "last-updated/playstore.html" (dict "storeUrl" $playStore) -}}
   {{- end -}}
 {{- end -}}
+
 {{- /* Return dict with display and attr values */ -}}
 {{- $date = strings.TrimSpace $date -}}
 {{- return dict "display" (cond (eq $date "") "N/A" $date) "attr" $date -}}
