@@ -45,16 +45,21 @@
   {{- end -}}
 {{- end -}}
 
-{{- /* Try Apple App Store from platforms.ios.store */ -}}
-{{- if and (not $date) $platforms $platforms.ios -}}
-  {{- $iosStore := "" -}}
-  {{- if ne (printf "%T" $platforms.ios) "bool" -}}
-    {{- if isset $platforms.ios "store" -}}
-      {{- $iosStore = $platforms.ios.store -}}
+{{- /* Try Apple App Store from platforms.ios/tvos/macos.store */ -}}
+{{- if not $date -}}
+  {{- range slice "ios" "tvos" "macos" -}}
+    {{- if and (not $date) (index $platforms .) -}}
+        {{- $platformData := index $platforms . -}}
+        {{- $storeUrl := "" -}}
+        {{- if ne (printf "%T" $platformData) "bool" -}}
+             {{- if isset $platformData "store" -}}
+                 {{- $storeUrl = $platformData.store -}}
+             {{- end -}}
+        {{- end -}}
+        {{- if and $storeUrl (or (strings.Contains $storeUrl "apps.apple.com") (strings.Contains $storeUrl "itunes.apple.com")) -}}
+            {{- $date = partial "last-updated/apple.html" (dict "storeUrl" $storeUrl) -}}
+        {{- end -}}
     {{- end -}}
-  {{- end -}}
-  {{- if and $iosStore (or (strings.Contains $iosStore "apps.apple.com") (strings.Contains $iosStore "itunes.apple.com")) -}}
-    {{- $date = partial "last-updated/apple.html" (dict "storeUrl" $iosStore) -}}
   {{- end -}}
 {{- end -}}
 
