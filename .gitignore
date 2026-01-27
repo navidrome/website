@@ -7,3 +7,4 @@ node_modules/
 .hugo_cache
 tmp/*
 !.claude
+.claude/settings.local.json
