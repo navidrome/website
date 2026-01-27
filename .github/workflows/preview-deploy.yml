@@ -1,0 +1,64 @@
+name: Preview Deploy
+
+on:
+    workflow_run:
+        workflows: ["Preview Build"]
+        types:
+            - completed
+
+permissions:
+    contents: read
+    pull-requests: write
+
+jobs:
+    deploy-preview:
+        runs-on: ubuntu-latest
+        if: >
+            github.event.workflow_run.event == 'pull_request' &&
+            github.event.workflow_run.conclusion == 'success'
+
+        steps:
+            - name: Download build output
+              uses: actions/download-artifact@v5
+              with:
+                  name: preview-build
+                  path: preview/
+                  github-token: ${{ secrets.GITHUB_TOKEN }}
+                  run-id: ${{ github.event.workflow_run.id }}
+
+            - name: Get PR number
+              id: get-pr
+              run: |
+                  pr_number=$(cat preview/PR_NUMBER)
+                  rm preview/PR_NUMBER
+                  echo "pr_number=$pr_number" >> $GITHUB_OUTPUT
+
+            - name: Deploy to Cloudflare Pages
+              uses: cloudflare/wrangler-action@v3
+              with:
+                  apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+                  accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+                  command: pages deploy preview/ --project-name=navidrome-website --branch=pr-${{ steps.get-pr.outputs.pr_number }}
+
+            - name: Find existing comment
+              uses: peter-evans/find-comment@v3
+              id: find-comment
+              with:
+                  issue-number: ${{ steps.get-pr.outputs.pr_number }}
+                  comment-author: "github-actions[bot]"
+                  body-includes: "Preview Deployment"
+
+            - name: Create or update comment
+              uses: peter-evans/create-or-update-comment@v4
+              with:
+                  comment-id: ${{ steps.find-comment.outputs.comment-id }}
+                  issue-number: ${{ steps.get-pr.outputs.pr_number }}
+                  edit-mode: replace
+                  body: |
+                      ## Preview Deployment
+
+                      | Status | URL |
+                      |--------|-----|
+                      | :white_check_mark: Deployed | [pr-${{ steps.get-pr.outputs.pr_number }}.navidrome-website.pages.dev](https://pr-${{ steps.get-pr.outputs.pr_number }}.navidrome-website.pages.dev) |
+
+                      *Built from ${{ github.event.workflow_run.head_sha }}*
