@@ -1,0 +1,98 @@
+name: Preview Build
+
+on:
+    pull_request:
+        types: [opened, synchronize, reopened]
+
+permissions:
+    contents: read
+
+jobs:
+    build-preview:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v6
+              with:
+                  fetch-depth: 0
+
+            - name: Setup Hugo
+              uses: peaceiris/actions-hugo@v3
+              with:
+                  hugo-version: "0.153.0"
+                  extended: true
+
+            - name: Setup Node.js
+              uses: actions/setup-node@v6
+              with:
+                  node-version: "20"
+                  cache: "npm"
+
+            - name: Install npm dependencies
+              run: npm ci
+
+            - name: Detect changed app entries
+              id: detect-apps
+              run: |
+                  git diff --name-only origin/${{ github.base_ref }}...HEAD | grep '^assets/apps/' > changed_files.txt || true
+                  apps=$(cat changed_files.txt | sed 's|^assets/apps/||' | cut -d'/' -f1 | grep -v '^_template$' | sort -u)
+                  validated_apps=""
+                  for app in $apps; do
+                    if [ -d "assets/apps/$app" ]; then
+                      validated_apps="$validated_apps $app"
+                    fi
+                  done
+                  validated_apps=$(echo "$validated_apps" | xargs)
+                  echo "apps=$validated_apps" >> $GITHUB_OUTPUT
+
+            - name: Check image optimization
+              if: steps.detect-apps.outputs.apps != ''
+              run: |
+                  apps="${{ steps.detect-apps.outputs.apps }}"
+                  for app in $apps; do
+                    echo "Processing $app..."
+                    node convert-app-images.js "$app" || true
+                  done
+                  if ! git diff --quiet; then
+                    echo "::error::Images need to be optimized. Run 'node convert-app-images.js <app-name>' locally and commit the changes."
+                    git diff --name-only
+                    exit 1
+                  fi
+                  echo "✅ All images are already optimized"
+
+            - name: Validate app entries
+              if: steps.detect-apps.outputs.apps != ''
+              run: |
+                  apps="${{ steps.detect-apps.outputs.apps }}"
+                  error_count=0
+                  for app in $apps; do
+                    echo "Validating $app..."
+                    if ! npm run --silent validate:app "$app"; then
+                      error_count=$((error_count + 1))
+                    fi
+                  done
+                  if [ $error_count -ne 0 ]; then
+                    echo "::error::$error_count app(s) failed validation"
+                    exit 1
+                  fi
+                  echo "✅ All app validations passed"
+
+            - name: Fetch charts data
+              env:
+                  CHARTS_URL: ${{ secrets.CHARTS_URL }}
+                  CHARTS_API_KEY: ${{ secrets.CHARTS_API_KEY }}
+              run: ./fetch-charts.sh
+
+            - name: Build site
+              run: hugo --minify --baseURL "https://pr-${{ github.event.pull_request.number }}.navidrome-website.pages.dev"
+
+            - name: Save PR number
+              run: echo "${{ github.event.pull_request.number }}" > public/PR_NUMBER
+
+            - name: Upload build output
+              uses: actions/upload-artifact@v5
+              with:
+                  name: preview-build
+                  path: public/
+                  retention-days: 1
