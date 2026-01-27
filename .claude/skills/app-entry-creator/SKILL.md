@@ -10,7 +10,6 @@ This skill creates complete app entries for the Navidrome Compatible Client Apps
 ## When to Use
 
 Use this skill when:
-
 - User provides a URL and wants to create a new app entry
 - User mentions adding an app to the catalog
 - User wants to create an entry in `assets/apps/`
@@ -21,13 +20,13 @@ Use this skill when:
 
 Determine the URL type and extract initial information:
 
-| URL Type    | What to Extract                                                      |
-| ----------- | -------------------------------------------------------------------- |
+| URL Type | What to Extract |
+|----------|-----------------|
 | GitHub repo | Name, description, README content, releases, screenshots from README |
-| App website | Name, description, screenshots, links to stores                      |
-| Play Store  | App name, description, screenshots, developer website                |
-| App Store   | App name, description, screenshots, developer website                |
-| Docker Hub  | Image name, description, GitHub link                                 |
+| App website | Name, description, screenshots, links to stores |
+| Play Store | App name, description, screenshots, developer website |
+| App Store | App name, description, screenshots, developer website |
+| Docker Hub | Image name, description, GitHub link |
 
 ### Step 2: Discover Related URLs
 
@@ -52,30 +51,27 @@ From the initial URL, find all related resources:
 
 If the app has a GitHub/GitLab repository, determine if it's truly open source:
 
-| Check                                                              | Result                                      |
-| ------------------------------------------------------------------ | ------------------------------------------- |
-| Repository has source code (`.java`, `.swift`, `.ts`, `.py`, etc.) | Likely open source                          |
-| Repository only has releases, issues, or documentation             | NOT open source - set `isOpenSource: false` |
-| Repository has a LICENSE file with OSI-approved license            | Open source                                 |
-| Repository marked as "Source available" but restrictive license    | NOT open source - set `isOpenSource: false` |
-| Repository is empty or only contains binaries                      | NOT open source - set `isOpenSource: false` |
+| Check | Result |
+|-------|--------|
+| Repository has source code (`.java`, `.swift`, `.ts`, `.py`, etc.) | Likely open source |
+| Repository only has releases, issues, or documentation | NOT open source - set `isOpenSource: false` |
+| Repository has a LICENSE file with OSI-approved license | Open source |
+| Repository marked as "Source available" but restrictive license | NOT open source - set `isOpenSource: false` |
+| Repository is empty or only contains binaries | NOT open source - set `isOpenSource: false` |
 
 **How to check:**
-
 1. Visit the repository URL
 2. Look at the file list - are there actual source code files?
 3. Check for a LICENSE file - is it an open source license (MIT, GPL, Apache, etc.)?
 4. If the repo only has Releases with no source, it's a releases-only repo
 
 **Default behavior:**
-
 - If `repoUrl` is set and `isOpenSource` is omitted → treated as open source
 - Only add `isOpenSource: false` when you've confirmed the source is NOT publicly available
 
 ### Step 4: Determine API Support
 
 Check documentation/README for mentions of:
-
 - "OpenSubsonic" → `api: OpenSubsonic`
 - "Subsonic API" or just "Subsonic" → `api: Subsonic`
 - "Navidrome API" or Navidrome-specific features → `api: Navidrome`
@@ -86,17 +82,17 @@ Default to `Subsonic` if unclear but the app claims Subsonic compatibility.
 
 Map discovered information to platforms:
 
-| Evidence                    | Platform Config                              |
-| --------------------------- | -------------------------------------------- |
-| Play Store URL              | `android: { store: <url> }`                  |
-| App Store URL (iPhone/iPad) | `ios: { store: <url> }`                      |
-| Mac App Store URL           | `macos: { store: <url> }`                    |
-| macOS downloads/releases    | `macos: true`                                |
-| Windows downloads/releases  | `windows: true`                              |
-| Linux downloads/releases    | `linux: true`                                |
-| Web demo/hosted version     | `web: { url: <url> }` or `web: true`         |
-| Docker image                | `docker: { store: <url> }` or `docker: true` |
-| CLI tool                    | `other: true`                                |
+| Evidence | Platform Config |
+|----------|-----------------|
+| Play Store URL | `android: { store: <url> }` |
+| App Store URL (iPhone/iPad) | `ios: { store: <url> }` |
+| Mac App Store URL | `macos: { store: <url> }` |
+| macOS downloads/releases | `macos: true` |
+| Windows downloads/releases | `windows: true` |
+| Linux downloads/releases | `linux: true` |
+| Web demo/hosted version | `web: { url: <url> }` or `web: true` |
+| Docker image | `docker: { store: <url> }` or `docker: true` |
+| CLI tool | `other: true` |
 
 ### Step 6: Download Screenshots
 
@@ -107,7 +103,6 @@ Map discovered information to platforms:
    - App website gallery
 
 2. **Download images** using terminal commands:
-
    ```bash
    cd assets/apps/<app-name>
    curl -L -o thumbnail.png "<image-url>"
@@ -128,7 +123,6 @@ Map discovered information to platforms:
 ### Step 7: Create the App Entry
 
 1. **Create the folder** using kebab-case:
-
    ```bash
    mkdir -p assets/apps/<app-name>
    ```
@@ -153,7 +147,6 @@ Map discovered information to platforms:
 ### Step 8: Validate the Entry
 
 Run validation to ensure correctness:
-
 ```bash
 npm run validate:app <app-name>
 ```
@@ -201,9 +194,9 @@ After completion, present:
 
 ## Error Handling
 
-| Issue                   | Action                                                      |
-| ----------------------- | ----------------------------------------------------------- |
-| No screenshots found    | Warn user, create entry without gallery, thumbnail required |
-| URL unreachable         | Report error, ask for alternative URL                       |
-| API type unclear        | Default to `Subsonic`, note uncertainty                     |
-| Multiple possible names | Use the most prominent/official name                        |
+| Issue | Action |
+|-------|--------|
+| No screenshots found | Warn user, create entry without gallery, thumbnail required |
+| URL unreachable | Report error, ask for alternative URL |
+| API type unclear | Default to `Subsonic`, note uncertainty |
+| Multiple possible names | Use the most prominent/official name |
