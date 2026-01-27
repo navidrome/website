@@ -7,6 +7,7 @@ on:
             - completed
 
 permissions:
+    actions: read
     contents: read
     pull-requests: write
 
@@ -29,6 +30,10 @@ jobs:
             - name: Get PR number
               id: get-pr
               run: |
+                  if [ ! -f preview/PR_NUMBER ]; then
+                    echo "::error::PR_NUMBER file not found in downloaded artifact."
+                    exit 1
+                  fi
                   pr_number=$(cat preview/PR_NUMBER)
                   rm preview/PR_NUMBER
                   echo "pr_number=$pr_number" >> $GITHUB_OUTPUT
