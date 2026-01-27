@@ -8,7 +8,7 @@ platforms:
   ios:
     store: https://testflight.apple.com/join/T9SyuK9X
 api: Navidrome
-description: "A modern music player and Subsonic client with smart offline caching, pro audio controls including equalizer and playback speed adjustment, lyrics and metadata support, crossfade transitions, and seamless integration with Subsonic, Navidrome, Jellyfin, Emby, and Swing Music servers."
+description: "xxxx A modern music player and Subsonic client with smart offline caching, pro audio controls including equalizer and playback speed adjustment, lyrics and metadata support, crossfade transitions, and seamless integration with Subsonic, Navidrome, Jellyfin, Emby, and Swing Music servers."
 screenshots:
   thumbnail: screen2.webp
   gallery:
