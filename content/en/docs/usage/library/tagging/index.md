@@ -143,7 +143,7 @@ Note that if you have both singular and plural tags, Navidrome will use the sing
 as a "Display Name" for the artist (or album artist)
 
 {{< alert "info" >}}
-If you use Picard, check the scripts available in the [Picard specific tips](#picard-specific-tips) below. 
+If you use Picard, check the scripts available in the [Picard specific tips](/docs/usage/library/tagging/#picard-specific-tips) below. 
 These scripts can help set up multi-valued artist tags automatically.
 {{< /alert >}}
 
