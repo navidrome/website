@@ -93,7 +93,7 @@ jobs:
               run: ./fetch-charts.sh
 
             - name: Build site
-              run: hugo --minify --cacheDir ./hugo_cache --baseURL "https://pr-${{ github.event.pull_request.number }}.navidrome-website.pages.dev"
+              run: hugo --minify --cacheDir ${{ github.workspace }}/hugo_cache --baseURL "https://pr-${{ github.event.pull_request.number }}.navidrome-website.pages.dev"
 
             - name: Save PR number
               run: echo "${{ github.event.pull_request.number }}" > public/PR_NUMBER

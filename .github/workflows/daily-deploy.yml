@@ -49,7 +49,7 @@ jobs:
             - name: Build site
               env:
                   HUGO_ENV: production
-              run: hugo --minify --cacheDir ./hugo_cache
+              run: hugo --minify --cacheDir ${{ github.workspace }}/hugo_cache
 
             - name: Deploy to Cloudflare Pages
               uses: cloudflare/wrangler-action@v3
