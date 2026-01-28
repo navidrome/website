@@ -81,6 +81,6 @@
 {{- /* Return dict with display and attr values */ -}}
 {{- $date = strings.TrimSpace $date -}}
 {{- if eq $date "" -}}
-  {{- warnf "[last-updated] app=%s: could not determine last-updated date from any source (repoUrl=%s)" $appId $repoUrl -}}
+  {{- warnf "[last-updated] app=%s: could not determine last-updated date from any source (repoUrl=%v)" $appId (cond (not $repoUrl) "none" $repoUrl) -}}
 {{- end -}}
 {{- return dict "display" (cond (eq $date "") "N/A" $date) "attr" $date -}}
