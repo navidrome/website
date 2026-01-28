@@ -1,6 +1,8 @@
 name: Daily Build & Deploy
 
 on:
+    push:
+        branches: [master]
     workflow_dispatch:
     schedule:
         - cron: "0 0 * * *" # Runs at 00:00 UTC every day
