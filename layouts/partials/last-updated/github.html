@@ -52,7 +52,7 @@
       {{ warnf "[last-updated] app=%s source=github: failed to fetch tags from %s: %s" $appId $tagsUrl . }}
     {{ end }}
     {{ with $tagsResult.Value }}
-      {{ $tagsData := try (.Content | transform.Unmarshal) }}
+      {{ $tagsData := try (transform.Unmarshal .) }}
       {{ with $tagsData.Err }}
         {{ warnf "[last-updated] app=%s source=github: failed to parse tags response: %s" $appId . }}
       {{ end }}
