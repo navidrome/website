@@ -1,14 +1,16 @@
 {{/*
   GitLab Last Updated Partial
-  
+
   Fetches the latest release date from GitLab API.
-  
+
   Parameters:
+    - appId: App identifier (used for warning messages)
     - repoUrl: GitLab repository URL (e.g., https://gitlab.com/owner/repo)
-  
+
   Returns: YYYY-MM-DD formatted date string, or empty string if unavailable
 */}}
 
+{{ $appId := .appId }}
 {{ $repoUrl := .repoUrl }}
 {{ $date := "" }}
 
@@ -19,11 +21,14 @@
 {{ if $path }}
   {{/* URL-encode the project path (slashes become %2F) */}}
   {{ $encodedPath := $path | urlquery }}
-  
+
   {{/* Fetch releases from GitLab API */}}
   {{ $apiUrl := printf "https://gitlab.com/api/v4/projects/%s/releases" $encodedPath }}
-  
+
   {{ $result := try (resources.GetRemote $apiUrl) }}
+  {{ with $result.Err }}
+    {{ warnf "[last-updated] app=%s source=gitlab: failed to fetch releases from %s: %s" $appId $apiUrl . }}
+  {{ end }}
   {{ with $result.Value }}
     {{ $data := .Content | transform.Unmarshal }}
     {{ if and $data (gt (len $data) 0) }}
@@ -33,6 +38,8 @@
       {{ end }}
     {{ end }}
   {{ end }}
+{{ else }}
+  {{ warnf "[last-updated] app=%s source=gitlab: could not extract project path from URL: %s" $appId $repoUrl }}
 {{ end }}
 
 {{ return $date }}

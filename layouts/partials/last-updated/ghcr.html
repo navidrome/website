@@ -1,14 +1,16 @@
 {{/*
   GitHub Container Registry (GHCR) Last Updated Partial
-  
+
   Fetches the latest package version date from GitHub Packages API.
-  
+
   Parameters:
+    - appId: App identifier (used for warning messages)
     - storeUrl: GHCR URL (e.g., https://ghcr.io/owner/repo:tag)
-  
+
   Returns: YYYY-MM-DD formatted date string, or empty string if unavailable
 */}}
 
+{{ $appId := .appId }}
 {{ $storeUrl := .storeUrl }}
 {{ $date := "" }}
 
@@ -23,12 +25,15 @@
 {{ if ge (len $parts) 2 }}
   {{ $owner := index $parts 0 }}
   {{ $repo := index $parts 1 }}
-  
+
   {{/* Fetch package versions from GitHub API */}}
   {{/* Note: This endpoint returns public packages without auth */}}
   {{ $apiUrl := printf "https://api.github.com/users/%s/packages/container/%s/versions?per_page=1" $owner $repo }}
-  
+
   {{ $result := try (resources.GetRemote $apiUrl) }}
+  {{ with $result.Err }}
+    {{ warnf "[last-updated] app=%s source=ghcr: failed to fetch package versions from %s: %s" $appId $apiUrl . }}
+  {{ end }}
   {{ with $result.Value }}
     {{ $data := .Content | transform.Unmarshal }}
     {{ if and $data (gt (len $data) 0) }}
@@ -38,6 +43,8 @@
       {{ end }}
     {{ end }}
   {{ end }}
+{{ else }}
+  {{ warnf "[last-updated] app=%s source=ghcr: could not extract owner/repo from URL: %s" $appId $storeUrl }}
 {{ end }}
 
 {{ return $date }}

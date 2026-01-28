@@ -1,14 +1,16 @@
 {{/*
   Docker Hub Last Updated Partial
-  
+
   Fetches the latest tag push date from Docker Hub API.
-  
+
   Parameters:
+    - appId: App identifier (used for warning messages)
     - storeUrl: Docker Hub URL (e.g., https://hub.docker.com/r/owner/repo)
-  
+
   Returns: YYYY-MM-DD formatted date string, or empty string if unavailable
 */}}
 
+{{ $appId := .appId }}
 {{ $storeUrl := .storeUrl }}
 {{ $date := "" }}
 
@@ -21,11 +23,14 @@
 {{ if ge (len $parts) 2 }}
   {{ $owner := index $parts 0 }}
   {{ $repo := index $parts 1 }}
-  
+
   {{/* Fetch latest tag from Docker Hub API */}}
   {{ $apiUrl := printf "https://hub.docker.com/v2/repositories/%s/%s/tags?page_size=1&ordering=last_updated" $owner $repo }}
-  
+
   {{ $result := try (resources.GetRemote $apiUrl) }}
+  {{ with $result.Err }}
+    {{ warnf "[last-updated] app=%s source=dockerhub: failed to fetch tags from %s: %s" $appId $apiUrl . }}
+  {{ end }}
   {{ with $result.Value }}
     {{ $data := .Content | transform.Unmarshal }}
     {{ with $data.results }}
@@ -37,6 +42,8 @@
       {{ end }}
     {{ end }}
   {{ end }}
+{{ else }}
+  {{ warnf "[last-updated] app=%s source=dockerhub: could not extract owner/repo from URL: %s" $appId $storeUrl }}
 {{ end }}
 
 {{ return $date }}

@@ -16,7 +16,7 @@
 {{ $thumbnail := resources.Get $thumbnailPath }}
 
 {{/* Fetch last updated date */}}
-{{ $lastUpdatedData := partial "last-updated.html" (dict "repoUrl" $repoUrl "platforms" $platforms) }}
+{{ $lastUpdatedData := partial "last-updated.html" (dict "appId" $appId "repoUrl" $repoUrl "platforms" $platforms) }}
 {{ $lastUpdated := $lastUpdatedData.display }}
 {{ $lastUpdatedAttr := $lastUpdatedData.attr }}
 

@@ -1,15 +1,17 @@
 {{/*
   Cgit Last Updated Partial
-  
+
   Fetches the latest commit date from a cgit Atom feed.
   Cgit is a plain CGI web interface for git repositories.
-  
+
   Parameters:
+    - appId: App identifier (used for warning messages)
     - repoUrl: Cgit repository URL (e.g., https://git.example.com/repo)
-  
+
   Returns: YYYY-MM-DD formatted date string, or empty string if unavailable
 */}}
 
+{{ $appId := .appId }}
 {{ $repoUrl := .repoUrl }}
 {{ $date := "" }}
 
@@ -17,6 +19,9 @@
 {{ $atomUrl := printf "%s/atom/" (strings.TrimSuffix "/" $repoUrl) }}
 
 {{ $result := try (resources.GetRemote $atomUrl) }}
+{{ with $result.Err }}
+  {{ warnf "[last-updated] app=%s source=cgit: failed to fetch Atom feed from %s: %s" $appId $atomUrl . }}
+{{ end }}
 {{ with $result.Value }}
   {{ $content := .Content }}
   {{/* Extract the first <updated> tag from the Atom feed */}}

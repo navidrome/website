@@ -1,15 +1,17 @@
 {{/*
   GitHub Last Updated Partial
-  
+
   Fetches the latest release date from GitHub API.
   Falls back to latest tag if no releases are found.
-  
+
   Parameters:
+    - appId: App identifier (used for warning messages)
     - repoUrl: GitHub repository URL (e.g., https://github.com/owner/repo)
-  
+
   Returns: YYYY-MM-DD formatted date string, or empty string if unavailable
 */}}
 
+{{ $appId := .appId }}
 {{ $repoUrl := .repoUrl }}
 {{ $date := "" }}
 
@@ -21,24 +23,33 @@
 {{ if ge (len $parts) 2 }}
   {{ $owner := index $parts 0 }}
   {{ $repo := index $parts 1 }}
-  
+
   {{/* Fetch latest release from GitHub API */}}
   {{ $apiUrl := printf "https://api.github.com/repos/%s/%s/releases/latest" $owner $repo }}
-  
+
   {{ $result := try (resources.GetRemote $apiUrl) }}
+  {{ with $result.Err }}
+    {{ warnf "[last-updated] app=%s source=github: failed to fetch releases from %s: %s" $appId $apiUrl . }}
+  {{ end }}
   {{ with $result.Value }}
     {{ $data := .Content | transform.Unmarshal }}
     {{ with $data.published_at }}
       {{ $date = time.Format "2006-01-02" (time .) }}
     {{ end }}
   {{ end }}
-  
+
   {{/* Fallback to latest tag if no release found */}}
   {{ if not $date }}
     {{ $tagsUrl := printf "https://api.github.com/repos/%s/%s/tags?per_page=1" $owner $repo }}
     {{ $tagsResult := try (resources.GetRemote $tagsUrl) }}
+    {{ with $tagsResult.Err }}
+      {{ warnf "[last-updated] app=%s source=github: failed to fetch tags from %s: %s" $appId $tagsUrl . }}
+    {{ end }}
     {{ with $tagsResult.Value }}
       {{ $tagsData := try (.Content | transform.Unmarshal) }}
+      {{ with $tagsData.Err }}
+        {{ warnf "[last-updated] app=%s source=github: failed to parse tags response: %s" $appId . }}
+      {{ end }}
       {{ with $tagsData.Value }}
         {{ $tags := . }}
         {{ if and $tags (reflect.IsSlice $tags) (gt (len $tags) 0) }}
@@ -47,8 +58,14 @@
             {{/* Get commit date for the tag */}}
             {{ $commitUrl := printf "https://api.github.com/repos/%s/%s/commits/%s" $owner $repo . }}
             {{ $commitResult := try (resources.GetRemote $commitUrl) }}
+            {{ with $commitResult.Err }}
+              {{ warnf "[last-updated] app=%s source=github: failed to fetch commit %s: %s" $appId $commitUrl . }}
+            {{ end }}
             {{ with $commitResult.Value }}
               {{ $commitData := try (.Content | transform.Unmarshal) }}
+              {{ with $commitData.Err }}
+                {{ warnf "[last-updated] app=%s source=github: failed to parse commit response: %s" $appId . }}
+              {{ end }}
               {{ with $commitData.Value }}
                 {{ with .commit.committer.date }}
                   {{ $date = time.Format "2006-01-02" (time .) }}
@@ -60,6 +77,8 @@
       {{ end }}
     {{ end }}
   {{ end }}
+{{ else }}
+  {{ warnf "[last-updated] app=%s source=github: could not extract owner/repo from URL: %s" $appId $repoUrl }}
 {{ end }}
 
 {{ return $date }}

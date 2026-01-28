@@ -1,21 +1,30 @@
 {{/*
   Apple App Store Last Updated Scraping
-  Input: .storeUrl
+
+  Parameters:
+    - appId: App identifier (used for warning messages)
+    - storeUrl: Apple App Store URL
+
+  Returns: YYYY-MM-DD formatted date string, or empty string if unavailable
 */}}
+{{ $appId := .appId }}
 {{ $storeUrl := .storeUrl }}
 {{ $date := "" }}
 
 {{ if and $storeUrl (not (strings.Contains $storeUrl "testflight.apple.com")) }}
-    {{ $opts := dict 
+    {{ $opts := dict
         "headers" (dict "User-Agent" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36")
     }}
     {{ $result := try (resources.GetRemote $storeUrl $opts) }}
+    {{ with $result.Err }}
+        {{ warnf "[last-updated] app=%s source=apple: failed to fetch App Store page %s: %s" $appId $storeUrl . }}
+    {{ end }}
     {{ with $result.Value }}
         {{ $content := .Content }}
-        {{/* 
-           Search for "What’s New" section and the first datetime attribute after it.
+        {{/*
+           Search for "What's New" section and the first datetime attribute after it.
            Using (?s) to allow . to match newlines.
-           Structure: <h2 ...>What’s New</h2> ... <time datetime="2023-05-05" ...
+           Structure: <h2 ...>What's New</h2> ... <time datetime="2023-05-05" ...
         */}}
         {{ $pattern := `(?s)What.s New.*?datetime="([^"]+)"` }}
         {{ $matches := findRE $pattern $content 1 }}

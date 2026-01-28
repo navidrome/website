@@ -1,33 +1,35 @@
 {{- /*
   Last Updated Partial
-  
+
   Fetches the last release/update date from various sources at build time.
-  
+
   Parameters:
+    - appId: App identifier (used for warning messages)
     - repoUrl: Repository URL (GitHub or GitLab)
     - platforms: Platform dict with potential docker.store URL
-  
+
   Returns: dict with:
     - display: YYYY-MM-DD formatted date string for display, or "N/A" if unavailable
     - attr: YYYY-MM-DD formatted date string for data attribute (empty if unavailable)
 */ -}}
+{{- $appId := .appId -}}
 {{- $repoUrl := .repoUrl -}}
 {{- $platforms := .platforms -}}
 {{- $date := "" -}}
 
 {{- /* Try GitHub first */ -}}
 {{- if and (not $date) $repoUrl (strings.Contains $repoUrl "github.com") -}}
-  {{- $date = partial "last-updated/github.html" (dict "repoUrl" $repoUrl) -}}
+  {{- $date = partial "last-updated/github.html" (dict "appId" $appId "repoUrl" $repoUrl) -}}
 {{- end -}}
 
 {{- /* Try GitLab */ -}}
 {{- if and (not $date) $repoUrl (strings.Contains $repoUrl "gitlab.com") -}}
-  {{- $date = partial "last-updated/gitlab.html" (dict "repoUrl" $repoUrl) -}}
+  {{- $date = partial "last-updated/gitlab.html" (dict "appId" $appId "repoUrl" $repoUrl) -}}
 {{- end -}}
 
 {{- /* Try cgit/self-hosted git repos via Atom feed */ -}}
 {{- if and (not $date) $repoUrl -}}
-  {{- $date = partial "last-updated/cgit.html" (dict "repoUrl" $repoUrl) -}}
+  {{- $date = partial "last-updated/cgit.html" (dict "appId" $appId "repoUrl" $repoUrl) -}}
 {{- end -}}
 
 {{- /* Try Docker Hub from platforms.docker.store */ -}}
@@ -39,9 +41,9 @@
     {{- end -}}
   {{- end -}}
   {{- if and $dockerStore (strings.Contains $dockerStore "hub.docker.com") -}}
-    {{- $date = partial "last-updated/dockerhub.html" (dict "storeUrl" $dockerStore) -}}
+    {{- $date = partial "last-updated/dockerhub.html" (dict "appId" $appId "storeUrl" $dockerStore) -}}
   {{- else if and $dockerStore (strings.Contains $dockerStore "ghcr.io") -}}
-    {{- $date = partial "last-updated/ghcr.html" (dict "storeUrl" $dockerStore) -}}
+    {{- $date = partial "last-updated/ghcr.html" (dict "appId" $appId "storeUrl" $dockerStore) -}}
   {{- end -}}
 {{- end -}}
 
@@ -57,7 +59,7 @@
              {{- end -}}
         {{- end -}}
         {{- if and $storeUrl (or (strings.Contains $storeUrl "apps.apple.com") (strings.Contains $storeUrl "itunes.apple.com")) -}}
-            {{- $date = partial "last-updated/apple.html" (dict "storeUrl" $storeUrl) -}}
+            {{- $date = partial "last-updated/apple.html" (dict "appId" $appId "storeUrl" $storeUrl) -}}
         {{- end -}}
     {{- end -}}
   {{- end -}}
@@ -72,10 +74,13 @@
     {{- end -}}
   {{- end -}}
   {{- if and $playStore (strings.Contains $playStore "play.google.com") -}}
-    {{- $date = partial "last-updated/playstore.html" (dict "storeUrl" $playStore) -}}
+    {{- $date = partial "last-updated/playstore.html" (dict "appId" $appId "storeUrl" $playStore) -}}
   {{- end -}}
 {{- end -}}
 
 {{- /* Return dict with display and attr values */ -}}
 {{- $date = strings.TrimSpace $date -}}
+{{- if eq $date "" -}}
+  {{- warnf "[last-updated] app=%s: could not determine last-updated date from any source (repoUrl=%s)" $appId $repoUrl -}}
+{{- end -}}
 {{- return dict "display" (cond (eq $date "") "N/A" $date) "attr" $date -}}

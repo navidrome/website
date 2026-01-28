@@ -4,39 +4,44 @@
   Fetches the last release/update date from the Google Play Store page.
 
   Parameters:
+    - appId: App identifier (used for warning messages)
     - storeUrl: Play Store URL (e.g., https://play.google.com/store/apps/details?id=...)
 
   Returns: YYYY-MM-DD formatted date string, or empty string if unavailable
 */}}
+{{ $appId := .appId }}
 {{ $storeUrl := .storeUrl }}
 {{ $date := "" }}
 
 {{ if $storeUrl }}
   {{ $result := try (resources.GetRemote $storeUrl) }}
+  {{ with $result.Err }}
+    {{ warnf "[last-updated] app=%s source=playstore: failed to fetch Play Store page %s: %s" $appId $storeUrl . }}
+  {{ end }}
   {{ with $result.Value }}
     {{ $content := .Content }}
     {{/* Regex to find "Updated on" followed by date parts: Month Day, Year */}}
     {{ $pattern := "Updated on.*?([A-Za-z]{3})\\s+(\\d{1,2}),\\s+(\\d{4})" }}
     {{ $matches := findRE $pattern $content 1 }}
-    
+
     {{ if gt (len $matches) 0 }}
       {{ $match := index $matches 0 }}
-      
+
       {{/* Extract parts */}}
       {{ $monthName := replaceRE $pattern "$1" $match }}
       {{ $day := replaceRE $pattern "$2" $match }}
       {{ $year := replaceRE $pattern "$3" $match }}
-      
+
       {{/* Map month name to number */}}
       {{ $months := dict "Jan" "01" "Feb" "02" "Mar" "03" "Apr" "04" "May" "05" "Jun" "06" "Jul" "07" "Aug" "08" "Sep" "09" "Oct" "10" "Nov" "11" "Dec" "12" }}
       {{ $month := index $months $monthName }}
-      
+
       {{ if $month }}
         {{/* Pad day with zero if needed */}}
         {{ if eq (len $day) 1 }}
           {{ $day = printf "0%s" $day }}
         {{ end }}
-        
+
         {{/* Construct YYYY-MM-DD date */}}
         {{ $date = printf "%s-%s-%s" $year $month $day }}
       {{ end }}
