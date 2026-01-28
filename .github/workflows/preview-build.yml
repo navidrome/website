@@ -32,6 +32,14 @@ jobs:
             - name: Install npm dependencies
               run: npm ci
 
+            - name: Cache Hugo resources
+              uses: actions/cache@v4
+              with:
+                  path: hugo_cache/
+                  key: hugo-resources-${{ runner.os }}-${{ hashFiles('assets/apps/*/index.yaml') }}
+                  restore-keys: |
+                      hugo-resources-${{ runner.os }}-
+
             - name: Detect changed app entries
               id: detect-apps
               run: |
@@ -85,7 +93,7 @@ jobs:
               run: ./fetch-charts.sh
 
             - name: Build site
-              run: hugo --minify --baseURL "https://pr-${{ github.event.pull_request.number }}.navidrome-website.pages.dev"
+              run: hugo --minify --cacheDir ./hugo_cache --baseURL "https://pr-${{ github.event.pull_request.number }}.navidrome-website.pages.dev"
 
             - name: Save PR number
               run: echo "${{ github.event.pull_request.number }}" > public/PR_NUMBER
