@@ -1,5 +1,8 @@
 # Navidrome Website
 
+![Build](https://img.shields.io/github/actions/workflow/status/navidrome/website/prod-build-deploy.yml?branch=master&logo=github&style=flat-square)
+
+
 ## Running in a container locally
 
 You can run this project inside a [Docker](https://docs.docker.com/)
