@@ -1,0 +1,59 @@
+name: Build & Deploy
+
+on:
+    push:
+        branches: [master]
+    workflow_dispatch:
+    schedule:
+        - cron: "0 0 * * *" # Runs at 00:00 UTC every day
+
+jobs:
+    build-and-deploy:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v6
+              with:
+                  fetch-depth: 0
+
+            - name: Setup Hugo
+              uses: peaceiris/actions-hugo@v3
+              with:
+                  hugo-version: "0.153.0"
+                  extended: true
+
+            - name: Setup Node.js
+              uses: actions/setup-node@v6
+              with:
+                  cache: "npm"
+
+            - name: Install npm dependencies
+              run: npm ci
+
+            - name: Cache Hugo resources
+              uses: actions/cache@v4
+              with:
+                  path: .hugo_cache/
+                  key: hugo-resources-${{ runner.os }}-${{ hashFiles('assets/apps/*/index.yaml') }}
+                  restore-keys: |
+                      hugo-resources-${{ runner.os }}-
+
+            - name: Fetch charts data
+              env:
+                  HUGO_ENV: production
+                  CHARTS_URL: ${{ secrets.CHARTS_URL }}
+                  CHARTS_API_KEY: ${{ secrets.CHARTS_API_KEY }}
+              run: ./fetch-charts.sh
+
+            - name: Build site
+              env:
+                  HUGO_ENV: production
+              run: hugo --minify --cacheDir ${{ github.workspace }}/.hugo_cache
+
+            - name: Deploy to Cloudflare Pages
+              uses: cloudflare/wrangler-action@v3
+              with:
+                  apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+                  accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+                  command: pages deploy public/ --project-name=navidrome-website --branch=main
