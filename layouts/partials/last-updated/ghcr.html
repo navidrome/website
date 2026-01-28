@@ -16,7 +16,7 @@
 
 {{/* Build request options with GitHub token if available */}}
 {{ $opts := dict }}
-{{ with os.Getenv "GITHUB_TOKEN" }}
+{{ with os.Getenv "HUGO_GITHUB_TOKEN" }}
   {{ $opts = dict "headers" (dict "Authorization" (printf "Bearer %s" .)) }}
 {{ end }}
 

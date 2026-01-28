@@ -93,7 +93,7 @@ jobs:
 
       - name: Build site
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          HUGO_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: hugo --minify --cacheDir ${{ github.workspace }}/.hugo_cache --baseURL "https://pr-${{ github.event.pull_request.number }}.navidrome-website.pages.dev"
 
       - name: Save PR number
