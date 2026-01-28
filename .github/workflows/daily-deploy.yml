@@ -35,13 +35,14 @@ jobs:
             - name: Cache Hugo resources
               uses: actions/cache@v4
               with:
-                  path: hugo_cache/
+                  path: .hugo_cache/
                   key: hugo-resources-${{ runner.os }}-${{ hashFiles('assets/apps/*/index.yaml') }}
                   restore-keys: |
                       hugo-resources-${{ runner.os }}-
 
             - name: Fetch charts data
               env:
+                  HUGO_ENV: production
                   CHARTS_URL: ${{ secrets.CHARTS_URL }}
                   CHARTS_API_KEY: ${{ secrets.CHARTS_API_KEY }}
               run: ./fetch-charts.sh
@@ -49,7 +50,7 @@ jobs:
             - name: Build site
               env:
                   HUGO_ENV: production
-              run: hugo --minify --cacheDir ${{ github.workspace }}/hugo_cache
+              run: hugo --minify --cacheDir ${{ github.workspace }}/.hugo_cache
 
             - name: Deploy to Cloudflare Pages
               uses: cloudflare/wrangler-action@v3
