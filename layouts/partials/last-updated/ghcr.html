@@ -14,6 +14,12 @@
 {{ $storeUrl := .storeUrl }}
 {{ $date := "" }}
 
+{{/* Build request options with GitHub token if available */}}
+{{ $opts := dict }}
+{{ with os.Getenv "GITHUB_TOKEN" }}
+  {{ $opts = dict "headers" (dict "Authorization" (printf "Bearer %s" .)) }}
+{{ end }}
+
 {{/* Extract owner/repo from URL */}}
 {{/* Format: https://ghcr.io/owner/repo:tag or ghcr.io/owner/repo */}}
 {{ $path := replaceRE "^https?://(www\\.)?" "" $storeUrl }}
@@ -30,7 +36,7 @@
   {{/* Note: This endpoint returns public packages without auth */}}
   {{ $apiUrl := printf "https://api.github.com/users/%s/packages/container/%s/versions?per_page=1" $owner $repo }}
 
-  {{ $result := try (resources.GetRemote $apiUrl) }}
+  {{ $result := try (resources.GetRemote $apiUrl $opts) }}
   {{ with $result.Err }}
     {{ warnf "[last-updated] app=%s source=ghcr: failed to fetch package versions from %s: %s" $appId $apiUrl . }}
   {{ end }}

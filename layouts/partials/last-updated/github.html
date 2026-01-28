@@ -15,6 +15,12 @@
 {{ $repoUrl := .repoUrl }}
 {{ $date := "" }}
 
+{{/* Build request options with GitHub token if available */}}
+{{ $opts := dict }}
+{{ with os.Getenv "GITHUB_TOKEN" }}
+  {{ $opts = dict "headers" (dict "Authorization" (printf "Bearer %s" .)) }}
+{{ end }}
+
 {{/* Extract owner/repo from URL */}}
 {{ $path := replaceRE "^https?://(www\\.)?github\\.com/" "" $repoUrl }}
 {{ $path = strings.TrimSuffix "/" $path }}
@@ -27,7 +33,7 @@
   {{/* Fetch latest release from GitHub API */}}
   {{ $apiUrl := printf "https://api.github.com/repos/%s/%s/releases/latest" $owner $repo }}
 
-  {{ $result := try (resources.GetRemote $apiUrl) }}
+  {{ $result := try (resources.GetRemote $apiUrl $opts) }}
   {{ with $result.Err }}
     {{ warnf "[last-updated] app=%s source=github: failed to fetch releases from %s: %s" $appId $apiUrl . }}
   {{ end }}
@@ -41,7 +47,7 @@
   {{/* Fallback to latest tag if no release found */}}
   {{ if not $date }}
     {{ $tagsUrl := printf "https://api.github.com/repos/%s/%s/tags?per_page=1" $owner $repo }}
-    {{ $tagsResult := try (resources.GetRemote $tagsUrl) }}
+    {{ $tagsResult := try (resources.GetRemote $tagsUrl $opts) }}
     {{ with $tagsResult.Err }}
       {{ warnf "[last-updated] app=%s source=github: failed to fetch tags from %s: %s" $appId $tagsUrl . }}
     {{ end }}
@@ -57,7 +63,7 @@
           {{ with $tag.commit.sha }}
             {{/* Get commit date for the tag */}}
             {{ $commitUrl := printf "https://api.github.com/repos/%s/%s/commits/%s" $owner $repo . }}
-            {{ $commitResult := try (resources.GetRemote $commitUrl) }}
+            {{ $commitResult := try (resources.GetRemote $commitUrl $opts) }}
             {{ with $commitResult.Err }}
               {{ warnf "[last-updated] app=%s source=github: failed to fetch commit %s: %s" $appId $commitUrl . }}
             {{ end }}
