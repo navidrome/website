@@ -43,23 +43,6 @@ Unless otherwise stated, plugins are **not** developed or maintained by the Navi
 
 ## Installing Plugins
 
-### Prerequisites
-
-Before installing plugins, you need to enable the plugin system in your Navidrome configuration:
-
-```toml
-[Plugins]
-Enabled = true
-```
-
-Or using environment variables:
-
-```bash
-ND_PLUGINS_ENABLED=true
-```
-
-### Installation Steps
-
 1. **Download the plugin**: Go to the plugin's GitHub repository and download the `.ndp` file from the Releases page.
 
 2. **Place in plugins folder**: Copy the `.ndp` file to your plugins directory:
@@ -80,7 +63,7 @@ The following configuration options control the plugin system:
 
 | In config file       | As an env var            | Description                                                                 | Default Value            |
 |----------------------|--------------------------|-----------------------------------------------------------------------------|--------------------------|
-| Plugins.Enabled      | `ND_PLUGINS_ENABLED`     | Enable the plugin system                                                    | `false`                  |
+| Plugins.Enabled      | `ND_PLUGINS_ENABLED`     | Enable the plugin system                                                    | `true`                  |
 | Plugins.Folder       | `ND_PLUGINS_FOLDER`      | Directory where plugin (`.ndp`) files are stored                            | `"<DataFolder>/plugins"` |
 | Plugins.AutoReload   | `ND_PLUGINS_AUTORELOAD`  | Watch plugins folder for changes and reload automatically                   | `false`                  |
 | Plugins.LogLevel     | `ND_PLUGINS_LOGLEVEL`    | Log level for plugins (`error`, `warn`, `info`, `debug`, `trace`)           | _Inherit from LogLevel_  |
