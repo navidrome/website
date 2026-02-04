@@ -95,6 +95,8 @@ ND_PLUGINS_LOGLEVEL=debug
 
 Once plugins are installed, you manage them through the Navidrome web interface:
 
+{{< imgproc plugins-manage Fit "900x900" />}}
+
 ### Viewing Installed Plugins
 
 Navigate to the Plugins section in the admin area to see all installed plugins. Each plugin shows its name, description, version, and current status.
