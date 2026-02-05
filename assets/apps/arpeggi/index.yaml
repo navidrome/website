@@ -1,5 +1,8 @@
 name: Arpeggi
 url: https://www.reddit.com/r/arpeggiApp/
+repoUrl: https://github.com/argie-w/Arpeggi-App
+isOpenSource: false
+isFree: true
 platforms:
   ios:
     store: https://testflight.apple.com/join/LDWqgjAs
@@ -12,4 +15,3 @@ screenshots:
     - iOS3.webp
     - iPad1.webp
     - iPad3.webp
-isFree: true
