@@ -1,0 +1,15 @@
+name: Cadence
+url: https://www.coryd.dev/posts/2025/i-made-a-music-app
+platforms:
+  ios:
+    store: https://apps.apple.com/us/app/cadence-navidrome-client/id6748620960
+  macos:
+    store: https://apps.apple.com/us/app/cadence-for-navidrome/id6748622506?mt=12
+api: Navidrome
+description: "A minimal iOS/macOS client with CarPlay integration, Spotlight search support and a focus on queing artists and albums. Playlists are not supported."
+screenshots:
+  thumbnail: thumbnail.webp
+  gallery:
+    - screen1.webp
+    - screen2.webp
+    - screen3.webp
