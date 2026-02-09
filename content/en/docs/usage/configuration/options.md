@@ -275,7 +275,7 @@ make it all uppercase. Ex: `ND_LOGLEVEL=debug`. See below for all available opti
 [deezer-integration]: /docs/usage/integration/external-services/#deezer
 [encrypt-passwords]: /docs/usage/admin/security/#encrypted-passwords
 [extauth-security]: /docs/usage/admin/security/#externalized-authentication "Externalized authentication"
-[extauth-config]: /docs/usage/configuration/authentication
+[extauth-config]: /docs/usage/integration/authentication/#configuration
 [unix-socket]: /docs/usage/admin/security/#listening-on-a-unix-socket
 [albumcoverart]: /docs/usage/library/artwork/#albums
 [artistcoverart]: /docs/usage/library/artwork/#artists
