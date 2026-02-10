@@ -12,4 +12,13 @@ screenshots:
     - screen1.webp
     - screen2.webp
     - screen3.webp
+keywords:
+  - upnp
+  - dlna
+  - gapless
+  - equalizer
+  - replaygain
+  - lyrics
+  - radio
+  - native
 repoUrl: https://github.com/dweymouth/supersonic
