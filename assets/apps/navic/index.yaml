@@ -1,5 +1,5 @@
 name: Navic
-url: https://github.com/paigely/Navic
+url: https://codeberg.org/paige/Navic
 platforms:
   android: true
   ios: true
@@ -11,4 +11,4 @@ screenshots:
     - albums.webp
     - now-playing.webp
     - lyrics.webp
-repoUrl: https://github.com/paigely/Navic
+repoUrl: https://codeberg.org/paige/Navic
