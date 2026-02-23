@@ -27,6 +27,11 @@
   {{- $date = partial "last-updated/gitlab.html" (dict "appId" $appId "repoUrl" $repoUrl) -}}
 {{- end -}}
 
+{{- /* Try Codeberg */ -}}
+{{- if and (not $date) $repoUrl (strings.Contains $repoUrl "codeberg.org") -}}
+  {{- $date = partial "last-updated/codeberg.html" (dict "appId" $appId "repoUrl" $repoUrl) -}}
+{{- end -}}
+
 {{- /* Try cgit/self-hosted git repos via Atom feed */ -}}
 {{- if and (not $date) $repoUrl -}}
   {{- $date = partial "last-updated/cgit.html" (dict "appId" $appId "repoUrl" $repoUrl) -}}
