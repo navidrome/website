@@ -210,7 +210,7 @@ Now that Navidrome is running, explore these features:
 - **[Multi-Library Support](/docs/usage/features/multi-library/):** Organize multiple music collections (audiobooks, family libraries) with separate access controls
 - **[External Authentication](/docs/usage/configuration/authentication/):** Integrate with your homelab SSO or external auth system
 - **[Configuration Options](/docs/usage/configuration/options/):** Customize scanning, transcoding, and more
-- **[Client Apps](/docs/overview/apps/):** Connect mobile apps, desktop players, and more
+- **[Client Apps](/apps/):** Connect mobile apps, desktop players, and more
 
 ---
 
