@@ -1,0 +1,25 @@
+name: EchoSpace
+isOpenSource: false
+url: https://music.ixiaoxiang.cn
+platforms:
+  ios:
+    store: https://apps.apple.com/app/id6758931295
+  android:
+    store: https://play.google.com/store/apps/details?id=cn.ixiaoxiang.music
+  
+api: Navidrome
+description: "EchoSpace is a versatile music player designed for audiophiles. It instantly transforms your NAS, cloud storage, or private server into a dedicated music streaming service. With its minimalist interface and powerful decoding capabilities, EchoSpace ensures that notes stored in any corner resonate perfectly in your ears."
+screenshots:
+  thumbnail: thumbnail.webp
+  gallery:
+    - 1.webp
+    - 2.webp
+    - 3.webp
+    - 4.webp
+    - 5.webp
+  
+
+keywords:
+  - webdav
+  - nas
+  - carplay
