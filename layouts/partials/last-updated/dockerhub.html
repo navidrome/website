@@ -32,12 +32,17 @@
     {{ warnf "[last-updated] app=%s source=dockerhub: failed to fetch tags from %s: %s" $appId $apiUrl . }}
   {{ end }}
   {{ with $result.Value }}
-    {{ $data := .Content | transform.Unmarshal }}
-    {{ with $data.results }}
-      {{ if gt (len .) 0 }}
-        {{ $latestTag := index . 0 }}
-        {{ with $latestTag.tag_last_pushed }}
-          {{ $date = time.Format "2006-01-02" (time .) }}
+    {{ $parsedData := try (.Content | transform.Unmarshal) }}
+    {{ with $parsedData.Err }}
+      {{ warnf "[last-updated] app=%s source=dockerhub: failed to parse tags response: %s" $appId . }}
+    {{ end }}
+    {{ with $parsedData.Value }}
+      {{ with .results }}
+        {{ if gt (len .) 0 }}
+          {{ $latestTag := index . 0 }}
+          {{ with $latestTag.tag_last_pushed }}
+            {{ $date = time.Format "2006-01-02" (time .) }}
+          {{ end }}
         {{ end }}
       {{ end }}
     {{ end }}

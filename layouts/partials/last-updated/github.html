@@ -38,9 +38,14 @@
     {{ warnf "[last-updated] app=%s source=github: failed to fetch releases from %s: %s" $appId $apiUrl . }}
   {{ end }}
   {{ with $result.Value }}
-    {{ $data := .Content | transform.Unmarshal }}
-    {{ with $data.published_at }}
-      {{ $date = time.Format "2006-01-02" (time .) }}
+    {{ $releaseData := try (.Content | transform.Unmarshal) }}
+    {{ with $releaseData.Err }}
+      {{ warnf "[last-updated] app=%s source=github: failed to parse releases response: %s" $appId . }}
+    {{ end }}
+    {{ with $releaseData.Value }}
+      {{ with .published_at }}
+        {{ $date = time.Format "2006-01-02" (time .) }}
+      {{ end }}
     {{ end }}
   {{ end }}
 
