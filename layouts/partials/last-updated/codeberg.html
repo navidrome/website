@@ -32,7 +32,7 @@
     {{ warnf "[last-updated] app=%s source=codeberg: failed to fetch releases from %s: %s" $appId $apiUrl . }}
   {{ end }}
   {{ with $result.Value }}
-    {{ $releaseData := try (.Content | transform.Unmarshal) }}
+    {{ $releaseData := try (transform.Unmarshal (dict "format" "json") .Content) }}
     {{ with $releaseData.Err }}
       {{ warnf "[last-updated] app=%s source=codeberg: failed to parse releases response: %s" $appId . }}
     {{ end }}
@@ -55,7 +55,7 @@
       {{ warnf "[last-updated] app=%s source=codeberg: failed to fetch tags from %s: %s" $appId $tagsUrl . }}
     {{ end }}
     {{ with $tagsResult.Value }}
-      {{ $tagsData := try (.Content | transform.Unmarshal) }}
+      {{ $tagsData := try (transform.Unmarshal (dict "format" "json") .Content) }}
       {{ with $tagsData.Err }}
         {{ warnf "[last-updated] app=%s source=codeberg: failed to parse tags response: %s" $appId . }}
       {{ end }}
@@ -63,8 +63,8 @@
         {{ $tags := . }}
         {{ if and $tags (reflect.IsSlice $tags) (gt (len $tags) 0) }}
           {{ $tag := index $tags 0 }}
-          {{/* Codeberg tag API includes commit info with timestamp */}}
-          {{ with $tag.commit.timestamp }}
+          {{/* Codeberg tag API includes commit info with created date */}}
+          {{ with $tag.commit.created }}
             {{ $date = time.Format "2006-01-02" (time .) }}
           {{ end }}
         {{ end }}

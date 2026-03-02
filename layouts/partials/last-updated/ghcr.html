@@ -41,7 +41,7 @@
     {{ warnf "[last-updated] app=%s source=ghcr: failed to fetch package versions from %s: %s" $appId $apiUrl . }}
   {{ end }}
   {{ with $result.Value }}
-    {{ $parsedData := try (.Content | transform.Unmarshal) }}
+    {{ $parsedData := try (transform.Unmarshal (dict "format" "json") .Content) }}
     {{ with $parsedData.Err }}
       {{ warnf "[last-updated] app=%s source=ghcr: failed to parse package versions response: %s" $appId . }}
     {{ end }}

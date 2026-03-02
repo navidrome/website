@@ -38,7 +38,7 @@
     {{ warnf "[last-updated] app=%s source=github: failed to fetch releases from %s: %s" $appId $apiUrl . }}
   {{ end }}
   {{ with $result.Value }}
-    {{ $releaseData := try (.Content | transform.Unmarshal) }}
+    {{ $releaseData := try (transform.Unmarshal (dict "format" "json") .Content) }}
     {{ with $releaseData.Err }}
       {{ warnf "[last-updated] app=%s source=github: failed to parse releases response: %s" $appId . }}
     {{ end }}
@@ -57,7 +57,7 @@
       {{ warnf "[last-updated] app=%s source=github: failed to fetch tags from %s: %s" $appId $tagsUrl . }}
     {{ end }}
     {{ with $tagsResult.Value }}
-      {{ $tagsData := try (transform.Unmarshal .) }}
+      {{ $tagsData := try (transform.Unmarshal (dict "format" "json") .Content) }}
       {{ with $tagsData.Err }}
         {{ warnf "[last-updated] app=%s source=github: failed to parse tags response: %s" $appId . }}
       {{ end }}
@@ -73,7 +73,7 @@
               {{ warnf "[last-updated] app=%s source=github: failed to fetch commit %s: %s" $appId $commitUrl . }}
             {{ end }}
             {{ with $commitResult.Value }}
-              {{ $commitData := try (.Content | transform.Unmarshal) }}
+              {{ $commitData := try (transform.Unmarshal (dict "format" "json") .Content) }}
               {{ with $commitData.Err }}
                 {{ warnf "[last-updated] app=%s source=github: failed to parse commit response: %s" $appId . }}
               {{ end }}

@@ -30,7 +30,7 @@
     {{ warnf "[last-updated] app=%s source=gitlab: failed to fetch releases from %s: %s" $appId $apiUrl . }}
   {{ end }}
   {{ with $result.Value }}
-    {{ $releaseData := try (.Content | transform.Unmarshal) }}
+    {{ $releaseData := try (transform.Unmarshal (dict "format" "json") .Content) }}
     {{ with $releaseData.Err }}
       {{ warnf "[last-updated] app=%s source=gitlab: failed to parse releases response: %s" $appId . }}
     {{ end }}

@@ -32,7 +32,7 @@
     {{ warnf "[last-updated] app=%s source=dockerhub: failed to fetch tags from %s: %s" $appId $apiUrl . }}
   {{ end }}
   {{ with $result.Value }}
-    {{ $parsedData := try (.Content | transform.Unmarshal) }}
+    {{ $parsedData := try (transform.Unmarshal (dict "format" "json") .Content) }}
     {{ with $parsedData.Err }}
       {{ warnf "[last-updated] app=%s source=dockerhub: failed to parse tags response: %s" $appId . }}
     {{ end }}
