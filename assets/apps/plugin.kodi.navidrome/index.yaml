@@ -1,0 +1,22 @@
+name: plugin.kodi.navidrome
+description: "plugin.kodi.navidrome is a Kodi addon that allows you to stream your music collection directly from a Navidrome server. It provides a seamless integration with Kodi's music interface, supporting browsing, streaming, and library management features."
+url: https://github.com/colinfredynand/plugin.kodi.navidrome
+repoUrl: https://github.com/colinfredynand/plugin.kodi.navidrome
+
+platforms:
+  windows: true
+  linux: true
+  macos: true
+  android: true
+  tvos: true
+
+api: Subsonic
+
+screenshots:
+  thumbnail: thumbnail.webp
+  gallery:
+    - screen01.webp
+    - screen02.webp
+    - screen03.webp
+    - screen04.webp
+    - screen05.webp
