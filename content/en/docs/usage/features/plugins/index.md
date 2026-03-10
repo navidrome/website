@@ -22,7 +22,7 @@ Plugins can extend Navidrome in several ways:
 - **Metadata Agents**: Fetch artist biographies, album information, and images from external sources
 - **Scrobblers**: Send your listening history to external services beyond the built-in Last.fm and ListenBrainz support
 - **Scheduled Tasks**: Run periodic background tasks
-- **Event Handlers**: React to events like playback or library changes
+- **Event Handlers**: React to events like playback or websocket events
 
 Each plugin declares which capabilities it provides, and you can enable only the plugins you need.
 
