@@ -1,0 +1,14 @@
+name: Radiccio
+url: https://radiccio.music
+platforms:
+  macos:
+    store: https://apps.apple.com/app/radiccio/id6751426653
+api: OpenSubsonic
+description: "A multi-source native Mac music player app. Supports multiple Navidrome and OpenSubsonic servers."
+screenshots:
+  thumbnail: thumbnail.webp
+isFree: false
+keywords:
+  - mac
+  - macos
+  - native
