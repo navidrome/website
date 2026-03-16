@@ -7,8 +7,6 @@ api: OpenSubsonic
 description: "A multi-source native Mac music player app. Supports multiple Navidrome and OpenSubsonic servers"
 screenshots:
   thumbnail: thumbnail.webp
-  gallery:
-    - screen1.webp
 isFree: false
 keywords:
   - mac
