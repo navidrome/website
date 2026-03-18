@@ -224,14 +224,14 @@
     }
   }
 
-  .app-free-badge {
+  .app-paid-badge {
     font-size: 0.875rem;
-    color: #28a745; // Green for free
+    color: #dc3545; // Red for paid
     margin-left: 0.5rem;
     cursor: help;
 
     [data-bs-theme="dark"] & {
-      color: #4ade80; // Lighter green for dark mode
+      color: #f87171; // Lighter red for dark mode
     }
   }
 }

@@ -69,10 +69,9 @@
             <i class="fab fa-github"></i>
           </a>
         {{ end }}
-        {{/* Show free badge only if free but not open source (to avoid redundancy) */}}
-        {{ if and $isActuallyFree (not $isOpenSource) }}
-          <span class="app-free-badge" title="Free">
-            <i class="fas fa-tag"></i>
+        {{ if not $isActuallyFree }}
+          <span class="app-paid-badge" title="Paid">
+            <i class="fas fa-dollar-sign"></i>
           </span>
         {{ end }}
       </h3>
