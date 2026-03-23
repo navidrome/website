@@ -10,13 +10,10 @@ description: A modern, gorgeous, and blazing fast desktop client for Subsonic AP
 screenshots:
   thumbnail: screen1.webp
   gallery:
-    - screen1.webp
     - screen2.webp
     - screen5.webp
 keywords:
   - tauri
   - rust
-  - navidrome
-  - subsonic
   - cross-platform
   - lastfm
