@@ -12,7 +12,7 @@ screenshots:
   gallery:
     - screen1.webp
     - screen2.webp
-    - screen5.png
+    - screen5.webp
 keywords:
   - tauri
   - rust
