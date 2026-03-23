@@ -1,0 +1,23 @@
+name: Psysonic
+url: https://www.psysonic.de/
+repoUrl: https://github.com/Psychotoxical/psysonic
+platforms:
+  windows: true
+  macos: true
+  linux: true
+api: OpenSubsonic
+description: A modern, gorgeous, and blazing fast desktop client for Subsonic API compatible music servers.
+screenshots:
+  thumbnail: thumbnail.webp
+  gallery:
+    - screen1.webp
+    - screen2.webp
+    - screen3.webp
+    - screen4.webp
+keywords:
+  - tauri
+  - rust
+  - navidrome
+  - subsonic
+  - cross-platform
+  - lastfm
