@@ -1,14 +1,14 @@
 name: Navic
-url: https://codeberg.org/paige/Navic
+url: https://navic.app/
 platforms:
   android: true
   ios: true
 api: Subsonic
-description: Subsonic client for Android and iOS with Material 3 Expressive design
+description: Navic is a beautiful, modern, and open-source Navidrome client for both Android and iOS. Extremely customisable and boasts many features, such as word-by-word lyrics, multiple lyric providers, robust queue system, widgets, themes and more. Constantly being updated almost daily with even more features and fixes.
 screenshots:
   thumbnail: library.webp
   gallery:
     - albums.webp
     - now-playing.webp
     - lyrics.webp
-repoUrl: https://codeberg.org/paige/Navic
+repoUrl: https://github.com/paigely/Navic
