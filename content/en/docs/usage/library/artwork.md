@@ -96,6 +96,7 @@ Navidrome allows uploading custom images for playlists, artists, and internet ra
 
 **Supported formats:** GIF, JPEG, PNG, WebP
 **Maximum file size:** 10 MB
+**Storage location:** Uploaded images are stored in `<DataFolder>/artwork/`, organized by entity type (`artist/`, `playlist/`, `radio/`)
 
 ### Playlist Cover Art
 
