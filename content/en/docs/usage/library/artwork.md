@@ -30,7 +30,7 @@ The default is `cover.*, folder.*, front.*, embedded, external`, meaning:
 
 - First try to find a `cover.*`, `folder.*` or `front.*` image in the album folder(s)
 - If not found, try to read an embedded image from one of the mediafiles for that album
-- If not found, try to fetch it from an [external service](/docs/usage/integration/external-services) (currently only Deezer and Last.fm)
+- If not found, try to fetch it from an [external service](/docs/usage/integration/external-services) (currently only Last.fm)
 - If not found, use the cover placeholder (blue record image)
 
 ## Disc Cover Art
