@@ -20,18 +20,7 @@ The default is `artist.*, album/artist.*, external`, meaning:
 - If not found, try to fetch it from an [external service](/docs/usage/integration/external-services)
 - If not found, use the artist image placeholder (grey star image)
 
-Example directory layout for an artist:
-
-```text
-Music/
-└── Artist Name/
-    ├── artist.jpg           ← matched by ArtistArtPriority
-    ├── Album One/
-    │   └── ...
-    └── Album Two/
-        └── ...
-```
-The `ArtistImageFolder` [config option][advanced-configuration] can be set to specify a subfolder name for artist image lookups.
+You can also configure a centralized folder for artist images using the `ArtistImageFolder` [config option][advanced-configuration] and adding `image-folder` to `ArtistArtPriority`. When configured, Navidrome will look for image files in that folder named after the artist's MusicBrainz ID or name.
 
 ## Albums
 
@@ -73,9 +62,14 @@ Music/
 
 ## MediaFiles
 
-Some players (including Navidrome's own WebUI), can display different cover art images for each track in an album.
-Navidrome tries to read an embedded image from the mediafile. If it does not have one, it will get the album cover
-art as explained above. MediaFile cover art can be slow in some systems and can be disabled by
+Some players (including Navidrome's own WebUI) can display different cover art images for each track in an album.
+Navidrome resolves mediafile artwork in the following order:
+
+1. Try to read an embedded image from the mediafile itself
+2. For multi-disc albums, fall back to the disc-level artwork (see [Disc Cover Art](#disc-cover-art) above)
+3. Fall back to the album cover art
+
+MediaFile cover art can be slow in some systems and can be disabled by
 setting `EnableMediaFileCoverArt=false`.
 
 ## Playlists
