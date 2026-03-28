@@ -1,0 +1,41 @@
+name: Documentation Issue
+description: Report incorrect, outdated, or missing documentation on the Navidrome website.
+title: "[Docs]: "
+labels: ["documentation"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        > **Important:** This repository is for the Navidrome **documentation website** only.
+        >
+        > If you want to report a bug or request a feature for the **Navidrome server**, please go to
+        > **[navidrome/navidrome](https://github.com/navidrome/navidrome/issues/new/choose)** instead.
+  - type: checkboxes
+    id: confirm-docs
+    attributes:
+      label: "I confirm that:"
+      options:
+        - label: This issue is about the **documentation website**, NOT about the Navidrome server
+          required: true
+  - type: input
+    id: page-url
+    attributes:
+      label: Page URL or path
+      description: Which documentation page has the issue? Paste the URL or path.
+      placeholder: "https://www.navidrome.org/docs/..."
+    validations:
+      required: true
+  - type: textarea
+    id: whats-wrong
+    attributes:
+      label: What's wrong
+      description: Describe what is incorrect, outdated, or missing in the documentation.
+    validations:
+      required: true
+  - type: textarea
+    id: suggested-fix
+    attributes:
+      label: Suggested fix
+      description: If you know what the correct content should be, describe it here.
+    validations:
+      required: false
