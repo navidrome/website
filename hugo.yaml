@@ -151,8 +151,8 @@ params:
     feedback:
       enable: true
       # The responses that the user sees after clicking "yes" (the page was helpful) or "no" (the page was not helpful).
-      yes: 'Glad to hear it! Please <a href="https://github.com/navidrome/website/issues/new">tell us how we can make it even better</a>.'
-      no: 'Sorry to hear that. Please <a href="https://github.com/navidrome/website/issues/new">tell us how we can improve</a>.'
+      yes: 'Glad to hear it! Please <a href="https://github.com/navidrome/website/issues/new">tell us how we can make this documentation even better</a>.'
+      no: 'Sorry to hear that. Please <a href="https://github.com/navidrome/website/issues/new">tell us how we can improve this documentation</a>.'
 
     showLightDarkModeMenu: true
 
