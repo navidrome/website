@@ -98,22 +98,26 @@ Playlists/
 
 ## Artwork Uploads
 
-Navidrome allows uploading custom images for playlists and artists directly from the web UI. This is controlled by the `EnableArtworkUpload` [config option][advanced-configuration] (enabled by default). When disabled, only admin users can upload artwork.
+Navidrome allows uploading custom images for playlists, artists, and internet radio directly from the web UI. This is controlled by the `EnableArtworkUpload` [config option][advanced-configuration] (enabled by default). When disabled, only admin users can upload artwork.
 
 **Supported formats:** GIF, JPEG, PNG, WebP
 **Maximum file size:** 10 MB
 
 ### Playlist Cover Art
 
-To upload a custom playlist cover, open the playlist in the Navidrome web UI and use the image upload option. Uploaded images take priority over all other playlist artwork sources.
+To upload a custom playlist cover, open the playlist in the Navidrome web UI and hover the mouse over the current artwork. You should see a camera icon where you can click to select the image to upload. Uploaded images take priority over all other playlist artwork sources.
 
 ### Artist Images
 
-Custom artist images can be uploaded via the web UI on the artist detail page. 
+Custom artist images can be uploaded via the web UI on the artist detail page. Follow the same process as the playlist cover art. 
+
+### Internet Radio Images
+
+You can also upload a custom image on the internet radio's edit page. This image will be used as the station's artwork instead of fetching its favicon (when available).
 
 ## Image Format & Quality
 
-Navidrome serves resized artwork as WebP for better compression and performance. The `CoverArtQuality` [config option][advanced-configuration] controls the encoding quality for both JPEG and WebP output (default: `75`).
+Navidrome serves resized artwork as WebP for better compression and performance. The `CoverArtQuality` [config option][advanced-configuration] controls the encoding quality for WebP output (default: `75`).
 
 Animated GIFs embedded in or associated with your music files are preserved during resize — they are converted to animated WebP using ffmpeg.
 
