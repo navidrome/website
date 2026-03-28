@@ -94,7 +94,7 @@ Playlists/
 
 Navidrome allows uploading custom images for playlists, artists, and internet radio directly from the web UI. This is controlled by the `EnableArtworkUpload` [config option][advanced-configuration] (enabled by default). When disabled, only admin users can upload artwork.
 
-**Supported formats:** GIF, JPEG, PNG, WebP
+**Supported formats:** JPEG, PNG, WebP, GIF
 **Maximum file size:** 10 MB
 **Storage location:** Uploaded images are stored in `<DataFolder>/artwork/`, organized by entity type (`artist/`, `playlist/`, `radio/`)
 
