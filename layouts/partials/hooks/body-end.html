@@ -1,0 +1,12 @@
+<script>
+  // Append current page URL to documentation issue links
+  document.querySelectorAll('.feedback--response a, .td-page-meta--issue').forEach(a => {
+    try {
+      const url = new URL(a.href);
+      if (url.pathname.includes('/issues/new')) {
+        url.searchParams.set('page-url', window.location.href);
+        a.href = url.toString();
+      }
+    } catch (e) {}
+  });
+</script>
