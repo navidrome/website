@@ -1,6 +1,6 @@
 ---
-title: "External Integrations"
-linkTitle: "External Integrations"
+title: "External Integrations (A.K.A. Agents)"
+linkTitle: "External Integrations (Agents)"
 date: 2017-01-04
 weight: 10
 description: >
@@ -9,7 +9,7 @@ aliases:
   - /docs/usage/external-integrations/
 ---
 
-Navidrome uses external services (called **agents**) to enrich your music library with artist biographies, images, album covers, similar artists, and more. Multiple agents can be configured, and they are tried in priority order — if one fails or returns no results, the next one is tried.
+Navidrome uses external services (through **agents**) to enrich your music library with artist biographies, images, album covers, similar artists, and more. Multiple agents can be configured, and they are tried in priority order — if one fails or returns no results, the next one is tried.
 
 ## How Agents Work
 
@@ -17,7 +17,7 @@ The `Agents` [config option](/docs/usage/configuration/options/#:~:text=Agents) 
 
 The default is `"deezer,lastfm,listenbrainz"`, meaning Deezer is tried first, then Last.fm, then ListenBrainz. A built-in `local` agent is always appended automatically as a final fallback.
 
-To disable a specific agent, either remove it from the `Agents` list or set its individual `*.Enabled` option to `false`.
+To disable a specific agent, either remove it from the `Agents` list or set its individual `*.Enabled` option to `false`. To disable **all** external integrations at once, set `EnableExternalServices` to `false`.
 
 ## Last.fm
 
