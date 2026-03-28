@@ -31,6 +31,8 @@ When enabled via the `ExtAuth.TrustedSources` option, Navidrome validates the re
 
 With externalized authentication enabled, Navidrome gets the username of the authenticated user from incoming requests' `Remote-User` HTTP header. The header can be changed via the `ExtAuth.UserHeader` configuration option.
 
+When using external authentication, you can configure `ExtAuth.LogoutURL` to redirect users to your authentication provider's logout endpoint after they log out of Navidrome. This ensures users are fully logged out of both Navidrome and the external auth provider (SSO, OIDC, etc.).
+
 If a user is successfully authenticated by the proxy but does not exist in the Navidrome database, it will be created with a random password. The first user created in a fresh installation (whether through externalized authentication or direct login) will always be an admin user.
 
 You might also be interested in the `EnableUserEditing` option, which allows disabling the User page that lets users change their Navidrome password.
