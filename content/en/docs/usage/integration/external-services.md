@@ -9,7 +9,7 @@ aliases:
   - /docs/usage/external-integrations/
 ---
 
-Navidrome uses external services (through **agents**) to enrich your music library with artist biographies, images, album covers, similar artists, and more. Multiple agents can be configured, and they are tried in priority order — if one fails or returns no results, the next one is tried.
+Navidrome uses external services (through **agents**) to enrich your music library with artist biographies, images, album covers, similar artists, and more. Multiple agents can be configured, and they are tried in priority order. If one fails or returns no results, the next one is tried.
 
 ## How Agents Work
 
@@ -50,7 +50,7 @@ Deezer's public API doesn't require API keys or authentication, making it the si
 
 **Provides:** Artist images, artist biographies, similar artists, top songs
 
-**Configuration:** Enabled by default — no setup required. To disable it, set `Deezer.Enabled` to `false` in your [configuration file](/docs/usage/configuration/options#configuration-file) or set the environment variable `ND_DEEZER_ENABLED` to `false`.
+**Configuration:** Enabled by default, no setup required. To disable it, set `Deezer.Enabled` to `false` in your [configuration file](/docs/usage/configuration/options#configuration-file) or set the environment variable `ND_DEEZER_ENABLED` to `false`.
 
 ## ListenBrainz
 
@@ -58,13 +58,13 @@ ListenBrainz provides metadata based on MusicBrainz data and community listening
 
 **Provides:** Artist URLs, similar artists, top songs, similar songs
 
-**Configuration:** Enabled by default — no setup required for metadata. To disable it, set `ListenBrainz.Enabled` to `false`. The `ListenBrainz.BaseURL` option can be changed to point to a self-hosted instance (e.g., [Maloja](https://github.com/krateng/maloja)).
+**Configuration:** Enabled by default, no setup required for metadata. To disable it, set `ListenBrainz.Enabled` to `false`.
 
 ListenBrainz also supports [scrobbling](/docs/usage/features/scrobbling#listenbrainz), which requires per-user authorization.
 
 ## Local Agent
 
-The `local` agent is always active and serves as the final fallback. It provides top songs based on your own library's play counts and ratings — no external service is contacted.
+The `local` agent is always active and serves as the final fallback. It provides top songs based on your own library's play counts and ratings. No external service is contacted.
 
 ## Extending with Plugins
 

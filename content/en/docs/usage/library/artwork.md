@@ -76,10 +76,10 @@ setting `EnableMediaFileCoverArt=false`.
 
 Playlist artwork is resolved in the following order:
 
-1. **Uploaded image** — A custom image uploaded via the web UI (see [Artwork Uploads](#artwork-uploads) below)
-2. **Sidecar image** — An image file with the same base name as the playlist file, placed alongside it
-3. **M3U directive** — An image URL specified via the `#EXTALBUMARTURL` directive inside the M3U file. To allow HTTP/HTTPS URLs, set `EnableM3UExternalAlbumArt` to `true` in your [configuration][advanced-configuration]. Local file paths are always accepted.
-4. **Tiled image** — An auto-generated mosaic of up to 4 album covers from the playlist
+1. **Uploaded image**: A custom image uploaded via the web UI (see [Artwork Uploads](#artwork-uploads) below)
+2. **Sidecar image**: An image file with the same base name as the playlist file, placed alongside it
+3. **M3U directive**: An image URL specified via the `#EXTALBUMARTURL` directive inside the M3U file. To allow HTTP/HTTPS URLs, set `EnableM3UExternalAlbumArt` to `true` in your [configuration][advanced-configuration]. Local file paths are always accepted.
+4. **Tiled image**: An auto-generated mosaic of up to 4 album covers from the playlist
 5. If none of the above are available, the album cover placeholder is used
 
 Example of a playlist with a sidecar image:
@@ -114,6 +114,6 @@ You can also upload a custom image on the internet radio's edit page. This image
 
 Navidrome serves resized artwork as WebP for better compression and performance. The `CoverArtQuality` [config option][advanced-configuration] controls the encoding quality for WebP output (default: `75`).
 
-Animated GIFs embedded in or associated with your music files are preserved during resize — they are converted to animated WebP using ffmpeg.
+Animated GIFs embedded in or associated with your music files are preserved during resize. They are converted to animated WebP using ffmpeg.
 
 [advanced-configuration]: /docs/usage/configuration/options/#advanced-configuration
