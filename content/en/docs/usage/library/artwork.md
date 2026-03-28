@@ -20,6 +20,19 @@ The default is `artist.*, album/artist.*, external`, meaning:
 - If not found, try to fetch it from an [external service](/docs/usage/integration/external-services)
 - If not found, use the artist image placeholder (grey star image)
 
+Example directory layout for an artist:
+
+```text
+Music/
+└── Artist Name/
+    ├── artist.jpg           ← matched by ArtistArtPriority
+    ├── Album One/
+    │   └── ...
+    └── Album Two/
+        └── ...
+```
+The `ArtistImageFolder` [config option][advanced-configuration] can be set to specify a subfolder name for artist image lookups.
+
 ## Albums
 
 CoverArt fetching for albums is controlled by the `CoverArtPriority` [config option][advanced-configuration].
@@ -96,19 +109,7 @@ To upload a custom playlist cover, open the playlist in the Navidrome web UI and
 
 ### Artist Images
 
-Custom artist images can be uploaded via the web UI on the artist detail page. You can also place artist images directly in your music library:
-
-```text
-Music/
-└── Artist Name/
-    ├── artist.jpg           ← matched by ArtistArtPriority
-    ├── Album One/
-    │   └── ...
-    └── Album Two/
-        └── ...
-```
-
-The `ArtistImageFolder` [config option][advanced-configuration] can be set to specify a subfolder name for artist image lookups.
+Custom artist images can be uploaded via the web UI on the artist detail page. 
 
 ## Image Format & Quality
 
