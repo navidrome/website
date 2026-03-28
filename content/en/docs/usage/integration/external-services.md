@@ -31,6 +31,10 @@ send your scrobbles to Last.fm. For these features to work, you'll need to set t
 
 ## Deezer
 
-Navidrome can use Deezer's API to retrieve artist images. Unlike Last.fm and Spotify, Deezer's public API for artist images doesn't require API keys or authentication, making it the simplest external integration to set up.
+Navidrome can use Deezer's API to retrieve artist images. Unlike Last.fm, Deezer's public API for artist images doesn't require API keys or authentication, making it the simplest external integration to set up.
 
 The Deezer integration is enabled by default. If you want to disable it, you can set the configuration option `Deezer.Enabled` to `false` in your [configuration file](/docs/usage/configuration/options#configuration-file) or set the environment variable `ND_DEEZER_ENABLED` to `false`.
+
+## Extending with Plugins
+
+Navidrome's external metadata capabilities can be extended through [plugins](/docs/usage/features/plugins). Plugins can provide additional metadata agents for artist information and images, lyrics providers, and scrobblers. See the [Plugins documentation](/docs/usage/features/plugins) for more information.
