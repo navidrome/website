@@ -4,15 +4,28 @@ linkTitle: "External Integrations"
 date: 2017-01-04
 weight: 10
 description: >
-  Configure Navidrome to get information and images from Last.fm and Deezer
+  Configure Navidrome to get information and images from external services
 aliases:
   - /docs/usage/external-integrations/
 ---
 
+Navidrome uses external services (called **agents**) to enrich your music library with artist biographies, images, album covers, similar artists, and more. Multiple agents can be configured, and they are tried in priority order — if one fails or returns no results, the next one is tried.
+
+## How Agents Work
+
+The `Agents` [config option](/docs/usage/configuration/options/#:~:text=Agents) controls which agents are enabled and in what order. It accepts a comma-separated list of agent names.
+
+The default is `"deezer,lastfm,listenbrainz"`, meaning Deezer is tried first, then Last.fm, then ListenBrainz. A built-in `local` agent is always appended automatically as a final fallback.
+
+To disable a specific agent, either remove it from the `Agents` list or set its individual `*.Enabled` option to `false`.
+
 ## Last.fm
 
-Navidrome can use Last.fm to retrieve artists biographies, top songs, similar artists and album covers. It can also
-send your scrobbles to Last.fm. For these features to work, you'll need to set the
+Last.fm provides the broadest set of metadata among the built-in agents.
+
+**Provides:** Artist biographies, artist images, similar artists, top songs, album covers, similar songs
+
+**Configuration:** Requires API keys. Set the
 [config options](/docs/usage/configuration/options/#:~:text=LastFM.ApiKey*-,ND_LASTFM_APIKEY,-Last.fm%20API)
 `LastFM.ApiKey` and `LastFM.Secret`. You can obtain these values by creating a free API account in Last.fm:
 
@@ -29,11 +42,29 @@ send your scrobbles to Last.fm. For these features to work, you'll need to set t
 3. Copy the values above to your [configuration file](/docs/usage/configuration/options#configuration-file) as `LastFM.ApiKey` and `LastFM.Secret` (or set them as environment variables `ND_LASTFM_APIKEY` and `ND_LASTFM_SECRET`)
 4. After the configuration is done, you can set up [scrobbling](/docs/usage/features/scrobbling#last.fm) for your user.
 
+Last.fm can be completely disabled by setting `LastFM.Enabled` to `false`.
+
 ## Deezer
 
-Navidrome can use Deezer's API to retrieve artist images. Unlike Last.fm, Deezer's public API for artist images doesn't require API keys or authentication, making it the simplest external integration to set up.
+Deezer's public API doesn't require API keys or authentication, making it the simplest external integration.
 
-The Deezer integration is enabled by default. If you want to disable it, you can set the configuration option `Deezer.Enabled` to `false` in your [configuration file](/docs/usage/configuration/options#configuration-file) or set the environment variable `ND_DEEZER_ENABLED` to `false`.
+**Provides:** Artist images, artist biographies, similar artists, top songs
+
+**Configuration:** Enabled by default — no setup required. To disable it, set `Deezer.Enabled` to `false` in your [configuration file](/docs/usage/configuration/options#configuration-file) or set the environment variable `ND_DEEZER_ENABLED` to `false`.
+
+## ListenBrainz
+
+ListenBrainz provides metadata based on MusicBrainz data and community listening statistics. It works best when your music files have MusicBrainz IDs in their tags.
+
+**Provides:** Artist URLs, similar artists, top songs, similar songs
+
+**Configuration:** Enabled by default — no setup required for metadata. To disable it, set `ListenBrainz.Enabled` to `false`. The `ListenBrainz.BaseURL` option can be changed to point to a self-hosted instance (e.g., [Maloja](https://github.com/krateng/maloja)).
+
+ListenBrainz also supports [scrobbling](/docs/usage/features/scrobbling#listenbrainz), which requires per-user authorization.
+
+## Local Agent
+
+The `local` agent is always active and serves as the final fallback. It provides top songs based on your own library's play counts and ratings — no external service is contacted.
 
 ## Extending with Plugins
 
