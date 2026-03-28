@@ -213,7 +213,7 @@ The list of tracks in a Smart Playlist is read-only and cannot be edited directl
 Here's a table of fields you can use in your Smart Playlists:
 
 | Field                  | Description                              |
-| ---------------------- | ---------------------------------------- |
+|------------------------|------------------------------------------|
 | `title`                | Track title                              |
 | `album`                | Album name                               |
 | `hascoverart`          | Track has cover art                      |
@@ -253,16 +253,16 @@ Here's a table of fields you can use in your Smart Playlists:
 | `daterated`            | Date track was last rated                |
 | `playcount`            | Number of times track was played         |
 | `rating`               | Track rating                             |
-| `averagerating`        | Average rating across all users              |
-| `albumrating`          | Album rating (0-5)                           |
-| `albumloved`           | Whether album is starred                     |
-| `albumplaycount`       | Album total play count                       |
-| `albumlastplayed`      | Album last play date                         |
-| `albumdateloved`       | Date album was starred                       |
-| `albumdaterated`       | Date album was rated                         |
-| `artistrating`         | Artist rating                                |
-| `artistloved`          | Whether artist is starred                    |
-| `artistplaycount`      | Artist total play count                      |
+| `averagerating`        | Average rating across all users          |
+| `albumrating`          | Album rating (0-5)                       |
+| `albumloved`           | Whether album is starred                 |
+| `albumplaycount`       | Album total play count                   |
+| `albumlastplayed`      | Album last play date                     |
+| `albumdateloved`       | Date album was starred                   |
+| `albumdaterated`       | Date album was rated                     |
+| `artistrating`         | Artist rating                            |
+| `artistloved`          | Whether artist is starred                |
+| `artistplaycount`      | Artist total play count                  |
 | `mbz_album_id`         | MusicBrainz Album ID                     |
 | `mbz_album_artist_id`  | MusicBrainz Album Artist ID              |
 | `mbz_artist_id`        | MusicBrainz Artist ID                    |
@@ -297,6 +297,8 @@ The following fields contain MusicBrainz IDs that can be used to create playlist
 - `mbz_release_track_id`: Filter by specific MusicBrainz release track
 - `mbz_release_group_id`: Filter by specific MusicBrainz release group
 
+##### Custom Tags
+
 Any tags imported from the music files, that are not listed above, can be also used as fields in your Smart Playlists.
 Check the [complete list of tags](https://github.com/navidrome/navidrome/blob/master/resources/mappings.yaml) imported
 by navidrome. You can also add your own custom tags to your music files and use them in your Smart Playlists.
@@ -307,7 +309,7 @@ Check the [Custom Tags](/docs/usage/configuration/custom-tags) for more informat
 Here's a table of operators you can use in your Smart Playlists:
 
 | Operator        | Description              | Argument type                     |
-| --------------- | ------------------------ | --------------------------------- |
+|-----------------|--------------------------|-----------------------------------|
 | `is`            | Equal                    | String, Number, Boolean           |
 | `isNot`         | Not equal                | String, Number, Boolean           |
 | `gt`            | Greater than             | Number                            |
