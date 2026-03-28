@@ -37,4 +37,4 @@ The Deezer integration is enabled by default. If you want to disable it, you can
 
 ## Extending with Plugins
 
-Navidrome's external metadata capabilities can be extended through [plugins](/docs/usage/features/plugins). Plugins can provide additional metadata agents for artist information and images, lyrics providers, and scrobblers. See the [Plugins documentation](/docs/usage/features/plugins) for more information.
+Navidrome's external metadata capabilities can be extended through [plugins](/docs/usage/features/plugins#finding-plugins). Plugins can provide additional metadata agents for artist and album information and images, lyrics providers, and scrobblers. See the [Plugins documentation](/docs/usage/features/plugins) for more information.
