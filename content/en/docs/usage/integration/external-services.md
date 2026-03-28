@@ -4,7 +4,7 @@ linkTitle: "External Integrations"
 date: 2017-01-04
 weight: 10
 description: >
-  Configure Navidrome to get information and images from Last.fm, Spotify, and Deezer
+  Configure Navidrome to get information and images from Last.fm and Deezer
 aliases:
   - /docs/usage/external-integrations/
 ---
@@ -28,36 +28,6 @@ send your scrobbles to Last.fm. For these features to work, you'll need to set t
 
 3. Copy the values above to your [configuration file](/docs/usage/configuration/options#configuration-file) as `LastFM.ApiKey` and `LastFM.Secret` (or set them as environment variables `ND_LASTFM_APIKEY` and `ND_LASTFM_SECRET`)
 4. After the configuration is done, you can set up [scrobbling](/docs/usage/features/scrobbling#last.fm) for your user.
-
-## Spotify
-
-Artist images can be retrieved from Spotify. You'll need to set the config options `Spotify.ID` and `Spotify.Secret`.
-To obtain these values, create a free account in Spotify, then follow these steps:
-
-1. Click on the "Create app" button in Spotify's Developer dashboard: https://developer.spotify.com/dashboard/applications:
-<p align="center">
-<img width="500" src="/screenshots/spotify-dashboard.webp">
-</p>
-
-2. Fill the name and description fields, fill the "Redirect URI" field with `http://localhost/` and click on the "Save" button:
-<p align="center">
-<img width="500" src="/screenshots/spotify-create-app.webp">
-</p>
-
-3. Go to "Settings":
-<p align="center">
-<img width="500" src="/screenshots/spotify-app-home.webp">
-</p>
-
-4. Click "View client secret":
-<p align="center">
-<img width="500" src="/screenshots/spotify-app-basic-info.webp">
-</p>
-
-5. Copy the values of ID and secret to your [configuration file](/docs/usage/configuration/options#configuration-file) as `Spotify.ID` and `Spotify.Secret` (or set them as environment variables `ND_SPOTIFY_ID` and `ND_SPOTIFY_SECRET`):
-<p align="center">
-<img width="500" src="/screenshots/spotify-app-basic-info-secret.webp">
-</p>
 
 ## Deezer
 
