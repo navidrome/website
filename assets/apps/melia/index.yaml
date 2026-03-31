@@ -1,0 +1,25 @@
+name: melia
+description: "melia is a tvOs app that allows to explore, browse and play your subsonic library."
+url: https://apps.apple.com/us/app/melia/id6760968937
+
+platforms:
+  windows: false
+  linux: false
+  macos: false
+  android: false
+  tvos: true
+
+api: Subsonic
+
+screenshots:
+  thumbnail: screen01.webp
+  gallery:
+    - screen02.webp
+    - screen03.webp
+    - screen04.webp
+    - screen05.webp
+    - screen06.webp
+    - screen07.webp
+    - screen08.webp
+    - screen09.webp
+    - screen10.webp
