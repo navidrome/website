@@ -49,6 +49,8 @@ Navidrome allows you to easily scrobble your played songs to Last.fm and ListenB
 
 4) Paste the token in the pop-up and save.
 
+If you are using a self-hosted ListenBrainz-compatible server (e.g., [Maloja](https://github.com/krateng/maloja)), you can change the `ListenBrainz.BaseURL` [config option](/docs/usage/configuration/options/#:~:text=ListenBrainz.BaseURL) to point to your instance.
+
 ## Scrobble History
 
 Starting with version 0.59.0, Navidrome tracks your scrobble/listen history natively. This means that for music added after this version, Navidrome maintains a complete record of when each track was played. This historical data will be used in future features such as statistics and analytics ("Navidrome Wrapped" style reports).

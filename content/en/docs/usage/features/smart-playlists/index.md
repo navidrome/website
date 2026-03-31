@@ -106,6 +106,18 @@ This playlist includes only high-rated songs from a specific library (useful in 
 }
 ```
 
+### Example 7: Percentage-Based Limit
+
+This playlist includes 10% of all loved tracks, selected randomly. Use `limitPercent` instead of `limit` to specify a percentage of matching tracks (1-100). A minimum of 1 track is always returned when there are matches.
+
+```json
+{
+  "all": [{ "is": { "loved": true } }],
+  "sort": "random",
+  "limitPercent": 10
+}
+```
+
 ## Creating Smart Playlists using the UI
 
 Currently Smart Playlists can only be created by manually editing `.nsp` files. We plan to add a UI for creating and
@@ -201,7 +213,7 @@ The list of tracks in a Smart Playlist is read-only and cannot be edited directl
 Here's a table of fields you can use in your Smart Playlists:
 
 | Field                  | Description                              |
-| ---------------------- | ---------------------------------------- |
+|------------------------|------------------------------------------|
 | `title`                | Track title                              |
 | `album`                | Album name                               |
 | `hascoverart`          | Track has cover art                      |
@@ -241,6 +253,16 @@ Here's a table of fields you can use in your Smart Playlists:
 | `daterated`            | Date track was last rated                |
 | `playcount`            | Number of times track was played         |
 | `rating`               | Track rating                             |
+| `averagerating`        | Average rating across all users          |
+| `albumrating`          | Album rating (0-5)                       |
+| `albumloved`           | Whether album is starred                 |
+| `albumplaycount`       | Album total play count                   |
+| `albumlastplayed`      | Album last play date                     |
+| `albumdateloved`       | Date album was starred                   |
+| `albumdaterated`       | Date album was rated                     |
+| `artistrating`         | Artist rating                            |
+| `artistloved`          | Whether artist is starred                |
+| `artistplaycount`      | Artist total play count                  |
 | `mbz_album_id`         | MusicBrainz Album ID                     |
 | `mbz_album_artist_id`  | MusicBrainz Album Artist ID              |
 | `mbz_artist_id`        | MusicBrainz Artist ID                    |
@@ -257,6 +279,7 @@ Here's a table of fields you can use in your Smart Playlists:
   prefix (or whatever value you set in `MusicFolder`).
 - Numeric fields like `library_id`, `year`, `tracknumber`, `discnumber`, `size`, `duration`, `bitrate`, `bitdepth`, `bpm`, `channels`, `playcount`, and `rating` support numeric comparisons (`gt`, `lt`, `inTheRange`, etc.).
 - **Multi-Library**: Smart Playlists can include songs from multiple libraries if the user has access to them. Use the `library_id` field to filter songs from specific libraries.
+- **Album & Artist Fields**: Fields prefixed with `album` or `artist` (e.g., `albumrating`, `artistplaycount`) filter tracks based on their parent album or artist properties. This lets you create playlists like "tracks from highly-rated albums" or "tracks from frequently-played artists".
 
 ##### Special Fields
 
@@ -274,6 +297,8 @@ The following fields contain MusicBrainz IDs that can be used to create playlist
 - `mbz_release_track_id`: Filter by specific MusicBrainz release track
 - `mbz_release_group_id`: Filter by specific MusicBrainz release group
 
+##### Custom Tags
+
 Any tags imported from the music files, that are not listed above, can be also used as fields in your Smart Playlists.
 Check the [complete list of tags](https://github.com/navidrome/navidrome/blob/master/resources/mappings.yaml) imported
 by navidrome. You can also add your own custom tags to your music files and use them in your Smart Playlists.
@@ -284,7 +309,7 @@ Check the [Custom Tags](/docs/usage/configuration/custom-tags) for more informat
 Here's a table of operators you can use in your Smart Playlists:
 
 | Operator        | Description              | Argument type                     |
-| --------------- | ------------------------ | --------------------------------- |
+|-----------------|--------------------------|-----------------------------------|
 | `is`            | Equal                    | String, Number, Boolean           |
 | `isNot`         | Not equal                | String, Number, Boolean           |
 | `gt`            | Greater than             | Number                            |
