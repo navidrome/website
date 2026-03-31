@@ -341,6 +341,10 @@ again. See details [here](/docs/usage/configuration/persistent-ids/#handling-fil
     $setmulti(albumartists,%_albumartists%)
     $setmulti(albumartistssort,%_albumartists_sort%)
     $setmulti(artistssort,%_artists_sort%)
+    # This is very helpful for unifying artist names,
+    # as Navidrome prefers a consistent singular name for display
+    # just like: Eminem featuring Dido -> Eminem; Dido
+    $copy(artist,artists)
     ```
     ```shell
     # Album Version
