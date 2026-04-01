@@ -345,6 +345,8 @@ again. See details [here](/docs/usage/configuration/persistent-ids/#handling-fil
     # as Navidrome prefers a consistent singular name for display
     # just like: Eminem featuring Dido -> Eminem; Dido
     $copy(artist,artists)
+    # For the album artist
+    $copy(albumartist,albumartists)
     ```
     ```shell
     # Album Version
