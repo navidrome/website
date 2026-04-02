@@ -12,7 +12,7 @@ isFree: false
 description: An Android music player featuring stunning Milkdrop visualizations powered by ProjectM, external equalizer support, synced lyrics, offline caching, local file playback, dashboard listening activity overview, and more!
 
 screenshots:
-  thumbnail: thumbnail.webp
+  thumbnail: screen1.webp
   gallery:
     - screen1.webp
     - screen2.webp
