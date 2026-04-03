@@ -177,4 +177,26 @@ services:
       ND_ENABLEUSEREDITING: false
 ```
 
+### Swag with authelia as the auth service
+
+Requirements:
+- authelia is already setup as the auth service for swag: https://www.authelia.com/integration/deployment/docker
+- autoproxy is activated as a linuxserver mod: https://github.com/linuxserver/docker-mods/tree/swag-auto-proxy
+
+Its pretty straight forward.
+Basically navidrome must be in the same network as swag and you activate those two labels. Thats it.
+```
+    networks:
+      swag:
+    labels:
+      swag: enable
+      swag_auth: authelia
+
+network:
+  swag:
+    external: true
+```
+No need for a custom proxy conf as Swag uses navidrome as a preset and activates the authelia integration automatically.
+The integration adds ngingx directives to the navidrome proxy preset. If you want to confirm it you can find themin your swag config under /config/nginx/authelia-location.conf and /config/nginx/authelia-server.conf.
+
 If you want to add support for the subsonic authentication scheme in order to support all subsonic clients, you can have a look at the Traefik plugin [BasicAuth adapter for Subsonic](https://plugins.traefik.io/plugins/6521c6de39e2d7caa2181888/basic-auth-adapter-for-subsonic) which transforms subsonic authentication parameters into a BasicAuth header that Authelia can handle, and performs the error response rewriting.
