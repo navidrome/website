@@ -13,7 +13,8 @@ description: >
 
 While it is technically possible to add a browsing by folder option, doing so would require significant changes to
 Navidrome's internal structures across most of its components. We have decided to focus on features that align with
-our vision of a music server that emphasizes tags. Implementing folder browsing would not only be a major undertaking,
+our vision of a music server that emphasizes [tags](https://www.navidrome.org/docs/usage/library/tagging/#why-proper-tagging-is-important). 
+Implementing folder browsing would not only be a major undertaking,
 but it could also make supporting all of Navidrome's current and future features more difficult and error-prone.
 
 Here are a few situations where users might find folder browsing important, and how Navidrome addresses them:
@@ -37,7 +38,8 @@ that offer this functionality. We encourage you to explore these options if fold
 
 ## ▶︎ I have an album with tracks by different artists, why is it broken up into lots of separate albums, each with their own artist?
 
-Navidrome only organises music by tags, it will not automatically group a folder containing a bunch of songs with different artists into one album.
+Navidrome only organises music by [tags](https://www.navidrome.org/docs/usage/library/tagging/#why-proper-tagging-is-important), 
+it will not automatically group a folder containing a bunch of songs with different artists into one album.
 
 For a "Various Artists" compilation, the `Part Of Compilation` tag (`TCMP=1` for id3, `COMPILATION=1` for FLAC) must be set, for all tracks.
 
