@@ -175,8 +175,8 @@ If a Smart Playlist is not showing up in the Navidrome UI, check the following:
 
 ### Referencing Other Playlists
 
-When referencing another playlist by ID (using the operator `inPlaylist`), ensure that the referenced playlist is not
-another Smart Playlist unless it is set to 'public'. This ensures proper functionality.
+When referencing another playlist (using the `inPlaylist` or `notInPlaylist` operators), ensure that the referenced
+playlist is not another Smart Playlist unless it is set to 'public'. This ensures proper functionality.
 
 ### Special Characters in Conditions
 
@@ -323,13 +323,29 @@ Here's a table of operators you can use in your Smart Playlists:
 | `after`         | After                    | Date (`"YYYY-MM-DD"`)             |
 | `inTheLast`     | In the last              | Number of days                    |
 | `notInTheLast`  | Not in the last          | Number of days                    |
-| `inPlaylist`    | In playlist              | Another playlist's ID (see below) |
-| `notInPlaylist` | Not in playlist          | Another playlist's ID (see below) |
+| `inPlaylist`    | In playlist              | Playlist condition (see below)    |
+| `notInPlaylist` | Not in playlist          | Playlist condition (see below)    |
 
 The nature of the field determines the argument type. For example, `year` and `tracknumber` require a number,
 while `title` and `album` require a string.
 
-To get a playlist's ID to be used in `inPlaylist` and `notInPlaylist`, navigate to the playlist in the Navidrome UI
+The `inPlaylist` and `notInPlaylist` operators take a condition object with the playlist's `id`:
+
+```json
+{ "inPlaylist": { "id": "dVX0hgcj4JJFjTs66xpEqI" } }
+```
+
+To get a playlist's ID, navigate to the playlist in the Navidrome UI
 and check the URL. The ID is the last part of the URL after the `/playlists/` path:
 
 {{< imgproc playlist_url Fit "1000x1000" />}}
+
+Here's a complete example of a Smart Playlist that includes all tracks from another playlist, shuffled randomly:
+
+```json
+{
+  "all": [{ "inPlaylist": { "id": "dVX0hgcj4JJFjTs66xpEqI" } }],
+  "sort": "random",
+  "limit": 50
+}
+```
