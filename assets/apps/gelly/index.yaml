@@ -1,0 +1,19 @@
+name: Gelly
+url: https://github.com/Fingel/gelly
+platforms:
+  linux: true
+api: Navidrome
+description: "A native, lightweight player for Navidrome/Subsonic. Built with Rust for Linux desktop and mobile."
+screenshots:
+  thumbnail: thumb.webp
+  gallery:
+    - screen1.webp
+    - screen2.webp
+repoUrl: https://github.com/Fingel/gelly
+isFree: true
+keywords:
+  - rust
+  - pipewire
+  - lyrics
+  - mpris
+  - gnome
