@@ -33,6 +33,8 @@ The example shown assumes a few things:
         </array>
         <key>RunAtLoad</key>
         <true/>
+        <key>KeepAlive</key>
+        <true/>
         <key>WorkingDirectory</key>
         <string>/opt/navidrome</string>
         <key>StandardOutPath</key>
