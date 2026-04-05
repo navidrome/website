@@ -2,7 +2,7 @@ name: Gelly
 url: https://github.com/Fingel/gelly
 platforms:
   linux: true
-api: Navidrome
+api: OpenSubsonic
 description: "A native, lightweight player for Navidrome/Subsonic. Built with Rust for Linux desktop and mobile."
 screenshots:
   thumbnail: thumb.webp
