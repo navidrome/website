@@ -60,6 +60,16 @@ Music/
     └── cover.jpg            ← album-level fallback
 ```
 
+### Forcing the Album Artwork for All Discs
+
+If you prefer every disc in a multi-disc album to display the album cover (instead of any disc-specific image or the embedded image of a track), set `DiscArtPriority` to an empty string:
+
+```toml
+DiscArtPriority = ""
+```
+
+With no disc-level sources to try, Navidrome skips straight to the album-level artwork fallback, so all discs share the same cover as the album. This is useful when your library has inconsistent or unwanted disc-specific images (e.g. embedded art that differs from the album cover) and you want a uniform look across discs.
+
 ## MediaFiles
 
 Some players (including Navidrome's own WebUI) can display different cover art images for each track in an album.
