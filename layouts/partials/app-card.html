@@ -65,13 +65,35 @@
       <h3 class="app-name">
         <a href="{{ $url }}" target="_blank" rel="noopener">{{ $name }}</a>
         {{ if $isOpenSource }}
-          <a href="{{ $repoUrl }}" target="_blank" rel="noopener" class="app-oss-badge" title="Open Source">
-            <i class="fab fa-github"></i>
+          {{ $badgeStyle := "style=flat&logoColor=white&labelColor=555&color=888" }}
+          {{/* Detect owner/repo from a GitHub or GitLab URL. Deep links (subpaths) fall back to a generic Open Source pill. */}}
+          {{ $ghPath := "" }}
+          {{ $glPath := "" }}
+          {{ if hasPrefix $repoUrl "https://github.com/" }}
+            {{ $trimmed := $repoUrl | strings.TrimPrefix "https://github.com/" | strings.TrimSuffix "/" }}
+            {{ if eq (len (split $trimmed "/")) 2 }}
+              {{ $ghPath = $trimmed }}
+            {{ end }}
+          {{ else if hasPrefix $repoUrl "https://gitlab.com/" }}
+            {{ $trimmed := $repoUrl | strings.TrimPrefix "https://gitlab.com/" | strings.TrimSuffix "/" }}
+            {{ if eq (len (split $trimmed "/")) 2 }}
+              {{ $glPath = $trimmed }}
+            {{ end }}
+          {{ end }}
+          <a href="{{ $repoUrl }}" target="_blank" rel="noopener" class="app-oss-badge" title="Open Source - View repository">
+            {{ if $ghPath }}
+              <img src="https://img.shields.io/github/stars/{{ $ghPath }}?logo=github&{{ $badgeStyle }}&label=" alt="GitHub stars" loading="lazy">
+            {{ else if $glPath }}
+              {{ $encodedPath := $glPath | replaceRE "/" "%2F" }}
+              <img src="https://img.shields.io/gitlab/stars/{{ $encodedPath }}?logo=gitlab&{{ $badgeStyle }}&label=" alt="GitLab stars" loading="lazy">
+            {{ else }}
+              <span class="app-oss-pill"><i class="fab fa-osi"></i>Open Source</span>
+            {{ end }}
           </a>
         {{ end }}
         {{ if not $isActuallyFree }}
           <span class="app-paid-badge" title="Paid">
-            <i class="fas fa-dollar-sign"></i>
+            <span class="app-paid-pill"><i class="fas fa-dollar-sign"></i>Paid</span>
           </span>
         {{ end }}
       </h3>

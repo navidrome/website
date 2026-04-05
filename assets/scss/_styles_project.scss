@@ -218,20 +218,73 @@
     font-size: 0.875rem;
     color: var(--bs-secondary);
     margin-left: 0.5rem;
+    vertical-align: middle;
 
     &:hover {
       color: var(--bs-primary);
     }
+
+    img {
+      height: 1.25rem;
+      vertical-align: middle;
+      display: inline-block;
+      transform: translateY(-3px);
+    }
+
+    // Simulates shields.io badge look for non-GitHub/GitLab repos
+    .app-oss-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      height: 1.25rem;
+      padding: 0 0.4rem;
+      background-color: #e5e5e5;
+      color: #000;
+      border-radius: 3px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      vertical-align: middle;
+      transform: translateY(-3px);
+
+      i.fab {
+        font-size: 1rem;
+        line-height: 1;
+      }
+    }
+
+    &:hover .app-oss-pill {
+      background-color: #d0d0d0;
+      color: #000;
+    }
   }
 
   .app-paid-badge {
-    font-size: 0.875rem;
-    color: #dc3545; // Red for paid
     margin-left: 0.5rem;
     cursor: help;
+    vertical-align: middle;
 
-    [data-bs-theme="dark"] & {
-      color: #f87171; // Lighter red for dark mode
+    .app-paid-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      height: 1.25rem;
+      padding: 0 0.4rem;
+      background-color: #dc3545;
+      color: #fff;
+      border-radius: 3px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      vertical-align: middle;
+      transform: translateY(-3px);
+
+      i.fas {
+        font-size: 0.75rem;
+      }
+    }
+
+    [data-bs-theme="dark"] & .app-paid-pill {
+      background-color: #b02a37;
+      color: #fff;
     }
   }
 }
