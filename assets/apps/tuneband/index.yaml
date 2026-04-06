@@ -1,0 +1,26 @@
+name: TuneBand
+url: https://tuneband.netlify.app
+
+platforms:
+  ios:
+    store: https://apps.apple.com/br/app/tuneband/id6758730862
+
+api: Subsonic
+
+description: "Lightweight Subsonic-compatible client for iOS and Apple Watch, designed for seamless streaming from Navidrome. Includes browsing, search, queue management, playlists, CarPlay support, and a dedicated watchOS experience."
+
+screenshots:
+  thumbnail: thumbnail.webp
+  gallery:
+    - screen1.webp
+    - screen2.webp
+    - screen3.webp
+
+isFree: true
+
+keywords:
+  - ios
+  - apple watch
+  - carplay
+  - subsonic
+  - navidrome
