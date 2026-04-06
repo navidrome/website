@@ -1,0 +1,26 @@
+name: TuneBand
+url: https://tuneband.netlify.app
+
+platforms:
+  ios:
+    store: https://tuneband.netlify.app
+
+api: Subsonic
+
+description: "TuneBand is a Subsonic-compatible iOS and Apple Watch client for self-hosted music servers like Navidrome. It features library browsing, search, continuous playback with queue, favorites, playlist management, CarPlay support, and a dedicated Apple Watch experience."
+
+screenshots:
+  thumbnail: thumbnail.webp
+  gallery:
+    - screen1.webp
+    - screen2.webp
+    - screen3.webp
+
+isFree: true
+
+keywords:
+  - ios
+  - apple watch
+  - carplay
+  - subsonic
+  - navidrome
