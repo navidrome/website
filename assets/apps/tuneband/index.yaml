@@ -3,7 +3,7 @@ url: https://tuneband.netlify.app
 
 platforms:
   ios:
-    store: https://tuneband.netlify.app
+    store: https://apps.apple.com/br/app/tuneband/id6758730862
 
 api: Subsonic
 
