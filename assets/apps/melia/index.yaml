@@ -3,11 +3,8 @@ description: "melia is a tvOs app that allows to explore, browse and play your s
 url: https://apps.apple.com/us/app/melia/id6760968937
 
 platforms:
-  windows: false
-  linux: false
-  macos: false
-  android: false
-  tvos: true
+  tvos:
+    store: https://apps.apple.com/us/app/melia/id6760968937
 
 api: Subsonic
 
