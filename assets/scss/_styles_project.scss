@@ -235,26 +235,43 @@
     .app-oss-pill {
       display: inline-flex;
       align-items: center;
-      gap: 0.3rem;
       height: 1.25rem;
-      padding: 0 0.4rem;
-      background-color: #e5e5e5;
-      color: #000;
       border-radius: 3px;
-      font-size: 0.7rem;
-      font-weight: 600;
+      overflow: hidden;
       vertical-align: middle;
       transform: translateY(-3px);
+      font-family: Verdana, Geneva, DejaVu Sans, sans-serif;
 
-      i.fab {
-        font-size: 1rem;
-        line-height: 1;
+      .app-oss-pill-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        width: 1.5rem;
+        background-color: #555;
+
+        i.fab {
+          font-size: 0.875rem;
+          color: #fff;
+          line-height: 1;
+        }
+      }
+
+      .app-oss-pill-label {
+        display: inline-flex;
+        align-items: center;
+        height: 100%;
+        padding: 0 0.4rem;
+        background-color: #888;
+        color: #fff;
+        font-size: 0.6875rem;
+        font-weight: 600;
       }
     }
 
     &:hover .app-oss-pill {
-      background-color: #d0d0d0;
-      color: #000;
+      .app-oss-pill-icon { background-color: #666; }
+      .app-oss-pill-label { background-color: #999; }
     }
   }
 

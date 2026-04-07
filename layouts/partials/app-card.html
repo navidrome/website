@@ -81,13 +81,29 @@
             {{ end }}
           {{ end }}
           <a href="{{ $repoUrl }}" target="_blank" rel="noopener" class="app-oss-badge" title="Open Source - View repository">
+            {{ $badgeUrl := "" }}
             {{ if $ghPath }}
-              <img src="https://img.shields.io/github/stars/{{ $ghPath }}?logo=github&{{ $badgeStyle }}&label=" alt="GitHub stars" loading="lazy">
+              {{ $badgeUrl = printf "https://img.shields.io/github/stars/%s?logo=github&%s&label=&cacheSeconds=7200" $ghPath $badgeStyle }}
             {{ else if $glPath }}
               {{ $encodedPath := $glPath | replaceRE "/" "%2F" }}
-              <img src="https://img.shields.io/gitlab/stars/{{ $encodedPath }}?logo=gitlab&{{ $badgeStyle }}&label=" alt="GitLab stars" loading="lazy">
+              {{ $badgeUrl = printf "https://img.shields.io/gitlab/stars/%s?logo=gitlab&%s&label=&cacheSeconds=7200" $encodedPath $badgeStyle }}
+            {{ end }}
+            {{ if $badgeUrl }}
+              {{ $badge := "" }}
+              {{ with try (resources.GetRemote $badgeUrl) }}
+                {{ with .Err }}
+                  {{/* fetch failed — fall through to pill */}}
+                {{ else }}
+                  {{ $badge = .Value }}
+                {{ end }}
+              {{ end }}
+              {{ with $badge }}
+                <img src="{{ .RelPermalink }}" alt="Stars" loading="lazy">
+              {{ else }}
+                <span class="app-oss-pill"><span class="app-oss-pill-icon"><i class="fab fa-osi"></i></span><span class="app-oss-pill-label">Open Source</span></span>
+              {{ end }}
             {{ else }}
-              <span class="app-oss-pill"><i class="fab fa-osi"></i>Open Source</span>
+              <span class="app-oss-pill"><span class="app-oss-pill-icon"><i class="fab fa-osi"></i></span><span class="app-oss-pill-label">Open Source</span></span>
             {{ end }}
           </a>
         {{ end }}
