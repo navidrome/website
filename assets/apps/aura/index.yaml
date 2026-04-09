@@ -16,8 +16,8 @@ isFree: true
 screenshots:
   thumbnail: thumbnail.webp
   gallery:
+    - screen1.webp
     - screen2.webp
-    - screen3.webp
 
 keywords:
   - tauri
