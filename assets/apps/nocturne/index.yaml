@@ -5,7 +5,7 @@ isOpenSource: true
 
 platforms:
   linux: true
-	
+
 api: OpenSubsonic
 
 description: An open source Navidrome and Jellyfin client built to feel at home in the Gnome desktop. Offers customization, audio visualizers, automatic lyrics fetching, mpris integration and much more.
