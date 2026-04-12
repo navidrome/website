@@ -1,0 +1,23 @@
+name: foo_opensubsonic
+url: https://github.com/michioxd/foo_opensubsonic
+repoUrl: https://github.com/michioxd/foo_opensubsonic
+
+platforms:
+  windows: true
+
+api: OpenSubsonic
+
+description: "A foobar2000 component for syncing libraries and playlists while streaming music directly from your Navidrome server."
+
+isOpenSource: true
+isFree: true
+
+screenshots:
+  thumbnail: thumbnail.webp
+
+keywords:
+  - foobar2000
+  - native
+  - cpp
+  - c++
+  - foobar2000 component
