@@ -9,6 +9,7 @@ api: OpenSubsonic
 
 description: "A foobar2000 component for syncing libraries and playlists while streaming music directly from your Navidrome server."
 
+isOpenSource: true
 isFree: true
 
 screenshots:
