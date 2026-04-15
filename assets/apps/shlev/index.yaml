@@ -1,0 +1,20 @@
+name: Shelv
+url: https://github.com/gatzenga/Shelv
+platforms:
+  ios:
+    store: https://testflight.apple.com/join/5y4tN6NB
+  macos:
+  	store: https://testflight.apple.com/join/6FMa77Ks
+api: Subsonic
+description: "Minimal Navidrome Client for iPhone, iPad and macOS"
+screenshots:
+  thumbnail: thumbnail.webp
+  gallery:
+    - thumbnail.webp
+    - iPhone1.webp
+    - iPhone2.webp
+    - iPhone3.webp
+    - mac1.webp
+    - mac2.webp
+    - mac3.webp
+repoUrl: https://github.com/gatzenga/Shelv
