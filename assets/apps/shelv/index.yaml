@@ -10,8 +10,8 @@ description: "Minimal Navidrome Client for iPhone, iPad and macOS"
 screenshots:
   thumbnail: thumbnail.webp
   gallery:
-    - iPhone1.webp
-    - iPhone2.webp
+    - iphone1.webp
+    - iphone2.webp
     - mac1.webp
     - mac2.webp
     - mac3.webp
