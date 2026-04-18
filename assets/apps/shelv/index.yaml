@@ -6,7 +6,7 @@ platforms:
   macos:
     store: https://testflight.apple.com/join/6FMa77Ks
 api: Subsonic
-description: "Minimal Navidrome Client for iPhone, iPad and macOS"
+description: "A native, album and artist focused client for Navidrome and Subsonic-compatible music servers, built with SwiftUI." 
 screenshots:
   thumbnail: thumbnail.webp
   gallery:
