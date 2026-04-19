@@ -28,6 +28,53 @@ navidrome <command> <subcommand> --help
 
 If you run `navidrome` with no subcommand, it starts the server.
 
+## Running the CLI in Docker / Docker Compose
+
+If Navidrome runs in a container, run CLI commands through that container so they use the same
+`/data`, `/music`, and environment/config as your server.
+
+### Docker Compose
+
+Use `docker compose run` with your Navidrome service name (typically `navidrome`):
+
+```bash
+# Show CLI help
+docker compose run --rm navidrome --help
+
+# Run a full scan
+docker compose run --rm navidrome scan --full
+
+# List users
+docker compose run --rm navidrome user list
+```
+
+If your Navidrome service is already running and you want to run commands in that same container,
+you can use `docker compose exec`:
+
+```bash
+docker compose exec navidrome navidrome user list
+```
+
+With `exec`, include the `navidrome` binary explicitly before the subcommand.
+
+### Docker (`docker run`)
+
+Start a one-off container with the same mounts and settings used by your main Navidrome container:
+
+```bash
+docker run --rm \
+  --user $(id -u):$(id -g) \
+  -v /path/to/music:/music:ro \
+  -v /path/to/data:/data \
+  --env-file /path/to/navidrome.env \
+  -e ND_CONFIGFILE=/data/navidrome.toml \
+  deluan/navidrome:latest \
+  user list
+```
+
+For consistency, keep image tag, volumes, and environment variables aligned with your running
+instance.
+
 ## Global flags
 
 These flags are available across commands:
