@@ -115,6 +115,8 @@ $ navidrome --musicfolder "/mnt/music"
 Please note that command line arguments must be **all lowercase**. For a list of all available command line options,
 just call `navidrome --help`.
 
+For command and workflow examples (scan, inspect, backups, users, service management), see the [CLI reference](/docs/usage/admin/cli/).
+
 ## Environment Variables
 
 Any configuration option can be set as an environment variable, just add a the prefix `ND_` and
