@@ -45,6 +45,8 @@ navidrome -c /etc/navidrome/navidrome.toml --nobanner
 
 ## Command overview
 
+The built-in top-level administrative commands are: `inspect`, `scan`, `backup`, `pls`, `service`, and `user`.
+
 ### `inspect`
 
 Inspect music file tags as Navidrome sees them.
@@ -134,6 +136,47 @@ navidrome backup prune --keep-count 7
 # Restore from a specific backup file (offline only)
 navidrome backup restore --backup-file /backups/navidrome.db.2026-04-01-040000
 ```
+
+
+---
+
+### `pls` (playlist export)
+
+Export playlists to M3U and list playlists from the CLI.
+
+```bash
+navidrome pls --playlist <playlist-name-or-id>
+```
+
+Useful flags:
+
+- `-p, --playlist` (required): Playlist name or ID
+- `-o, --output`: Output file path (`-` or omitted writes to stdout)
+
+Examples:
+
+```bash
+# Export a playlist to stdout
+navidrome pls --playlist "Road Trip Mix"
+
+# Export a playlist to a file
+navidrome pls --playlist "Road Trip Mix" --output ./road-trip.m3u8
+```
+
+`pls` also includes a `list` subcommand to enumerate playlists:
+
+```bash
+# List all playlists (CSV)
+navidrome pls list
+
+# List playlists for a specific user as JSON
+navidrome pls list --user alice --format json
+```
+
+`pls list` flags:
+
+- `-u, --user`: Filter by username or user ID
+- `-f, --format`: Output format (`csv` or `json`, default: `csv`)
 
 ---
 
