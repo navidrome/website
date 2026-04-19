@@ -9,8 +9,7 @@ description: >
 
 Navidrome includes a built-in CLI for administration tasks, maintenance, and troubleshooting.
 
-This page reflects the command definitions in the Navidrome source (`cmd/root.go`, `cmd/inspect.go`, `cmd/scan.go`, `cmd/backup.go`, `cmd/svc.go`, and `cmd/user.go`) in `github.com/navidrome/navidrome`.
-
+Use this page as a practical reference for common command-line workflows and examples.
 
 ## Quick start
 
