@@ -55,6 +55,8 @@ you can use `docker compose exec`:
 docker compose exec navidrome navidrome user list
 ```
 
+With `exec`, include the `navidrome` binary explicitly before the subcommand.
+
 ### Docker (`docker run`)
 
 Start a one-off container with the same mounts and settings used by your main Navidrome container:
