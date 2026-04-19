@@ -9,6 +9,9 @@ description: >
 
 Navidrome includes a built-in CLI for administration tasks, maintenance, and troubleshooting.
 
+This page reflects the command definitions in the Navidrome source (`cmd/root.go`, `cmd/inspect.go`, `cmd/scan.go`, `cmd/backup.go`, `cmd/svc.go`, and `cmd/user.go`) in `github.com/navidrome/navidrome`.
+
+
 ## Quick start
 
 Use the built-in help:
@@ -23,6 +26,8 @@ Get help for a specific command:
 navidrome <command> --help
 navidrome <command> <subcommand> --help
 ```
+
+If you run `navidrome` with no subcommand, it starts the server.
 
 ## Global flags
 
@@ -104,9 +109,9 @@ navidrome backup --help
 
 Subcommands:
 
-- `navidrome backup create`
-- `navidrome backup prune`
-- `navidrome backup restore`
+- `navidrome backup create` (alias: `c`)
+- `navidrome backup prune` (alias: `p`)
+- `navidrome backup restore` (alias: `r`)
 
 Common flags:
 
@@ -163,7 +168,7 @@ navidrome svc status
 ```
 
 {{% alert %}}
-The `service` command is mainly intended for native OS service setups. In containerized deployments, lifecycle is usually managed by Docker/Compose/Kubernetes instead.
+The `service` command is mainly intended for native OS service setups. In containerized deployments, lifecycle is typically managed by Docker/Compose/Kubernetes instead.
 {{% /alert %}}
 
 ---
