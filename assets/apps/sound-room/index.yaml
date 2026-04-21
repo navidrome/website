@@ -1,0 +1,25 @@
+name: Sound Room: Subsonic Client
+url: https://apps.apple.com/app/sound-room-subsonic-client/id6762375751
+platforms:
+  ios:
+    store: https://apps.apple.com/app/sound-room-subsonic-client/id6762375751
+api: Subsonic
+description: "Jam: listen together in real time, shared queue, synced playback. A Subsonic client for iPhone with playlists, downloads, and lossless streaming and more."
+screenshots:
+  thumbnail: screen1.webp
+  gallery:
+    - screen2.webp
+    - screen3.webp
+    - screen4.webp
+    - screen5.webp
+isFree: true
+keywords:
+  - navidrome jam
+  - subsonic jam
+  - subsonic client
+  - navidrome jukebox
+  - jam
+  - offline
+  - lossless
+  - playlists
+  - subsonic
