@@ -63,7 +63,7 @@ Note that if you don't intend to support third-party subsonic clients, you can s
 
 ## Security
 
-Make sure to check the externalized authentication section in the dedicated [Security Considerations](../security#externalized-authentication) page.
+Make sure to check the externalized authentication section in the dedicated [Security Considerations](/docs/usage/admin/security/#externalized-authentication) page.
 
 ## Examples
 

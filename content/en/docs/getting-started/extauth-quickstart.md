@@ -180,7 +180,7 @@ services:
 
 ## Security Considerations
 
-Make sure to check the [Security Considerations](../security#externalized-authentication) page for important security information.
+Make sure to check the [Security Considerations](/docs/usage/admin/security/#externalized-authentication) page for important security information.
 
 Key security points:
 * Never run Navidrome as root
@@ -222,6 +222,6 @@ A: Yes, Navidrome will fall back to standard authentication if the reverse proxy
 
 - [Security Considerations](/docs/usage/admin/security) for Navidrome
 - [Configuration Options](/docs/usage/configuration/options) for all available settings
-- [Externalized Authentication](/docs/usage/configuration/authentication/) for the detailed documentation of the feature
+- [Externalized Authentication](/docs/usage/integration/authentication/) for the detailed documentation of the feature
 - [Caddy Forward Auth documentation](https://caddyserver.com/docs/caddyfile/directives/forward_auth)
 - [Traefik ForwardAuth middleware](https://doc.traefik.io/traefik/middlewares/http/forwardauth/)
