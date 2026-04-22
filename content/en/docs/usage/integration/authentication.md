@@ -63,6 +63,13 @@ Note that if you don't intend to support third-party subsonic clients, you can s
 
 ## Security
 
+{{< alert title="Key Security Principle" color="primary" >}}
+When you enable externalized authentication by configuring trusted sources, you must ensure that all the trusted sources are configured to:
+
+1. Not let untrusted clients set the user header themselves (i.e. remove the header if they do).
+2. Not set the header if the request is not authenticated (e.g. when the authentication is bypassed for the subsonic endpoints).
+{{< /alert >}}
+
 Make sure to check the externalized authentication section in the dedicated [Security Considerations](/docs/usage/admin/security/#externalized-authentication) page.
 
 ## Examples

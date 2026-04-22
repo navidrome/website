@@ -184,12 +184,10 @@ services:
 
 ## Security Considerations
 
-{{< alert title="Security Note" color="warning" >}}
-**Key security principle for externalized authentication**
-
+{{< alert title="Key Security Principle" color="primary" >}}
 When you enable externalized authentication by configuring trusted sources, you must ensure that all the trusted sources are configured to:
 
-1. Not let untrusted clients set the user header themselves.
+1. Not let untrusted clients set the user header themselves (i.e. remove the header if they do).
 2. Not set the header if the request is not authenticated (e.g. when the authentication is bypassed for the subsonic endpoints).
 {{< /alert >}}
 
