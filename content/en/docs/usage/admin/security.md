@@ -12,8 +12,9 @@ aliases:
 
 ## Permissions
 
-**You should NOT run Navidrome as `root`**. Ideally you should have it running under its own user. Navidrome only
-needs read-only access to the Music Folder, and read-write permissions to the Data Folder.
+**You should NOT run Navidrome as `root`**. 
+Ideally you should have it running under its own user and enable the `EnforceNonRootUser` configuration option.
+Navidrome only needs read-only access to the Music Folder, and read-write permissions to the Data Folder.
 
 ## Encrypted passwords
 To be able to keep compatibility with the Subsonic API and its clients, Navidrome needs to store user's passwords in its database. By default, Navidrome
