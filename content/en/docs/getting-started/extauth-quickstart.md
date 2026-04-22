@@ -162,23 +162,36 @@ services:
       traefik.http.middlewares.authelia.forwardauth.address: http://authelia:9091/api/verify?rd=https://auth.example.com/
       traefik.http.middlewares.authelia.forwardauth.authResponseHeaders: Remote-User
 
+      # Security middleware for the entrypoints
+      traefik.http.middlewares.drop-untrusted-auth-headers.headers.customrequestheaders.Remote-User:
+
   navidrome:
     image: deluan/navidrome:0.52.0
     labels:
       # Main Navidrome access with web authentication
       traefik.http.routers.navidrome.rule: Host(`music.example.com`)
       traefik.http.routers.navidrome.entrypoints: https
-      traefik.http.routers.navidrome.middlewares: authelia@docker
+      traefik.http.routers.navidrome.middlewares: drop-untrusted-auth-headers@docker,authelia@docker
 
       # Authentication bypass for share and subsonic endpoints
       traefik.http.routers.navidrome-public.rule: Host(`music.example.com`) && (PathPrefix(`/share/`) || PathPrefix(`/rest/`))
       traefik.http.routers.navidrome-public.entrypoints: https
+      traefik.http.routers.navidrome-public.middlewares: drop-untrusted-auth-headers@docker
     environment:
       # Trust all IPs in Docker network - use more specific IP if possible
       ND_EXTAUTH_TRUSTEDSOURCES: 0.0.0.0/0
 ```
 
 ## Security Considerations
+
+{{< alert title="Security Note" color="warning" >}}
+**Key security principle for externalized authentication**
+
+When you enable externalized authentication by configuring trusted sources, you must ensure that all the trusted sources are configured to:
+
+1. Not let untrusted clients set the user header themselves.
+2. Not set the header if the request is not authenticated (e.g. when the authentication is bypassed for the subsonic endpoints).
+{{< /alert >}}
 
 Make sure to check the [Security Considerations](/docs/usage/admin/security/#externalized-authentication) page for important security information.
 

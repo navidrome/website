@@ -148,6 +148,8 @@ services:
       # Basicauth middleware for subsonic clients
       traefik.http.middlewares.authelia-basicauth.forwardauth.address: http://authelia:9091/api/verify?auth=basic
       traefik.http.middlewares.authelia-basicauth.forwardauth.authResponseHeaders: Remote-User
+      # Security middleware for the entrypoints
+      traefik.http.middlewares.drop-untrusted-auth-headers.headers.customrequestheaders.Remote-User:
 
   navidrome:
     image: deluan/navidrome:0.52.0
@@ -157,13 +159,13 @@ services:
       # authentication for /share/* URLs, so you don't need an extra rule here.
       traefik.http.routers.navidrome.rule: Host(`music.example.com`)
       traefik.http.routers.navidrome.entrypoints: https
-      traefik.http.routers.navidrome.middlewares: authelia@docker
+      traefik.http.routers.navidrome.middlewares: drop-untrusted-auth-headers@docker,authelia@docker
       # Requests to the subsonic endpoint use the basicauth middleware, unless
       # they come from the Navidrome Web App ("NavidromeUI" subsonic client), in
       # which case the default authelia middleware is used.
       traefik.http.routers.navidrome-subsonic.rule: Host(`music.example.com`) && PathPrefix(`/rest/`) && !Query(`c`, `NavidromeUI`)
       traefik.http.routers.navidrome-subsonic.entrypoints: https
-      traefik.http.routers.navidrome-subsonic.middlewares: authelia-basicauth@docker
+      traefik.http.routers.navidrome-subsonic.middlewares: drop-untrusted-auth-headers@docker,authelia-basicauth@docker
     environment:
       # Navidrome does not resolve hostnames in this option, and by default
       # traefik will get assigned an IP address dynamically, so all IPs must be
@@ -176,5 +178,7 @@ services:
       # manage their password in Navidrome anymore.
       ND_ENABLEUSEREDITING: false
 ```
+
+We recommended applying the `drop-untrusted-auth-headers` [on the entrypoints](https://doc.traefik.io/traefik/reference/install-configuration/entrypoints/#httpmiddlewares) if possible (instead of configuring it on each service individually as shown here).
 
 If you want to add support for the subsonic authentication scheme in order to support all subsonic clients, you can have a look at the Traefik plugin [BasicAuth adapter for Subsonic](https://plugins.traefik.io/plugins/6521c6de39e2d7caa2181888/basic-auth-adapter-for-subsonic) which transforms subsonic authentication parameters into a BasicAuth header that Authelia can handle, and performs the error response rewriting.
