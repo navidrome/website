@@ -130,6 +130,9 @@ This example shows Navidrome behind Caddy with Authentik for authentication.
 
 ```Caddyfile
 example.com {
+   # Remove any client-supplied user header
+   request_header -Remote-User
+
    # Authentik output endpoint
    reverse_proxy /outpost.goauthentik.io/* http://authentik:9000
 

@@ -86,6 +86,9 @@ In this example, Navidrome is behind the [Caddy](https://caddyserver.com) revers
 ```Caddyfile
 example.com
 
+# Remove any client-supplied user header
+request_header -Remote-User
+
 reverse_proxy /outpost.goauthentik.io/* http://authentik:9000
 
 @protected not path /share/* /rest/*
