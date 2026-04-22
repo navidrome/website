@@ -101,7 +101,7 @@ Including album cover art enhances the Navidrome experience. Here's how to manag
   each track of that album (most tools can do this in batch). If you're using a folder image, one image in the folder 
   is enough for all songs in that album.
 - **Handling missing art**: If you don't have art for an album, Navidrome might try to fetch it from the internet 
-  (Last.fm or Spotify) if enabled, but it's best to supply your own for completeness and offline use. Taking the time 
+  (Last.fm or [Apple Music](https://github.com/navidrome/apple-music-plugin)) if enabled, but it's best to supply your own for completeness and offline use. Taking the time 
   to add cover art makes browsing much nicer.
 
 {{% alert "info" %}}
