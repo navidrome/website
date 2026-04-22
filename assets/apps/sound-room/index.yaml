@@ -1,4 +1,4 @@
-name: Sound Room: Subsonic Client
+name: "Sound Room: Subsonic Client"
 url: https://apps.apple.com/app/sound-room-subsonic-client/id6762375751
 platforms:
   ios:
@@ -20,6 +20,3 @@ keywords:
   - navidrome jukebox
   - jam
   - offline
-  - lossless
-  - playlists
-  - subsonic
