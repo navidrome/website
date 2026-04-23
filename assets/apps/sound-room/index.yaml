@@ -1,10 +1,10 @@
-name: "Sound Room: Subsonic Client"
+name: "Sound Room"
 url: https://apps.apple.com/app/sound-room-subsonic-client/id6762375751
 platforms:
   ios:
     store: https://apps.apple.com/app/sound-room-subsonic-client/id6762375751
 api: Subsonic
-description: "Jam: listen together in real time, shared queue, synced playback. A Subsonic client for iPhone with playlists, downloads, and lossless streaming and more."
+description: "Jam: listen together in real time, shared queue, synced playback. A Subsonic client for iPhone with playlists, downloads, and lossless streaming and more coming."
 screenshots:
   thumbnail: screen1.webp
   gallery:
