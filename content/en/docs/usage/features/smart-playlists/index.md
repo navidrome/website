@@ -14,8 +14,8 @@ JSON objects stored in files with a `.nsp` extension. These playlists are automa
 criteria, providing a personalized and evolving music experience.
 
 {{< alert color="warning" title="Beta Feature" >}}
-Smart Playlists are currently in beta and may have some limitations. Please report any issues or suggestions to the
-[Navidrome GitHub issues page](https://github.com/navidrome/navidrome/issues/1417).
+Smart Playlists are currently in beta and may have some limitations. Please report any issues or suggestions in the
+[Navidrome GitHub discussions](https://github.com/navidrome/navidrome/discussions).
 {{</alert>}}
 
 ## Creating Smart Playlists
