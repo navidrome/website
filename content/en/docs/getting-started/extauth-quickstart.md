@@ -130,6 +130,9 @@ This example shows Navidrome behind Caddy with Authentik for authentication.
 
 ```Caddyfile
 example.com {
+   # Remove any client-supplied user header
+   request_header -Remote-User
+
    # Authentik output endpoint
    reverse_proxy /outpost.goauthentik.io/* http://authentik:9000
 
@@ -162,17 +165,21 @@ services:
       traefik.http.middlewares.authelia.forwardauth.address: http://authelia:9091/api/verify?rd=https://auth.example.com/
       traefik.http.middlewares.authelia.forwardauth.authResponseHeaders: Remote-User
 
+      # Security middleware for the entrypoints
+      traefik.http.middlewares.drop-untrusted-auth-headers.headers.customrequestheaders.Remote-User:
+
   navidrome:
     image: deluan/navidrome:0.52.0
     labels:
       # Main Navidrome access with web authentication
       traefik.http.routers.navidrome.rule: Host(`music.example.com`)
       traefik.http.routers.navidrome.entrypoints: https
-      traefik.http.routers.navidrome.middlewares: authelia@docker
+      traefik.http.routers.navidrome.middlewares: drop-untrusted-auth-headers@docker,authelia@docker
 
       # Authentication bypass for share and subsonic endpoints
       traefik.http.routers.navidrome-public.rule: Host(`music.example.com`) && (PathPrefix(`/share/`) || PathPrefix(`/rest/`))
       traefik.http.routers.navidrome-public.entrypoints: https
+      traefik.http.routers.navidrome-public.middlewares: drop-untrusted-auth-headers@docker
     environment:
       # Trust all IPs in Docker network - use more specific IP if possible
       ND_EXTAUTH_TRUSTEDSOURCES: 0.0.0.0/0
@@ -180,7 +187,14 @@ services:
 
 ## Security Considerations
 
-Make sure to check the [Security Considerations](../security#externalized-authentication) page for important security information.
+{{< alert title="Key Security Principle" color="primary" >}}
+When you enable externalized authentication by configuring trusted sources, you must ensure that all the trusted sources are configured to:
+
+1. Not let untrusted clients set the user header themselves (i.e. remove the header if they do).
+2. Not set the header if the request is not authenticated (e.g. when the authentication is bypassed for the subsonic endpoints).
+{{< /alert >}}
+
+Make sure to check the [Security Considerations](/docs/usage/admin/security/#externalized-authentication) page for important security information.
 
 Key security points:
 * Never run Navidrome as root
@@ -222,6 +236,6 @@ A: Yes, Navidrome will fall back to standard authentication if the reverse proxy
 
 - [Security Considerations](/docs/usage/admin/security) for Navidrome
 - [Configuration Options](/docs/usage/configuration/options) for all available settings
-- [Externalized Authentication](/docs/usage/configuration/authentication/) for the detailed documentation of the feature
+- [Externalized Authentication](/docs/usage/integration/authentication/) for the detailed documentation of the feature
 - [Caddy Forward Auth documentation](https://caddyserver.com/docs/caddyfile/directives/forward_auth)
 - [Traefik ForwardAuth middleware](https://doc.traefik.io/traefik/middlewares/http/forwardauth/)
