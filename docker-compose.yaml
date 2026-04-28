@@ -1,20 +1,15 @@
 services:
   site:
-    image: docker.io/floryn90/hugo:0.153.0-ext-ubuntu
+    image: floryn90/hugo:0.153.0-ext-ubuntu
     entrypoint: ["/bin/sh", "-c"]
-    command: ["./fetch-charts.sh && hugo server --noBuildLock"]
+    command: ["./fetch-charts.sh && hugo server"]
     ports:
-      - 127.0.0.1:1313:1313
+      - "1313:1313"
     environment:
-      - HUGO_CACHEDIR=/tmp/hugo/cache
-      - HUGO_RESOURCEDIR=/tmp/hugo/resources
-      - HUGO_PUBLISHDIR=/tmp/hugo/public
+      - HUGO_CACHEDIR=/tmp/hugo_cache
       - CHARTS_URL
       - CHARTS_API_KEY
     #      - HUGO_ENV=production
     volumes:
-      - .:/src:ro
-      - hugo:/tmp/hugo
-
-volumes:
-  hugo:
+      - .:/src
+      - ./.hugo_cache:/tmp/hugo_cache
