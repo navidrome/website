@@ -44,7 +44,7 @@ description: "A beautiful music player with offline support, gapless playback, a
 
 # Required: Screenshots configuration
 screenshots:
-  # Required: Thumbnail image filename (must exist in app folder)
+  # Required: Thumbnail image filename (must exist in app folder). This is the image that will show in the main catalog page, it is NOT a logo or icon.
   thumbnail: thumbnail.webp
   # Optional: Gallery screenshots (max 5 images)
   gallery:
