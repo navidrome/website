@@ -1,0 +1,21 @@
+name: Sonixd Redux
+url: https://github.com/joffrey-b/Sonixd-Redux
+repoUrl: https://github.com/joffrey-b/Sonixd-Redux
+platforms:
+  windows: true
+  macos: true
+  linux: true
+api: OpenSubsonic
+keywords:
+  - desktop
+  - equalizer
+  - mpv
+  - gapless
+  - lyrics
+  - spectrogram
+description: "A desktop music player for Subsonic and Jellyfin servers, forked from Sonixd. Features MPV backend for true gapless playback and ReplayGain, 10-band graphic and parametric EQ, synced lyrics, spectrogram viewer, and customizable keyboard shortcuts."
+screenshots:
+  thumbnail: thumbnail.webp
+  gallery:
+    - screen1.webp
+    - screen2.webp
