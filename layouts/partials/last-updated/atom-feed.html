@@ -1,0 +1,38 @@
+{{/*
+  Atom Feed Last Updated Partial
+
+  Fetches the latest date from an Atom feed endpoint.
+  Used for git forges that expose Atom feeds (cgit, tangled.org, etc).
+
+  Parameters:
+    - appId: App identifier (used for warning messages)
+    - repoUrl: Repository URL (e.g., https://git.example.com/repo)
+    - feedPath: Path suffix for the Atom feed (e.g., "/atom/", "/feed.atom")
+    - source: Source name for warning messages (e.g., "cgit", "tangled")
+
+  Returns: YYYY-MM-DD formatted date string, or empty string if unavailable
+*/}}
+
+{{ $appId := .appId }}
+{{ $repoUrl := .repoUrl }}
+{{ $feedPath := .feedPath }}
+{{ $source := .source }}
+{{ $date := "" }}
+
+{{ $atomUrl := printf "%s%s" (strings.TrimSuffix "/" $repoUrl) $feedPath }}
+
+{{ $result := try (resources.GetRemote $atomUrl) }}
+{{ with $result.Err }}
+  {{ warnf "[last-updated] app=%s source=%s: failed to fetch Atom feed from %s: %s" $appId $source $atomUrl . }}
+{{ end }}
+{{ with $result.Value }}
+  {{ $content := .Content }}
+  {{ $match := findRE `<updated>([^<]+)</updated>` $content 1 }}
+  {{ if $match }}
+    {{ $updated := index $match 0 }}
+    {{ $updated = replaceRE `</?updated>` "" $updated }}
+    {{ $date = time.Format "2006-01-02" (time $updated) }}
+  {{ end }}
+{{ end }}
+
+{{ return $date }}

@@ -1,8 +1,8 @@
 name: Musly
-url: https://musly.devid.ink/
+url: https://musly.devid.lol/
 platforms:
   android:
-    store: https://musly.devid.ink/#download
+    store: https://github.com/dddevid/Musly/releases/latest
   ios: true
   windows: true
   linux: true

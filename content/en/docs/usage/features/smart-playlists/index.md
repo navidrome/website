@@ -227,6 +227,8 @@ Here's a table of fields you can use in your Smart Playlists:
 | `releasedate`          | Release date                             |
 | `size`                 | File size                                |
 | `compilation`          | Compilation album                        |
+| `missing`              | Track file is missing                    |
+| `explicitstatus`       | Explicit content status                  |
 | `dateadded`            | Date added to library                    |
 | `datemodified`         | Date modified                            |
 | `discsubtitle`         | Disc subtitle                            |
@@ -236,15 +238,15 @@ Here's a table of fields you can use in your Smart Playlists:
 | `sortalbum`            | Sorted album name                        |
 | `sortartist`           | Sorted artist name                       |
 | `sortalbumartist`      | Sorted album artist name                 |
-| `albumtype`            | Album type                               |
 | `albumcomment`         | Album comment                            |
 | `catalognumber`        | Catalog number                           |
 | `filepath`             | File path, relative to the MusicFolder   |
 | `filetype`             | File type                                |
-| `grouping`             | Grouping                                 |
+| `codec`                | Audio codec                              |
 | `duration`             | Track duration                           |
 | `bitrate`              | Bitrate                                  |
 | `bitdepth`             | Bit depth                                |
+| `samplerate`           | Sample rate                              |
 | `bpm`                  | Beats per minute                         |
 | `channels`             | Audio channels                           |
 | `loved`                | Track is loved                           |
@@ -263,6 +265,9 @@ Here's a table of fields you can use in your Smart Playlists:
 | `artistrating`         | Artist rating                            |
 | `artistloved`          | Whether artist is starred                |
 | `artistplaycount`      | Artist total play count                  |
+| `artistlastplayed`     | Artist last play date                    |
+| `artistdateloved`      | Date artist was starred                  |
+| `artistdaterated`      | Date artist was rated                    |
 | `mbz_album_id`         | MusicBrainz Album ID                     |
 | `mbz_album_artist_id`  | MusicBrainz Album Artist ID              |
 | `mbz_artist_id`        | MusicBrainz Artist ID                    |
@@ -275,16 +280,16 @@ Here's a table of fields you can use in your Smart Playlists:
 
 - Dates must be in the format `"YYYY-MM-DD"`.
 - Booleans must not be enclosed in quotes. Example: `{ "is": { "loved": true } }`.
+- Boolean fields: `hascoverart`, `compilation`, `missing`, `loved`, `albumloved`, `artistloved`.
 - `filepath` is relative to your music library folder. Ensure your paths are correctly specified without the `/music`
   prefix (or whatever value you set in `MusicFolder`).
-- Numeric fields like `library_id`, `year`, `tracknumber`, `discnumber`, `size`, `duration`, `bitrate`, `bitdepth`, `bpm`, `channels`, `playcount`, and `rating` support numeric comparisons (`gt`, `lt`, `inTheRange`, etc.).
+- Numeric fields like `library_id`, `year`, `tracknumber`, `discnumber`, `size`, `duration`, `bitrate`, `bitdepth`, `samplerate`, `bpm`, `channels`, `playcount`, `rating`, and `averagerating` support numeric comparisons (`gt`, `lt`, `inTheRange`, etc.).
 - **Multi-Library**: Smart Playlists can include songs from multiple libraries if the user has access to them. Use the `library_id` field to filter songs from specific libraries.
 - **Album & Artist Fields**: Fields prefixed with `album` or `artist` (e.g., `albumrating`, `artistplaycount`) filter tracks based on their parent album or artist properties. This lets you create playlists like "tracks from highly-rated albums" or "tracks from frequently-played artists".
 
 ##### Special Fields
 
 - `random`: Used for random sorting (e.g., `"sort": "random"`)
-- `value`: Used internally for tag and role-based queries
 
 ##### MusicBrainz Fields
 

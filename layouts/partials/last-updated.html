@@ -32,9 +32,14 @@
   {{- $date = partial "last-updated/codeberg.html" (dict "appId" $appId "repoUrl" $repoUrl) -}}
 {{- end -}}
 
+{{- /* Try Tangled */ -}}
+{{- if and (not $date) $repoUrl (strings.Contains $repoUrl "tangled.org") -}}
+  {{- $date = partial "last-updated/atom-feed.html" (dict "appId" $appId "repoUrl" $repoUrl "feedPath" "/feed.atom" "source" "tangled") -}}
+{{- end -}}
+
 {{- /* Try cgit/self-hosted git repos via Atom feed */ -}}
 {{- if and (not $date) $repoUrl -}}
-  {{- $date = partial "last-updated/cgit.html" (dict "appId" $appId "repoUrl" $repoUrl) -}}
+  {{- $date = partial "last-updated/atom-feed.html" (dict "appId" $appId "repoUrl" $repoUrl "feedPath" "/atom/" "source" "cgit") -}}
 {{- end -}}
 
 {{- /* Try Docker Hub from platforms.docker.store */ -}}
