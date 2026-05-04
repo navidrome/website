@@ -1,0 +1,21 @@
+name: Nokkvi
+url: https://github.com/f-o-o-g-s/nokkvi
+repoUrl: https://github.com/f-o-o-g-s/nokkvi
+platforms:
+  linux: true
+api: Navidrome
+description: "A native Rust/Iced desktop client for Navidrome with a PipeWire audio engine, GPU-accelerated visualizers, gapless playback, crossfade, and hot-reloadable theming and config. Linux-only; keyboard-first for tiling window managers, with full mouse support."
+screenshots:
+  thumbnail: playlists-collage.webp
+  gallery:
+    - artists-bars-led.webp
+    - queue-lines-boat.webp
+    - tiled-tall.webp
+isFree: true
+keywords:
+  - rust
+  - iced
+  - pipewire
+  - visualizer
+  - keyboard-driven
+  - linux
