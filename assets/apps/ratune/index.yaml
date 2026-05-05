@@ -1,0 +1,24 @@
+name: Ratune
+url: https://github.com/acmagn/ratune
+repoUrl: https://github.com/acmagn/ratune
+platforms:
+  macos: true
+  linux: true
+api: OpenSubsonic
+description: "Terminal music player for Subsonic-compatible servers, written in Rust. Features gapless playback, high customization, album art in supported terminals (including tmux), visualizer, synced lyrics, fuzzy library search via fzf or skim, playlists, and MPRIS integration."
+screenshots:
+  thumbnail: thumbnail.webp
+  gallery:
+    - screen1.webp
+    - screen2.webp
+    - screen3.webp
+    - screen4.webp
+    - screen5.webp
+isFree: true
+keywords:
+  - terminal
+  - tui
+  - gapless
+  - ratatui
+  - mpris
+  - fzf
