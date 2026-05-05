@@ -127,15 +127,15 @@ Some examples bellow:
 
 If you have AAC/M4A files where multi-valued tags like `ARTISTS`, `ALBUMARTISTS`, or `COMPOSER` are not being read correctly by Navidrome (showing only one artist instead of multiple), this is likely due to how some tagging applications write these tags.
 
-**The Problem**: Some tag editors (including MP3Tag) may create duplicate "atoms" (metadata containers) when writing multi-valued tags to AAC/M4A files, rather than storing multiple values within a single atom. TagLib (the library Navidrome uses to read metadata) ignores duplicate atoms by design and only reads the first occurrence, causing the additional values to be lost.
+**The Problem**: Some tag editors may create duplicate "atoms" (metadata containers) when writing multi-valued tags to AAC/M4A files, rather than storing multiple values within a single atom. TagLib (the library Navidrome uses to read metadata) ignores duplicate atoms by design and only reads the first occurrence, causing the additional values to be lost.
 
-**The Workaround**: Re-save your files using MusicBrainz Picard:
+**The Workaround**: Re-save your files using MusicBrainz Picard or Mp3tag:
 
-1. Open the affected files in MusicBrainz Picard
-2. Without making any changes to the tags, simply save the files again
-3. Picard will consolidate the duplicate atoms into properly formatted multi-valued tags
-4. Rescan your library in Navidrome
-
+1. Open the affected files in MusicBrainz Picard or Mp3tag
+2. If you're using Mp3tag, ensure that *Use single MP4 atom for multiple values* is enabled at *File → Options → Tags → Advanced*
+3. Without making any changes to the tags, simply save the files again
+4. Picard or Mp3tag will consolidate the duplicate atoms into properly formatted multi-valued tags
+5. Rescan your library in Navidrome
 Check Picard's configuration to make sure it preserves all your existing tag data while fixing the underlying storage format issue.
 
 **Prevention**: When tagging new AAC/M4A files, using MusicBrainz Picard consistently should avoid this issue. If you prefer other tag editors, test a few files to ensure multi-valued tags display correctly in Navidrome before batch-processing your entire library.
