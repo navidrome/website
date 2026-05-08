@@ -8,13 +8,17 @@ platforms:
 
 api: OpenSubsonic
 
-description: Native iOS music player for Navidrome with native Lidarr integration. Discover albums outside your library and download them in one tap.
+description: Native iOS music player for Navidrome with a built-in discovery engine that recommends albums outside your library, based on your listening history and favorites.
 
 screenshots:
   thumbnail: thumbnail.webp
 
 keywords:
-  - lidarr
+  - recommendations
   - discovery
   - ios
   - swiftui
+  - smart playlists
+  - clean UI
+  - open subsonic
+  - offline
