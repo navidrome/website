@@ -1,0 +1,21 @@
+name: Lyris
+url: https://getlyris.com
+isOpenSource: false
+
+platforms:
+  ios:
+    store: https://testflight.apple.com/join/hVvZ1F7t
+
+api: OpenSubsonic
+
+description: Native iOS music player for Navidrome with a built-in discovery engine that recommends albums outside your library, based on your listening history and favorites.
+
+screenshots:
+  thumbnail: thumbnail.webp
+
+keywords:
+  - recommendations
+  - discovery
+  - ios
+  - smart playlists
+  - offline
