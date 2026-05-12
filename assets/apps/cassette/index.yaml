@@ -29,7 +29,7 @@ description: "Cassette is a native iOS and macOS client for Subsonic and OpenSub
 # Required: Screenshots configuration
 screenshots:
   # Required: Thumbnail image filename (must exist in app folder). This is the image that will show in the main catalog page, it is NOT a logo or icon.
-  thumbnail: thumbnail.jpeg
+  thumbnail: thumbnail.webp
 
 # Optional: Set to true if the app is free (no purchase required)
 isFree: true
