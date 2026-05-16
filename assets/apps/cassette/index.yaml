@@ -5,7 +5,7 @@
 name: Cassette
 
 # Required: Official app website or homepage
-url: https://mathieudubart.github.io/cassette-web/
+url: https://getcassette.app
 
 # Optional: GitHub repository URL (displays an open source badge)
 repoUrl: https://github.com/mathieudubart/cassette
@@ -14,7 +14,8 @@ repoUrl: https://github.com/mathieudubart/cassette
 # Platforms can be boolean (true) or object with store URL
 platforms:
   # iOS with App Store link
-  ios: true
+  ios:
+    store: https://testflight.apple.com/join/pxCpfpxF
   # macOS with optional Mac App Store link
   macos: true
 
