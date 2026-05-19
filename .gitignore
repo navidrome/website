@@ -8,3 +8,4 @@ node_modules/
 tmp/*
 !.claude
 .claude/settings.local.json
+AGENTS.md
