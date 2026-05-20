@@ -11,9 +11,9 @@ keywords:
   - equalizer
   - mpv
   - gapless
-  - lyrics
-  - spectrogram
-description: "A desktop music player for Subsonic and Jellyfin servers, forked from Sonixd. Features MPV backend for true gapless playback and ReplayGain, 10-band graphic and parametric EQ, synced lyrics, spectrogram viewer, and customizable keyboard shortcuts."
+  - podcasts
+  - jukebox
+description: "A desktop music player for Subsonic and Jellyfin servers, forked from Sonixd. Features MPV backend, 10-band graphic and parametric EQ, jukebox mode, podcasts, synced lyrics, spectrogram viewer, and customizable keyboard shortcuts."
 screenshots:
   thumbnail: thumbnail.webp
   gallery:
