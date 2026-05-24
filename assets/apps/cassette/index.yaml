@@ -1,0 +1,44 @@
+# Navidrome Client App Entry Template
+# See: https://www.navidrome.org/docs/developers/adding-apps/
+
+# Required: Display name of the app
+name: Cassette
+
+# Required: Official app website or homepage
+url: https://mathieudubart.github.io/cassette-web/
+
+# Optional: GitHub repository URL (displays an open source badge)
+repoUrl: https://github.com/mathieudubart/cassette
+
+# Required: At least one platform must be specified
+# Platforms can be boolean (true) or object with store URL
+platforms:
+  # iOS with App Store link
+  ios: true
+  # macOS with optional Mac App Store link
+  macos: true
+
+# Required: API compatibility
+# Use "OpenSubsonic" for modern API support, "Subsonic" for legacy API, or "Navidrome" for Navidrome-specific features
+api: OpenSubsonic
+
+# Required: Brief description (1-2 sentences, max 500 characters)
+# Highlight key features that make this app unique
+description: "Cassette is a native iOS and macOS client for Subsonic and OpenSubsonic. Open-source, fast, and built for people who self-host."
+
+# Required: Screenshots configuration
+screenshots:
+  # Required: Thumbnail image filename (must exist in app folder). This is the image that will show in the main catalog page, it is NOT a logo or icon.
+  thumbnail: thumbnail.webp
+
+# Optional: Set to true if the app is free (no purchase required)
+isFree: true
+
+# Optional: Additional search terms (max 6, not displayed on app card)
+# Use for alternative names, abbreviations, or key features
+keywords:
+  - iOS
+  - macOS
+  - carplay
+  - offline
+  - lyrics

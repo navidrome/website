@@ -1,0 +1,18 @@
+name: Darktone
+url: https://darktone.sgn-tech.org
+platforms:
+  ios: true
+api: Subsonic
+description: "A native iOS music client for Navidrome. Clean navigation, fluid controls and a premium dark design for a relaxed music experience straight from your server."
+screenshots:
+  thumbnail: thumbnail.webp
+  gallery:
+    - explore.webp
+    - artist.webp
+    - lockscreen.webp
+isFree: true
+keywords:
+  - navidrome
+  - music
+  - native
+  - dark
