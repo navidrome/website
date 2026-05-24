@@ -52,9 +52,9 @@ $ docker run -d \
 
 - The `user` argument should ideally reflect the `UID:GID` of the owner of the music library to avoid permission issues. For testing purpose you could omit this directive, but as a rule of thumb you should not run a production container as `root`.
 - Remember to change the `volumes` paths to point to your local paths. `/data` is where Navidrome
-  will store its DB and cache, `/music` is where your music files are stored. For [multi-library setups](/docs/usage/multi-library/), you may need to mount additional volumes for each library.
-- [Configuration options](/docs/usage/configuration-options/) can be customized with environment
+  will store its DB and cache, `/music` is where your music files are stored. For [multi-library setups](/docs/usage/features/multi-library/), you may need to mount additional volumes for each library.
+- [Configuration options](/docs/usage/configuration/options/) can be customized with environment
   variables as needed. For `docker-compose` just add them to the `environment` section or the yml
   file. For `docker` cli use the `-e` parameter. Ex: `-e ND_SESSIONTIMEOUT=24h`.
-- If you want to use a [configuration file](/docs/usage/configuration-options/#configuration-file) with Navidrome running in Docker,
+- If you want to use a [configuration file](/docs/usage/configuration/options/#configuration-file) with Navidrome running in Docker,
   you can create a `navidrome.toml` config file in the `/data` folder and set the option `ND_CONFIGFILE=/data/navidrome.toml`.

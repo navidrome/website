@@ -6,12 +6,6 @@ set -e
 ACCESS_KEY="$HUGO_UNSPLASH_ACCESS_KEY"
 COLLECTION_ID="$1"
 
-# Check if cwebp is installed
-if ! command -v cwebp &> /dev/null; then
-    echo "Error: cwebp is not installed. Please install webp package first."
-    exit 1
-fi
-
 # Check if jq is installed
 if ! command -v jq &> /dev/null; then
     echo "Error: jq is not installed. Please install jq package first."
@@ -34,7 +28,10 @@ fi
 page=1
 per_page=30
 total_pages=1
-image_ids=""
+
+# Temporary file to store image data (id and raw URL)
+tmp_file=$(mktemp)
+trap "rm -f $tmp_file" EXIT
 
 # Get total photos in the collection and calc the total_pages
 response=$(curl --silent --request GET "https://api.unsplash.com/collections/${COLLECTION_ID}" \
@@ -48,10 +45,8 @@ while [ $page -le $total_pages ]; do
   response=$(curl --silent --request GET "https://api.unsplash.com/collections/${COLLECTION_ID}/photos?page=${page}&per_page=${per_page}" \
     --header "Authorization: Client-ID ${ACCESS_KEY}")
 
-  # Use jq to extract the image IDs from the response and append them to the existing list
-  page_image_ids=$(echo "${response}" | jq -r '.[].id')
-  image_ids="${image_ids}
-${page_image_ids}"
+  # Use jq to extract the image ID and raw URL, output as tab-separated values
+  echo "${response}" | jq -r '.[] | "\(.id)\t\(.urls.raw)"' >> "$tmp_file"
 
   page=$((page+1))
 done
@@ -59,25 +54,20 @@ done
 mkdir -p static/images
 echo "---" > static/images/index.yml
 new_images=0
-new_webp=0
 
 # Download each image in the list to the static/images folder if it doesn't already exist
-for id in $image_ids; do
-  # Check if the image file exists locally
-  if [ ! -f "static/images/${id}.jpg" ]; then
-    # If the image file doesn't exist locally, download it from the Unsplash API
-    url="https://unsplash.com/photos/${id}/download?fm=jpg&w=1600&h=900&fit=max"
-    echo "$url"
-    curl -sSL "$url" > static/images/"${id}".jpg
+while IFS=$'\t' read -r id raw_url; do
+  [ -z "$id" ] && continue
+  
+  # Check if the webp file exists locally
+  if [ ! -f "static/images/${id}.webp" ]; then
+    # Build the webp URL from the raw URL (add format and size parameters)
+    webp_url="${raw_url}&fm=webp&w=1600&h=900&fit=max&q=80"
+    echo "Downloading ${id}..."
+    curl -sSL "$webp_url" > static/images/"${id}".webp
     new_images=$((new_images+1))
   fi
-  # Convert to WebP if it doesn't exist yet
-  if [ ! -f "static/images/${id}.webp" ]; then
-    cwebp -q 80 "static/images/${id}.jpg" -o "static/images/${id}.webp"
-    new_webp=$((new_webp+1))
-  fi
   echo "- ${id}.jpg" >> static/images/index.yml
-done
+done < "$tmp_file"
 
 [ "$new_images" != "0" ] && echo "New images added: $new_images"
-[ "$new_webp" != "0" ] && echo "New WebP conversions: $new_webp"

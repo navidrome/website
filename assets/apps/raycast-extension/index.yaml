@@ -1,0 +1,14 @@
+name: Raycast Extension
+url: https://www.raycast.com/alexandervarney/navidrome
+platforms:
+  macos: true
+api: Navidrome
+description: Search and browse your Navidrome music library. Find artists, albums, and songs, then open them directly in your browser.
+screenshots:
+  thumbnail: thumbnail.webp
+  gallery:
+    - screen1.webp
+repoUrl: https://github.com/raycast/extensions/tree/9a82c450e1206396f9713e7cb371194358caed44/extensions/navidrome/
+keywords:
+  - macos
+  - raycast

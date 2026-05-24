@@ -1,5 +1,7 @@
 name: Nautiline
 url: https://nautiline.app/
+repoUrl: https://github.com/samglt/nautiline-tracker
+isOpenSource: false
 platforms:
   ios:
     store: https://apps.apple.com/app/id6755918140
@@ -9,3 +11,4 @@ screenshots:
   thumbnail: thumbnail.webp
   gallery:
     - screen1.webp
+    - screen2.webp

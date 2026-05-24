@@ -43,13 +43,15 @@ Users SHALL be able to filter apps by API compatibility.
 ---
 
 ### Requirement: Open Source Filtering
+
 Users SHALL be able to filter for open-source apps only.
 
 #### Scenario: Show only open-source apps
 - **WHEN** a user checks the "Open Source Only" filter
-- **THEN** only apps with a `repoUrl` defined are displayed
+- **THEN** only apps with a `repoUrl` defined AND `isOpenSource` not set to `false` are displayed
 - **AND** the URL updates to `/apps?oss=true`
 - **AND** apps without a `repoUrl` are hidden
+- **AND** apps with `isOpenSource: false` are hidden
 
 #### Scenario: Uncheck open source filter
 - **WHEN** a user unchecks the "Open Source Only" filter
@@ -181,29 +183,20 @@ The filter interface SHALL adapt to different screen sizes.
 ---
 
 ### Requirement: Data Attributes for Filtering
+
 App cards SHALL include data attributes to enable client-side filtering.
-
-#### Scenario: Platform data attributes
-- **WHEN** an app card is rendered
-- **AND** the app supports Android, iOS, and Web
-- **THEN** the card has `data-platforms="android ios web"` (space-separated, lowercase)
-
-#### Scenario: API data attributes
-- **WHEN** an app card is rendered
-- **AND** the app supports OpenSubsonic and Navidrome APIs
-- **THEN** the card has `data-apis="opensubsonic navidrome"` (space-separated, lowercase)
 
 #### Scenario: Open source data attribute
 - **WHEN** an app card is rendered
 - **AND** the app has a `repoUrl` defined
+- **AND** the app has `isOpenSource` not set or set to `true`
 - **THEN** the card has `data-oss="true"`
-- **AND** if no `repoUrl` is defined, the card has `data-oss="false"`
 
-#### Scenario: Searchable text data attribute
-- **WHEN** an app card is rendered with name "Amperfy" and description "An iOS music player"
-- **THEN** the card has `data-searchable="amperfy an ios music player"` (lowercase, normalized)
-
----
+#### Scenario: Non-open-source app data attribute
+- **WHEN** an app card is rendered
+- **AND** the app has no `repoUrl` defined
+- **OR** the app has `isOpenSource` set to `false`
+- **THEN** the card has `data-oss="false"`
 
 ### Requirement: Accessibility
 The filter interface SHALL be accessible to keyboard and screen reader users.

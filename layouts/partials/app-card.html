@@ -8,13 +8,15 @@
 {{ $screenshots := .screenshots }}
 {{ $repoUrl := .repoUrl }}
 {{ $isFree := .isFree }}
+{{/* isOpenSource: if not set and repoUrl exists, default to true */}}
+{{ $isOpenSource := and $repoUrl (ne .isOpenSource false) }}
 
 {{/* Build full path to thumbnail */}}
 {{ $thumbnailPath := printf "apps/%s/%s" $appId $screenshots.thumbnail }}
 {{ $thumbnail := resources.Get $thumbnailPath }}
 
 {{/* Fetch last updated date */}}
-{{ $lastUpdatedData := partial "last-updated.html" (dict "repoUrl" $repoUrl "platforms" $platforms) }}
+{{ $lastUpdatedData := partial "last-updated.html" (dict "appId" $appId "repoUrl" $repoUrl "platforms" $platforms) }}
 {{ $lastUpdated := $lastUpdatedData.display }}
 {{ $lastUpdatedAttr := $lastUpdatedData.attr }}
 
@@ -33,9 +35,9 @@
 
 {{ $apiLower := lower $api }}
 
-{{ $ossAttr := cond $repoUrl "true" "false" }}
+{{ $ossAttr := cond $isOpenSource "true" "false" }}
 {{/* Open source apps are automatically considered free */}}
-{{ $isActuallyFree := or $isFree $repoUrl }}
+{{ $isActuallyFree := or $isFree $isOpenSource }}
 {{ $freeAttr := cond $isActuallyFree "true" "false" }}
 
 {{ $keywords := default (slice) .keywords }}
@@ -62,15 +64,52 @@
     <div class="app-header">
       <h3 class="app-name">
         <a href="{{ $url }}" target="_blank" rel="noopener">{{ $name }}</a>
-        {{ if $repoUrl }}
-          <a href="{{ $repoUrl }}" target="_blank" rel="noopener" class="app-oss-badge" title="Open Source">
-            <i class="fab fa-github"></i>
+        {{ if $isOpenSource }}
+          {{ $badgeStyle := "style=flat&logoColor=white&labelColor=555&color=888" }}
+          {{/* Detect owner/repo from a GitHub or GitLab URL. Deep links (subpaths) fall back to a generic Open Source pill. */}}
+          {{ $ghPath := "" }}
+          {{ $glPath := "" }}
+          {{ if hasPrefix $repoUrl "https://github.com/" }}
+            {{ $trimmed := $repoUrl | strings.TrimPrefix "https://github.com/" | strings.TrimSuffix "/" }}
+            {{ if eq (len (split $trimmed "/")) 2 }}
+              {{ $ghPath = $trimmed }}
+            {{ end }}
+          {{ else if hasPrefix $repoUrl "https://gitlab.com/" }}
+            {{ $trimmed := $repoUrl | strings.TrimPrefix "https://gitlab.com/" | strings.TrimSuffix "/" }}
+            {{ if eq (len (split $trimmed "/")) 2 }}
+              {{ $glPath = $trimmed }}
+            {{ end }}
+          {{ end }}
+          <a href="{{ $repoUrl }}" target="_blank" rel="noopener" class="app-oss-badge" title="Open Source - View repository">
+            {{ $badgeUrl := "" }}
+            {{ if $ghPath }}
+              {{ $badgeUrl = printf "https://img.shields.io/github/stars/%s?logo=github&%s&label=&cacheSeconds=7200" $ghPath $badgeStyle }}
+            {{ else if $glPath }}
+              {{ $encodedPath := $glPath | replaceRE "/" "%2F" }}
+              {{ $badgeUrl = printf "https://img.shields.io/gitlab/stars/%s?logo=gitlab&%s&label=&cacheSeconds=7200" $encodedPath $badgeStyle }}
+            {{ end }}
+            {{ if $badgeUrl }}
+              {{ $badge := "" }}
+              {{ with try (resources.GetRemote $badgeUrl) }}
+                {{ with .Err }}
+                  {{/* fetch failed — fall through to pill */}}
+                {{ else }}
+                  {{ $badge = .Value }}
+                {{ end }}
+              {{ end }}
+              {{ with $badge }}
+                <img src="{{ .RelPermalink }}" alt="Stars" loading="lazy">
+              {{ else }}
+                <span class="app-oss-pill"><span class="app-oss-pill-icon"><i class="fab fa-osi"></i></span><span class="app-oss-pill-label">Open Source</span></span>
+              {{ end }}
+            {{ else }}
+              <span class="app-oss-pill"><span class="app-oss-pill-icon"><i class="fab fa-osi"></i></span><span class="app-oss-pill-label">Open Source</span></span>
+            {{ end }}
           </a>
         {{ end }}
-        {{/* Show free badge only if free but not open source (to avoid redundancy) */}}
-        {{ if and $isActuallyFree (not $repoUrl) }}
-          <span class="app-free-badge" title="Free">
-            <i class="fas fa-tag"></i>
+        {{ if not $isActuallyFree }}
+          <span class="app-paid-badge" title="Paid">
+            <span class="app-paid-pill"><i class="fas fa-dollar-sign"></i>Paid</span>
           </span>
         {{ end }}
       </h3>
@@ -143,6 +182,15 @@
             </a>
           {{ else }}
             <span title="Docker"><i class="fab fa-docker"></i></span>
+          {{ end }}
+        {{ end }}
+        {{ if $platforms.other }}
+          {{ if and (ne (printf "%T" $platforms.other) "bool") (isset $platforms.other "store") }}
+            <a href="{{ $platforms.other.store }}" target="_blank" rel="noopener" title="Other platforms">
+              <i class="fas fa-cube"></i>
+            </a>
+          {{ else }}
+            <span title="Other platforms"><i class="fas fa-cube"></i></span>
           {{ end }}
         {{ end }}
       </div>

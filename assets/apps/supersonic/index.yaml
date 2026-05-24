@@ -12,4 +12,11 @@ screenshots:
     - screen1.webp
     - screen2.webp
     - screen3.webp
+keywords:
+  - upnp
+  - gapless
+  - equalizer
+  - replaygain
+  - lyrics
+  - radio
 repoUrl: https://github.com/dweymouth/supersonic

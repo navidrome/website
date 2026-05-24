@@ -6,3 +6,6 @@ node_modules/
 .DS_Store
 .hugo_cache
 tmp/*
+!.claude
+.claude/settings.local.json
+AGENTS.md

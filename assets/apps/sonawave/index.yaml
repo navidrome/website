@@ -1,0 +1,18 @@
+name: SonaWave
+url: https://music.http5.cn/
+platforms:
+  other:
+    store: https://appgallery.huawei.com/app/detail?id=com.tlntin.sonawave&channelId=SHARE&source=appshare
+api: Navidrome
+description: "A smart music player designed for true music lovers(Supports HarmonyOS 5.0 and above only). Multi-language support (Simplified Chinese, Traditional Chinese, English)."
+screenshots:
+  thumbnail: thumbnail.webp
+  gallery:
+    - screen1.webp
+    - screen2.webp
+    - screen3.webp
+    - screen4.webp
+    - screen5.webp
+keywords:
+  - sonawave
+  - harmonyos navidrome client

@@ -1,13 +1,24 @@
-name: SubStreamer
-url: http://substreamerapp.com/
+name: Substreamer
+url: https://substreamer.org/
+repoUrl: https://github.com/ghenry22/substreamer
+isFree: true
 platforms:
   android:
     store: https://play.google.com/store/apps/details?id=com.ghenry22.substream2
   ios:
-    store: https://itunes.apple.com/us/app/substreamer/id1012991665
-api: Subsonic
-description: "A free, modern music streaming client with a clean layout consistent across Android and iOS. Features full offline caching, playlist creation, and a unique discovery feature that generates random playlists by genre or year."
+    store: https://apps.apple.com/us/app/substreamer/id1012991665
+api: OpenSubsonic
+description: "A free, open-source music streaming client for iOS and Android. Features offline downloads, 5-star ratings, scrobbling, listening analytics, playlist management, and configurable playback speed."
+keywords:
+  - offline
+  - scrobble
+  - analytics
+  - ratings
+  - favorites
+  - smart mixes
 screenshots:
-  thumbnail: thumbnail.webp
+  thumbnail: home.webp
   gallery:
-    - screen1.webp
+    - library.webp
+    - player.webp
+    - album_detail.webp

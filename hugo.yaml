@@ -43,8 +43,9 @@ permalinks:
 # Image processing configuration.
 imaging:
   resampleFilter: "CatmullRom"
-  quality: 75
-  anchor: "smart"
+  quality: 80
+  anchor: "Smart"
+  hint: "photo" # WebP encoding hint for better compression
 
 # Language configuration
 languages:
@@ -136,6 +137,8 @@ params:
     navbar_translucent_over_cover_disable: false
     # Enable to show the side bar menu in its compact state.
     sidebar_menu_compact: false
+    # Enable foldable menu (expand/collapse arrows on sidebar sections)
+    sidebar_menu_foldable: false
     # Set to true to hide the sidebar search box (the top nav search box will still be displayed if search is enabled)
     sidebar_search_disable: false
     # Set to true to enable the About link in the site footer
@@ -148,8 +151,8 @@ params:
     feedback:
       enable: true
       # The responses that the user sees after clicking "yes" (the page was helpful) or "no" (the page was not helpful).
-      yes: 'Glad to hear it! Please <a href="https://github.com/navidrome/website/issues/new">tell us how we can make it even better</a>.'
-      no: 'Sorry to hear that. Please <a href="https://github.com/navidrome/website/issues/new">tell us how we can improve</a>.'
+      yes: 'Glad to hear it! Please <a href="https://github.com/navidrome/website/issues/new?template=docs_feedback.yml">tell us how we can make this documentation even better</a>.'
+      no: 'Sorry to hear that. Please <a href="https://github.com/navidrome/website/issues/new?template=docs_issue.yml">tell us how we can improve this documentation</a>.'
 
     showLightDarkModeMenu: true
 
@@ -186,6 +189,13 @@ params:
         desc: "Want to thank the developer? Feel free to buy them a coffee ;)"
 
 # background credit: Photo by Travis Yewell on Unsplash
+
+# Cache configuration for remote resources (API calls)
+# maxAge: duration before cache expires (e.g., "1h", "24h", "7d")
+# -1 = never expires, 0 = disabled
+caches:
+  getresource:
+    maxAge: "20h"
 
 # hugo module configuration
 module:

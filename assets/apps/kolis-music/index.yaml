@@ -1,0 +1,13 @@
+name: Kolis-Music
+url: https://kolismusic.pages.dev/
+platforms:
+  ios:
+    store: https://apps.apple.com/us/app/kolis-music/id6757459478
+  macos: true
+api: Subsonic
+description: "Connect to your private library and enjoy your music on the go with Kolis-Music, a sleek and user-friendly Subsonic client for iOS and macOS. With features like gapless playback, automatic caching, offline mode, synced lyrics, CarPlay support, and seeking in transcoded files, Kolis-Music offers a seamless listening experience for music lovers."
+screenshots:
+  thumbnail: thumbnail.webp
+  gallery:
+    - screen1.webp
+    - screen2.webp

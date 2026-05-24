@@ -1,0 +1,26 @@
+name: NaviBeat
+url: https://navibeat.app
+platforms:
+  ios:
+    store: https://apps.apple.com/app/navibeat/id6763518834
+  macos:
+    store: https://apps.apple.com/app/navibeat/id6763518834?platform=mac
+  tvos:
+    store: https://apps.apple.com/app/navibeat/id6763518834
+api: OpenSubsonic
+description: "A native Apple-ecosystem player for Subsonic, OpenSubsonic, and Navidrome: iPhone, iPad, Mac, Apple TV, and Apple Watch all from one Universal Purchase. Time-synced lyrics, Mini Player on Mac with pin-on-top, full focus engine on Apple TV, offline downloads, gapless playback, and AirPlay throughout."
+screenshots:
+  thumbnail: thumbnail.webp
+  gallery:
+    - screen1.webp
+    - screen2.webp
+    - screen3.webp
+    - screen4.webp
+    - screen5.webp
+keywords:
+  - swiftui
+  - apple-tv
+  - mini-player
+  - lyrics
+  - universal-purchase
+  - offline

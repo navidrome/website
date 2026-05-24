@@ -12,7 +12,7 @@ Want to list your app in the [Compatible Client Apps](/apps/) catalog? This guid
 
 - Your app must support the [OpenSubsonic](https://opensubsonic.netlify.app/), [Subsonic](https://subsonic.org/pages/api.jsp), or Navidrome API
 - You'll need a GitHub account to submit a pull request
-- Images should be in WebP, PNG, or JPEG format
+- Images must be in WebP format, max 1200px (PNG/JPEG needs to be [converted](https://www.navidrome.org/docs/developers/adding-apps/#processing-images))
 
 ## Quick Start
 
@@ -20,7 +20,15 @@ Want to list your app in the [Compatible Client Apps](/apps/) catalog? This guid
 2. Create a folder for your app in `assets/apps/` using kebab-case (e.g., `my-awesome-app`)
 3. Add an `index.yaml` file with your app's metadata
 4. Add a thumbnail image and optional gallery screenshots
-5. Submit a pull request
+5. Convert (or resize) images if needed:
+    ```bash
+    npm run convert:images my-awesome-app
+    ```
+6. Validate your entry using the provided scripts:
+    ```bash
+    npm run validate:app my-awesome-app
+    ```
+7. Submit a pull request
 
 ## Folder Structure
 
@@ -48,17 +56,30 @@ Use the template at [`assets/apps/_template/index.yaml`](https://github.com/navi
 | `platforms`             | At least one platform (see below)                         |
 | `api`                   | Supported API: `OpenSubsonic`, `Subsonic`, or `Navidrome` |
 | `description`           | Brief description (1-2 sentences)                         |
-| `screenshots.thumbnail` | Filename of thumbnail image                               |
+| `screenshots.thumbnail` | Filename of thumbnail image (must NOT be a logo)          |
 
 ### Optional Fields
 
 | Field                 | Description                                                 |
 |-----------------------|-------------------------------------------------------------|
-| `repoUrl`             | GitHub repository URL (displays an open source badge)       |
+| `repoUrl`             | Repository URL (GitHub, GitLab) - used for release date tracking |
+| `isOpenSource`        | Whether the source code is publicly available (see below)   |
 | `isFree`              | Whether the app is free (no purchase required) - boolean    |
 | `keywords`            | Additional search terms (max 6) - not displayed on app card |
 | `screenshots.gallery` | Array of additional screenshot filenames                    |
 | `platforms.*.store`   | Platform-specific store URLs                                |
+
+### Open Source vs Repository URL
+
+The `repoUrl` field is used to fetch the app's last release date. If your app has a GitHub or GitLab repository, include it for accurate "last updated" information.
+
+The `isOpenSource` field controls whether the app displays an open source badge and appears in the "Open Source Only" filter:
+
+- If `repoUrl` is set and `isOpenSource` is **omitted** → app is treated as open source (default)
+- If `repoUrl` is set and `isOpenSource` is **`false`** → app is NOT treated as open source
+- If `repoUrl` is not set → app is NOT treated as open source (regardless of `isOpenSource`)
+
+**Use `isOpenSource: false`** when your app has a GitHub/GitLab repository for releases or issue tracking, but the source code is not publicly available under an open source license.
 
 ### Supported Platforms
 
@@ -76,7 +97,8 @@ Use the template at [`assets/apps/_template/index.yaml`](https://github.com/navi
 ```yaml
 name: My Music App
 url: https://example.com/my-app
-repoUrl: https://github.com/example/my-app  # Optional - shows OSS badge
+repoUrl: https://github.com/example/my-app  # Optional - used for release tracking
+# isOpenSource: false  # Uncomment if repo exists but source code is not public
 
 platforms:
   android:
@@ -91,6 +113,7 @@ api: OpenSubsonic
 description: A beautiful music player with offline support and gapless playback.
 
 screenshots:
+  # This is the image shown in the main catalog page. Must not be a logo or icon
   thumbnail: thumbnail.webp
   gallery:
     - screen1.webp
@@ -109,13 +132,13 @@ keywords:
 
 - **Max size**: 1200×1200px
 - **Aspect ratio**: Square preferred
-- **Format**: WebP (PNG/JPEG will be converted)
+- **Format**: WebP (PNG/JPEG needs to be converted)
 
 ### Gallery Images (Optional)
 
 - **Max size**: 1200×1200px
 - **Aspect ratio**: Any
-- **Format**: WebP (PNG/JPEG will be converted)
+- **Format**: WebP (PNG/JPEG needs to be converted)
 - **File size**: Keep under 500KB per image
 
 ### Processing Images

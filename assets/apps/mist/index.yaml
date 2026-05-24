@@ -1,0 +1,16 @@
+name: Mist
+description: "A modern, desktop-focused web client for OpenSubsonic-compatible music servers."
+url: https://github.com/Kusefiru/Mist
+repoUrl: https://github.com/Kusefiru/Mist
+
+platforms:
+  web: true
+  docker: true
+
+api: OpenSubsonic
+
+screenshots:
+  thumbnail: thumbnail.webp
+  gallery:
+    - screen1.webp
+    - screen2.webp

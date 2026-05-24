@@ -1,0 +1,27 @@
+name: Aura
+url: https://github.com/darkw3bb/aura
+repoUrl: https://github.com/darkw3bb/aura
+
+platforms:
+  macos: true
+  windows: true
+  linux: true
+
+api: Subsonic
+
+description: "A blazingly fast, lightweight desktop music player for Navidrome and Subsonic-compatible servers. Native Rust audio engine, instant full-text search, OS media controls, and a tiny memory footprint."
+
+isFree: true
+
+screenshots:
+  thumbnail: thumbnail.webp
+  gallery:
+    - screen1.webp
+    - screen2.webp
+
+keywords:
+  - tauri
+  - native
+  - keyboard
+  - lightweight
+  - rust

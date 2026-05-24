@@ -1,0 +1,36 @@
+name: Firmium
+
+url: https://github.com/fossisawesome/firmium/blob/main/README.md
+
+repoUrl: https://github.com/fossisawesome/firmium
+
+platforms:
+  android: false
+  ios: false
+  macos: false
+  windows: false
+  linux: true
+  web: false
+  docker: false
+  other: false
+
+api: OpenSubsonic
+
+description: "A lightweight - fast - stable OpenSubsonic client bulit on Tauri!"
+
+screenshots:
+  thumbnail: album.webp
+  gallery:
+    - lyrics.webp
+    - artist.webp
+    - search.webp
+    - settings.webp
+
+isFree: true
+
+keywords:
+  - fast
+  - desktop
+  - lightweight
+  - foss
+  - lyrics

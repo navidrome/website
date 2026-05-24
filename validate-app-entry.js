@@ -204,6 +204,28 @@ class AppValidator {
           return;
         }
 
+        // Retry with GET if server doesn't support HEAD
+        if (res.statusCode === 405 && options.method === "HEAD") {
+          const retryOptions = { ...options, method: "GET" };
+          const retryReq = protocol.request(url, retryOptions, (retryRes) => {
+            retryRes.resume();
+            if (retryRes.statusCode >= 400) {
+              this.addWarning(
+                `${description} returned status ${retryRes.statusCode}: ${url}`
+              );
+            }
+            resolve();
+          });
+          retryReq.setTimeout(timeout, () => {
+            retryReq.destroy();
+            this.addWarning(`${description} request timed out: ${url}`);
+            resolve();
+          });
+          retryReq.on("error", () => resolve());
+          retryReq.end();
+          return;
+        }
+
         if (res.statusCode >= 400) {
           this.addWarning(
             `${description} returned status ${res.statusCode}: ${url}`

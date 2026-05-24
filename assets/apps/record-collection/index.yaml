@@ -1,0 +1,21 @@
+name: Record Collection
+url: https://recordcollection.netlify.app
+repoUrl: https://github.com/cj88-commits/record-collection
+isOpenSource: true
+platforms:
+  android: true
+api: OpenSubsonic
+description: An album-first Navidrome/Subsonic client for Android with offline playback and download support.
+keywords:
+  - offline
+  - downloads
+  - album
+  - android
+  - subsonic
+screenshots:
+  thumbnail: thumbnail.webp
+  gallery:
+    - screenshot1.webp
+    - screenshot2.webp
+    - screenshot3.webp
+    - screenshot4.webp

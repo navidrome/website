@@ -1,0 +1,38 @@
+name: Vibrdrome
+
+url: https://vibrdrome.io
+
+repoUrl: https://github.com/ddmoney420/vibrdrome
+
+platforms:
+  ios:
+    store: https://testflight.apple.com/join/R6HaQkN5
+  android:
+    store: https://github.com/ddmoney420/vibrdrome-android/releases
+  macos: true
+  web:
+    url: https://web.vibrdrome.io
+  docker:
+    store: https://hub.docker.com/r/ddmoney420/vibrdrome-web
+
+api: Subsonic
+
+description: "Native music player for iOS, Android, and web. Gapless playback, 10-band EQ, audio-reactive visualizers, synced lyrics, CarPlay/Android Auto, offline downloads, customizable library, and multi-server support."
+
+screenshots:
+  thumbnail: thumbnail.webp
+  gallery:
+    - ios-library.webp
+    - ios-player.webp
+    - android-player.webp
+    - web-library.webp
+
+isFree: true
+
+keywords:
+  - carplay
+  - android auto
+  - visualizer
+  - offline
+  - equalizer
+  - lyrics

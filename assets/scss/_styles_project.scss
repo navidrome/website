@@ -218,20 +218,90 @@
     font-size: 0.875rem;
     color: var(--bs-secondary);
     margin-left: 0.5rem;
+    vertical-align: middle;
 
     &:hover {
       color: var(--bs-primary);
     }
+
+    img {
+      height: 1.25rem;
+      vertical-align: middle;
+      display: inline-block;
+      transform: translateY(-3px);
+    }
+
+    // Simulates shields.io badge look for non-GitHub/GitLab repos
+    .app-oss-pill {
+      display: inline-flex;
+      align-items: center;
+      height: 1.25rem;
+      border-radius: 3px;
+      overflow: hidden;
+      vertical-align: middle;
+      transform: translateY(-3px);
+      font-family: Verdana, Geneva, DejaVu Sans, sans-serif;
+
+      .app-oss-pill-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        width: 1.5rem;
+        background-color: #555;
+
+        i.fab {
+          font-size: 0.875rem;
+          color: #fff;
+          line-height: 1;
+        }
+      }
+
+      .app-oss-pill-label {
+        display: inline-flex;
+        align-items: center;
+        height: 100%;
+        padding: 0 0.4rem;
+        background-color: #888;
+        color: #fff;
+        font-size: 0.6875rem;
+        font-weight: 600;
+      }
+    }
+
+    &:hover .app-oss-pill {
+      .app-oss-pill-icon { background-color: #666; }
+      .app-oss-pill-label { background-color: #999; }
+    }
   }
 
-  .app-free-badge {
-    font-size: 0.875rem;
-    color: #28a745; // Green for free
+  .app-paid-badge {
     margin-left: 0.5rem;
     cursor: help;
+    vertical-align: middle;
 
-    [data-bs-theme="dark"] & {
-      color: #4ade80; // Lighter green for dark mode
+    .app-paid-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      height: 1.25rem;
+      padding: 0 0.4rem;
+      background-color: #dc3545;
+      color: #fff;
+      border-radius: 3px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      vertical-align: middle;
+      transform: translateY(-3px);
+
+      i.fas {
+        font-size: 0.75rem;
+      }
+    }
+
+    [data-bs-theme="dark"] & .app-paid-pill {
+      background-color: #b02a37;
+      color: #fff;
     }
   }
 }

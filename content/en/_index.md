@@ -40,7 +40,7 @@ Lightweight, fast and self-contained. Runs well even on resource-limited platfor
 Plays well with gigantic music collections (tested with ~900K songs - 2/3 FLAC, 1/3 MP3)
 {{% /blocks/feature %}}
 
-{{% blocks/feature icon="fa-folder-tree" title="Multi-library support!" url="/docs/usage/multi-library/" %}}
+{{% blocks/feature icon="fa-folder-tree" title="Multi-library support!" url="/docs/usage/features/multi-library/" %}}
 Organize your music into separate libraries with user-specific access controls (music vs. audiobooks, family vs. personal)
 {{% /blocks/feature %}}
 

@@ -1,174 +1,173 @@
 name: Validate App Entries
 
 on:
-    pull_request:
-        paths:
-            - "assets/apps/*/**"
+  pull_request:
+    paths:
+      - "assets/apps/*/**"
 
 permissions:
-    contents: read
+  contents: read
 
 jobs:
-    validate-apps:
-        runs-on: ubuntu-latest
+  validate-apps:
+    runs-on: ubuntu-latest
 
-        steps:
-            - name: Checkout code
-              uses: actions/checkout@v6
-              with:
-                  fetch-depth: 0
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
 
-            - name: Setup Node.js
-              uses: actions/setup-node@v6
-              with:
-                  node-version: "20"
-                  cache: "npm"
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          cache: "npm"
 
-            - name: Install dependencies
-              run: npm ci
+      - name: Install dependencies
+        run: npm ci
 
-            - name: Detect changed app entries
-              id: detect
-              run: |
-                  # Get list of changed files in assets/apps/
-                  git diff --name-only origin/${{ github.base_ref }}...HEAD | grep '^assets/apps/' > changed_files.txt || true
+      - name: Detect changed app entries
+        id: detect
+        run: |
+          # Get list of changed files in assets/apps/
+          git diff --name-only origin/${{ github.base_ref }}...HEAD | grep '^assets/apps/' > changed_files.txt || true
 
-                  # Extract unique app names (excluding _template and non-directories)
-                  apps=$(cat changed_files.txt | sed 's|^assets/apps/||' | cut -d'/' -f1 | grep -v '^_template$' | sort -u)
+          # Extract unique app names (excluding _template and non-directories)
+          apps=$(cat changed_files.txt | sed 's|^assets/apps/||' | cut -d'/' -f1 | grep -v '^_template$' | sort -u)
 
-                  # Filter to only actual directories
-                  validated_apps=""
-                  for app in $apps; do
-                    if [ -d "assets/apps/$app" ]; then
-                      validated_apps="$validated_apps $app"
-                    fi
-                  done
+          # Filter to only actual directories
+          validated_apps=""
+          for app in $apps; do
+            if [ -d "assets/apps/$app" ]; then
+              validated_apps="$validated_apps $app"
+            fi
+          done
 
-                  # Trim whitespace
-                  validated_apps=$(echo "$validated_apps" | xargs)
+          # Trim whitespace
+          validated_apps=$(echo "$validated_apps" | xargs)
 
-                  if [ -z "$validated_apps" ]; then
-                    echo "No app entries to validate"
-                    echo "apps=" >> $GITHUB_OUTPUT
-                    exit 0
-                  fi
+          if [ -z "$validated_apps" ]; then
+            echo "No app entries to validate"
+            echo "apps=" >> $GITHUB_OUTPUT
+            exit 0
+          fi
 
-                  echo "Apps to validate:"
-                  echo "$validated_apps"
+          echo "Apps to validate:"
+          echo "$validated_apps"
 
-                  echo "apps=$validated_apps" >> $GITHUB_OUTPUT
+          echo "apps=$validated_apps" >> $GITHUB_OUTPUT
 
-            - name: Check image optimization
-              id: check-images
-              if: steps.detect.outputs.apps != ''
-              run: |
-                  apps="${{ steps.detect.outputs.apps }}"
+      - name: Check image optimization
+        id: check-images
+        if: steps.detect.outputs.apps != ''
+        run: |
+          apps="${{ steps.detect.outputs.apps }}"
 
-                  echo "Checking if images need optimization..."
+          echo "Checking if images need optimization..."
 
-                  # Run convert script on each app
-                  for app in $apps; do
-                    echo "Processing $app..."
-                    node convert-app-images.js "$app" || true
-                  done
+          # Run convert script on each app
+          for app in $apps; do
+            echo "Processing $app..."
+            node convert-app-images.js "$app" || true
+          done
 
-                  # Check if any files were modified
-                  if git diff --quiet; then
-                    echo "images_optimized=false" >> $GITHUB_OUTPUT
-                    echo "✅ All images are already optimized"
-                  else
-                    echo "images_optimized=true" >> $GITHUB_OUTPUT
-                    echo "modified_files<<EOF" >> $GITHUB_OUTPUT
-                    git diff --name-only >> $GITHUB_OUTPUT
-                    echo "EOF" >> $GITHUB_OUTPUT
-                    
-                    echo "❌ Images need optimization!"
-                    echo "Modified files:"
-                    git diff --name-only
-                  fi
+          # Check if any files were modified
+          if git diff --quiet; then
+            echo "images_optimized=false" >> $GITHUB_OUTPUT
+            echo "✅ All images are already optimized"
+          else
+            echo "images_optimized=true" >> $GITHUB_OUTPUT
+            echo "modified_files<<EOF" >> $GITHUB_OUTPUT
+            git diff --name-only >> $GITHUB_OUTPUT
+            echo "EOF" >> $GITHUB_OUTPUT
+            
+            echo "❌ Images need optimization!"
+            echo "Modified files:"
+            git diff --name-only
+          fi
 
-            - name: Fail if images not optimized
-              if: steps.check-images.outputs.images_optimized == 'true'
-              run: |
-                  echo "::error::Images need to be optimized. Please run 'node convert-app-images.js <app-name>' locally and commit the changes."
-                  echo ""
-                  echo "Modified files:"
-                  echo "${{ steps.check-images.outputs.modified_files }}"
-                  echo ""
-                  echo "To fix this, run the following command locally:"
-                  echo "  node convert-app-images.js <your-app-name>"
-                  echo ""
-                  echo "Then commit and push the optimized images."
-                  exit 1
+      - name: Fail if images not optimized
+        if: steps.check-images.outputs.images_optimized == 'true'
+        run: |
+          echo "::error::Images need to be optimized. Please run 'node convert-app-images.js <app-name>' locally and commit the changes."
+          echo ""
+          echo "Modified files:"
+          echo "${{ steps.check-images.outputs.modified_files }}"
+          echo ""
+          echo "To fix this, run the following command locally:"
+          echo "  node convert-app-images.js <your-app-name>"
+          echo ""
+          echo "Then commit and push the optimized images."
+          exit 1
 
-            - name: Validate apps
-              id: validate
-              if: steps.detect.outputs.apps != ''
-              run: |
-                  apps="${{ steps.detect.outputs.apps }}"
+      - name: Validate apps
+        id: validate
+        if: steps.detect.outputs.apps != ''
+        run: |
+          apps="${{ steps.detect.outputs.apps }}"
 
-                  # Create output file for validation results
-                  output_file="validation_results.txt"
-                  error_count=0
+          # Create output file for validation results
+          output_file="validation_results.txt"
+          error_count=0
 
-                  echo "# App Validation Results" > $output_file
-                  echo "" >> $output_file
-                  echo "**Validation run:** $(date -u '+%Y-%m-%d %H:%M:%S UTC')" >> $output_file
-                  echo "" >> $output_file
+          echo "# App Validation Results" > $output_file
+          echo "" >> $output_file
+          echo "**Validation run:** $(date -u '+%Y-%m-%d %H:%M:%S UTC')" >> $output_file
+          echo "" >> $output_file
 
-                  for app in $apps; do
-                    echo "---" >> $output_file
-                    echo "" >> $output_file
-                    echo "## Validating: \`$app\`" >> $output_file
-                    echo "" >> $output_file
-                    echo '```' >> $output_file
-                    
-                    # Run validation and capture output (--silent suppresses npm's own output)
-                    if npm run --silent validate:app $app >> $output_file 2>&1; then
-                      echo '```' >> $output_file
-                      echo "" >> $output_file
-                      echo "✅ **Validation passed**" >> $output_file
-                    else
-                      echo '```' >> $output_file
-                      echo "" >> $output_file
-                      echo "❌ **Validation failed**" >> $output_file
-                      error_count=$((error_count + 1))
-                    fi
-                    echo "" >> $output_file
-                  done
+          for app in $apps; do
+            echo "---" >> $output_file
+            echo "" >> $output_file
+            echo "## Validating: \`$app\`" >> $output_file
+            echo "" >> $output_file
+            echo '```' >> $output_file
+            
+            # Run validation and capture output (--silent suppresses npm's own output)
+            if npm run --silent validate:app $app >> $output_file 2>&1; then
+              echo '```' >> $output_file
+              echo "" >> $output_file
+              echo "✅ **Validation passed**" >> $output_file
+            else
+              echo '```' >> $output_file
+              echo "" >> $output_file
+              echo "❌ **Validation failed**" >> $output_file
+              error_count=$((error_count + 1))
+            fi
+            echo "" >> $output_file
+          done
 
-                  # Summary
-                  echo "---" >> $output_file
-                  echo "" >> $output_file
-                  if [ $error_count -eq 0 ]; then
-                    echo "## ✅ All validations passed!" >> $output_file
-                  else
-                    echo "## ❌ $error_count app(s) failed validation" >> $output_file
-                    echo "" >> $output_file
-                    echo "Please fix the errors above before merging." >> $output_file
-                  fi
+          # Summary
+          echo "---" >> $output_file
+          echo "" >> $output_file
+          if [ $error_count -eq 0 ]; then
+            echo "## ✅ All validations passed!" >> $output_file
+          else
+            echo "## ❌ $error_count app(s) failed validation" >> $output_file
+            echo "" >> $output_file
+            echo "Please fix the errors above before merging." >> $output_file
+          fi
 
-                  # Save error count for later steps
-                  echo "error_count=$error_count" >> $GITHUB_OUTPUT
+          # Save error count for later steps
+          echo "error_count=$error_count" >> $GITHUB_OUTPUT
 
-                  # Output the results to GitHub Actions log
-                  cat $output_file
+          # Output the results to GitHub Actions log
+          cat $output_file
 
-            - name: Upload validation results
-              if: steps.detect.outputs.apps != ''
-              uses: actions/upload-artifact@v5
-              with:
-                  name: validation-results
-                  path: validation_results.txt
-                  retention-days: 1
+      - name: Upload validation results
+        if: steps.detect.outputs.apps != ''
+        uses: actions/upload-artifact@v5
+        with:
+          name: validation-results
+          path: validation_results.txt
+          retention-days: 1
 
-            - name: Fail if validation errors
-              if: steps.validate.outputs.error_count != '0' && steps.validate.outputs.error_count != ''
-              run: |
-                  echo "::error::${{ steps.validate.outputs.error_count }} app(s) failed validation"
-                  exit 1
+      - name: Fail if validation errors
+        if: steps.validate.outputs.error_count != '0' && steps.validate.outputs.error_count != ''
+        run: |
+          echo "::error::${{ steps.validate.outputs.error_count }} app(s) failed validation"
+          exit 1
 
-            - name: No apps to validate
-              if: steps.detect.outputs.apps == ''
-              run: |
-                  echo "No app entries were modified in this PR"
+      - name: No apps to validate
+        if: steps.detect.outputs.apps == ''
+        run: |
+          echo "No app entries were modified in this PR"

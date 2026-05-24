@@ -1,6 +1,7 @@
 # Navidrome Website
 
-![Netlify Status](https://api.netlify.com/api/v1/badges/fc69beaf-8f79-41a0-9032-5dc4e9221acf/deploy-status)
+![Build](https://img.shields.io/github/actions/workflow/status/navidrome/website/prod-build-deploy.yml?branch=master&logo=github&style=flat-square)
+
 
 ## Running in a container locally
 

@@ -1,0 +1,26 @@
+name: Subwave
+url: https://ejahdev.github.io/subwavepage/
+
+platforms:
+  android:
+    store: https://play.google.com/store/apps/details?id=com.ejahdev.subwave
+
+api: Subsonic
+
+isFree: false
+
+description: An Android music player featuring stunning Milkdrop visualizations powered by ProjectM, external equalizer support, synced lyrics, offline caching, local file playback, dashboard listening activity overview, and more!
+
+screenshots:
+  thumbnail: screen1.webp
+  gallery:
+    - screen2.webp
+    - screen3.webp
+    - screen4.webp
+    - screen5.webp
+
+keywords:
+  - milkdrop
+  - visualizer
+  - projectm
+  - visualization

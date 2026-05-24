@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Navidrome Bug Reports & Feature Requests
+    url: https://github.com/navidrome/navidrome/issues/new/choose
+    about: To report bugs or request features for the Navidrome server, please use the main repository.
+  - name: Navidrome Feature Ideas & Discussions
+    url: https://github.com/navidrome/navidrome/discussions/categories/ideas
+    about: Share and discuss ideas for new Navidrome features.
+  - name: Navidrome Support / Q&A
+    url: https://github.com/navidrome/navidrome/discussions/categories/q-a
+    about: Ask questions and get help with Navidrome.

@@ -1,0 +1,16 @@
+name: Ferrosonic
+url: https://github.com/jaidaken/ferrosonic
+platforms:
+  linux: true
+api: Subsonic
+description: "A terminal-based Subsonic music client written in Rust, featuring bit-perfect audio with automatic PipeWire sample rate switching, gapless playback, MPRIS2 desktop media controls, and an integrated cava audio visualizer."
+screenshots:
+  thumbnail: thumbnail.webp
+repoUrl: https://github.com/jaidaken/ferrosonic
+isFree: true
+keywords:
+  - terminal
+  - rust
+  - pipewire
+  - bit-perfect
+  - mpris

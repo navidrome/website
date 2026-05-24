@@ -1,5 +1,7 @@
 name: Musiver
 url: https://music.aqzscn.cn/
+repoUrl: https://github.com/gitbobobo/StreamMusic
+isOpenSource: false
 platforms:
   android: true
   ios:

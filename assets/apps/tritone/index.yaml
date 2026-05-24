@@ -1,0 +1,21 @@
+name: Tritone
+url: https://tritone.dev
+repoUrl: https://github.com/Kyle8973/Tritone
+isOpenSource: true
+isFree: true
+platforms:
+  windows: true
+  linux: true
+api: OpenSubsonic
+description: A sleek, high-fidelity Subsonic music player built with Electron. Features a devilishly smooth UI with dynamic theming, real-time synchronized lyrics via LRCLIB, and smart playlist art generation. Includes Discord rich presence and a robust queue system for a premium listening experience.
+screenshots:
+  thumbnail: thumbnail.webp
+  gallery:
+    - screen1.webp
+    - screen2.webp
+    - screen3.webp
+keywords:
+  - devil
+  - lastfm
+  - cross-platform
+  - modern

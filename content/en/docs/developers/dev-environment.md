@@ -23,7 +23,7 @@ Keep in mind that the overall experience when using Docker Desktop for developme
 ### Unix-based systems (Linux, macOS, BSD, …)
 
 1. Install [GoLang 1.23+](https://golang.org/doc/install)
-2. Install [Node 20](http://nodejs.org/)
+2. Install [Node 24](http://nodejs.org/)
 3. Install [TagLib 2.0+](https://github.com/taglib/taglib/blob/master/INSTALL.md)
     - Arch Linux: `pacman -S taglib`
     - macOS: `brew install taglib --HEAD`
@@ -33,7 +33,7 @@ Keep in mind that the overall experience when using Docker Desktop for developme
 5. Clone the project from https://github.com/navidrome/navidrome
 6. Install development tools: `make setup`. This may take a while to complete
 7. Test installation: `make build`. This command should create a `navidrome` executable in the project's folder
-8. Create a `navidrome.toml` config file in the project's folder with ([at least](/docs/usage/configuration-options/#available-options)) the following options:
+8. Create a `navidrome.toml` config file in the project's folder with ([at least](/docs/usage/configuration/options/#available-options)) the following options:
 ```toml
 # Set your music folder, preferable a specific development music library with few songs,
 # to make scan fast

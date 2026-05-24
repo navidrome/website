@@ -36,7 +36,7 @@ The server is running on the inexpensive [PikaPods](https://www.pikapods.com/pod
 * 1 Core Processor
 * 512MB Memory
 * 10GB Disk Space
-* Approximate Cost: $2.27/month
+* Approximate Cost: $2.64/month
 
 [PikaPods](https://www.pikapods.com) has partnered with us to offer you an
 [officially supported, cloud-hosted solution](/docs/installation/managed/#pikapods).

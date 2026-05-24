@@ -1,0 +1,38 @@
+{{/*
+  Apple App Store Last Updated via iTunes Lookup API
+
+  Extracts the app ID from the store URL and queries the iTunes Lookup API
+  for the currentVersionReleaseDate.
+
+  Parameters:
+    - appId: App identifier (used for warning messages)
+    - storeUrl: Apple App Store URL (must contain /id<digits>)
+
+  Returns: YYYY-MM-DD formatted date string, or empty string if unavailable
+*/}}
+{{ $appId := .appId }}
+{{ $storeUrl := .storeUrl }}
+{{ $date := "" }}
+
+{{ if and $storeUrl (not (strings.Contains $storeUrl "testflight.apple.com")) }}
+    {{ $idPattern := `/id(\d+)` }}
+    {{ $idMatches := findRE $idPattern $storeUrl 1 }}
+    {{ if gt (len $idMatches) 0 }}
+        {{ $itunesId := replaceRE $idPattern "$1" (index $idMatches 0) }}
+        {{ $apiUrl := printf "https://itunes.apple.com/lookup?id=%s" $itunesId }}
+        {{ $apiResult := try (resources.GetRemote $apiUrl) }}
+        {{ with $apiResult.Err }}
+            {{ warnf "[last-updated] app=%s source=apple: failed to fetch iTunes API %s: %s" $appId $apiUrl . }}
+        {{ end }}
+        {{ with $apiResult.Value }}
+            {{ $json := .Content | transform.Unmarshal }}
+            {{ if and $json (gt (index $json "resultCount") 0) }}
+                {{ $app := index (index $json "results") 0 }}
+                {{ with index $app "currentVersionReleaseDate" }}
+                    {{ $date = substr (string .) 0 10 }}
+                {{ end }}
+            {{ end }}
+        {{ end }}
+    {{ end }}
+{{ end }}
+{{ return $date }}

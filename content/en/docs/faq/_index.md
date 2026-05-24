@@ -13,7 +13,8 @@ description: >
 
 While it is technically possible to add a browsing by folder option, doing so would require significant changes to
 Navidrome's internal structures across most of its components. We have decided to focus on features that align with
-our vision of a music server that emphasizes tags. Implementing folder browsing would not only be a major undertaking,
+our vision of a music server that emphasizes [tags](https://www.navidrome.org/docs/usage/library/tagging/#why-proper-tagging-is-important). 
+Implementing folder browsing would not only be a major undertaking,
 but it could also make supporting all of Navidrome's current and future features more difficult and error-prone.
 
 Here are a few situations where users might find folder browsing important, and how Navidrome addresses them:
@@ -22,9 +23,9 @@ Here are a few situations where users might find folder browsing important, and 
    you can browse by genres in Subsonic clients, and it will have a dedicated Genre view in the future.
    There is support for the multivalued `grouping` tag, (with a dedicated view coming in a future release as well).
 2. Separating different types of content (music vs. audiobooks, lossy vs. lossless): Navidrome now supports
-   [multi-library setups](/docs/usage/multi-library/) where you can create separate libraries with user-specific access controls.
+   [multi-library setups](/docs/usage/features/multi-library/) where you can create separate libraries with user-specific access controls.
 3. Having different releases for the same album: This will is already supported, and is configurable via the
-   [Persistent IDs](/docs/usage/pids/) feature. You can group albums by `musicbrainz_albumid`, `discogs_release_id`,
+   [Persistent IDs](/docs/usage/configuration/persistent-ids/) feature. You can group albums by `musicbrainz_albumid`, `discogs_release_id`,
    `folder`, or any other tag you want.
 4. Users who don't have their library tagged: **We explicitly do not support this**, as it would make it very difficult
    to support all features Navidrome has and will have. We do not want to have code that "infers" that a folder with
@@ -37,7 +38,8 @@ that offer this functionality. We encourage you to explore these options if fold
 
 ## ▶︎ I have an album with tracks by different artists, why is it broken up into lots of separate albums, each with their own artist?
 
-Navidrome only organises music by tags, it will not automatically group a folder containing a bunch of songs with different artists into one album.
+Navidrome only organises music by [tags](https://www.navidrome.org/docs/usage/library/tagging/#why-proper-tagging-is-important), 
+it will not automatically group a folder containing a bunch of songs with different artists into one album.
 
 For a "Various Artists" compilation, either all tracks must have the `Part Of Compilation` tag set (`TCMP=1` for id3, `COMPILATION=1` for FLAC/Vorbis/etc.), or all tracks must have their `Album Artist` tags set to the same value (like "Various Artists").
 
@@ -45,9 +47,9 @@ For a single-artist album with a different artist name for each track (for examp
 
 Additionally, all tracks in an album must be tagged with the same release date. Navidrome will use the `RELEASEDATE` tag (`TDRL` in id3) if present, and will fall back to the `DATE` (`TDAT`) tag otherwise.
 
-Also, take a look at the [Persistent IDs](/docs/usage/pids/) feature, which can help you group tracks that belong to
+Also, take a look at the [Persistent IDs](/docs/usage/configuration/persistent-ids/) feature, which can help you group tracks that belong to
 the same album, even if they have different artist. You can group tracks by `folder`, for example, by setting
-the configuration option `PID.Album="folder"`. Check the [PID documentation](/docs/usage/pids/) for more information.
+the configuration option `PID.Album="folder"`. Check the [PID documentation](/docs/usage/configuration/persistent-ids/) for more information.
 
 ---
 
@@ -68,7 +70,7 @@ Others: [mp3tag](https://www.mp3tag.de/en/index.html) (Windows, macOS), [ExifToo
 
 If you are new to organizing and tagging your library, take a look at this post about how to use Picard or beets with Navidrome: [Organizing music with Musicbrainz Picard](http://www.thedreaming.org/2020/11/22/musicbrainz-picard/)
 
-Don't forget to take a look at our [Tagging Guidelines](/docs/usage/tagging-guidelines/) to ensure your music library
+Don't forget to take a look at our [Tagging Guidelines](/docs/usage/library/tagging/) to ensure your music library
 is correctly tagged.
 
 ---
@@ -91,7 +93,7 @@ However, there are several excellent solutions you can use alongside Navidrome t
 
 **With Multi-Library Support:**
 
-Since Navidrome now supports [multi-library setups](/docs/usage/multi-library/), you can create a dedicated "Upload" library that automatically scans and makes available any new files you add. This workflow allows you to:
+Since Navidrome now supports [multi-library setups](/docs/usage/features/multi-library/), you can create a dedicated "Upload" library that automatically scans and makes available any new files you add. This workflow allows you to:
 
 - Set up a separate upload directory with its own library
 - Use any of the upload solutions above to add files to this directory
@@ -127,15 +129,15 @@ Some examples bellow:
 
 If you have AAC/M4A files where multi-valued tags like `ARTISTS`, `ALBUMARTISTS`, or `COMPOSER` are not being read correctly by Navidrome (showing only one artist instead of multiple), this is likely due to how some tagging applications write these tags.
 
-**The Problem**: Some tag editors (including MP3Tag) may create duplicate "atoms" (metadata containers) when writing multi-valued tags to AAC/M4A files, rather than storing multiple values within a single atom. TagLib (the library Navidrome uses to read metadata) ignores duplicate atoms by design and only reads the first occurrence, causing the additional values to be lost.
+**The Problem**: Some tag editors may create duplicate "atoms" (metadata containers) when writing multi-valued tags to AAC/M4A files, rather than storing multiple values within a single atom. TagLib (the library Navidrome uses to read metadata) ignores duplicate atoms by design and only reads the first occurrence, causing the additional values to be lost.
 
-**The Workaround**: Re-save your files using MusicBrainz Picard:
+**The Workaround**: Re-save your files using MusicBrainz Picard or Mp3tag:
 
-1. Open the affected files in MusicBrainz Picard
-2. Without making any changes to the tags, simply save the files again
-3. Picard will consolidate the duplicate atoms into properly formatted multi-valued tags
-4. Rescan your library in Navidrome
-
+1. Open the affected files in MusicBrainz Picard or Mp3tag
+2. If you're using Mp3tag, ensure that *Use single MP4 atom for multiple values* is enabled at *File → Options → Tags → Advanced*
+3. Without making any changes to the tags, simply save the files again
+4. Picard or Mp3tag will consolidate the duplicate atoms into properly formatted multi-valued tags
+5. Rescan your library in Navidrome
 Check Picard's configuration to make sure it preserves all your existing tag data while fixing the underlying storage format issue.
 
 **Prevention**: When tagging new AAC/M4A files, using MusicBrainz Picard consistently should avoid this issue. If you prefer other tag editors, test a few files to ensure multi-valued tags display correctly in Navidrome before batch-processing your entire library.

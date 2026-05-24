@@ -111,7 +111,19 @@
             }
           ]
         },
-        "other": { "type": "boolean" }
+        "other": {
+          "oneOf": [
+            { "type": "boolean" },
+            {
+              "type": "object",
+              "required": ["store"],
+              "properties": {
+                "store": { "type": "string", "format": "uri" }
+              },
+              "additionalProperties": false
+            }
+          ]
+        }
       },
       "additionalProperties": false
     },
@@ -146,7 +158,12 @@
     },
     "repoUrl": {
       "type": "string",
-      "format": "uri"
+      "format": "uri",
+      "description": "Repository URL (GitHub, GitLab, etc.) for release tracking"
+    },
+    "isOpenSource": {
+      "type": "boolean",
+      "description": "Whether the app source code is publicly available under an open source license. If repoUrl is set and isOpenSource is omitted, defaults to true."
     },
     "isFree": {
       "type": "boolean",
