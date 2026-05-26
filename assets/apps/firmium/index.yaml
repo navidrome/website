@@ -8,7 +8,7 @@ platforms:
   android: false
   ios: false
   macos: false
-  windows: false
+  windows: true
   linux: true
   web: false
   docker: false
@@ -16,12 +16,11 @@ platforms:
 
 api: OpenSubsonic
 
-description: "A lightweight - fast - stable OpenSubsonic client bulit on Tauri!"
+description: "Modern. Fast. Simple. Thats what Firmium is. Built with Tauri, and Svelte this app is lightweight, easy to work with, and pretty. Bulit with a security-first mindset - your passwords, tokens, keys, are all saved to your systems keyring. It features - synced lyrics with LrcLIB - gapless playback and crossfade - 10+ color themes, plus more to come."
 
 screenshots:
-  thumbnail: album.webp
+  thumbnail: homepage.webp
   gallery:
-    - lyrics.webp
     - artist.webp
     - search.webp
     - settings.webp
