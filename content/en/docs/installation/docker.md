@@ -65,4 +65,4 @@ When running Navidrome on Docker Desktop for macOS, using a host bind mount for 
 
 This appears to be related to the filesystem translation layer between macOS (APFS) and the Linux filesystem used inside the Docker VM (via VirtioFS / shared file systems). Under heavy or frequent disk activity (e.g. SQLite writes or library scanning), some users have reported instability or I/O errors.
 
-A more reliable alternative on macOS is to use a Docker-managed volume for `/data`
+A more reliable alternative on macOS is to use a Docker-managed volumes.
