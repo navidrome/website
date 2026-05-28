@@ -5,7 +5,7 @@ url: https://github.com/fossisawesome/firmium/blob/main/README.md
 repoUrl: https://github.com/fossisawesome/firmium
 
 platforms:
-  android: false
+  android: true
   ios: false
   macos: false
   windows: true
