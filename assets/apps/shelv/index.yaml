@@ -2,7 +2,7 @@ name: Shelv
 url: https://github.com/gatzenga/Shelv
 platforms:
   ios:
-    store: https://testflight.apple.com/join/5y4tN6NB
+    store: https://apps.apple.com/us/app/shelv-player/id6762255865
   macos:
     store: https://testflight.apple.com/join/6FMa77Ks
 api: Subsonic
