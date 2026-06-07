@@ -19,7 +19,7 @@ solutions**[\*](/docs/faq/#-can-i-run-navidrome-in-the-cloud-without-managing-my
 Offers 1-click deployments for Navidrome with $5 free welcome credit. EU and US regions available.
 Includes daily backups and regular app updates.
 
-[![Run on PikaPods](https://www.pikapods.com/static/run-button.svg)](https://www.pikapods.com/pods?run=navidrome)
+<a href="https://www.pikapods.com/pods?run=navidrome"><img height="40" src="https://www.pikapods.com/static/run-button.svg" alt="Run on PikaPods"></a>
 
 ### DANIAN
 
@@ -27,4 +27,4 @@ Offers 1-click deployments for Navidrome with a 7-day free trial — no credit c
 21 worldwide regions available. Includes automated security, daily backups, updates, monitoring,
 and excellent customer support.
 
-[![Deploy on DANIAN](/logos/danian-button.png)](https://danian.co/navidrome?nd)
+<a href="https://danian.co/navidrome?nd"><img height="40" src="/logos/danian-button.png" alt="Deploy on DANIAN"></a>
