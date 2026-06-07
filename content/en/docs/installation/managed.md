@@ -11,7 +11,7 @@ don't want to manage your own server.
 
 {{% pageinfo %}}
 The providers below have partnered with us to offer **officially supported, cloud-hosted
-solutions**[\*](/docs/faq/#which-cloud-providers-help-fund-the-project-with-a-revenue-share).
+solutions**[\*](/docs/faq/#-can-i-run-navidrome-in-the-cloud-without-managing-my-own-server).
 {{% /pageinfo %}}
 
 ### PikaPods
