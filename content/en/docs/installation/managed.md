@@ -27,4 +27,4 @@ Offers 1-click deployments for Navidrome with a 7-day free trial — no credit c
 21 worldwide regions available. Includes automated security, daily backups, updates, monitoring,
 and excellent customer support.
 
-<a href="https://danian.co/navidrome?nd"><img style="height:40px;width:auto" src="/logos/danian-button.png" alt="Deploy on DANIAN"></a>
+[Get started with Navidrome on DANIAN →](https://danian.co/navidrome?nd)
