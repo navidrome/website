@@ -150,7 +150,7 @@ This issue is specific to AAC/M4A files. Other formats like FLAC, MP3, and Ogg V
 
 Yes, there are several options for running Navidrome in the cloud:
 
-**Managed Hosting**: [PikaPods](https://www.pikapods.com) and [DANIAN](https://danian.co/navidrome?nd-faq) offer [officially supported, cloud-hosted solutions](/docs/installation/managed/) that support the project through revenue sharing.
+**Managed Hosting**: [PikaPods](https://www.pikapods.com) and [DANIAN](https://danian.co/navidrome?nd) offer [officially supported, cloud-hosted solutions](/docs/installation/managed/) that support the project through revenue sharing.
 
 **Self-Managed Cloud**: You can also deploy Navidrome on various cloud platforms like AWS, Google Cloud, DigitalOcean, or Linode using their VPS offerings. This gives you full control but requires managing the server yourself.
 
