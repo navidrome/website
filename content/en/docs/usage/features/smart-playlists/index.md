@@ -141,8 +141,11 @@ automatically detect and import these playlists.
 
 ### Visibility and Ownership
 
-- Visibility: To make a Smart Playlist accessible to all users, set it to 'public'. This is crucial if you want
-  to use it in another `.nsp` file (with `inPlaylist` and `notInPlaylist`).
+- Visibility: To make a Smart Playlist accessible to all users, set it to 'public'. When referencing a playlist
+  from another `.nsp` file (with `inPlaylist` and `notInPlaylist`), the playlist must be accessible to the smart
+  playlist's owner: owners can reference their own playlists (public or private), any user can reference public
+  playlists, and admins can reference any playlist. See [Referencing Other Playlists](#referencing-other-playlists)
+  for details.
 - Ownership: By default, Smart Playlists are owned by the first admin user. You can change the ownership in the
   Playlists view to allow other users to manage them.
 
@@ -176,7 +179,15 @@ If a Smart Playlist is not showing up in the Navidrome UI, check the following:
 ### Referencing Other Playlists
 
 When referencing another playlist (using the `inPlaylist` or `notInPlaylist` operators), ensure that the referenced
-playlist is not another Smart Playlist unless it is set to 'public'. This ensures proper functionality.
+playlist is accessible to the smart playlist's owner:
+
+- The owner can reference their own playlists, whether public or private.
+- Any user can reference playlists that are set to 'public'.
+- Admins can reference any playlist, regardless of owner or visibility.
+
+This applies whether the referenced playlist is a regular or another Smart Playlist. If the referenced playlist is
+not accessible, Navidrome logs a warning during the scan and the rule simply matches no tracks, rather than failing
+the whole playlist.
 
 ### Special Characters in Conditions
 
