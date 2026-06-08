@@ -9,10 +9,6 @@ aliases:
   - /docs/usage/sharing/
 ---
 
-{{< alert color="warning" title="NOTE" >}}
-Please be aware that the Sharing feature is still under active development, and improvements to the functionality are expected in future updates. Please report any issues or suggestions to the Navidrome GitHub issues page.
-{{</alert>}}
-
 Navidrome has a "Sharing" feature which allows users to generate a shareable link for a track, album, artist, or playlist. This link can then be sent to friends, allowing them to listen or download the music without having an account on your Navidrome instance.
 
 ### Enabling the Sharing Feature
