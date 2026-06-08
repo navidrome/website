@@ -354,3 +354,23 @@ Here's a complete example of a Smart Playlist that includes all tracks from anot
   "limit": 50
 }
 ```
+
+Alternatively, the `inPlaylist` and `notInPlaylist` operators can take a `path` argument, which can either be 
+absolute or relative to your playlist. This allows your smart playlists to be tranferrable between servers.
+
+```json
+{ "inPlaylist": { "id": "../other_playlist.nsp" } }
+```
+
+Here's an example of building a smart playlist out of multiple more focused playlists:
+
+```
+{
+  "name": "Overplayed Favorites",
+  "comment": "Most Played Favorites Played Within Last 4yr",
+  "public": true,
+  "any": [{ "inPlaylist": { "path": "most-played-favorites.nsp" } }],
+  "all": [{ "notInPlaylist": { "path": "favorites-not-played-in-4-yrs.nsp" } }],
+  "sort": "playCount, lastPlayed"
+}
+```
