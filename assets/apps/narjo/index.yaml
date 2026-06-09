@@ -2,9 +2,14 @@ name: Narjo
 url: https://narjomusic.com/
 platforms:
   ios:
-    store: https://testflight.apple.com/join/b6Vx67Cm
-api: OpenSubsonic
-description: "A feature-rich iOS client for Navidrome with support for Emby, advanced caching options, lyrics display, crossfade/gapless playback, and extensive customization including widgets, CarPlay, UPNP/Sonos support, and smart playlists."
+    store: https://apps.apple.com/us/app/narjo/id6748359006
+api: Navidrome
+description: "A feature-rich iOS music player for Navidrome and other Subsonic, Jellyfin, Emby and Plex servers. Supports lossless playback, gapless/crossfade, ReplayGain, real-time synced lyrics with translation, a 10-band EQ, offline downloads, CarPlay, widgets, smart playlists, and secure connections via mTLS and client certificates."
 screenshots:
-  thumbnail: thumbnail.webp
+  thumbnail: screen1.webp
+  gallery:
+    - screen2.webp
+    - screen3.webp
+    - screen4.webp
+    - screen5.webp
 isFree: true
