@@ -5,7 +5,7 @@ isOpenSource: false
 isFree: true
 platforms:
   ios:
-    store: https://testflight.apple.com/join/LDWqgjAs
+    store: https://apps.apple.com/us/app/arpeggi/id6503619183
 api: OpenSubsonic
 description: "Arpeggi is a fast, lightweight iOS/iPadOS 17+ OpenSubsonic client built with SwiftUI. Features include Replaygain, gapless and continuous playback, MP3/OPUS transcoding, offline playback, customisable home screens and player view, and support for multiple music folders. Currently in TestFlight."
 screenshots:
