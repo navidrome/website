@@ -1,22 +1,15 @@
 name: Sonora
-url: https://apps.apple.com/us/app/sonora-navidrome-client/id6760624152
-repoUrl: https://github.com/GrantM28/Sonora
+url: https://sonora.gmadi.me
 isOpenSource: false
 isFree: true
 platforms:
   ios:
     store: https://apps.apple.com/us/app/sonora-navidrome-client/id6760624152
 api: Navidrome
-description: "Sonora is a sleek and lightweight iOS client for Navidrome. Designed to bring a modern, native experience to your personal music collection. Sonora offers offline listening, full CarPlay support, and a beautiful interface that makes it easy to enjoy your music on the go. With Sonora, you can seamlessly sync your music library, create playlists, and listen to your favorite tracks without any hassle. Whether you're at home or on the road, Sonora is the perfect companion for your Navidrome server."
-keywords: 
-  - Navidrome
-  - iOS
-  - Offline
-  - CarPlay
+description: "Sonora is a modern native iOS music player for Navidrome and Subsonic servers, designed to give self-hosted music collections a polished streaming-service experience. Stream, download, and rediscover your library with intelligent features like Roadtrip DJ, offline playback, CarPlay support, smart mixes, and seamless library syncing."
 screenshots:
-  thumbnail: iOS1.webp
+  thumbnail: iOS2.webp
   gallery:
-    - iOS2.webp
     - iOS3.webp
     - iOS4.webp
     - iOS5.webp
