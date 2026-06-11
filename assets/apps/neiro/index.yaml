@@ -8,3 +8,8 @@ description: "Apple Music-inspired Android client for OpenSubsonic/Navidrome wit
 isFree: true
 screenshots:
   thumbnail: thumbnail.webp
+  gallery:
+    - screen1.webp
+    - screen2.webp
+    - screen3.webp
+    - screen4.webp
