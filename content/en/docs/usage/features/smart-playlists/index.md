@@ -366,11 +366,6 @@ regardless of what that value is. They are supported for:
   and the [MusicBrainz ID fields](#musicbrainz-fields) (`mbz_album_id`, `mbz_album_artist_id`, `mbz_artist_id`,
   `mbz_recording_id`, `mbz_release_track_id`, `mbz_release_group_id`)
 
-{{< alert color="info" >}}
-In v0.62.x, `isMissing` and `isPresent` only support tag and role fields. Support for the regular fields listed
-above requires a newer version.
-{{</alert>}}
-
 Each takes a single field mapped to a boolean. The boolean inverts the check, so `isMissing` and `isPresent` are
 mirror images of each other:
 
