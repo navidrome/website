@@ -345,17 +345,31 @@ Here's a table of operators you can use in your Smart Playlists:
 | `notInTheLast`  | Not in the last          | Number of days                    |
 | `inPlaylist`    | In playlist              | Playlist condition (see below)    |
 | `notInPlaylist` | Not in playlist          | Playlist condition (see below)    |
-| `isMissing`     | Tag/role is absent       | Boolean (see below)               |
-| `isPresent`     | Tag/role is present      | Boolean (see below)               |
+| `isMissing`     | Field is absent or empty | Boolean (see below)               |
+| `isPresent`     | Field has a value        | Boolean (see below)               |
 
 The nature of the field determines the argument type. For example, `year` and `tracknumber` require a number,
 while `title` and `album` require a string.
 
 ### Checking for Missing or Present Tags
 
-The `isMissing` and `isPresent` operators let you match tracks based on whether a tag or role has any value at all,
-regardless of what that value is. They are only supported for **tag fields** (such as `genre`, `mood`, or any
-[custom tag](/docs/usage/configuration/custom-tags)) and **role fields** (such as `composer` or `conductor`).
+The `isMissing` and `isPresent` operators let you match tracks based on whether a field has any value at all,
+regardless of what that value is. They are supported for:
+
+- **Tag fields**, such as `genre`, `mood`, or any [custom tag](/docs/usage/configuration/custom-tags)
+- **Role fields**, such as `composer` or `conductor`
+- **Numeric fields** where Navidrome stores no value when the tag is absent: the ReplayGain fields
+  (`rgtrackgain`, `rgtrackpeak`, `rgalbumgain`, `rgalbumpeak`), `bpm`, and `bitdepth` (a missing bit depth
+  also matches lossy formats such as MP3, which have no bit depth)
+- **Text fields**, where an empty value also counts as missing: `album`, `comment`, `lyrics`, `catalognumber`,
+  `discsubtitle`, `albumcomment`, `explicitstatus`, `sorttitle`, `sortalbum`, `sortartist`, `sortalbumartist`,
+  and the [MusicBrainz ID fields](#musicbrainz-fields) (`mbz_album_id`, `mbz_album_artist_id`, `mbz_artist_id`,
+  `mbz_recording_id`, `mbz_release_track_id`, `mbz_release_group_id`)
+
+{{< alert color="info" >}}
+In v0.62.x, `isMissing` and `isPresent` only support tag and role fields. Support for the regular fields listed
+above requires a newer version.
+{{</alert>}}
 
 Each takes a single field mapped to a boolean. The boolean inverts the check, so `isMissing` and `isPresent` are
 mirror images of each other:
