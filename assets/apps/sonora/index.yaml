@@ -1,0 +1,15 @@
+name: Sonora
+url: https://sonora.gmadi.me
+isOpenSource: false
+isFree: true
+platforms:
+  ios:
+    store: https://apps.apple.com/us/app/sonora-navidrome-client/id6760624152
+api: Subsonic
+description: "Sonora is a modern native iOS music player for Navidrome and Subsonic servers, designed to give self-hosted music collections a polished streaming-service experience. Stream, download, and rediscover your library with intelligent features like Roadtrip DJ, offline playback, CarPlay support, smart mixes, and seamless library syncing."
+screenshots:
+  thumbnail: iOS2.webp
+  gallery:
+    - iOS3.webp
+    - iOS4.webp
+    - iOS5.webp

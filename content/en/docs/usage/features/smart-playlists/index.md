@@ -141,8 +141,11 @@ automatically detect and import these playlists.
 
 ### Visibility and Ownership
 
-- Visibility: To make a Smart Playlist accessible to all users, set it to 'public'. This is crucial if you want
-  to use it in another `.nsp` file (with `inPlaylist` and `notInPlaylist`).
+- Visibility: To make a Smart Playlist accessible to all users, set it to 'public'. When referencing a playlist
+  from another `.nsp` file (with `inPlaylist` and `notInPlaylist`), the playlist must be accessible to the smart
+  playlist's owner: owners can reference their own playlists (public or private), any user can reference public
+  playlists, and admins can reference any playlist. See [Referencing Other Playlists](#referencing-other-playlists)
+  for details.
 - Ownership: By default, Smart Playlists are owned by the first admin user. You can change the ownership in the
   Playlists view to allow other users to manage them.
 
@@ -176,7 +179,15 @@ If a Smart Playlist is not showing up in the Navidrome UI, check the following:
 ### Referencing Other Playlists
 
 When referencing another playlist (using the `inPlaylist` or `notInPlaylist` operators), ensure that the referenced
-playlist is not another Smart Playlist unless it is set to 'public'. This ensures proper functionality.
+playlist is accessible to the smart playlist's owner:
+
+- The owner can reference their own playlists, whether public or private.
+- Any user can reference playlists that are set to 'public'.
+- Admins can reference any playlist, regardless of owner or visibility.
+
+This applies whether the referenced playlist is a regular or another Smart Playlist. If the referenced playlist is
+not accessible, Navidrome logs a warning during the scan and the rule simply matches no tracks, rather than failing
+the whole playlist.
 
 ### Special Characters in Conditions
 
@@ -249,6 +260,10 @@ Here's a table of fields you can use in your Smart Playlists:
 | `samplerate`           | Sample rate                              |
 | `bpm`                  | Beats per minute                         |
 | `channels`             | Audio channels                           |
+| `rgtrackgain`          | ReplayGain track gain (dB)               |
+| `rgtrackpeak`          | ReplayGain track peak                    |
+| `rgalbumgain`          | ReplayGain album gain (dB)               |
+| `rgalbumpeak`          | ReplayGain album peak                    |
 | `loved`                | Track is loved                           |
 | `dateloved`            | Date track was loved                     |
 | `lastplayed`           | Date track was last played               |
@@ -283,7 +298,7 @@ Here's a table of fields you can use in your Smart Playlists:
 - Boolean fields: `hascoverart`, `compilation`, `missing`, `loved`, `albumloved`, `artistloved`.
 - `filepath` is relative to your music library folder. Ensure your paths are correctly specified without the `/music`
   prefix (or whatever value you set in `MusicFolder`).
-- Numeric fields like `library_id`, `year`, `tracknumber`, `discnumber`, `size`, `duration`, `bitrate`, `bitdepth`, `samplerate`, `bpm`, `channels`, `playcount`, `rating`, and `averagerating` support numeric comparisons (`gt`, `lt`, `inTheRange`, etc.).
+- Numeric fields like `library_id`, `year`, `tracknumber`, `discnumber`, `size`, `duration`, `bitrate`, `bitdepth`, `samplerate`, `bpm`, `channels`, `playcount`, `rating`, `averagerating`, and the ReplayGain fields (`rgtrackgain`, `rgtrackpeak`, `rgalbumgain`, `rgalbumpeak`) support numeric comparisons (`gt`, `lt`, `inTheRange`, etc.).
 - **Multi-Library**: Smart Playlists can include songs from multiple libraries if the user has access to them. Use the `library_id` field to filter songs from specific libraries.
 - **Album & Artist Fields**: Fields prefixed with `album` or `artist` (e.g., `albumrating`, `artistplaycount`) filter tracks based on their parent album or artist properties. This lets you create playlists like "tracks from highly-rated albums" or "tracks from frequently-played artists".
 
@@ -330,9 +345,32 @@ Here's a table of operators you can use in your Smart Playlists:
 | `notInTheLast`  | Not in the last          | Number of days                    |
 | `inPlaylist`    | In playlist              | Playlist condition (see below)    |
 | `notInPlaylist` | Not in playlist          | Playlist condition (see below)    |
+| `isMissing`     | Tag/role is absent       | Boolean (see below)               |
+| `isPresent`     | Tag/role is present      | Boolean (see below)               |
 
 The nature of the field determines the argument type. For example, `year` and `tracknumber` require a number,
 while `title` and `album` require a string.
+
+### Checking for Missing or Present Tags
+
+The `isMissing` and `isPresent` operators let you match tracks based on whether a tag or role has any value at all,
+regardless of what that value is. They are only supported for **tag fields** (such as `genre`, `mood`, or any
+[custom tag](/docs/usage/configuration/custom-tags)) and **role fields** (such as `composer` or `conductor`).
+
+Each takes a single field mapped to a boolean. The boolean inverts the check, so `isMissing` and `isPresent` are
+mirror images of each other:
+
+```json
+{ "all": [{ "isMissing": { "genre": true } }] }
+```
+
+The example above matches tracks that have no `genre` tag. The following all describe the opposite condition
+(tracks that *do* have a `genre` tag):
+
+```json
+{ "isMissing": { "genre": false } }
+{ "isPresent": { "genre": true } }
+```
 
 The `inPlaylist` and `notInPlaylist` operators take a condition object with the playlist's `id`:
 
@@ -352,5 +390,25 @@ Here's a complete example of a Smart Playlist that includes all tracks from anot
   "all": [{ "inPlaylist": { "id": "dVX0hgcj4JJFjTs66xpEqI" } }],
   "sort": "random",
   "limit": 50
+}
+```
+
+Alternatively, the `inPlaylist` and `notInPlaylist` operators can take a `path` argument, which can either be 
+absolute or relative to your playlist. This allows your smart playlists to be tranferrable between servers.
+
+```json
+{ "inPlaylist": { "id": "../other_playlist.nsp" } }
+```
+
+Here's an example of building a smart playlist out of multiple more focused playlists:
+
+```
+{
+  "name": "Overplayed Favorites",
+  "comment": "Most Played Favorites Played Within Last 4yr",
+  "public": true,
+  "any": [{ "inPlaylist": { "path": "most-played-favorites.nsp" } }],
+  "all": [{ "notInPlaylist": { "path": "favorites-not-played-in-4-yrs.nsp" } }],
+  "sort": "playCount, lastPlayed"
 }
 ```

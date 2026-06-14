@@ -1,0 +1,36 @@
+name: SUB/WAVE Radio
+
+url: https://www.getsubwave.com/
+
+repoUrl: https://github.com/perminder-klair/subwave
+
+platforms:
+  docker: true
+  linux: true
+  web:
+    url: https://www.getsubwave.com/listen
+  other: true
+
+api: OpenSubsonic
+
+description: "A self-hosted personal radio station built on your Navidrome library: one shared Icecast broadcast where an AI DJ picks the tracks, voices the intros, station idents, time and weather, and takes plain-language song requests. Listen on the web, an installable PWA, or native iOS/Android players (beta)."
+
+isOpenSource: true
+isFree: true
+
+screenshots:
+  thumbnail: thumbnail.webp
+  gallery:
+    - screen1.webp
+    - screen2.webp
+    - screen3.webp
+    - screen4.webp
+    - screen5.webp
+
+keywords:
+  - radio
+  - icecast
+  - ai dj
+  - broadcast
+  - liquidsoap
+  - station

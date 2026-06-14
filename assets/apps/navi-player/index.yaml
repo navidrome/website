@@ -1,0 +1,16 @@
+name: NaviPlayer
+url: https://github.com/che2n3jigw/NaviPlayer
+repoUrl: https://github.com/che2n3jigw/NaviPlayer
+platforms:
+  android:
+    store: https://github.com/che2n3jigw/NaviPlayer/releases
+api: OpenSubsonic
+description: A beautiful, modern Android music client for Subsonic/Navidrome, built with Material 3 and Jetpack Media3.
+screenshots:
+  thumbnail: thumbnail.webp
+keywords:
+  - subsonic
+  - navidrome
+  - open-subsonic
+  - material-3
+  - media3
