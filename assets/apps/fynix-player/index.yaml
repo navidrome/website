@@ -1,0 +1,31 @@
+name: Fynix Player
+url: https://github.com/Boc86/fynix-player
+repoUrl: https://github.com/Boc86/fynix-player
+
+platforms:
+  android: true
+
+api: Subsonic
+
+description: >
+  A lightweight Android music player for Navidrome and SoulSync.
+  Features offline caching, Android Auto, equalizer, setup wizard,
+  and Soulseek wishlist management.
+
+screenshots:
+  thumbnail: thumbnail.webp
+  gallery:
+    - home.webp
+    - library.webp
+    - search.webp
+    - settings.webp
+    - sidebar.webp
+
+isFree: true
+
+keywords:
+  - offline
+  - android auto
+  - caching
+  - soulseek
+  - equalizer
