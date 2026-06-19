@@ -169,6 +169,43 @@ class AppValidator {
     }
   }
 
+  // Check for image files in the app folder that are not referenced in index.yaml
+  validateDanglingImages(data) {
+    if (!data) return;
+
+    // Collect all images referenced by the entry
+    const referenced = new Set();
+    if (data.screenshots) {
+      if (data.screenshots.thumbnail) {
+        referenced.add(data.screenshots.thumbnail);
+      }
+      if (Array.isArray(data.screenshots.gallery)) {
+        data.screenshots.gallery.forEach((img) => referenced.add(img));
+      }
+    }
+
+    const imageExtensions = [".png", ".webp", ".jpg", ".jpeg"];
+
+    let files;
+    try {
+      files = fs.readdirSync(this.appDir, { withFileTypes: true });
+    } catch (err) {
+      this.addError(`Unable to read app directory: ${err.message}`);
+      return;
+    }
+
+    files.forEach((dirent) => {
+      if (!dirent.isFile()) return;
+      const ext = path.extname(dirent.name).toLowerCase();
+      if (!imageExtensions.includes(ext)) return;
+      if (!referenced.has(dirent.name)) {
+        this.addError(
+          `Dangling image not referenced in index.yaml: ${dirent.name}`
+        );
+      }
+    });
+  }
+
   // Validate URL (checks if it's reachable)
   validateUrl(url, description) {
     return new Promise((resolve) => {
@@ -317,6 +354,9 @@ class AppValidator {
 
     // Validate images
     this.validateImages(data);
+
+    // Check for dangling (unreferenced) images
+    this.validateDanglingImages(data);
 
     // Validate URLs
     if (!isCI && !this.quiet) {
