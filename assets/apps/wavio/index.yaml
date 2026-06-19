@@ -1,0 +1,33 @@
+name: Wavio
+
+url: https://wavio-app.vercel.app
+
+repoUrl: https://github.com/Joel-Mercier/wavio
+
+platforms:
+  android: true
+
+api: Navidrome
+
+description: "A modern music streaming client for Android with support for Navidrome, OpenSubsonic and Jellyfin servers, or a local on-device library. Features synced lyrics, gapless playback, crossfade, replay gain and equalizer, offline downloads, podcasts and internet radio, Android Auto and home-screen widgets, plus Navidrome smart playlists and jukebox mode."
+
+screenshots:
+  thumbnail: home.webp
+  gallery:
+    - player.webp
+    - artist.webp
+    - album.webp
+    - library.webp
+    - queue.webp
+
+isOpenSource: true
+
+isFree: true
+
+keywords:
+  - subsonic
+  - jellyfin
+  - android auto
+  - offline
+  - podcasts
+  - radio
