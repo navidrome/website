@@ -32,9 +32,8 @@ description: Cassette is another native iOS and macOS client for Subsonic and Op
 # Required: Screenshots configuration
 screenshots:
   # Required: Thumbnail image filename (must exist in app folder). This is the image that will show in the main catalog page, it is NOT a logo or icon.
-  thumbnail: thumbnail.webp
+  thumbnail: iPhone.webp
   gallery:
-    - iPhone.webp
     - iPhone_2.webp
     - macOS.webp
     - macOS_2.webp
