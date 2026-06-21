@@ -18,17 +18,10 @@ you should open an [issue in the project's GitHub page](https://github.com/navid
 
 If you don't want to wait, you can try to build the binary yourself, with the following steps.
 
-First, you will need to install [Go 1.24+](https://golang.org/doc/install) and
-[Node 24+](https://nodejs.org/en/download). The setup is very strict, and the steps below only work with
+First, you will need to install [Go 1.26+](https://golang.org/doc/install) and
+[Node 24](https://nodejs.org/en/download). The setup is very strict, and the steps below only work with
 these versions (enforced in the Makefile). Make sure to add `$GOPATH/bin` to your `PATH` as described
 in the [official Go site](https://golang.org/doc/gopath_code.html#GOPATH)
-
-You'll also need to install the [TagLib](http://taglib.org) library:
-- Debian/Ubuntu: `sudo apt install libtag1-dev`
-- Arch Linux: `pacman -S taglib`
-- macOS: `brew install taglib`
-- FreeBSD: `pkg install taglib`
-- For other platforms check their [installation instructions](https://github.com/taglib/taglib/blob/master/INSTALL.md)
 
 After the prerequisites above are installed, clone Navidrome's repository and build it:
 
