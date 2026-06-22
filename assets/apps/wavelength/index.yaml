@@ -1,0 +1,16 @@
+name: Wavelength
+url: https://crispycrunchy.computer/wavelength
+platforms:
+  macos:
+    store: https://apps.apple.com/us/app/wavelength-for-opensubsonic/id6778066407
+api: OpenSubsonic
+description: "A native Mac player. Online-first means no waiting for sync. Browse your libraries combined or separately. One-time purchase with free trial. Made by a human, not by AI."
+screenshots:
+  thumbnail: thumbnail.webp
+  gallery:
+    - screen1.webp
+isFree: false
+keywords:
+  - mac
+  - macos
+  - native
