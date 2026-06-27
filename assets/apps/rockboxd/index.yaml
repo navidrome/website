@@ -1,0 +1,35 @@
+name: Rockbox Daemon
+
+url: https://rockboxd.tsiry-sandratraina.com
+
+repoUrl: https://github.com/tsirysndr/rockboxd
+
+platforms:
+  linux: true
+  macos: true
+  docker:
+    store: https://hub.docker.com/r/tsiry/rockbox
+  other: true
+
+api: Subsonic
+
+description: A modern, network-enabled music player platform built on Rockbox firmware. Acts as both a Subsonic/Navidrome client and server, with additional gRPC, GraphQL, HTTP, MPD, MPRIS and S3 APIs, and multi-room output via AirPlay, Snapcast and Squeezelite.
+
+screenshots:
+  thumbnail: thumbnail.webp
+  gallery:
+    - screen1.webp
+    - screen2.webp
+    - screen3.webp
+    - screen4.webp
+    - screen5.webp
+
+isFree: true
+
+keywords:
+  - rockbox
+  - daemon
+  - airplay
+  - snapcast
+  - mpd
+  - gapless
