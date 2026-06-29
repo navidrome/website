@@ -92,7 +92,7 @@ navidrome -c /etc/navidrome/navidrome.toml --nobanner
 
 ## Command overview
 
-The built-in top-level administrative commands are: `inspect`, `scan`, `backup`, `pls`, `service`, and `user`.
+The built-in top-level administrative commands are: `inspect`, `scan`, `backup`, `pls`, `service`, `user`, and `plugin`.
 
 ### `inspect`
 
@@ -295,6 +295,71 @@ navidrome user list --format json
 # Delete user by username or ID
 navidrome user delete --user alice
 ```
+
+---
+
+### `plugin`
+
+Manage and inspect plugins from the CLI.
+
+```bash
+navidrome plugin --help
+```
+
+Subcommands:
+
+- `list`: List installed plugins
+- `info`: Show details for an installed plugin or a `.ndp` package
+- `validate`: Validate an installed plugin or a `.ndp` package manifest
+- `enable`: Enable a plugin
+- `disable`: Disable a plugin
+- `edit`: Update a plugin's config and/or permissions
+- `rescan`: Re-discover plugins in the plugins folder
+
+`info` and `validate` accept either an installed plugin ID or a path to a `.ndp` package file (an argument ending in `.ndp` is treated as a file).
+
+Useful flags:
+
+- `list`: `-f, --format` (`table`, `csv`, or `json`; default `table`)
+- `info`: `-f, --format` (`text` or `json`; default `text`)
+- `edit` (provide at least one; paired flags are mutually exclusive):
+  - `--config` *(JSON string)* / `--config-file` *(path; use `-` to read from stdin)*
+  - `--users` *(comma-separated or JSON array of usernames)* / `--all-users`
+  - `--libraries` *(comma-separated or JSON array of integer library IDs)* / `--all-libraries`
+  - `--write-access` / `--no-write-access`
+
+Examples:
+
+```bash
+# List installed plugins as JSON
+navidrome plugin list -f json
+
+# Inspect a downloaded package before installing it
+navidrome plugin info ./my-plugin-1.2.0.ndp
+
+# Validate an installed plugin's manifest and config
+navidrome plugin validate my-plugin
+
+# Enable / disable a plugin
+navidrome plugin enable my-plugin
+navidrome plugin disable my-plugin
+
+# Set a plugin's configuration
+navidrome plugin edit my-plugin --config '{"apiKey":"abc123"}'
+
+# Read configuration from stdin
+cat config.json | navidrome plugin edit my-plugin --config-file -
+
+# Grant access to all users and allow write access
+navidrome plugin edit my-plugin --all-users --write-access
+
+# Re-discover plugins after copying a new .ndp into the plugins folder
+navidrome plugin rescan
+```
+
+{{% alert %}}
+These commands require the plugin system to be enabled (`Plugins.Enabled`, on by default), and `rescan` requires `Plugins.Folder` to be set. See [Plugins](/docs/usage/features/plugins/) for a full overview of the plugin system and web-UI management.
+{{% /alert %}}
 
 ## Notes and best practices
 

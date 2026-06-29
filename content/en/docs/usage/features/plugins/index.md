@@ -55,6 +55,10 @@ Unless otherwise stated, plugins are **not** developed or maintained by the Navi
 
 5. **Configure the plugin**: Some plugins require additional configuration. Check the plugin's documentation for required settings.
 
+{{% alert %}}
+Prefer the command line? Rescanning, enabling, disabling, and configuring plugins can also be done from the CLI. See the [`plugin` command reference](/docs/usage/admin/cli/#plugin).
+{{% /alert %}}
+
 ## Server Configuration
 
 The following configuration options control the plugin system:
