@@ -1,0 +1,19 @@
+name: NostalgicPod
+url: https://nostalgicpod.com
+isOpenSource: false
+platforms:
+  android:
+    store: https://play.google.com/store/apps/details?id=com.nostalgicpod.app
+  ios:
+    store: https://testflight.apple.com/join/T3k9TQPu
+api: Subsonic
+description: "NostalgicPod is a music player with a tactile interface inspired by the classic iPod, complete with a spinning Cover Wheel and click-wheel navigation. It connects to your Navidrome and also plays local FLAC/MP3 libraries in hi-res up to 24-bit/192kHz, with podcasts, internet radio, and built-in retro games."
+screenshots:
+  thumbnail: thumbnail.webp
+  gallery:
+    - screen1.webp
+    - screen2.webp
+    - screen3.webp
+    - screen4.webp
+keywords:
+  - cover flow
