@@ -16,7 +16,7 @@ platforms:
 
 api: OpenSubsonic
 
-description: "Modern. Fast. Simple. Thats what Firmium is. Built with Tauri, and Svelte this app is lightweight, easy to work with, and pretty. Bulit with a security-first mindset - your passwords, tokens, keys, are all saved to your systems keyring. It features - synced lyrics with LrcLIB - gapless playback and crossfade - 10+ color themes, plus more to come."
+description: "Fast, native music streaming client for Navidrome and Subsonic servers. Available on desktop (Linux/Windows) and Android. Key features: gapless playback, crossfade, offline mode, 18+ themes, synced lyrics, 10-band EQ, podcasts, smart radio, Android Auto, and Wear OS."
 
 screenshots:
   thumbnail: homepage.webp
