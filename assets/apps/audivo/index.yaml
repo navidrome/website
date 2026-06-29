@@ -1,0 +1,34 @@
+name: Audivo
+
+description: >
+  Audivo is a modern native iOS client for Navidrome and OpenSubsonic,
+  designed to feel at home on iOS. It combines a polished interface with
+  powerful features including CarPlay, offline playback, podcasts, and
+  continuous updates focused on delivering the best possible listening
+  experience. Currently available via TestFlight.
+
+url: https://testflight.apple.com/join/wPqfp195
+
+platforms:
+  ios: true
+
+api: OpenSubsonic
+
+screenshots:
+  thumbnail: thumbnail.webp
+  gallery:
+    - screen1.webp
+    - screen2.webp
+    - screen3.webp
+    - screen4.webp
+    - screen5.webp
+    - screen6.webp
+    - screen7.webp
+
+keywords:
+  - ios
+  - iphone
+  - carplay
+  - podcasts
+  - offline
+  - swiftui
