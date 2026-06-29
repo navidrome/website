@@ -7,4 +7,6 @@ api: Navidrome
 description: "An open source Navidrome client written in Swift with a modern SwiftUI interface. Free app with offline listening and scrobbling support for ListenBrainz and Last.fm."
 screenshots:
   thumbnail: thumbnail.webp
+  gallery:
+    - screen1.webp
 repoUrl: https://github.com/kepelet/flo
