@@ -8,7 +8,7 @@ platforms:
   tvos:
     store: https://apps.apple.com/us/app/shelv-player/id6762255865?platform=tv
 api: Subsonic
-description: "A native, album and artist focused client for Navidrome and Subsonic-compatible music servers, built with SwiftUI. Shelv tracks your listening history locally and automatically generates weekly, monthly, and yearly top-song playlists on your Navidrome server. With optional iCloud sync, your history and recap playlists stay consistent across iPhone, iPad, Mac and Apple TV. Recap playlists live as regular playlists on your Navidrome server - fully accessible from any Subsonic client."
+description: "Shelv is a native SwiftUI music client for Navidrome and Subsonic-compatible servers. Browse albums, artists, playlists, favorites, lyrics and radio in a clean Apple-style interface for iPhone, iPad, Mac and Apple TV. Offline downloads, smart caching, queue tools and optional iCloud sync keep your music flowing everywhere."
 screenshots:
   thumbnail: thumbnail.webp
   gallery:
