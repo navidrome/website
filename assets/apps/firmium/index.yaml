@@ -10,6 +10,7 @@ platforms:
   macos: false
   windows: true
   linux: true
+  freebsd: true
   web: false
   docker: false
   other: false
