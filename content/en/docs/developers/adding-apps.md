@@ -91,6 +91,7 @@ The `isOpenSource` field controls whether the app displays an open source badge 
 - `macos` - macOS (optionally with Mac App Store link)
 - `windows` - Windows
 - `linux` - Linux
+- `freebsd` - FreeBSD
 - `web` - Web browser
 - `docker` - Docker container (optionally with Docker Hub link)
 - `other` - CLI tools, other platforms

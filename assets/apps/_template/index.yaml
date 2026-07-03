@@ -25,6 +25,7 @@ platforms:
   # Or just boolean for platforms without store links
   windows: true
   linux: true
+  freebsd: true
   # Web app with hosted URL
   web:
     url: https://my-awesome.netlify.app

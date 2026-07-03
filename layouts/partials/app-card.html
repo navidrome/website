@@ -28,6 +28,7 @@
 {{ if $platforms.windows }}{{ $platformsList = $platformsList | append "windows" }}{{ end }}
 {{ if $platforms.linux }}{{ $platformsList = $platformsList | append "linux" }}{{ end }}
 {{ if $platforms.macos }}{{ $platformsList = $platformsList | append "macos" }}{{ end }}
+{{ if $platforms.freebsd }}{{ $platformsList = $platformsList | append "freebsd" }}{{ end }}
 {{ if $platforms.web }}{{ $platformsList = $platformsList | append "web" }}{{ end }}
 {{ if $platforms.docker }}{{ $platformsList = $platformsList | append "docker" }}{{ end }}
 {{ if $platforms.other }}{{ $platformsList = $platformsList | append "other" }}{{ end }}
@@ -165,6 +166,9 @@
         {{ end }}
         {{ if $platforms.linux }}
           <span title="Linux"><i class="fab fa-linux"></i></span>
+        {{ end }}
+        {{ if $platforms.freebsd }}
+          <span title="FreeBSD"><i class="fab fa-freebsd"></i></span>
         {{ end }}
         {{ if $platforms.web }}
           {{ if and (ne (printf "%T" $platforms.web) "bool") (isset $platforms.web "url") }}
