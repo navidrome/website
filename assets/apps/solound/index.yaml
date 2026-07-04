@@ -1,0 +1,26 @@
+name: Solound
+url: https://solound.com/
+
+platforms:
+  android:
+    store: https://play.google.com/store/apps/details?id=top.ibetterlife.solound
+
+api: Subsonic
+
+description: "A Hi-Res offline music player for Android that plays local FLAC, DSD, ALAC, WAV and Navidrome / Subsonic libraries with synced lyrics, ReplayGain, crossfade, EQ, artwork and listening stats."
+
+screenshots:
+  thumbnail: thumbnail.webp
+  gallery:
+    - screen1.webp
+    - screen2.webp
+
+isFree: true
+
+keywords:
+  - android
+  - offline
+  - flac
+  - dsd
+  - lyrics
+  - replaygain
