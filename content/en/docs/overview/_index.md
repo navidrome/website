@@ -51,7 +51,7 @@ It can also work as a lightweight Subsonic-API compatible server, that can be us
 - Lyrics (from embedded tags and external files)
 - Internet Radios
 - [Jukebox mode](/docs/usage/features/jukebox)
-- Shares ([experimental support](https://github.com/navidrome/navidrome/pull/2106))
+- [Shares](/docs/usage/features/sharing)
 
 {{< alert color="warning" title="NOTE" >}}
 Navidrome [**does not support**](/docs/faq/#can-you-add-a-browsing-by-folder-optionmode-to-navidrome)
