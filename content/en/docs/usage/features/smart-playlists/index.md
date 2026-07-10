@@ -409,15 +409,19 @@ absolute or relative to your playlist. This allows your smart playlists to be tr
 { "inPlaylist": { "id": "../other_playlist.nsp" } }
 ```
 
-Here's an example of building a smart playlist out of multiple more focused playlists:
+Here's an example of building a smart playlist out of multiple more focused playlists. Keep all the rules under a
+single top-level group (`all` or `any`) and nest a group when you need to mix the two logics: a top-level `any` and
+`all` cannot be combined at the same level.
 
-```
+```json
 {
   "name": "Overplayed Favorites",
   "comment": "Most Played Favorites Played Within Last 4yr",
   "public": true,
-  "any": [{ "inPlaylist": { "path": "most-played-favorites.nsp" } }],
-  "all": [{ "notInPlaylist": { "path": "favorites-not-played-in-4-yrs.nsp" } }],
+  "all": [
+    { "inPlaylist": { "path": "most-played-favorites.nsp" } },
+    { "notInPlaylist": { "path": "favorites-not-played-in-4-yrs.nsp" } }
+  ],
   "sort": "playCount, lastPlayed"
 }
 ```
