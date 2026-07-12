@@ -11,7 +11,7 @@ description: >
 It integrates with Navidrome through a [plugin](/docs/usage/features/plugins/), the [AudioMuse-AI-NV-plugin](https://github.com/NeptuneHub/AudioMuse-AI-NV-plugin). Once set up, you get:
 
 - **Instant Mix** in the Navidrome web UI: right-click any song and build a queue of sonically similar tracks
-- **Similar songs and similar artists** in Subsonic clients such as Symfonium, Feishin, Substreamer, Tempo, and Sonixd, through the standard `getSimilarSongs`/`getSimilarSongs2` endpoints
+- **Similar songs and similar artists** in Subsonic clients such as Symfonium, Feishin, Substreamer, Tempo, and Sonixd, through the standard `getSimilarSongs`/`getSimilarSongs2` (songs/radio) and `getArtistInfo`/`getArtistInfo2` (related artists) endpoints
 - The [OpenSubsonic `sonicSimilarity` extension](#opensubsonic-sonicsimilarity-extension), which clients can use to fetch sonic matches and build song-to-song transitions
 
 {{< alert color="warning" title="Third-Party Project" >}}
@@ -87,7 +87,7 @@ On the AudioMuse-AI side, you should see API calls arriving each time you trigge
 ## Using it
 
 - **Web UI**: right-click a song (or open its context menu) and select **Instant Mix**. This requires `EnableExternalServices` to be on (the default).
-- **Subsonic clients**: similar songs, artist radio, and related artist features work automatically — clients use the standard `getSimilarSongs`/`getSimilarSongs2` endpoints, which are now answered by AudioMuse-AI's sonic analysis instead of external metadata services.
+- **Subsonic clients**: similar songs and artist radio work automatically through the standard `getSimilarSongs`/`getSimilarSongs2` endpoints, and related/similar artists through `getArtistInfo`/`getArtistInfo2` — all now answered by AudioMuse-AI's sonic analysis instead of external metadata services.
 
 ## OpenSubsonic `sonicSimilarity` extension
 
