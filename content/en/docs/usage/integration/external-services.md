@@ -69,3 +69,5 @@ The `local` agent is always active and serves as the final fallback. It provides
 ## Extending with Plugins
 
 Navidrome's external metadata capabilities can be extended through [plugins](/docs/usage/features/plugins#finding-plugins). Plugins can provide additional metadata agents for artist and album information and images, lyrics providers, and scrobblers. See the [Plugins documentation](/docs/usage/features/plugins) for more information.
+
+One example is [AudioMuse-AI](/docs/usage/integration/audiomuse/), which provides similar songs and artists based on sonic analysis of your own files, powering Instant Mix and similar-song features without relying on external metadata services.
