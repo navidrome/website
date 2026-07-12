@@ -70,6 +70,8 @@ In the Navidrome web UI, go to **Settings > Plugins**, enable the AudioMuse-AI p
 - **API URL**: the address where Navidrome can reach the AudioMuse-AI core app, for example `http://192.168.1.50:8000`. Use a host and port the Navidrome container can actually reach — not `localhost`, unless both run in the same network namespace.
 - **API token**: the same token you set in the Setup Wizard in Step 1.
 
+{{< imgproc plugin-settings Fit "900x900" />}}
+
 {{% alert %}}
 Prefer the command line? Plugins can also be enabled and configured from the CLI. See the [`plugin` command reference](/docs/usage/admin/cli/#plugin).
 {{% /alert %}}
@@ -87,6 +89,8 @@ On the AudioMuse-AI side, you should see API calls arriving each time you trigge
 ## Using it
 
 - **Web UI**: right-click a song (or open its context menu) and select **Instant Mix**. This requires `EnableExternalServices` to be on (the default).
+
+{{< imgproc instant-mix Fit "1200x1200" />}}
 - **Subsonic clients**: similar songs and artist radio work automatically through the standard `getSimilarSongs`/`getSimilarSongs2` endpoints, and related/similar artists through `getArtistInfo`/`getArtistInfo2` — all now answered by AudioMuse-AI's sonic analysis instead of external metadata services.
 
 ## OpenSubsonic `sonicSimilarity` extension
