@@ -7,6 +7,7 @@ description: >
   How to customize Navidrome to your environment
 aliases:
   - /docs/usage/configuration-options/
+config_anchors: true
 ---
 
 Navidrome allows some customization using environment variables, loading from a configuration file
