@@ -51,29 +51,33 @@
       ta.style.opacity = '0';
       document.body.appendChild(ta);
       ta.select();
+      var ok = false;
       try {
-        document.execCommand('copy');
+        ok = document.execCommand('copy');
       } catch (e) {
-        /* clipboard not available */
+        ok = false;
       }
       document.body.removeChild(ta);
+      return ok;
     }
 
     function copy(text, link) {
-      var confirm = function () {
+      var confirmCopied = function () {
         link.classList.add('config-anchor--copied');
         setTimeout(function () {
           link.classList.remove('config-anchor--copied');
         }, 1500);
       };
+      // Only confirm when the copy actually succeeded, so we never claim
+      // "Copied!" if the clipboard write was blocked or unsupported.
       if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(text).then(confirm, function () {
-          fallbackCopy(text);
-          confirm();
+        navigator.clipboard.writeText(text).then(confirmCopied, function () {
+          if (fallbackCopy(text)) {
+            confirmCopied();
+          }
         });
-      } else {
-        fallbackCopy(text);
-        confirm();
+      } else if (fallbackCopy(text)) {
+        confirmCopied();
       }
     }
 
@@ -106,7 +110,7 @@
         link.className = 'config-anchor';
         link.href = '#' + id;
         link.title = 'Copy link to this option';
-        link.setAttribute('aria-label', 'Link to this option');
+        link.setAttribute('aria-label', 'Copy link to this option');
         link.innerHTML = '<i class="fas fa-link" aria-hidden="true"></i>';
 
         link.addEventListener('click', function (e) {
