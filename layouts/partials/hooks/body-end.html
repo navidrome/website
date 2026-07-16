@@ -10,3 +10,8 @@
     } catch (e) {}
   });
 </script>
+
+{{/* Per-option anchor links on the configuration options page */}}
+{{ if .Params.config_anchors }}
+<script src="{{ "js/config-anchors.js" | relURL }}"></script>
+{{ end }}
