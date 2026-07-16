@@ -205,8 +205,6 @@ from the last evaluation, not aligned to calendar days. When `refreshDelay` is n
 Editing the playlist's rules (by changing the `.nsp` file or via a client) always takes effect on the next access,
 even if the refresh delay has not elapsed yet.
 
-`refreshDelay` is available since version 0.64.0.
-
 ## Troubleshooting Common Issues
 
 ### Playlist Not Showing Up
