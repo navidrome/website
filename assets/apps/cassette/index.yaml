@@ -5,10 +5,10 @@
 name: Cassette
 
 # Required: Official app website or homepage
-url: https://mathieudubart.github.io/cassette-web/
+url: https://getcassette.app
 
 # Optional: GitHub repository URL (displays an open source badge)
-repoUrl: https://github.com/mathieudubart/cassette
+repoUrl: https://github.com/CassetteLab/cassette
 
 # Required: At least one platform must be specified
 # Platforms can be boolean (true) or object with store URL
