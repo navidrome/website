@@ -1,0 +1,27 @@
+name: NetMusic
+url: https://netmusicapp.com/
+isOpenSource: false
+
+platforms:
+  ios:
+    store: https://apps.apple.com/us/app/netmusic-local-music-player/id6779561516
+
+api: Subsonic
+
+description: >-
+  NetMusic is a local-first music player for iPhone and iPad that connects to
+  Navidrome and Subsonic servers alongside cloud storage, NAS shares, and Wi-Fi
+  transfers. It supports streaming and offline playback, synchronized lyrics,
+  playlists, smart caching, and a unified on-device library.
+
+screenshots:
+  # Navidrome requires a real in-app screenshot here, not the app icon.
+  thumbnail: thumbnail.webp
+
+keywords:
+  - ios
+  - ipados
+  - offline
+  - lyrics
+  - cloud storage
+  - nas
