@@ -50,13 +50,14 @@ Each tag field has a specific purpose. Here are the important ones and how to us
 - **Disc Number**: If an album spans multiple discs, use this to differentiate disc 1, disc 2, etc. For example, 
   "1/2" for Disc 1 of 2. Ensure all tracks that are on the same disc have the same disc number, and all tracks share 
   the Album name. Navidrome will group multi-disc albums together and may show disc divisions.
-- **Year/Date**: The year (or full date) of the album’s recording. While not strictly required, the year is useful 
-  information and some views or clients might use it. Formats accepted are: `YYYY` (for `YEAR` and `DATE`) 
-  and `YYYY-MM-DD` or `YYYY-MM` (for `DATE`).
-  For a more precise date information, you can leverage other Date fields:
-    - `DATE`/`YEAR`: The date of the track recording.
-    - `ORIGINALDATE`/`ORIGINALYEAR`: The original release date of the album.
-    - `RELEASEDATE`/`RELEASEYEAR`: The release date of the album.
+- **Year/Date**: The date associated with the track. While not strictly required, it is useful information and many 
+  views or clients use it. All date fields accept `YYYY`, `YYYY-MM`, or `YYYY-MM-DD`. Navidrome recognizes several 
+  distinct date tags, each with its own meaning:
+    - `DATE`: The recording date of the track (stored internally as `recordingdate`; ID3v2.4 `TDRC`).
+    - `YEAR`: Treated as the **release** date (it is an alias of `releasedate`). Note that a plain `YEAR` tag maps to 
+      the release date, *not* the recording date.
+    - `RELEASEDATE`: The release date of the album (same field as `YEAR`).
+    - `ORIGINALDATE`/`ORIGINALYEAR`: The original release date of the album (stored internally as `originaldate`).
 - **Genre**: The genre of the music (e.g., Rock, Jazz). This is a multi-valued field and can help when browsing or 
   creating genre-based playlists.
 - **Compilation (Part of a Compilation)**: A special flag for various-artists albums. For a “Various Artists” 
@@ -147,7 +148,7 @@ browse and click) as two separate things:
   as the display name**, and takes the individual artists from the plural tag (`ARTISTS` or `ALBUMARTISTS`). In this
   case the singular tag is *not* split — it is shown verbatim.
 - If you provide **only** a plural tag (no singular one), the display name is built automatically by joining its
-  values with `" • "` (e.g. `Alice • Bob`).
+  values with `" • "` (e.g. `Alice • Bob`). This joiner is configurable via the `Scanner.ArtistJoiner` option.
 
 This is why the ideal example below sets *both*: `ARTIST` controls how the name reads (`Alice feat. Bob`), while
 `ARTISTS` preserves `Alice` and `Bob` as distinct, individually-linkable artists.
