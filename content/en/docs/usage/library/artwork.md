@@ -122,7 +122,9 @@ You can also upload a custom image on the internet radio's edit page. This image
 
 ## Image Format & Quality
 
-Navidrome serves resized artwork as WebP for better compression and performance. The `CoverArtQuality` [config option][advanced-configuration] controls the encoding quality for WebP output (default: `75`).
+By default, Navidrome encodes resized artwork as JPEG (or PNG, for PNG sources and square thumbnails). You can opt into WebP encoding for smaller images by enabling the `EnableWebPEncoding` [config option][advanced-configuration] (default: `false`), at the cost of more CPU when resizing. Note that some older clients may not be able to display WebP images.
+
+The `CoverArtQuality` [config option][advanced-configuration] controls the encoding quality for resized JPEG and WebP output (default: `75`). It does not apply to PNG.
 
 Animated GIFs embedded in or associated with your music files are preserved during resize. They are converted to animated WebP using ffmpeg.
 
