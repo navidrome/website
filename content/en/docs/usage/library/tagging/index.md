@@ -187,9 +187,10 @@ Note that the display name still shows the full `ARTIST` string (`Alice feat. Bo
 individual artists.
 
 {{< alert color="warning" title="Avoid using separators for multiple artists" >}}
-Relying on separators can cause issues with artist names that legitimately contain a separator character. This is not a
-problem with the *default* artist separators, since they all require surrounding spaces (`" / "`, `" feat. "`, etc.), so
-a name like `AC/DC` is left intact. But it becomes a problem if you customize the separator list to include a bare `"/"`
+Relying on separators can cause issues with artist names that legitimately contain a separator character. This is
+usually not a problem with the *default* artist separators: the slash separator is `" / "` (with surrounding spaces)
+rather than a bare `/`, so a name like `AC/DC` is left intact. (The `"; "` separator only requires a trailing space,
+so `Foo; Bar` would still be split.) It becomes a problem if you customize the separator list to include a bare `"/"`
 (without spaces), or in **role tags** (`COMPOSER`, `PERFORMER`, …), whose default separators `"/"` and `";"` have no
 surrounding spaces — there, `AC/DC` *would* be split into `AC` and `DC`.
 
