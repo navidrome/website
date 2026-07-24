@@ -6,9 +6,9 @@ platforms:
   macos:
     store: https://apps.apple.com/app/navibeat/id6763518834?platform=mac
   tvos:
-    store: https://apps.apple.com/app/navibeat/id6763518834
+    store: https://apps.apple.com/us/app/navibeat/id6763518834?platform=tv
 api: OpenSubsonic
-description: "A native Apple-ecosystem player for Subsonic, OpenSubsonic, and Navidrome: iPhone, iPad, Mac, Apple TV, Apple Watch, and CarPlay from one Universal Purchase. Time-synced lyrics, offline downloads, gapless playback, multi-library, internet radio, Last.fm, a 10-band equalizer, and Listening Stats. Fully localized into 10 languages with CarPlay voice search in all of them, plus a Mac add-on that syncs your library to Rockbox iPods, scrobbles included."
+description: "A native Apple player for Subsonic, OpenSubsonic and Navidrome: iPhone, iPad, Mac, Apple TV, Apple Watch and CarPlay from one Universal Purchase. Time-synced lyrics, offline downloads, gapless playback, multi-library, internet radio, Last.fm and ListenBrainz, in 11 languages. No analytics, no accounts, no backend. A paid Mac add-on syncs your library to Rockbox players, scrobbles included."
 screenshots:
   thumbnail: thumbnail.webp
   gallery:
@@ -18,9 +18,9 @@ screenshots:
     - screen4.webp
     - screen5.webp
 keywords:
-  - swiftui
+  - apple-watch
   - apple-tv
-  - universal-purchase
   - carplay
-  - equalizer
   - rockbox
+  - universal-purchase
+  - offline
