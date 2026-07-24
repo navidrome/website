@@ -4,8 +4,7 @@ repoUrl: https://github.com/nenadjokic/navibeat-linux
 isFree: true
 isOpenSource: false
 platforms:
-  linux:
-    store: https://github.com/nenadjokic/navibeat-linux/releases/latest
+  linux: true
 api: OpenSubsonic
 description: "A free, native Linux desktop player for Subsonic, OpenSubsonic, and Navidrome. Time-synced lyrics with an optional karaoke mode, offline downloads, internet radio, a 10-band equalizer with ReplayGain and crossfade, AutoMix endless playback, Last.fm and ListenBrainz, listening stats, and a built-in tool that syncs your library to a Rockbox iPod with plays synced back. Ships as an AppImage for x86_64 and aarch64."
 screenshots:
