@@ -14,6 +14,7 @@ run Navidrome.
 
 Podman is created to run as both rootful (root user), and rootless (non-root user) modes. 
 Quadlet is a generator tool embeded directly into Podman that translate your *.container files into systemd service. So you can enable/disable it to auto load at each session, like normal systemd service.
+
 Put `navidrome.container` in `/etc/containers/systemd/` for root user, OR `$HOME/.config/containers/systemd/` for running as normal non-root user. Create a `navidrome.container` file with the following content:
 
 ```ini
@@ -36,7 +37,9 @@ TimeoutStartSec=30
 
 Quadlets strictly require systemd to run. After creating `navidrome.container`, starting container as normal systemd service
 Root user: `# systemctl start navidrome.container --now`
+
 Non-root user: `systemctl --user start navidrome --now`
+
 Checking if container could be loaded or not: `podman ps` . It should shown you in NAME `systemd-navidrome`
 
 ### Using `podman` command line tool:
