@@ -13,6 +13,8 @@ config_anchors: true
 Navidrome allows some customization using environment variables, loading from a configuration file
 or using command line arguments.
 
+When the same option is set using multiple methods, Navidrome uses the following order of precedence (highest to lowest): environment variables, command line arguments, configuration file.
+
 ## Configuration File
 
 {{< alert >}}
@@ -320,3 +322,4 @@ make it all uppercase. Ex: `ND_LOGLEVEL=debug`. See below for all available opti
 [opensubsonic]: https://opensubsonic.netlify.app/
 [backup]: /docs/usage/admin/backup
 [plugins]: /docs/usage/features/plugins
+
