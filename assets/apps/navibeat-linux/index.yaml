@@ -6,7 +6,7 @@ isOpenSource: false
 platforms:
   linux: true
 api: OpenSubsonic
-description: "A free, native Linux desktop player for Subsonic, OpenSubsonic, and Navidrome. Time-synced lyrics with an optional karaoke mode, offline downloads, internet radio, a 10-band equalizer with ReplayGain and crossfade, AutoMix endless playback, Last.fm and ListenBrainz, listening stats, and a built-in tool that syncs your library to a Rockbox iPod with plays synced back. Ships as an AppImage for x86_64 and aarch64."
+description: "A free, native Linux desktop player for Subsonic, OpenSubsonic and Navidrome. Time-synced lyrics with karaoke mode, offline downloads, internet radio, a 10-band equalizer with ReplayGain and crossfade, AutoMix, Last.fm and ListenBrainz. Plays to UPnP and DLNA speakers and TVs, found automatically. Runs as a full terminal client with --tui over SSH on a headless server or Raspberry Pi. Syncs your library to a Rockbox iPod with plays synced back. AppImage, apt and dnf, x86_64 and arm64."
 screenshots:
   thumbnail: thumbnail.webp
   gallery:
@@ -17,8 +17,8 @@ screenshots:
     - screen5.webp
 keywords:
   - linux
-  - desktop
+  - tui
+  - upnp
+  - dlna
   - appimage
   - rockbox
-  - equalizer
-  - lyrics
