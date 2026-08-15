@@ -45,6 +45,112 @@ The example shown assumes a few things:
 </plist>
 ```
 
+## File ownership and permissions
+
+A `LaunchAgent` runs as your own user, not as `root`. All files must therefore belong to
+your user. If you created `/opt/navidrome` with `sudo`, the folder belongs to `root` and
+Navidrome cannot write to it.
+
+Set the owner and the permissions like this:
+
+```bash
+# Give the whole folder to your user
+sudo chown -R "$(whoami):staff" /opt/navidrome
+
+# Make the binary executable
+chmod 755 /opt/navidrome/navidrome
+
+# Restrict the config file, as it can contain secrets
+chmod 600 /opt/navidrome/navidrome.toml
+
+# Let Navidrome write the database and the log
+chmod 755 /opt/navidrome/data
+chmod 644 /opt/navidrome/navidrome.log
+
+# launchd refuses a plist that other users can write
+chmod 644 ~/Library/LaunchAgents/navidrome.plist
+```
+
+This table shows the required values:
+
+| Path | Owner | Mode | Notes |
+|------|-------|------|-------|
+| `/opt/navidrome` | your user | `755` | Working directory |
+| `/opt/navidrome/navidrome` | your user | `755` | Must be executable |
+| `/opt/navidrome/navidrome.toml` | your user | `600` | Read only for you |
+| `/opt/navidrome/data` | your user | `755` | `DataFolder`, must be writable |
+| `/opt/navidrome/navidrome.log` | your user | `644` | Must be writable |
+| `~/Library/LaunchAgents/navidrome.plist` | your user | `644` | `launchd` rejects mode `666` |
+| Your music folder | any | — | Read access is sufficient |
+
+## Access to protected folders
+
+Correct file permissions are not always sufficient. macOS has a second, independent privacy
+system. It blocks some folders even when the file permissions permit access. A service started
+by `launchd` gets no permissions from your terminal, so this problem is common.
+
+These folders are blocked:
+
+- `~/Desktop`, `~/Documents` and `~/Downloads`
+- `~/Music/Music`, the Apple Music library folder
+- All external and network volumes in `/Volumes`
+
+These folders are not blocked:
+
+- `~/Music` itself, but not the `Music` subfolder in it
+- `/Users/Shared`
+- `/opt` and other folders outside your home folder
+
+**The simplest solution is to keep your music in a folder that macOS does not block**, for
+example `/Users/Shared/Music`. Then you do not need any of the steps below.
+
+### Symptoms
+
+When macOS blocks your music folder, Navidrome does not report a clear error. Look for these
+signs instead:
+
+- The library is empty after a scan, and no track is found.
+- The log contains this line, which gives the wrong reason:
+
+  ```
+  level=warning msg="Scanner: Target folder does not exist." error="open .: operation not permitted"
+  ```
+
+  The folder does exist. The permission is the real cause.
+
+There is a third symptom that is easy to miss. The first time Navidrome reads a blocked folder,
+macOS shows a permission dialog, and Navidrome **waits** for your answer. If you do not see the
+dialog, the scan seems to freeze, and the log shows:
+
+```
+level=error msg="Scan failed" error="library count: context canceled"
+```
+
+### How to give access
+
+Two methods are possible. Both work.
+
+1. **Answer the dialog.** Click **Allow** when the dialog appears. macOS then adds an entry
+   under **System Settings** > **Privacy & Security** > **Files & Folders**. You can switch it
+   on and off there later.
+2. **Give Full Disk Access.** Use this method if you did not see the dialog, or if you closed
+   it:
+   - Open **System Settings** > **Privacy & Security** > **Full Disk Access**.
+   - Click **+**, then press <kbd>Cmd</kbd>+<kbd>Shift</kbd>+<kbd>G</kbd> and enter
+     `/opt/navidrome`.
+   - Select the `navidrome` binary and set the switch to on.
+   - Restart the service.
+
+{{% alert title="You must do this again after each update" color="warning" %}}
+macOS attaches the permission to the binary itself, not to its path. When you install a new
+version of Navidrome, the permission no longer applies.
+
+After an update, Navidrome cannot read your music folder, and macOS shows the dialog again. If
+nobody answers that dialog, the scan waits and then fails with `context canceled`.
+
+Keep your music in a folder that macOS does not block to prevent this.
+{{% /alert %}}
+
 Then to load the service, run:
 ```bash
 launchctl load ~/Library/LaunchAgents/navidrome.plist
