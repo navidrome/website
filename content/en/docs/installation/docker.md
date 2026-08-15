@@ -58,3 +58,11 @@ $ docker run -d \
   file. For `docker` cli use the `-e` parameter. Ex: `-e ND_SESSIONTIMEOUT=24h`.
 - If you want to use a [configuration file](/docs/usage/configuration/options/#configuration-file) with Navidrome running in Docker,
   you can create a `navidrome.toml` config file in the `/data` folder and set the option `ND_CONFIGFILE=/data/navidrome.toml`.
+
+### MacOS Docker Desktop: bind mount caveat
+
+When running Navidrome on Docker Desktop for macOS, using a host bind mount for the `/data` and `/music` directories may lead to filesystem-related issues such as disk I/O errors under certain workloads.
+
+This appears to be related to the filesystem translation layer between macOS (APFS) and the Linux filesystem used inside the Docker VM (via VirtioFS / shared file systems). Under heavy or frequent disk activity (e.g. SQLite writes or library scanning), some users have reported instability or I/O errors.
+
+A more reliable alternative on macOS is to use a Docker-managed volumes.
