@@ -68,8 +68,9 @@ chmod 600 /opt/navidrome/navidrome.toml
 mkdir -p /opt/navidrome/data
 chmod 700 /opt/navidrome/data
 
-# Let Navidrome write the log
-chmod 644 /opt/navidrome/navidrome.log
+# Create the log file and keep it private
+touch /opt/navidrome/navidrome.log
+chmod 600 /opt/navidrome/navidrome.log
 
 # launchd refuses a plist that other users can write
 chmod 644 ~/Library/LaunchAgents/navidrome.plist
@@ -83,7 +84,7 @@ This table shows the required values:
 | `/opt/navidrome/navidrome` | your user | `755` | Must be executable |
 | `/opt/navidrome/navidrome.toml` | your user | `600` | Read only for you |
 | `/opt/navidrome/data` | your user | `700` | `DataFolder`, see the warning below |
-| `/opt/navidrome/navidrome.log` | your user | `644` | Must be writable |
+| `/opt/navidrome/navidrome.log` | your user | `600` | See the warning below |
 | `~/Library/LaunchAgents/navidrome.plist` | your user | `644` | `launchd` rejects mode `666` |
 | Your music folder | any | — | Read access is sufficient |
 
@@ -97,6 +98,16 @@ your users. Thus, on a Mac with more than one account, a different user can read
 
 Set the mode of the data folder to `700` to prevent this. Navidrome operates correctly with
 this mode. If Navidrome already made the folder, set the mode again after the first start.
+{{% /alert %}}
+
+{{% alert title="Keep the log file private" color="warning" %}}
+The log can contain secrets. If you set `LogLevel` to `debug`, Navidrome writes the full
+configuration to the log at each start. Some values are shown as `[REDACTED]`, but not all of
+them. For example, the Last.fm `ApiKey` and `Secret` are written in plain text.
+
+`launchd` makes the log file readable for all users if the file does not exist. Thus, make the
+file yourself before you start the service, and set the mode to `600`. `launchd` keeps this
+mode and continues to write to the file.
 {{% /alert %}}
 
 ## Access to protected folders
