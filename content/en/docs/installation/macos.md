@@ -63,8 +63,12 @@ chmod 755 /opt/navidrome/navidrome
 # Restrict the config file, as it can contain secrets
 chmod 600 /opt/navidrome/navidrome.toml
 
-# Let Navidrome write the database and the log
-chmod 755 /opt/navidrome/data
+# Create the data folder and keep it private.
+# Use the path that you set in the DataFolder option.
+mkdir -p /opt/navidrome/data
+chmod 700 /opt/navidrome/data
+
+# Let Navidrome write the log
 chmod 644 /opt/navidrome/navidrome.log
 
 # launchd refuses a plist that other users can write
@@ -78,10 +82,22 @@ This table shows the required values:
 | `/opt/navidrome` | your user | `755` | Working directory |
 | `/opt/navidrome/navidrome` | your user | `755` | Must be executable |
 | `/opt/navidrome/navidrome.toml` | your user | `600` | Read only for you |
-| `/opt/navidrome/data` | your user | `755` | `DataFolder`, must be writable |
+| `/opt/navidrome/data` | your user | `700` | `DataFolder`, see the warning below |
 | `/opt/navidrome/navidrome.log` | your user | `644` | Must be writable |
 | `~/Library/LaunchAgents/navidrome.plist` | your user | `644` | `launchd` rejects mode `666` |
 | Your music folder | any | — | Read access is sufficient |
+
+{{% alert title="Keep the data folder private" color="warning" %}}
+The `DataFolder` option sets where the data folder is. If you did not use
+`/opt/navidrome/data`, apply the commands above to your own path.
+
+Navidrome makes this folder on the first start if it does not exist. It makes the folder and
+the database file readable for all users. The database holds the accounts and the passwords of
+your users. Thus, on a Mac with more than one account, a different user can read them.
+
+Set the mode of the data folder to `700` to prevent this. Navidrome operates correctly with
+this mode. If Navidrome already made the folder, set the mode again after the first start.
+{{% /alert %}}
 
 ## Access to protected folders
 
