@@ -268,6 +268,11 @@ navidrome artwork explain dc 6XTD9naRGpIrZLoA99pH1r:2
 `explain` makes **no external requests** by default: external agents are reported as `would-try`
 rather than called. Pass `--live` to perform real lookups. The default protects providers from a
 diagnostic run adding load, especially when the reason you are debugging is rate limiting.
+
+To report accurately, these commands load the plugins named in `Agents` — and only those, since a
+plugin that is not a configured agent cannot supply an image. Loading a plugin creates the services
+its manifest asks for, such as a key-value store. `--live` additionally runs each plugin's
+initialization, which may open external connections; without it, plugins are loaded but not started.
 {{% /alert %}}
 
 #### `artwork refresh`
