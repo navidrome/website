@@ -1,0 +1,25 @@
+name: Intro Quiz
+url: https://github.com/colfin22/intro-quiz
+repoUrl: https://github.com/colfin22/intro-quiz
+platforms:
+  web: true
+  docker:
+    store: https://hub.docker.com/r/colfin22/intro-quiz
+api: Subsonic
+description: "Self-hosted \"guess the intro\" music quiz for family game night, built on your Navidrome library. Phones join by scanning a QR code on the TV; the scoreboard, album art and audio cast to a Chromecast or Android TV."
+screenshots:
+  thumbnail: thumbnail.webp
+  gallery:
+    - screen1.webp
+    - screen2.webp
+    - screen3.webp
+    - screen4.webp
+    - screen5.webp
+isFree: true
+keywords:
+  - quiz
+  - game
+  - party
+  - chromecast
+  - trivia
+  - family
