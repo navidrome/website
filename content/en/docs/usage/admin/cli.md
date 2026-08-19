@@ -207,8 +207,13 @@ Backfill
 #### `artwork explain`
 
 ```bash
-navidrome artwork explain <kind> <id> [--live]
+navidrome artwork explain [<kind>] <id> [--live]
 ```
+
+The item can be given three ways: a bare id, a full artwork id such as `al-<id>`, or an explicit
+`<kind> <id>` pair. With a bare id Navidrome looks the id up to find its kind, so the `<kind>` prefix
+is optional for artists, albums, playlists, radios, and media files. Disc artwork has no table to
+look up, so a disc still needs its kind (see the disc example below).
 
 Prints the item's stored artwork state, its queue row, the configuration that governs it, and the
 actual walk of the priority chain — which candidate won, and why each one above it lost:
@@ -278,17 +283,23 @@ initialization, which may open external connections; without it, plugins are loa
 #### `artwork refresh`
 
 ```bash
-navidrome artwork refresh <kind> <id>...
+navidrome artwork refresh [<kind>] <id>...
 ```
 
 Clears the item's stored artwork state and re-queues it at high priority. This is the CLI
 equivalent of the refresh button in the web UI. Accepts multiple ids.
 
+Ids take the same forms as `explain`: a bare id, a full artwork id like `al-<id>`, or a shared
+`<kind> <id>...` leader that applies one kind to every id. When you pass self-describing ids (bare
+or `al-<id>` form) you can mix kinds in a single call. An id that cannot be resolved is reported and
+skipped, and the remaining ids are still refreshed.
+
 Because the state is cleared, the item shows a placeholder until it is resolved again.
 
 ```bash
-navidrome artwork refresh al 6XTD9naRGpIrZLoA99pH1r
-navidrome artwork refresh ar 1dfeR4HaWDbWqFHLkxsg1d 6XTD9naRGpIrZLoA99pH1r
+navidrome artwork refresh 6XTD9naRGpIrZLoA99pH1r
+navidrome artwork refresh al-6XTD9naRGpIrZLoA99pH1r ar-1dfeR4HaWDbWqFHLkxsg1d
+navidrome artwork refresh al 1dfeR4HaWDbWqFHLkxsg1d 6XTD9naRGpIrZLoA99pH1r
 ```
 
 #### `artwork reprocess`
