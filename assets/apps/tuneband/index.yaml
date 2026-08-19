@@ -7,7 +7,7 @@ platforms:
 
 api: Subsonic
 
-description: "Lightweight Subsonic-compatible client for iOS and Apple Watch, designed for seamless streaming from Navidrome. Includes browsing, search, queue management, playlists, CarPlay support, and a dedicated watchOS experience."
+description: "Native iPhone and Apple Watch client for Navidrome with music downloads on iOS and Apple Watch. Download albums, playlists, and tracks to your iPhone, and download playlists to the Watch for offline playback. Stream your library, browse, search, manage playlists and the queue, plus AirPlay, CarPlay, smart stations, and a dedicated watchOS app with independent playback."
 
 screenshots:
   thumbnail: thumbnail.webp
@@ -19,8 +19,9 @@ screenshots:
 isFree: true
 
 keywords:
-  - ios
   - apple watch
   - carplay
-  - subsonic
-  - navidrome
+  - download
+  - offline
+  - airplay
+  - watchos
