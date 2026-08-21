@@ -1,7 +1,7 @@
 ---
 title: "Installing with Podman"
 linkTitle: "Podman"
-date: 2026-08-01
+date: 2017-01-05
 description: >
   Using the official container images with Podman and Podman Quadlet
 ---
