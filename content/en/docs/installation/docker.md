@@ -19,7 +19,7 @@ below to your existing file):
 services:
   navidrome:
     image: deluan/navidrome:latest
-    user: 1000:1000 # should be owner of volumes
+    user: 1000:1000 # must own the data folder - run `id -u` and `id -g`. See Permissions below
     ports:
       - "4533:4533"
     restart: unless-stopped
@@ -48,9 +48,44 @@ $ docker run -d \
    deluan/navidrome:latest
 ```
 
+### Permissions
+
+The configurations above are examples. The IDs in them will not always match your machine, so adjust
+them before you start the container.
+
+Navidrome needs:
+
+- read **and write** access to `/data`, where it creates its database and cache
+- read access to `/music`
+
+Both must be granted to the `UID:GID` you put in the `user` directive. If the data folder is not writable
+by that user, Navidrome cannot create the database and stops at startup with:
+
+```
+level=error msg="Error applying PRAGMA optimize" error="unable to open database file: no such file or directory"
+panic: runtime error: invalid memory address or nil pointer dereference
+```
+
+To fix it, create the data folder and give it to the same user you run the container as:
+
+```shell
+mkdir -p /path/to/data
+sudo chown -R 1000:1000 /path/to/data
+```
+
+Use `id -u` and `id -g` to find the IDs of your own user, and `ls -n /path/to/your/music/folder` to see
+which IDs own your music.
+
+Two things people often try that do not work:
+
+- **`PUID` and `PGID` have no effect.** Those variables are a [linuxserver.io](https://docs.linuxserver.io/general/understanding-puid-and-pgid/)
+  convention. Navidrome's image ignores them. Use the `user` directive instead.
+- **Removing the `user` directive is not a fix.** The container then runs as `root`, which can write
+  anywhere, so the error goes away. Do not do this in production. Fix the folder ownership instead.
+
 ### Customization
 
-- The `user` argument should ideally reflect the `UID:GID` of the owner of the music library to avoid permission issues. For testing purpose you could omit this directive, but as a rule of thumb you should not run a production container as `root`.
+- The `user` argument should reflect the `UID:GID` that owns the data folder and can read the music library. See [Permissions](#permissions) above.
 - Remember to change the `volumes` paths to point to your local paths. `/data` is where Navidrome
   will store its DB and cache, `/music` is where your music files are stored. For [multi-library setups](/docs/usage/features/multi-library/), you may need to mount additional volumes for each library.
 - [Configuration options](/docs/usage/configuration/options/) can be customized with environment

@@ -126,6 +126,13 @@ Ensure the `user` directive matches the owner of your music folder:
 ```yaml
 user: 1000:1000  # Should match: ls -n /path/to/music
 ```
+
+The same user also needs **write** access to the data folder. If it does not have it, Navidrome cannot
+create its database and stops with `unable to open database file: no such file or directory`. Fix it with:
+```bash
+sudo chown -R 1000:1000 /path/to/data
+```
+See [Docker permissions](/docs/installation/docker/#permissions) for details.
 {{% /tab %}}
 {{% tab header="Linux" %}}
 ```bash
