@@ -58,8 +58,11 @@ Navidrome needs:
 - read **and write** access to `/data`, where it creates its database and cache
 - read access to `/music`
 
-Both must be granted to the `UID:GID` you put in the `user` directive. The two folders fail in different
-ways, so the logs tell you which one is wrong.
+Both must be granted to the `UID:GID` you put in the `user` directive. Run `id -u` and `id -g` to see the
+IDs of your own account, and `ls -n /path/to/your/music/folder` to see which IDs own your music. Whatever
+numbers you pick, use the same ones in the `user` directive and in the commands below.
+
+The two folders fail in different ways, so the logs tell you which one is wrong.
 
 #### The data folder is not writable
 
@@ -74,7 +77,7 @@ Create the data folder and give it to the same user you run the container as:
 
 ```shell
 mkdir -p /path/to/data
-sudo chown -R 1000:1000 /path/to/data
+sudo chown -R $(id -u):$(id -g) /path/to/data
 ```
 
 #### The music folder is not readable
@@ -90,7 +93,7 @@ The folder does exist, despite what the second message says. The container user 
 Give that user read and execute access, either by changing the owner:
 
 ```shell
-sudo chown -R 1000:1000 /path/to/your/music/folder
+sudo chown -R $(id -u):$(id -g) /path/to/your/music/folder
 ```
 
 or, if other programs also use the folder, by opening it for reading:
@@ -98,9 +101,6 @@ or, if other programs also use the folder, by opening it for reading:
 ```shell
 sudo chmod -R a+rX /path/to/your/music/folder
 ```
-
-Use `id -u` and `id -g` to find the IDs of your own user, and `ls -n /path/to/your/music/folder` to see
-which IDs own your music.
 
 Two things people often try that do not work:
 
