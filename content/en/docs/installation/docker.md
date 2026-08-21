@@ -19,7 +19,7 @@ below to your existing file):
 services:
   navidrome:
     image: deluan/navidrome:latest
-    user: 1000:1000 # must own the data folder - run `id -u` and `id -g`. See Permissions below
+    user: 1000:1000 # must own the data folder and be able to read music folder(s). See Permissions below
     ports:
       - "4533:4533"
     restart: unless-stopped
@@ -58,19 +58,45 @@ Navidrome needs:
 - read **and write** access to `/data`, where it creates its database and cache
 - read access to `/music`
 
-Both must be granted to the `UID:GID` you put in the `user` directive. If the data folder is not writable
-by that user, Navidrome cannot create the database and stops at startup with:
+Both must be granted to the `UID:GID` you put in the `user` directive. The two folders fail in different
+ways, so the logs tell you which one is wrong.
+
+#### The data folder is not writable
+
+Navidrome cannot create its database, and the container stops at startup:
 
 ```
 level=error msg="Error applying PRAGMA optimize" error="unable to open database file: no such file or directory"
 panic: runtime error: invalid memory address or nil pointer dereference
 ```
 
-To fix it, create the data folder and give it to the same user you run the container as:
+Create the data folder and give it to the same user you run the container as:
 
 ```shell
 mkdir -p /path/to/data
 sudo chown -R 1000:1000 /path/to/data
+```
+
+#### The music folder is not readable
+
+Navidrome starts and the web interface works, but your library stays empty. The logs show:
+
+```
+level=error msg="Error starting watcher" error="open /music: permission denied" lib=/music/...
+level=warning msg="Scanner: Target folder does not exist." error="open .: permission denied" path=.
+```
+
+The folder does exist, despite what the second message says. The container user just cannot open it.
+Give that user read and execute access, either by changing the owner:
+
+```shell
+sudo chown -R 1000:1000 /path/to/your/music/folder
+```
+
+or, if other programs also use the folder, by opening it for reading:
+
+```shell
+sudo chmod -R a+rX /path/to/your/music/folder
 ```
 
 Use `id -u` and `id -g` to find the IDs of your own user, and `ls -n /path/to/your/music/folder` to see
@@ -81,7 +107,7 @@ Two things people often try that do not work:
 - **`PUID` and `PGID` have no effect.** Those variables are a [linuxserver.io](https://docs.linuxserver.io/general/understanding-puid-and-pgid/)
   convention. Navidrome's image ignores them. Use the `user` directive instead.
 - **Removing the `user` directive is not a fix.** The container then runs as `root`, which can write
-  anywhere, so the error goes away. Do not do this in production. Fix the folder ownership instead.
+  anywhere, so the error goes away. **Do not do this in production.** Fix the folder ownership instead.
 
 ### Customization
 
