@@ -162,21 +162,23 @@ Subcommands:
 - `explain`: Why a single item's artwork resolved the way it did
 - `refresh`: Clear one item's artwork state and re-resolve it
 - `reprocess`: Re-enqueue artwork in bulk, filtered by kind and/or current source
+- `cancel`: Cancel pending artwork work in bulk, filtered by kind and/or queue priority
 
 Artwork kinds are given by their short code:
 
-| Code | Kind       | `explain` | `refresh` | `reprocess` |
-| ---- | ---------- | :-------: | :-------: | :---------: |
-| `ar` | Artist     |     ✓     |     ✓     |      ✓      |
-| `al` | Album      |     ✓     |     ✓     |      ✓      |
-| `pl` | Playlist   |     ✓     |     ✓     |      ✓      |
-| `ra` | Radio      |     ✓     |     ✓     |      ✓      |
-| `mf` | Media file |     ✓     |     ✓     |             |
-| `dc` | Disc       |     ✓     |           |             |
+| Code | Kind       | `explain` | `refresh` | `reprocess` | `cancel` |
+| ---- | ---------- | :-------: | :-------: | :---------: | :------: |
+| `ar` | Artist     |     ✓     |     ✓     |      ✓      |    ✓     |
+| `al` | Album      |     ✓     |     ✓     |      ✓      |    ✓     |
+| `pl` | Playlist   |     ✓     |     ✓     |      ✓      |    ✓     |
+| `ra` | Radio      |     ✓     |     ✓     |      ✓      |    ✓     |
+| `mf` | Media file |     ✓     |     ✓     |             |    ✓     |
+| `dc` | Disc       |     ✓     |           |             |          |
 
 Media files are not re-enqueued in bulk because they resolve from embedded tags only, at scan time
-or on first view. Disc artwork keeps no stored state at all — it is resolved on every request and
-cached by content — so there is nothing for `refresh` to clear.
+or on first view. A scan does queue them, though, so `cancel` still applies. Disc artwork keeps no
+stored state at all — it is resolved on every request and cached by content — so there is nothing
+for `refresh` to clear.
 
 #### `artwork status`
 
@@ -341,6 +343,57 @@ until they are replaced. It can still generate a large number of external reques
 Enqueued items are picked up by a running server on its next drain, or at next startup if the
 server is stopped. See [Artwork resolution](/docs/usage/library/artwork/) for how the priority
 chains themselves work.
+
+#### `artwork cancel`
+
+```bash
+navidrome artwork cancel [--kind ...] [--priority ...] [--all] [--dry-run] [-y]
+```
+
+Cancels pending artwork work. It is the counterpart to `reprocess`: one fills the queue, the other
+empties it. Flags:
+
+- `--kind`: Kinds to cancel (`ar`, `al`, `pl`, `ra`, `mf`); repeatable
+- `--priority`: Only rows queued at these priorities (`bump`, `scan`, `backfill`, `recheck`);
+  repeatable
+- `--all`: Cancel every kind at every priority
+- `--dry-run`: Report what would be cancelled and exit without cancelling
+- `-y, --yes`: Skip the confirmation prompt
+
+At least one of `--kind`, `--priority`, or `--all` is required. As with `reprocess`, the command
+prints a breakdown and asks for confirmation before it deletes anything.
+
+Filtering by priority is the main reason this command exists. Changing a setting that affects
+artwork resolution queues the entire library at `backfill` priority, which on a large library can
+mean tens of thousands of external lookups. Cancelling that priority calls off the bulk job and
+leaves the items you asked for by hand, which sit at `bump`.
+
+Queue priorities, highest first:
+
+| Priority   | Queued by                                                          |
+| ---------- | ------------------------------------------------------------------ |
+| `bump`     | `artwork refresh`, or a request for an item with no artwork state  |
+| `scan`     | The scanner, for items it added or changed                         |
+| `backfill` | A configuration change that invalidates every stored resolution    |
+| `recheck`  | `artwork reprocess`, and the periodic retry of items with no image |
+
+```bash
+# What is sitting at backfill priority right now?
+navidrome artwork cancel --priority backfill --dry-run
+
+# Call off a library-wide backfill, keeping manual refreshes queued
+navidrome artwork cancel --priority backfill
+
+# Empty the queue completely
+navidrome artwork cancel --all --yes
+```
+
+{{% alert color="warning" title="Important" %}}
+`cancel` empties the queue and nothing else. It does not stop the worker, and it does not interrupt
+items the server has already picked up. An item that has no artwork state yet can also be queued
+again by the hourly recheck, so cancelling is most durable for a backfill of items that already
+have artwork.
+{{% /alert %}}
 
 ---
 
