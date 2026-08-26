@@ -12,7 +12,7 @@ platforms:
 
 api: OpenSubsonic
 
-description: "A clean music player for Navidrome, OpenSubsonic, Jellyfin and Ampache servers, or for the files on your phone. Synced lyrics with tap-to-seek, offline downloads, gapless, crossfade, an equalizer, ReplayGain, casting to UPnP/DLNA and Sonos, Android Auto, queue sync across devices, light and dark themes, and a UI where almost anything can be shown, hidden or reordered. Android, with an experimental iOS build."
+description: "A clean music player for Navidrome, OpenSubsonic, Jellyfin and Ampache servers, or for the files on your phone. Synced lyrics with tap-to-seek, offline downloads, gapless, crossfade, an equalizer, ReplayGain, casting to UPnP/DLNA and Sonos, Android Auto and queue sync across devices, in a UI where almost anything can be shown, hidden or reordered."
 
 screenshots:
   thumbnail: 1-home.webp
