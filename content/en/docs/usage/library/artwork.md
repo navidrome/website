@@ -128,4 +128,12 @@ The `CoverArtQuality` [config option][advanced-configuration] controls the encod
 
 Animated GIFs embedded in or associated with your music files are preserved during resize. They are converted to animated WebP using ffmpeg.
 
+## Troubleshooting
+
+When artwork is wrong or missing, the `navidrome artwork` [CLI commands](/docs/usage/admin/cli/#artwork)
+report what actually happened. `artwork explain` walks the priority chain for a single item and shows
+which candidate won and why the others lost — including whether a file was absent or present but
+unreadable. `artwork status` shows the queue and whether a configuration change has a library-wide
+re-resolve pending.
+
 [advanced-configuration]: /docs/usage/configuration/options/#advanced-configuration
