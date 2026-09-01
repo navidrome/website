@@ -7,18 +7,21 @@ repoUrl: https://github.com/juananzzz/resonus
 platforms:
   android:
     store: https://github.com/juananzzz/resonus/releases/latest
+  ios:
+    store: https://github.com/juananzzz/resonus/releases/latest
 
 api: OpenSubsonic
 
-description: "A clean Android music player for Navidrome, OpenSubsonic, Jellyfin and Ampache servers — or your local files. Features synced lyrics with tap-to-seek, offline downloads, crossfade, ReplayGain, UPnP/DLNA casting, Android Auto, queue sync across devices, and a customizable UI where you can show or hide almost anything."
+description: "A clean music player for Navidrome, OpenSubsonic, Jellyfin and Ampache servers, or for the files on your phone. Synced lyrics with tap-to-seek, offline downloads, gapless, crossfade, an equalizer, ReplayGain, casting to UPnP/DLNA and Sonos, Android Auto and queue sync across devices, in a UI where almost anything can be shown, hidden or reordered."
 
 screenshots:
   thumbnail: 1-home.webp
   gallery:
     - 2-player.webp
-    - 3-album.webp
-    - 4-search.webp
+    - 3-lyrics.webp
+    - 4-artist.webp
     - 5-library.webp
+    - 6-servers.webp
 
 isOpenSource: true
 
@@ -29,5 +32,5 @@ keywords:
   - ampache
   - offline
   - lyrics
-  - replay gain
+  - sonos
   - android auto
