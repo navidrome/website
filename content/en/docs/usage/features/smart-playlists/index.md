@@ -118,6 +118,22 @@ This playlist includes 10% of all loved tracks, selected randomly. Use `limitPer
 }
 ```
 
+### Example 8: Daily Mix (stable for a day)
+
+This playlist picks 20 random tracks played in the last 30 days, and keeps the same track list for a full day
+before re-evaluating. Without `refreshDelay`, a playlist like this would change after every song you play,
+which breaks offline caches. See [Refreshing Playlists](#refreshing-playlists) for details.
+
+```json
+{
+  "name": "Daily Mix",
+  "all": [{ "inTheLast": { "lastPlayed": 30 } }],
+  "sort": "random",
+  "limit": 20,
+  "refreshDelay": "1d"
+}
+```
+
 ## Creating Smart Playlists using the UI
 
 Currently Smart Playlists can only be created by manually editing `.nsp` files. We plan to add a UI for creating and
@@ -163,6 +179,31 @@ This delay can be adjusted by setting the
 [`SmartPlaylistRefreshDelay`](/docs/usage/configuration/options/#:~:text=SmartPlaylistRefreshDelay) configuration option.
 By default, this is set to `5s`, meaning that Smart Playlists refreshes are spaced at least 5 seconds apart.
 You can adjust this value in the configuration file.
+
+#### Per-Playlist Refresh Delay
+
+You can override the global delay for an individual playlist by adding a `refreshDelay` to its `.nsp` file. The
+playlist then keeps the same track list until that much time has passed since it was last evaluated. This is useful
+for "daily mix" style playlists whose rules would otherwise reshuffle the tracks on every access, and it keeps the
+track list stable for clients that cache playlists for offline playback.
+
+```json
+{
+  "name": "Weekly Discoveries",
+  "all": [{ "notInTheLast": { "lastPlayed": 90 } }],
+  "sort": "random",
+  "limit": 50,
+  "refreshDelay": "1w"
+}
+```
+
+The value is a duration string. Besides the standard units (`h`, `m`, `s`), `d` (days) and `w` (weeks) are also
+supported, so values like `"12h"`, `"1d"`, `"1w"` or `"1d12h"` all work. The delay is a rolling window measured
+from the last evaluation, not aligned to calendar days. When `refreshDelay` is not set, the global
+`SmartPlaylistRefreshDelay` applies.
+
+Editing the playlist's rules (by changing the `.nsp` file or via a client) always takes effect on the next access,
+even if the refresh delay has not elapsed yet.
 
 ## Troubleshooting Common Issues
 
