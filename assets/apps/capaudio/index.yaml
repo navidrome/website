@@ -1,0 +1,24 @@
+name: CapAudio
+url: https://nebulia.tech/mobile/capaudio
+platforms:
+  android:
+    store: https://play.google.com/store/apps/details?id=com.nebulia.audio
+api: Subsonic
+description: "A modern Android music player that unifies your local library and Subsonic/Navidrome servers with Podcast support. Features custom music alarms, on-device AI playlists, rich widgets, dynamic lyrics translation, and offline caching in a sleek interface."
+screenshots:
+  thumbnail: thumbnail.webp
+  gallery:
+    - screen1.webp
+    - screen2.webp
+    - screen3.webp
+    - screen4.webp
+    - screen5.webp
+isOpenSource: false
+isFree: true
+keywords:
+  - alarms
+  - widgets
+  - offline
+  - lyrics
+  - chromecast
+  - Podcast
