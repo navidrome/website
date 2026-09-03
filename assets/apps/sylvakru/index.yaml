@@ -1,0 +1,19 @@
+name: Sylvakru
+url: https://github.com/AfalpHy/sylvakru.git
+repoUrl: https://github.com/AfalpHy/sylvakru.git
+platforms:
+  ios:
+    store: https://apps.apple.com/app/sylvakru/id6783824639
+  android: true
+  macos: true
+  windows: true
+  linux: true
+api: OpenSubsonic
+description: "Sylvakru is a cross-platform music player for local libraries and self-hosted media services, supporting Android, iOS, Windows, Linux, and macOS."
+screenshots:
+  thumbnail: thumbnail.webp
+  gallery:
+    - screen1.webp
+    - screen2.webp
+    - screen3.webp
+
