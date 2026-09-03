@@ -9,7 +9,7 @@ platforms:
   windows: true
   linux: true
 api: OpenSubsonic
-description: "Sylvakru is a cross-platform music player for local libraries and self-hosted media services, supporting Android, iOS, Windows, Linux, and macOS."
+description: "Sylvakru is a cross-platform music player for local libraries and self-hosted media services (including Navidrome via the OpenSubsonic API). It is completely free on the other four platforms, while on iOS, core features are free with optional one-time purchases for advanced features."
 screenshots:
   thumbnail: thumbnail.webp
   gallery:
