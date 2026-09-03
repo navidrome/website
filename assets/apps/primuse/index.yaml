@@ -6,9 +6,9 @@ platforms:
   ios:
     store: https://apps.apple.com/us/app/primuse/id6761675450
   macos:
-    store: https://apps.apple.com/us/app/primuse/id6761675450
+    store: https://apps.apple.com/us/app/primuse/id6761675450?platform=mac
   tvos:
-    store: https://apps.apple.com/us/app/primuse/id6761675450
+    store: https://apps.apple.com/us/app/primuse/id6761675450?platform=tv
 
 api: OpenSubsonic
 
