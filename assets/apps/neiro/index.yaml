@@ -1,0 +1,15 @@
+name: Neiro
+url: https://github.com/FabianZettl/Neiro
+repoUrl: https://github.com/FabianZettl/Neiro
+platforms:
+  android: true
+api: OpenSubsonic
+description: "Apple Music-inspired Android client for OpenSubsonic/Navidrome with dynamic album-art color theming, liquid-glass mini player, Last.fm integration, lyrics, podcasts, and internet radio."
+isFree: true
+screenshots:
+  thumbnail: thumbnail.webp
+  gallery:
+    - screen1.webp
+    - screen2.webp
+    - screen3.webp
+    - screen4.webp
