@@ -1,0 +1,29 @@
+name: Norrklang
+url: https://norrklang.app
+repoUrl: https://github.com/koedastudio/norrklang
+
+platforms:
+  android:
+    store: https://play.google.com/store/apps/details?id=studio.koeda.norrklang
+
+api: Subsonic
+
+description: "A music player for Android Automotive OS that runs natively on the car's screen (Polestar, Volvo and other cars with Google built-in). Streams from your Navidrome, Subsonic, Plex or Jellyfin server with generated mixes, favourites, assistant voice search and per-network streaming quality."
+
+screenshots:
+  thumbnail: thumbnail.webp
+  gallery:
+    - screen1.webp
+    - screen2.webp
+    - screen3.webp
+    - screen4.webp
+
+pricing: free
+
+keywords:
+  - android automotive
+  - car
+  - polestar
+  - volvo
+  - plex
+  - jellyfin
