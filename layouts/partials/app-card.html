@@ -11,6 +11,7 @@
 {{ $isOpenSource := and $repoUrl (ne .isOpenSource false) }}
 {{/* pricing: free | freemium | trial | paid (required by app-schema.json) */}}
 {{ $pricing := .pricing }}
+{{ if not $pricing }}{{ errorf "app %q is missing the required 'pricing' field (free|freemium|trial|paid)" $appId }}{{ end }}
 
 {{/* Build full path to thumbnail */}}
 {{ $thumbnailPath := printf "apps/%s/%s" $appId $screenshots.thumbnail }}
