@@ -53,8 +53,12 @@ screenshots:
     - screen2.webp
     - screen3.webp
 
-# Optional: Set to true if the app is free (no purchase required)
-isFree: true
+# Required: Pricing model. One of:
+#   free     - no cost at all
+#   freemium - free to download, has in-app purchases / subscriptions
+#   trial    - purchase required, but a free trial is available
+#   paid     - purchase required
+pricing: free
 
 # Optional: Additional search terms (max 6, not displayed on app card)
 # Use for alternative names, abbreviations, or key features

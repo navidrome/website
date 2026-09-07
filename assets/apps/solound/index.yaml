@@ -15,7 +15,7 @@ screenshots:
     - screen1.webp
     - screen2.webp
 
-isFree: true
+pricing: free
 
 keywords:
   - android

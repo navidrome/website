@@ -1,7 +1,7 @@
 name: Sonora
 url: https://sonora.gmadi.me
 isOpenSource: false
-isFree: true
+pricing: free
 platforms:
   ios:
     store: https://apps.apple.com/us/app/sonora-navidrome-client/id6760624152

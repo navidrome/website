@@ -22,7 +22,7 @@ screenshots:
     - screen3.webp
     - screen4.webp
 
-isFree: true
+pricing: free
 
 keywords:
   - jellyfin

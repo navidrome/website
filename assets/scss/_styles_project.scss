@@ -367,33 +367,38 @@
     }
   }
 
-  .app-paid-badge {
+  .app-pricing-badge {
     margin-left: 0.5rem;
     cursor: help;
     vertical-align: middle;
 
-    .app-paid-pill {
+    .app-pricing-pill {
       display: inline-flex;
       align-items: center;
       gap: 0.3rem;
       height: 1.25rem;
       padding: 0 0.4rem;
-      background-color: #dc3545;
       color: #fff;
       border-radius: 3px;
       font-size: 0.7rem;
       font-weight: 600;
       vertical-align: middle;
       transform: translateY(-3px);
+      white-space: nowrap;
 
       i.fas {
         font-size: 0.75rem;
       }
     }
 
-    [data-bs-theme="dark"] & .app-paid-pill {
-      background-color: #b02a37;
-      color: #fff;
+    .app-pricing-pill--paid { background-color: #dc3545; }
+    .app-pricing-pill--freemium { background-color: #6c757d; }
+    .app-pricing-pill--trial { background-color: #0d6efd; }
+
+    [data-bs-theme="dark"] & {
+      .app-pricing-pill--paid { background-color: #b02a37; }
+      .app-pricing-pill--freemium { background-color: #565e64; }
+      .app-pricing-pill--trial { background-color: #0a58ca; }
     }
   }
 }

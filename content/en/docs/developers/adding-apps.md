@@ -60,17 +60,30 @@ Use the template at [`assets/apps/_template/index.yaml`](https://github.com/navi
 | `api`                   | Supported API: `OpenSubsonic`, `Subsonic`, or `Navidrome` |
 | `description`           | Brief description (1-2 sentences)                         |
 | `screenshots.thumbnail` | Filename of thumbnail image (must NOT be a logo)          |
+| `pricing`               | Pricing model: `free`, `freemium`, `trial`, or `paid` (see below) |
 
 ### Optional Fields
 
-| Field                 | Description                                                 |
-|-----------------------|-------------------------------------------------------------|
-| `repoUrl`             | Repository URL (GitHub, GitLab) - used for release date tracking |
-| `isOpenSource`        | Whether the source code is publicly available (see below)   |
-| `isFree`              | Whether the app is free (no purchase required) - boolean    |
-| `keywords`            | Additional search terms (max 6) - not displayed on app card |
-| `screenshots.gallery` | Array of additional screenshot filenames                    |
-| `platforms.*.store`   | Platform-specific store URLs                                |
+| Field                 | Description                                                       |
+|-----------------------|-------------------------------------------------------------------|
+| `repoUrl`             | Repository URL (GitHub, GitLab) - used for release date tracking  |
+| `isOpenSource`        | Whether the source code is publicly available (see below)         |
+| `keywords`            | Additional search terms (max 6) - not displayed on app card       |
+| `screenshots.gallery` | Array of additional screenshot filenames                          |
+| `platforms.*.store`   | Platform-specific store URLs                                      |
+
+### Pricing
+
+The `pricing` field controls the badge shown on the app card and the "Free Only" filter:
+
+| Value      | Meaning                                        | Badge shown        |
+|------------|------------------------------------------------|--------------------|
+| `free`     | No cost at all                                 | none               |
+| `freemium` | Free to download, has in-app purchases         | `In-App Purchases` |
+| `trial`    | Purchase required, but a free trial is offered | `Free Trial`       |
+| `paid`     | Purchase required                              | `Paid`             |
+
+The "Free Only" filter matches `free`, `freemium`, and `trial` apps, since all three cost nothing to start using. Only `paid` apps are hidden.
 
 ### Open Source vs Repository URL
 
