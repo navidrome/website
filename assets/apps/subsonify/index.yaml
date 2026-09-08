@@ -12,7 +12,7 @@ screenshots:
     - screen2.webp
     - screen3.webp
     - screen4.webp
-isFree: false
+pricing: freemium
 keywords:
   - carplay
   - apple watch
