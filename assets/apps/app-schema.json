@@ -3,7 +3,7 @@
   "title": "Navidrome Client App",
   "description": "Schema for Navidrome client app metadata",
   "type": "object",
-  "required": ["name", "url", "platforms", "api", "description", "screenshots"],
+  "required": ["name", "url", "platforms", "api", "description", "screenshots", "pricing"],
   "properties": {
     "name": {
       "type": "string",
@@ -166,9 +166,10 @@
       "type": "boolean",
       "description": "Whether the app source code is publicly available under an open source license. If repoUrl is set and isOpenSource is omitted, defaults to true."
     },
-    "isFree": {
-      "type": "boolean",
-      "description": "Whether the app is free (no purchase required)"
+    "pricing": {
+      "type": "string",
+      "enum": ["free", "freemium", "trial", "paid"],
+      "description": "Pricing model: 'free' (no cost), 'freemium' (free with in-app purchases), 'trial' (paid with a free trial), 'paid' (purchase required)."
     },
     "keywords": {
       "type": "array",

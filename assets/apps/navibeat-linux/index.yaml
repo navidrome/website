@@ -1,7 +1,7 @@
 name: NaviBeat for Linux
 url: https://navibeat.app/linux
 repoUrl: https://github.com/nenadjokic/navibeat-linux
-isFree: true
+pricing: free
 isOpenSource: false
 platforms:
   linux: true

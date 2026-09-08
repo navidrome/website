@@ -2,7 +2,7 @@ name: Tritone
 url: https://tritone.dev
 repoUrl: https://github.com/Kyle8973/Tritone
 isOpenSource: true
-isFree: true
+pricing: free
 platforms:
   windows: true
   linux: true

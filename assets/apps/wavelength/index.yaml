@@ -9,7 +9,7 @@ screenshots:
   thumbnail: thumbnail.webp
   gallery:
     - screen1.webp
-isFree: false
+pricing: paid
 keywords:
   - mac
   - macos
