@@ -1,7 +1,7 @@
 name: NetMusic
 url: https://netmusicapp.com/
 isOpenSource: false
-isFree: true
+pricing: free
 
 platforms:
   ios:

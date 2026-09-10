@@ -142,11 +142,11 @@ Map discovered information to platforms:
    - `api`: One of `OpenSubsonic`, `Subsonic`, `Navidrome`
    - `description`: 1-2 sentences (max 500 chars)
    - `screenshots.thumbnail`: Filename of downloaded thumbnail
+   - `pricing`: `free`, `freemium` (free + in-app purchases), `trial` (paid + free trial), or `paid`
 
 4. **Optional fields** (include if found):
    - `repoUrl`: Repository URL (for release date tracking)
    - `isOpenSource`: Set to `false` if repo exists but source is not public (see Step 3)
-   - `isFree`: Set to `true` if app is free
    - `screenshots.gallery`: Array of screenshot filenames (max 5)
    - `keywords`: Search terms not in name/description (max 6)
 

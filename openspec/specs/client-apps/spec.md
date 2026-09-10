@@ -78,7 +78,12 @@ App developers SHALL be able to contribute their apps via YAML files.
 
 #### Scenario: Optional app fields
 - **WHEN** an app YAML file is created
-- **THEN** it MAY include: `repoUrl`, `isOpenSource`, `isFree`, `screenshots.gallery`, `keywords`, platform store URLs
+- **THEN** it MAY include: `repoUrl`, `isOpenSource`, `screenshots.gallery`, `keywords`, platform store URLs
+
+#### Scenario: App pricing model
+- **WHEN** an app YAML file is created
+- **THEN** it MUST include `pricing` set to one of `free`, `freemium`, `trial`, or `paid`
+- **AND** the card displays an `In-App Purchases`, `Free Trial`, or `Paid` badge for every value except `free`
 
 #### Scenario: Closed-source app with repository
 - **WHEN** an app has a GitHub/GitLab repository for releases or issue tracking

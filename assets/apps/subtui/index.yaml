@@ -11,7 +11,7 @@ screenshots:
     - screen1.webp
     - screen2.webp
 repoUrl: https://github.com/MattiaPun/SubTUI
-isFree: true
+pricing: free
 keywords:
   - terminal
   - minimal

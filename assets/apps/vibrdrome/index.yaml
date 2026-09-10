@@ -27,7 +27,7 @@ screenshots:
     - android-player.webp
     - web-library.webp
 
-isFree: true
+pricing: free
 
 keywords:
   - carplay
