@@ -1,8 +1,8 @@
 name: Yuzic
 
-url: https://eftpmc.github.io/yuzic-web
+url: https://yuzicapp.github.io/yuzic-web/
 
-repoUrl: https://github.com/eftpmc/yuzic
+repoUrl: https://github.com/yuzicapp/yuzic
 
 platforms:
   android:
@@ -12,7 +12,7 @@ platforms:
 
 api: Subsonic
 
-description: "A cross-platform, free and open source music player for Navidrome with offline support, customizable UI, and a minimal, beautiful interface."
+description: "A cross-platform, free and open source music player for Navidrome, Jellyfin, and Emby, with offline support, a customizable UI, and a minimal interface."
 
 screenshots:
   thumbnail: thumbnail.webp
