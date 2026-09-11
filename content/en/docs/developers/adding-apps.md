@@ -83,7 +83,7 @@ The `pricing` field controls the badge shown on the app card and the "Free Only"
 | `trial`    | Purchase required, but a free trial is offered | `Free Trial`       |
 | `paid`     | Purchase required                              | `Paid`             |
 
-The "Free Only" filter matches `free`, `freemium`, and `trial` apps, since all three cost nothing to start using. Only `paid` apps are hidden.
+The "Free Only" filter matches `free` and `freemium` apps, since both can be used without paying. `trial` and `paid` apps are hidden, because they must be bought to keep using them.
 
 ### Open Source vs Repository URL
 

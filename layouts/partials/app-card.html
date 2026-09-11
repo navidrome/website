@@ -39,11 +39,13 @@
 {{ $apiLower := lower $api }}
 
 {{ $ossAttr := cond $isOpenSource "true" "false" }}
-{{/* "Free Only" also matches freemium and trial apps: they cost nothing to start using */}}
-{{ $freeAttr := cond (in (slice "free" "freemium" "trial") $pricing) "true" "false" }}
+{{/* "Free Only" also matches freemium apps: the core app stays free. Trial apps must be bought, so they do not match */}}
+{{ $freeAttr := cond (in (slice "free" "freemium") $pricing) "true" "false" }}
 
 {{ $keywords := default (slice) .keywords }}
-{{ $searchable := printf "%s %s %s" $name $description (delimit $keywords " ") | lower }}
+{{/* The pricing value is searchable, so typing "trial" finds trial apps. "free" adds nothing, so it is left out */}}
+{{ $pricingTerm := cond (eq $pricing "free") "" $pricing }}
+{{ $searchable := printf "%s %s %s %s" $name $description (delimit $keywords " ") $pricingTerm | lower }}
 
 <div class="app-card" 
      data-platforms="{{ $platformsAttr }}" 
