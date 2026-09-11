@@ -1,0 +1,22 @@
+name: SonicMate
+url: https://icelyfire.github.io/sonicmate-legal/
+isOpenSource: false
+pricing: free
+platforms:
+  ios:
+    store: https://apps.apple.com/app/id6771247109
+api: Subsonic
+description: "SonicMate is a free native iOS and Apple Watch client for Navidrome and other Subsonic-compatible servers. Browse by artist, album, genre and playlist, stream from your own server or download tracks for offline listening, and keep playback controls on the Lock Screen. The bundled Apple Watch app acts as a remote, with volume on the Digital Crown. A demo mode lets you explore the interface before connecting a server."
+screenshots:
+  thumbnail: thumbnail.webp
+  gallery:
+    - gallery1.webp
+    - gallery2.webp
+    - gallery3.webp
+    - gallery4.webp
+keywords:
+  - apple watch
+  - offline
+  - downloads
+  - demo mode
+  - self-hosted
