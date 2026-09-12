@@ -158,7 +158,7 @@ navidrome artwork --help
 
 Subcommands:
 
-- `status`: Queue depth, where artwork currently resolves from, absent counts, and backfill state
+- `status`: Queue depth, where artwork currently resolves from, absent counts, and config state
 - `explain`: Why a single item's artwork resolved the way it did
 - `refresh`: Clear one item's artwork state and re-resolve it
 - `reprocess`: Re-enqueue artwork in bulk, filtered by kind and/or current source
@@ -176,9 +176,10 @@ Artwork kinds are given by their short code:
 | `dc` | Disc       |     ✓     |           |             |          |
 
 Media files are not re-enqueued in bulk because they resolve from embedded tags only, at scan time
-or on first view. A scan does queue them, though, so `cancel` still applies. Disc artwork keeps no
-stored state at all — it is resolved on every request and cached by content — so there is nothing
-for `refresh` to clear.
+or on first view. They are still queued, though, so `cancel` applies. Disc artwork keeps no stored
+state at all — it is resolved on every request and cached by content — so there is nothing for
+`refresh` to clear. Playlists and radios are accepted by `explain`, which reports their stored state
+and queue row, but they do not walk a priority chain.
 
 #### `artwork status`
 
@@ -187,21 +188,35 @@ navidrome artwork status
 ```
 
 Reports the artwork queue by kind and priority, the distribution of sources currently in use, how
-many items resolved to no image, and whether a configuration change has a library-wide re-resolve
-pending.
+many items resolved to no image, and whether the artwork configuration changed since the library was
+last resolved.
 
-That last part is the most useful line. Changing `CoverArtPriority`, `ArtistArtPriority`,
-`ArtistImageFolder`, `Agents`, `EnableExternalServices`, or `EnableM3UExternalAlbumArt` changes an
-internal fingerprint, and on the next startup Navidrome re-resolves **every** artist, album,
-playlist, and radio. `status` shows the stored and current fingerprint side by side, so a surprise
-burst of external requests is one command to explain:
+The `Absent` block splits items with no image into two columns. `NO IMAGE` means every candidate was
+asked and none had an image. `FAILED` means Navidrome gave up after its retries ran out, for example
+because a provider kept timing out. Those are the items most likely to resolve on another try.
+Navidrome never retries either group on its own; use `artwork reprocess --source absent` for both, or
+`--source failed` for just the ones that gave up.
 
 ```
-Backfill
-  State:                fingerprint changed — every artist, album, playlist and radio will be re-enqueued on the next startup
-  Stored fingerprint:   7e537a22febc07d3d5ca40546e88da54
-  Current fingerprint:  c49003a68a82ee683a3a62b0e98ff621
-  Fingerprint inputs (changing any of these re-resolves the whole library):
+Absent (resolved, no image found)
+  KIND      NO IMAGE  FAILED
+  artist    212       37
+  album     48        0
+```
+
+The `Config` block tracks an internal fingerprint of `CoverArtPriority`, `ArtistArtPriority`,
+`ArtistImageFolder`, `Agents`, `EnableExternalServices`, and `EnableM3UExternalAlbumArt`. Changing any
+of them does **not** re-resolve existing artwork: stored artwork keeps the result of the old settings,
+and Navidrome logs a warning at startup. To apply the change to the whole library, run
+`artwork reprocess --all`. A full, unfiltered reprocess also records the new fingerprint, which clears
+the warning.
+
+```
+Config
+  State:                fingerprint changed — stored artwork keeps the old resolution; run 'artwork reprocess --all' to apply it
+  Stored fingerprint:   7e537a22febc07d3
+  Current fingerprint:  c49003a68a82ee68
+  Fingerprint inputs (changing any of these makes the stored artwork stale):
     CoverArtPriority:           cover.*, folder.*, front.*, embedded, external
     ...
 ```
@@ -218,7 +233,12 @@ is optional for artists, albums, playlists, radios, and media files. Disc artwor
 look up, so a disc still needs its kind (see the disc example below).
 
 Prints the item's stored artwork state, its queue row, the configuration that governs it, and the
-actual walk of the priority chain — which candidate won, and why each one above it lost:
+walk of the priority chain — which candidate won, and why each one above it lost.
+
+By default the chain is the one the server **recorded** the last time it resolved the item, so it
+shows what actually happened, and no lookups are repeated. The header says when it was recorded.
+With `--live`, `explain` walks the chain again right now instead, and the header reads
+`Chain (walked now)`. Disc artwork keeps no stored state, so a disc is always walked now.
 
 ```
 Item
@@ -239,7 +259,7 @@ Config
   CoverArtPriority:  cover.*, folder.*, front.*, embedded, external
   Agents:            lastfm, spotify
 
-Chain
+Chain (recorded 2026-04-19T03:22:11Z)
   CANDIDATE  OUTCOME  DETAIL
   cover.*    hit      /music/Radiohead/OK Computer/cover.jpg
 
@@ -249,21 +269,27 @@ Result
 
 Outcomes in the `Chain` table are:
 
-| Outcome      | Meaning                                                            |
-| ------------ | ------------------------------------------------------------------ |
-| `hit`        | This candidate produced the image                                  |
-| `miss`       | Looked, found nothing                                              |
-| `unreadable` | A file is there but could not be opened or decoded                 |
-| `skipped`    | Never evaluated, with the reason in `DETAIL`                       |
-| `would-try`  | An external agent that was not called (offline; see `--live`)      |
-| `error`      | An external lookup failed                                          |
+| Outcome      | Meaning                                                                  |
+| ------------ | ------------------------------------------------------------------------ |
+| `hit`        | This candidate produced the image                                        |
+| `miss`       | Looked, found nothing                                                    |
+| `unreadable` | A file is there but could not be opened or decoded                       |
+| `skipped`    | Never evaluated, with the reason in `DETAIL`                             |
+| `error`      | A lookup or a processing step failed, with the error in `DETAIL`         |
 
-`unreadable` versus `miss` is the distinction stored state cannot express: the first means a
+`unreadable` versus `miss` is the distinction stored state alone cannot express: the first means a
 damaged or unreadable file that is worth fixing, the second means there was simply nothing there.
 
-Reading `Result` against `Stored` is itself diagnostic. If they disagree — stored says
-`external:lastfm`, the live walk resolves from `folder` — the stored state is stale, and
-`artwork refresh` is the fix.
+When a resolution fails, the `Queue` block shows why. `Last attempt failed` lists the steps of the
+most recent failed attempt while the item is still being retried. `Gave up after` lists the steps of
+the final attempt once Navidrome stopped retrying. If a candidate was found but could not be
+processed, or an external lookup failed, `Result` reads `indeterminate` instead of `not resolved`:
+nothing proved that the item has no artwork, and a retry may find it.
+
+Items resolved by an older Navidrome version have no recorded chain. For those, `explain` says so;
+re-run it with `--live` to see the chain. Reading a live `Result` against `Stored` is itself
+diagnostic. If they disagree — stored says `external:lastfm`, the live walk resolves from `folder` —
+the stored state is stale, and `artwork refresh` is the fix.
 
 A disc artwork id is the album id and the disc number joined by a colon:
 
@@ -272,14 +298,15 @@ navidrome artwork explain dc 6XTD9naRGpIrZLoA99pH1r:2
 ```
 
 {{% alert %}}
-`explain` makes **no external requests** by default: external agents are reported as `would-try`
-rather than called. Pass `--live` to perform real lookups. The default protects providers from a
-diagnostic run adding load, especially when the reason you are debugging is rate limiting.
+`explain` makes **no external requests** by default: it reports the recorded chain instead of walking
+it again. Pass `--live` to walk the chain now with real lookups. The default protects providers from
+a diagnostic run adding load, especially when the reason you are debugging is rate limiting.
 
-To report accurately, these commands load the plugins named in `Agents` — and only those, since a
-plugin that is not a configured agent cannot supply an image. Loading a plugin creates the services
-its manifest asks for, such as a key-value store. `--live` additionally runs each plugin's
-initialization, which may open external connections; without it, plugins are loaded but not started.
+To report accurately, `explain` (for artists and albums) and `reprocess` (for its lookup estimate)
+load the plugins named in `Agents` — and only those, since a plugin that is not a configured agent
+cannot supply an image. Loading a plugin creates the services its manifest asks for, such as a
+key-value store. `explain --live` additionally runs each plugin's initialization, which may open
+external connections; without it, plugins are loaded but not started.
 {{% /alert %}}
 
 #### `artwork refresh`
@@ -288,8 +315,9 @@ initialization, which may open external connections; without it, plugins are loa
 navidrome artwork refresh [<kind>] <id>...
 ```
 
-Clears the item's stored artwork state and re-queues it at high priority. This is the CLI
-equivalent of the refresh button in the web UI. Accepts multiple ids.
+Clears the item's stored artwork state and re-queues it at high priority. For albums and artists,
+admins can do the same from the web UI with **Refresh Metadata** in the context menu. Accepts
+multiple ids.
 
 Ids take the same forms as `explain`: a bare id, a full artwork id like `al-<id>`, or a shared
 `<kind> <id>...` leader that applies one kind to every id. When you pass self-describing ids (bare
@@ -314,24 +342,32 @@ Re-enqueues artwork in bulk. Flags:
 
 - `--kind`: Kinds to reprocess (`ar`, `al`, `pl`, `ra`); repeatable
 - `--source`: Only items currently resolved from these sources (e.g. `folder`, `embedded`,
-  `external:lastfm`, `absent`); repeatable
+  `external:lastfm`, `absent`, or `failed` for the absent items that gave up); repeatable
 - `--all`: Reprocess every kind
 - `--dry-run`: Report what would be queued and exit without queueing
 - `-y, --yes`: Skip the confirmation prompt
 
 At least one of `--kind`, `--source`, or `--all` is required — an unfiltered run is an error, not a
-silent full re-resolve. Before queueing, the command prints a breakdown and an estimate of the
-external lookups involved, then asks for confirmation.
+silent full re-resolve. `--source` on its own applies to every kind. A source that no item uses is
+an error, and the message lists the sources in use. Before queueing, the command prints a breakdown
+and an estimate of the external lookups involved, then asks for confirmation.
+
+`reprocess` is the only way absent artwork is retried: Navidrome does not revisit an item with no
+image on its own. It is also how you apply an artwork configuration change to the whole library (see
+[`artwork status`](#artwork-status)).
 
 ```bash
 # What would be re-resolved for artists currently sourced from an external agent?
 navidrome artwork reprocess --kind ar --source external:lastfm --dry-run
 
+# Retry only the items that gave up, for example after a provider outage
+navidrome artwork reprocess --source failed
+
 # Retry everything that resolved to no image at all
 navidrome artwork reprocess --source absent
 
-# Re-resolve all albums, no prompt
-navidrome artwork reprocess --kind al --yes
+# Apply a changed artwork setting to the whole library
+navidrome artwork reprocess --all
 ```
 
 {{% alert color="warning" title="Important" %}}
@@ -363,36 +399,37 @@ empties it. Flags:
 At least one of `--kind`, `--priority`, or `--all` is required. As with `reprocess`, the command
 prints a breakdown and asks for confirmation before it deletes anything.
 
-Filtering by priority is the main reason this command exists. Changing a setting that affects
-artwork resolution queues the entire library at `backfill` priority, which on a large library can
-mean tens of thousands of external lookups. Cancelling that priority calls off the bulk job and
-leaves the items you asked for by hand, which sit at `bump`.
+Filtering by priority lets you call off a bulk job and keep the rest. A large `reprocess` queues its
+items at `recheck` priority, which on a large library can mean tens of thousands of external
+lookups. Cancelling that priority calls off the bulk job and leaves the items you asked for by hand,
+which sit at `bump`.
 
 Queue priorities, highest first:
 
-| Priority   | Queued by                                                          |
-| ---------- | ------------------------------------------------------------------ |
-| `bump`     | `artwork refresh`, or a request for an item with no artwork state  |
-| `scan`     | The scanner, for items it added or changed                         |
-| `backfill` | A configuration change that invalidates every stored resolution    |
-| `recheck`  | `artwork reprocess`, and the periodic retry of items with no image |
+| Priority   | Queued by                                                                        |
+| ---------- | -------------------------------------------------------------------------------- |
+| `bump`     | `artwork refresh`, a request for an item with no artwork state, or a radio save  |
+| `scan`     | The scanner, for items it added or changed                                       |
+| `backfill` | Nothing in current versions; rows left by an older version can still be cancelled |
+| `recheck`  | `artwork reprocess`, and the hourly check for items with no artwork state        |
 
 ```bash
-# What is sitting at backfill priority right now?
-navidrome artwork cancel --priority backfill --dry-run
+# What is sitting at recheck priority right now?
+navidrome artwork cancel --priority recheck --dry-run
 
-# Call off a library-wide backfill, keeping manual refreshes queued
-navidrome artwork cancel --priority backfill
+# Call off a bulk reprocess, keeping manual refreshes queued
+navidrome artwork cancel --priority recheck
 
 # Empty the queue completely
 navidrome artwork cancel --all --yes
 ```
 
 {{% alert color="warning" title="Important" %}}
-`cancel` empties the queue and nothing else. It does not stop the worker, and it does not interrupt
-items the server has already picked up. An item that has no artwork state yet can also be queued
-again by the hourly recheck, so cancelling is most durable for a backfill of items that already
-have artwork.
+`cancel` empties the queue and nothing else. Resolved artwork and the state `explain` reports are
+left alone. It does not stop the worker, and it does not interrupt items the server has already
+picked up. An item that has no artwork state yet can be queued again by the hourly check, so
+cancelling is most durable for items that already have artwork. The selection is applied again when
+you confirm, so anything queued after the preview is cancelled too.
 {{% /alert %}}
 
 ---
