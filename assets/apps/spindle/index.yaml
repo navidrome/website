@@ -1,0 +1,26 @@
+name: Spindle
+url: https://spindle.raindog.ai/
+platforms:
+  ios:
+    store: https://apps.apple.com/app/id6785612847
+api: Subsonic
+description: >-
+  A jog-wheel music player for iPhone that treats your library like physical media.
+  Browse and stream your server, or pin albums to keep them offline at the original
+  file's rate.
+isOpenSource: false
+isFree: false
+screenshots:
+  thumbnail: thumbnail.webp
+  gallery:
+    - screen1.webp
+    - screen2.webp
+    - screen3.webp
+    - screen4.webp
+keywords:
+  - carplay
+  - offline
+  - flac
+  - hi-res
+  - gapless
+  - airplay
