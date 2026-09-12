@@ -49,6 +49,28 @@ connected:
 
 In these cases, Navidrome will mark the files as missing until the drive is available again.
 
+## Reconnecting a Missing File to its Replacement
+
+If the scanner could not match an old file with its new path, you can remap the two by hand from
+the command line. This moves the play count, rating, starred status and bookmarks from the missing
+file onto the replacement, the same way the scanner does it automatically.
+
+First list the missing files to get their paths:
+
+```bash
+navidrome missing list
+```
+
+Then remap a missing file onto the file that replaced it:
+
+```bash
+navidrome missing fix "Rock/Old Album/track01.mp3" "Rock/New Album/track01.mp3"
+```
+
+The replacement must already be scanned into the library. See
+[`missing` in the CLI reference](/docs/usage/admin/cli/#missing) for the other argument forms and
+the JSON output option.
+
 ## Automatically Purging Missing Files
 
 Navidrome lets you control when missing files are automatically removed from the database using the `Scanner.PurgeMissing` option. This option accepts three possible values:
