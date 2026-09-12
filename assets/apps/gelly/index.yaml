@@ -10,7 +10,7 @@ screenshots:
     - screen1.webp
     - screen2.webp
 repoUrl: https://github.com/Fingel/gelly
-isFree: true
+pricing: free
 keywords:
   - rust
   - pipewire

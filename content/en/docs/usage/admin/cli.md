@@ -92,7 +92,7 @@ navidrome -c /etc/navidrome/navidrome.toml --nobanner
 
 ## Command overview
 
-The built-in top-level administrative commands are: `inspect`, `scan`, `artwork`, `backup`, `pls`, `service`, `user`, and `plugin`.
+The built-in top-level administrative commands are: `inspect`, `scan`, `missing`, `artwork`, `backup`, `pls`, `service`, `user`, and `plugin`.
 
 ### `inspect`
 
@@ -144,6 +144,63 @@ navidrome scan -t 1:Music/Rock -t 2:Audiobooks
 # Read scan targets from file
 navidrome scan --target-file ./scan-targets.txt
 ```
+
+---
+
+### `missing`
+
+List files marked as missing, and remap a missing file onto an existing one.
+
+A file is marked missing when the scanner no longer finds it on disk. When you rename or move a
+file, the scanner normally reconnects it and carries over play counts, ratings, starred status and
+bookmarks. If the scanner cannot match the two files, the old entry stays missing and the new file
+starts with no history. `missing fix` does that remap by hand.
+
+```bash
+navidrome missing --help
+```
+
+Subcommands:
+
+- `list`: List all files currently marked as missing
+- `fix <missing> <target>`: Remap a missing file onto an existing file
+
+`missing list` flags:
+
+- `-f, --format`: Output format (`csv` or `json`, default: `csv`)
+
+`missing fix` takes two arguments. The first is the missing file, the second is the file to move
+the data onto. Each argument can be a media file ID, a library-relative path, or a
+`libraryID:path` pair. Use an ID or a `libraryID:path` pair when the same path exists in more than
+one library.
+
+Examples:
+
+```bash
+# List missing files as CSV (id, library id, title, album, artist, path)
+navidrome missing list
+
+# List missing files as JSON
+navidrome missing list --format json
+
+# Remap by library-relative path
+navidrome missing fix "Rock/Old Album/track01.mp3" "Rock/New Album/track01.mp3"
+
+# Remap by media file ID
+navidrome missing fix 3Unsdwsei9i2ZvRtFKRfwA 7KpqZmXe4Ab2NvTuGHRcxQ
+
+# Disambiguate with a libraryID:path pair
+navidrome missing fix 2:"Podcasts/ep01.mp3" 2:"Podcasts/episode-01.mp3"
+```
+
+{{% alert color="warning" title="Important" %}}
+The target file must already be in the library and must not be missing. Run a scan first if you
+just added it. The remap cannot be undone, so make a backup with `navidrome backup create` before
+you fix many files.
+{{% /alert %}}
+
+See [Missing Files](/docs/usage/library/missing-files/) for why files go missing, how to review them
+in the web UI, and how to purge them for good.
 
 ---
 

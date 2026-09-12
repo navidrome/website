@@ -7,9 +7,11 @@
 {{ $api := .api }}
 {{ $screenshots := .screenshots }}
 {{ $repoUrl := .repoUrl }}
-{{ $isFree := .isFree }}
 {{/* isOpenSource: if not set and repoUrl exists, default to true */}}
 {{ $isOpenSource := and $repoUrl (ne .isOpenSource false) }}
+{{/* pricing: free | freemium | trial | paid (required by app-schema.json) */}}
+{{ $pricing := .pricing }}
+{{ if not $pricing }}{{ errorf "app %q is missing the required 'pricing' field (free|freemium|trial|paid)" $appId }}{{ end }}
 
 {{/* Build full path to thumbnail */}}
 {{ $thumbnailPath := printf "apps/%s/%s" $appId $screenshots.thumbnail }}
@@ -37,12 +39,13 @@
 {{ $apiLower := lower $api }}
 
 {{ $ossAttr := cond $isOpenSource "true" "false" }}
-{{/* Open source apps are automatically considered free */}}
-{{ $isActuallyFree := or $isFree $isOpenSource }}
-{{ $freeAttr := cond $isActuallyFree "true" "false" }}
+{{/* "Free Only" also matches freemium apps: the core app stays free. Trial apps must be bought, so they do not match */}}
+{{ $freeAttr := cond (in (slice "free" "freemium") $pricing) "true" "false" }}
 
 {{ $keywords := default (slice) .keywords }}
-{{ $searchable := printf "%s %s %s" $name $description (delimit $keywords " ") | lower }}
+{{/* The pricing value is searchable, so typing "trial" finds trial apps. "free" adds nothing, so it is left out */}}
+{{ $pricingTerm := cond (eq $pricing "free") "" $pricing }}
+{{ $searchable := printf "%s %s %s %s" $name $description (delimit $keywords " ") $pricingTerm | lower }}
 
 <div class="app-card" 
      data-platforms="{{ $platformsAttr }}" 
@@ -108,9 +111,15 @@
             {{ end }}
           </a>
         {{ end }}
-        {{ if not $isActuallyFree }}
-          <span class="app-paid-badge" title="Paid">
-            <span class="app-paid-pill"><i class="fas fa-dollar-sign"></i>Paid</span>
+        {{/* "free" has no entry, so free apps render no badge */}}
+        {{ $pricingBadges := dict
+          "freemium" (dict "icon" "fa-cart-shopping" "label" "In-App Purchases" "title" "Free to use, with optional in-app purchases")
+          "trial" (dict "icon" "fa-hourglass-half" "label" "Free Trial" "title" "Purchase required, but a free trial is available")
+          "paid" (dict "icon" "fa-dollar-sign" "label" "Paid" "title" "Purchase required")
+        }}
+        {{ with index $pricingBadges $pricing }}
+          <span class="app-pricing-badge" title="{{ .title }}">
+            <span class="app-pricing-pill app-pricing-pill--{{ $pricing }}"><i class="fas {{ .icon }}"></i>{{ .label }}</span>
           </span>
         {{ end }}
       </h3>

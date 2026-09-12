@@ -2,7 +2,7 @@ name: Arpeggi
 url: https://www.reddit.com/r/arpeggiApp/
 repoUrl: https://github.com/argie-w/Arpeggi-App
 isOpenSource: false
-isFree: true
+pricing: free
 platforms:
   ios:
     store: https://apps.apple.com/us/app/arpeggi/id6503619183

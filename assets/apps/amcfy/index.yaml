@@ -16,7 +16,7 @@ screenshots:
     - screen3.webp
     - screen4.webp
     - screen5.webp
-isFree: true
+pricing: free
 keywords:
   - offline
   - equalizer

@@ -1,0 +1,22 @@
+name: SubSonify
+url: https://subsonify.app/
+platforms:
+  ios:
+    store: https://apps.apple.com/app/id6483939229
+api: OpenSubsonic
+description: "A native iPhone, iPad, CarPlay and Apple Watch client for Navidrome and any Subsonic-compatible server. Offline-first with automatic downloads, a watch app that plays on its own without the phone, OpenSubsonic API key login, and Autoplay that uses AudioMuse sonic similarity when the server has it."
+screenshots:
+  thumbnail: thumbnail.webp
+  gallery:
+    - screen1.webp
+    - screen2.webp
+    - screen3.webp
+    - screen4.webp
+pricing: freemium
+keywords:
+  - carplay
+  - apple watch
+  - watchos
+  - offline
+  - ipad
+  - audiomuse

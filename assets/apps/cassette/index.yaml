@@ -38,8 +38,7 @@ screenshots:
     - macOS_2.webp
     - macOS.webp
 
-# Optional: Set to true if the app is free (no purchase required)
-isFree: true
+pricing: free
 
 # Optional: Additional search terms (max 6, not displayed on app card)
 # Use for alternative names, abbreviations, or key features
