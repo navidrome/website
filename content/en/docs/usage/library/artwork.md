@@ -131,14 +131,14 @@ Animated GIFs embedded in or associated with your music files are preserved duri
 ## Troubleshooting
 
 When artwork is wrong or missing, the `navidrome artwork` [CLI commands](/docs/usage/admin/cli/#artwork)
-report what actually happened. `artwork explain` shows the priority chain recorded for a single item:
-which candidate won and why the others lost — including whether a file was absent or present but
-unreadable. `artwork status` shows the queue, how many items have no image, and whether the artwork
-configuration changed since the library was last resolved.
+show what happened. `artwork explain` prints the priority chain recorded for one item. It shows which
+candidate won, why the others lost, and whether a file was missing or present but unreadable.
+`artwork status` shows the queue, how many items have no image, and whether artwork settings changed
+since the last full reprocess.
 
-Navidrome does not retry missing artwork on its own, and it does not re-resolve existing artwork when
-you change an artwork setting. Use `navidrome artwork reprocess` to do either (for example,
-`--source absent` to retry missing artwork, or `--all` to apply a setting change). For a single album
-or artist, admins can also use **Refresh Metadata** in its context menu.
+Navidrome doesn't retry missing artwork by itself. Changing an artwork setting doesn't update artwork
+that is already stored, either. `navidrome artwork reprocess` handles both. Use `--source absent` to
+retry missing artwork, or `--all` to apply a setting change. For a single album or artist, admins can
+use **Refresh Metadata** in its context menu.
 
 [advanced-configuration]: /docs/usage/configuration/options/#advanced-configuration
