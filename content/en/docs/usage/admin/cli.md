@@ -92,7 +92,7 @@ navidrome -c /etc/navidrome/navidrome.toml --nobanner
 
 ## Command overview
 
-The built-in top-level administrative commands are: `inspect`, `scan`, `missing`, `artwork`, `backup`, `pls`, `service`, `user`, and `plugin`.
+The built-in top-level administrative commands are: `inspect`, `scan`, `missing`, `artwork`, `backup`, `doctor`, `search`, `pls`, `service`, `user`, and `plugin`.
 
 ### `inspect`
 
@@ -525,6 +525,95 @@ navidrome backup prune --keep-count 7
 navidrome backup restore --backup-file /backups/navidrome.db.2026-04-01-040000
 ```
 
+---
+
+### `doctor`
+
+Check the database for problems. `doctor` only reads the database and never changes your data.
+
+```bash
+navidrome doctor
+```
+
+Run it when Navidrome logs errors such as `database disk image is malformed`, or when every scan
+fails. It runs two checks:
+
+- **Integrity check.** Looks for corruption in the database file. If the damage is only in the
+  search index, `doctor` tells you to run [`navidrome search rebuild`](#search-rebuild). Damage
+  anywhere else can't be fixed automatically. Restore a backup with `navidrome backup restore`, or
+  try SQLite's `.recover` command.
+- **Foreign key check.** Looks for orphaned rows, which point to rows that no longer exist. This is
+  not corruption. `navidrome scan -f` clears some of them in library data, and you have to delete
+  the rest by hand.
+
+The integrity check stops after a fixed number of problems. When it hits that limit, the damage may
+be bigger than the list shows, and `doctor` won't suggest a search index rebuild.
+
+A healthy database looks like this:
+
+```
+Checking database integrity...
+Integrity check passed.
+Checking foreign keys...
+Foreign key check passed.
+Database is healthy.
+```
+
+`doctor` exits with status 1 when a check finds a problem or can't finish, so you can use it in
+scripts.
+
+---
+
+### `search`
+
+Maintain the full-text search index.
+
+```bash
+navidrome search --help
+```
+
+Subcommands:
+
+- `rebuild`: Delete the search index and build it again from the library data
+
+#### `search rebuild`
+
+```bash
+navidrome search rebuild [-f]
+```
+
+Deletes the full-text search index and builds it again from your library data. The index only holds
+copies of data stored elsewhere in the database, so you lose nothing. Navidrome checks the new index
+before it saves it.
+
+Use it in two cases:
+
+- `navidrome doctor` reports that the corruption is limited to the search index.
+- Search misses items that are in your library. `doctor` can't detect an index that is out of sync
+  but not corrupt, so a rebuild is the thing to try.
+
+Flags:
+
+- `-f, --force`: Skip the confirmation prompt
+
+Without `--force`, the command asks you to type `YES` to continue.
+
+{{% alert color="warning" title="Important" %}}
+`navidrome search rebuild` must be run while Navidrome is **not running**.
+{{% /alert %}}
+
+Examples:
+
+```bash
+# Check the database, then rebuild a corrupted search index
+navidrome doctor
+navidrome search rebuild
+
+# With Docker Compose, stop the server first
+docker compose stop navidrome
+docker compose run --rm navidrome search rebuild
+docker compose start navidrome
+```
 
 ---
 
