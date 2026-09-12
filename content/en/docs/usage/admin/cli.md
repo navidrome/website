@@ -199,6 +199,9 @@ just added it. The remap cannot be undone, so make a backup with `navidrome back
 you fix many files.
 {{% /alert %}}
 
+See [Missing Files](/docs/usage/library/missing-files/) for why files go missing, how to review them
+in the web UI, and how to purge them for good.
+
 ---
 
 ### `backup` (alias: `bkp`)
