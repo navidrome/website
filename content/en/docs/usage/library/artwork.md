@@ -128,4 +128,17 @@ The `CoverArtQuality` [config option][advanced-configuration] controls the encod
 
 Animated GIFs embedded in or associated with your music files are preserved during resize. They are converted to animated WebP using ffmpeg.
 
+## Troubleshooting
+
+When artwork is wrong or missing, the `navidrome artwork` [CLI commands](/docs/usage/admin/cli/#artwork)
+show what happened. `artwork explain` prints the priority chain recorded for one item. It shows which
+candidate won, why the others lost, and whether a file was missing or present but unreadable.
+`artwork status` shows the queue, how many items have no image, and whether artwork settings changed
+since the last full reprocess.
+
+Navidrome doesn't retry missing artwork by itself. Changing an artwork setting doesn't update artwork
+that is already stored, either. `navidrome artwork reprocess` handles both. Use `--source absent` to
+retry missing artwork, or `--all` to apply a setting change. For a single album or artist, admins can
+use **Refresh Metadata** in its context menu.
+
 [advanced-configuration]: /docs/usage/configuration/options/#advanced-configuration
