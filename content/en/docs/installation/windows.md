@@ -15,6 +15,23 @@ The `navidrome.ini` configuration file will be located in the installation folde
 
 Further modification can be made by changing the `navidrome.ini` file after installation and restarting the service.
 
+### Upgrading
+
+The installer stores your choices (installation folder, port, music folder and data folder) in the Windows registry,
+under `HKLM\SOFTWARE\Deluan\Navidrome\Installer`. A newer MSI reads those values back before it installs, so your
+settings survive the upgrade.
+
+Older MSIs (Navidrome 0.63.2 and earlier) never wrote those registry values. If you installed with one of them and
+changed any of the defaults, your first upgrade will reset them. Two ways to deal with that:
+
+**Recreate the registry values yourself.** Create the key `HKLM\SOFTWARE\Deluan\Navidrome\Installer` and add the
+string values `MSI_INSTALLATIONDIRECTORY`, `ND_PORT`, `ND_MUSICFOLDER` and `ND_DATAFOLDER` with your current settings.
+The next install picks them up. Note that `MSI_INSTALLATIONDIRECTORY` must end with a backslash.
+
+**Or reinstall and restore your data.** Stop the Navidrome service, then copy `navidrome.ini` out of the installation
+folder and `navidrome.db` out of your data folder. Uninstall the old version and install the new one, entering the same
+paths you used before. Stop the service again, copy both files back over the new ones, and start the service.
+
 ## Manual Installation
 
 Since Navidrome needs to be run from the command line, it is suggested to use a service wrapper to make it into a service as it does not make sense to have a terminal window open whenever you want to use Navidrome.
