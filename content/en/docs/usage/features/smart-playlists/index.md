@@ -118,6 +118,22 @@ This playlist includes 10% of all loved tracks, selected randomly. Use `limitPer
 }
 ```
 
+### Example 8: Recently Added Albums, in Album Order
+
+Sorting by the track-level `dateadded` scatters an album's tracks, because each track has its own timestamp. Sorting by `albumdateadded` keeps the album together and puts the most recently added albums first, while `discnumber` and `tracknumber` order the tracks within each album.
+
+```json
+{
+  "name": "Recently Added Albums",
+  "all": [{ "inTheLast": { "albumdateadded": 30 } }],
+  "sort": "-albumdateadded,album,discnumber,tracknumber"
+}
+```
+
+{{% alert title="Why the extra `album` sort field?" color="info" %}}
+An album's "date added" is the oldest file creation date among its tracks. If you copied or restored many albums at once, they can end up with the *exact* same timestamp — and when albums tie, the following sort fields (`discnumber`, `tracknumber`) apply across all of them, interleaving their tracks. Adding `album` breaks the tie so each album stays together.
+{{% /alert %}}
+
 ## Creating Smart Playlists using the UI
 
 Currently Smart Playlists can only be created by manually editing `.nsp` files. We plan to add a UI for creating and
@@ -277,6 +293,11 @@ Here's a table of fields you can use in your Smart Playlists:
 | `albumlastplayed`      | Album last play date                     |
 | `albumdateloved`       | Date album was starred                   |
 | `albumdaterated`       | Date album was rated                     |
+| `albumdateadded`       | Date album was added to library          |
+| `albumdatemodified`    | Date album was last updated              |
+| `albumduration`        | Album total duration (seconds)           |
+| `albumsongcount`       | Number of tracks in the album            |
+| `albumsize`            | Album total size (bytes)                 |
 | `artistrating`         | Artist rating                            |
 | `artistloved`          | Whether artist is starred                |
 | `artistplaycount`      | Artist total play count                  |
@@ -298,9 +319,9 @@ Here's a table of fields you can use in your Smart Playlists:
 - Boolean fields: `hascoverart`, `compilation`, `missing`, `loved`, `albumloved`, `artistloved`.
 - `filepath` is relative to your music library folder. Ensure your paths are correctly specified without the `/music`
   prefix (or whatever value you set in `MusicFolder`).
-- Numeric fields like `library_id`, `year`, `tracknumber`, `discnumber`, `size`, `duration`, `bitrate`, `bitdepth`, `samplerate`, `bpm`, `channels`, `playcount`, `rating`, `averagerating`, and the ReplayGain fields (`rgtrackgain`, `rgtrackpeak`, `rgalbumgain`, `rgalbumpeak`) support numeric comparisons (`gt`, `lt`, `inTheRange`, etc.).
+- Numeric fields like `library_id`, `year`, `tracknumber`, `discnumber`, `size`, `duration`, `bitrate`, `bitdepth`, `samplerate`, `bpm`, `channels`, `playcount`, `rating`, `averagerating`, `albumduration`, `albumsongcount`, `albumsize`, and the ReplayGain fields (`rgtrackgain`, `rgtrackpeak`, `rgalbumgain`, `rgalbumpeak`) support numeric comparisons (`gt`, `lt`, `inTheRange`, etc.).
 - **Multi-Library**: Smart Playlists can include songs from multiple libraries if the user has access to them. Use the `library_id` field to filter songs from specific libraries.
-- **Album & Artist Fields**: Fields prefixed with `album` or `artist` (e.g., `albumrating`, `artistplaycount`) filter tracks based on their parent album or artist properties. This lets you create playlists like "tracks from highly-rated albums" or "tracks from frequently-played artists".
+- **Album & Artist Fields**: Fields prefixed with `album` or `artist` (e.g., `albumrating`, `artistplaycount`) filter tracks based on their parent album or artist properties. This lets you create playlists like "tracks from highly-rated albums" or "tracks from frequently-played artists". `albumdateadded`, `albumdatemodified`, `albumduration`, `albumsongcount` and `albumsize` describe the album itself rather than your listening history, so they are the same for every track on an album — which is what makes them useful as a sort key (see [Example 8](#example-8-recently-added-albums-in-album-order)).
 
 ##### Special Fields
 
