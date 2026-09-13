@@ -20,8 +20,7 @@ needs. Video, live TV and the Jellyfin admin dashboard are not part of it. Pleas
 The Jellyfin API is off by default. Turn it on in your [configuration file](/docs/usage/configuration/options/#configuration-file):
 
 ```toml
-[Jellyfin]
-Enabled = true
+Jellyfin.Enabled = true
 ```
 
 Or with an environment variable:
@@ -57,8 +56,7 @@ reach your server can see this list without logging in. For that reason Navidrom
 some, list their usernames:
 
 ```toml
-[Jellyfin]
-ExposedPublicUsers = "alice, bob"
+Jellyfin.ExposedPublicUsers = "alice, bob"
 ```
 
 ### Sessions
@@ -84,13 +82,12 @@ that user's password. Login attempts count against the same
 
 ## Configuration options
 
-All options go in the `[Jellyfin]` section of the configuration file, or in `ND_JELLYFIN_*` environment variables.
-
-- **`Enabled`** (`ND_JELLYFIN_ENABLED`, default `false`). Turns the Jellyfin API on.
-- **`ServerName`** (`ND_JELLYFIN_SERVERNAME`, default `"Navidrome <version>"`). The server name that clients show.
-- **`ExposedPublicUsers`** (`ND_JELLYFIN_EXPOSEDPUBLICUSERS`, default empty). Comma-separated usernames to show on the
-  client login screen. See [above](#login-screen-user-list).
-- **`MaxConcurrentStreams`** (`ND_JELLYFIN_MAXCONCURRENTSTREAMS`, default half the database connection pool, at least
+- **`Jellyfin.Enabled`** (`ND_JELLYFIN_ENABLED`, default `false`). Turns the Jellyfin API on.
+- **`Jellyfin.ServerName`** (`ND_JELLYFIN_SERVERNAME`, default `"Navidrome <version>"`). The server name that clients
+  show.
+- **`Jellyfin.ExposedPublicUsers`** (`ND_JELLYFIN_EXPOSEDPUBLICUSERS`, default empty). Comma-separated usernames to show
+  on the client login screen. See [above](#login-screen-user-list).
+- **`Jellyfin.MaxConcurrentStreams`** (`ND_JELLYFIN_MAXCONCURRENTSTREAMS`, default half the database connection pool, at least
   `2`). How many large list responses Navidrome sends at the same time. Each one holds a database connection until it
   ends, and extra requests wait. The default leaves the other half of the connections for the scanner, scrobbles and
   the web UI. You rarely need to change it.
