@@ -44,11 +44,6 @@ We test the API with [Finamp](https://github.com/jmshrv/finamp), [Jellify](https
 Every client device that connects shows up as a player in **Settings > Players**. If you set a transcoding format on
 that player, Navidrome applies it to the Jellyfin streams too. Downloads always send the original file.
 
-{{% alert %}}
-When transcoding is on in Finamp, it plays through HLS. HLS can only carry `aac` or `mp3`, so pick one of those if you
-force a format on the Finamp player.
-{{% /alert %}}
-
 ### Login screen user list
 
 Some clients show a list of users on the login screen, so you tap a name and type only the password. Anyone who can
