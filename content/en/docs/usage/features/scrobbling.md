@@ -51,6 +51,41 @@ Navidrome allows you to easily scrobble your played songs to Last.fm and ListenB
 
 If you are using a self-hosted ListenBrainz-compatible server (e.g., [Maloja](https://github.com/krateng/maloja)), you can change the `ListenBrainz.BaseURL` [config option](/docs/usage/configuration/options/#:~:text=ListenBrainz.BaseURL) to point to your instance.
 
+## Scrobble Filter
+
+Starting with version 0.64.0, each user can keep some songs out of their scrobbles. Maybe you do not want holiday music
+in your Last.fm profile, or you only want songs rated 4 stars or more to shape your recommendations.
+
+The filter uses the same JSON rules as [smart playlists](/docs/usage/features/smart-playlists/). Navidrome does not send
+matching songs to Last.fm, ListenBrainz or scrobbler plugins. It still counts the play locally, so play counts and
+[scrobble history](#scrobble-history) stay complete.
+
+To set a filter, edit the user and paste the rules in the **Scrobble filter** field. Admins can do this for any user in
+**Settings > Users**. Regular users can set their own filter from their profile, if
+[`EnableUserEditing`](/docs/usage/configuration/options/#:~:text=EnableUserEditing) is on. Leave the field empty to
+scrobble everything.
+
+Skip songs with the genre "Christmas":
+
+```json
+{"all":[{"is":{"genre":"Christmas"}}]}
+```
+
+Skip songs rated below 4 stars. Unrated songs have a rating of 0, so this skips them too:
+
+```json
+{"all":[{"lt":{"rating":4}}]}
+```
+
+Skip everything in one library:
+
+```json
+{"all":[{"is":{"library_id":3}}]}
+```
+
+The filter checks one song at a time, so `limit`, `limitPercent`, `offset` and `refreshDelay` make no sense here.
+Navidrome rejects rules that use them, and rules with unknown fields.
+
 ## Scrobble History
 
 Starting with version 0.59.0, Navidrome tracks your scrobble/listen history natively. This means that for music added after this version, Navidrome maintains a complete record of when each track was played. This historical data will be used in future features such as statistics and analytics ("Navidrome Wrapped" style reports).

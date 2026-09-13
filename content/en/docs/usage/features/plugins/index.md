@@ -156,6 +156,19 @@ Each plugin declares the permissions it needs in its manifest:
 
 Review these permissions before enabling a plugin to understand what it can access.
 
+### Network Access to Local Services
+
+A plugin can only open HTTP and WebSocket connections to the hosts listed in its manifest. Starting with version 0.64.0,
+Navidrome checks the IP address when the connection opens, not only the host name. A host name in the manifest, like
+`api.example.com`, never allows a connection to a private, loopback or link-local address, even if that name resolves
+to one. This blocks a plugin from reaching your local network through DNS tricks or redirects.
+
+To reach a service on your local network, the plugin manifest must list its IP address or a CIDR range, like
+`192.168.1.50` or `192.168.0.0/16`, or allow all hosts with `"*"`. Plugins that let you type the service address in
+their settings, like [AudioMuse-AI](/docs/usage/integration/audiomuse/), usually use `"*"`.
+
+If a plugin worked before 0.64.0 and now cannot reach a service on your network, ask its author to update the manifest.
+
 ### Best Practices
 
 - Only install plugins from trusted sources
@@ -179,6 +192,7 @@ Review these permissions before enabling a plugin to understand what it can acce
 - Verify all required permissions are configured (users, libraries)
 - Ensure the plugin's configuration requirements are met
 - Try setting `Plugins.LogLevel = "debug"` for more detailed logs
+- If the logs show `HTTP request ... is not allowed`, the plugin uses an HTTP call that Navidrome 0.64.0 removed. Update the plugin, or ask its author for a version built with the current plugin SDK
 
 ### Configuration Issues
 
