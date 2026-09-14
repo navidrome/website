@@ -68,7 +68,7 @@ navidrome missing fix "Rock/Old Album/track01.mp3" "Rock/New Album/track01.mp3"
 ```
 
 The replacement must already be scanned into the library. See
-[`missing` in the CLI reference](/docs/usage/admin/cli/#missing) for the other argument forms and
+[`missing` in the CLI reference](/docs/usage/admin/cli/missing/) for the other argument forms and
 the JSON output option.
 
 ## Automatically Purging Missing Files

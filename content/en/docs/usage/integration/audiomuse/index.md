@@ -73,7 +73,7 @@ In the Navidrome web UI, go to **Settings > Plugins**, enable the AudioMuse-AI p
 {{< imgproc plugin-settings Fit "900x900" />}}
 
 {{% alert %}}
-Prefer the command line? Plugins can also be enabled and configured from the CLI. See the [`plugin` command reference](/docs/usage/admin/cli/#plugin).
+Prefer the command line? Plugins can also be enabled and configured from the CLI. See the [`plugin` command reference](/docs/usage/admin/cli/plugin/).
 {{% /alert %}}
 
 ## Verify it works

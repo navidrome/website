@@ -130,7 +130,7 @@ Animated GIFs embedded in or associated with your music files are preserved duri
 
 ## Troubleshooting
 
-When artwork is wrong or missing, the `navidrome artwork` [CLI commands](/docs/usage/admin/cli/#artwork)
+When artwork is wrong or missing, the `navidrome artwork` [CLI commands](/docs/usage/admin/cli/artwork/)
 show what happened. `artwork explain` prints the priority chain recorded for one item. It shows which
 candidate won, why the others lost, and whether a file was missing or present but unreadable.
 `artwork status` shows the queue, how many items have no image, and whether artwork settings changed

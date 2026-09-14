@@ -7,6 +7,8 @@ services:
       - "1313:1313"
     environment:
       - HUGO_CACHEDIR=/tmp/hugo_cache
+      # Git worktrees keep their .git data outside the mounted folder, so Hugo can't read it
+      - HUGO_ENABLEGITINFO=false
       - CHARTS_URL
       - CHARTS_API_KEY
     #      - HUGO_ENV=production
