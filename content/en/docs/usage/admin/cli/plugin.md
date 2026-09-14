@@ -19,7 +19,9 @@ navidrome plugin <subcommand> [flags]
 
 All commands also accept the [global flags](/docs/usage/admin/cli/#global-flags).
 
-These commands need the plugin system enabled. `Plugins.Enabled` is on by default.
+Commands that work with installed plugins need the plugin system enabled. `Plugins.Enabled` is on
+by default. You can still use `plugin info` and `plugin validate` on a `.ndp` package file when the
+plugin system is disabled.
 
 ## Subcommands
 
@@ -84,8 +86,8 @@ navidrome plugin info ./my-plugin-1.2.0.ndp
 
 ### `plugin validate`
 
-Checks the manifest of an installed plugin or a `.ndp` package file. It reads the argument the same
-way as `info`.
+Checks the manifest of an installed plugin or a `.ndp` package file. For an installed plugin, it
+also checks the stored configuration when one exists. It reads the argument the same way as `info`.
 
 ```bash
 navidrome plugin validate <id|file.ndp>
@@ -185,8 +187,8 @@ navidrome plugin edit my-plugin --libraries 1,2
 
 ### `plugin rescan`
 
-Looks in the plugins folder again and picks up plugins you added or removed. It needs
-`Plugins.Folder` set.
+Looks in the plugins folder again and picks up plugins you added or removed. The folder comes from
+`Plugins.Folder`, which defaults to the `plugins` folder inside `DataFolder`.
 
 ```bash
 navidrome plugin rescan
