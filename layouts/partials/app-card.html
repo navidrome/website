@@ -111,13 +111,14 @@
             {{ end }}
           </a>
         {{ end }}
-        {{/* "free" has no entry, so free apps render no badge */}}
+        {{/* Free open source apps render no pricing badge: the Open Source badge already implies free */}}
         {{ $pricingBadges := dict
+          "free" (dict "icon" "fa-gift" "label" "Free" "title" "Free to use")
           "freemium" (dict "icon" "fa-cart-shopping" "label" "In-App Purchases" "title" "Free to use, with optional in-app purchases")
           "trial" (dict "icon" "fa-hourglass-half" "label" "Free Trial" "title" "Purchase required, but a free trial is available")
           "paid" (dict "icon" "fa-dollar-sign" "label" "Paid" "title" "Purchase required")
         }}
-        {{ with index $pricingBadges $pricing }}
+        {{ with and (not (and $isOpenSource (eq $pricing "free"))) (index $pricingBadges $pricing) }}
           <span class="app-pricing-badge" title="{{ .title }}">
             <span class="app-pricing-pill app-pricing-pill--{{ $pricing }}"><i class="fas {{ .icon }}"></i>{{ .label }}</span>
           </span>
