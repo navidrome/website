@@ -119,3 +119,5 @@ Two things people often try that do not work:
   file. For `docker` cli use the `-e` parameter. Ex: `-e ND_SESSIONTIMEOUT=24h`.
 - If you want to use a [configuration file](/docs/usage/configuration/options/#configuration-file) with Navidrome running in Docker,
   you can create a `navidrome.toml` config file in the `/data` folder and set the option `ND_CONFIGFILE=/data/navidrome.toml`.
+- If you use the [Jellyfin API](/docs/usage/features/jellyfin/) and want clients to find the server on your network,
+  you must use host networking. See [Docker setup for auto-discovery](/docs/usage/features/jellyfin/#docker).
