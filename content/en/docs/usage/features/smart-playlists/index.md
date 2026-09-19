@@ -423,12 +423,6 @@ Here's a complete example of a Smart Playlist that includes all tracks from anot
 }
 ```
 
-Alternatively, the `inPlaylist` and `notInPlaylist` operators can take a `path` argument, which can either be 
-absolute or relative to your playlist. This allows your smart playlists to be tranferrable between servers.
-
-```json
-{ "inPlaylist": { "id": "../other_playlist.nsp" } }
-```
 
 Here's an example of building a smart playlist out of multiple more focused playlists. Keep all the rules under a
 single top-level group (`all` or `any`) and nest a group when you need to mix the two logics: a top-level `any` and
@@ -440,8 +434,8 @@ single top-level group (`all` or `any`) and nest a group when you need to mix th
   "comment": "Most Played Favorites Played Within Last 4yr",
   "public": true,
   "all": [
-    { "inPlaylist": { "path": "most-played-favorites.nsp" } },
-    { "notInPlaylist": { "path": "favorites-not-played-in-4-yrs.nsp" } }
+    { "inPlaylist": { "id": "most-played-favorites-id" } },
+    { "notInPlaylist": { "id": "favorites-not-played-in-4-yrs-id" } }
   ],
   "sort": "playCount, lastPlayed"
 }
