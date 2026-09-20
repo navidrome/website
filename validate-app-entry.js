@@ -9,8 +9,6 @@
 
 const fs = require("fs");
 const path = require("path");
-const https = require("https");
-const http = require("http");
 
 // Detect if running in CI environment
 const isCI = process.env.CI === "true" || process.env.GITHUB_ACTIONS === "true";
@@ -25,6 +23,25 @@ const KNOWN_STAR_HOSTS = ["github.com", "gitlab.com", "codeberg.org"];
 
 const USER_AGENT = "Navidrome-App-Validator/1.0";
 const REQUEST_TIMEOUT = 5000; // 5 seconds
+
+// A host that resolves to nothing is worth reporting; a dropped connection is
+// noise, so it is ignored the way the URL check has always ignored it
+const UNREACHABLE_ERROR_CODES = ["ENOTFOUND", "ECONNREFUSED"];
+const TRANSIENT_ERROR_CODES = ["ETIMEDOUT", "ECONNRESET"];
+
+// Classify a request that produced no response. fetch reports network trouble
+// as a TypeError and keeps the real code and message on the cause.
+function classifyRequestError(err) {
+  if (err.name === "TimeoutError") return { kind: "timeout" };
+
+  const cause = err.cause || err;
+  if (UNREACHABLE_ERROR_CODES.includes(cause.code)) {
+    return { kind: "unreachable" };
+  }
+  if (TRANSIENT_ERROR_CODES.includes(cause.code)) return { kind: "transient" };
+
+  return { kind: "failed", message: cause.message || err.message };
+}
 
 // Token that lifts the anonymous GitHub API rate limit. HUGO_GITHUB_TOKEN is
 // the name the site build already uses, see layouts/partials/last-updated/
@@ -223,89 +240,73 @@ class AppValidator {
     });
   }
 
-  // Validate URL (checks if it's reachable)
-  validateUrl(url, description) {
-    return new Promise((resolve) => {
-      if (!url) {
-        resolve();
-        return;
-      }
-
-      // Basic URL format check
-      let parsedUrl;
-      try {
-        parsedUrl = new URL(url);
-      } catch (err) {
-        this.addError(`Invalid URL format for ${description}: ${url}`);
-        resolve();
-        return;
-      }
-
-      const protocol = parsedUrl.protocol === "https:" ? https : http;
-      const timeout = REQUEST_TIMEOUT;
-
-      const options = {
-        method: "HEAD", // Use HEAD instead of GET for faster response
-        headers: {
-          "User-Agent": USER_AGENT,
-        },
-      };
-
-      const req = protocol.request(url, options, (res) => {
-        // Follow redirects (3xx) silently
-        if (res.statusCode >= 300 && res.statusCode < 400) {
-          resolve();
-          return;
-        }
-
-        // Retry with GET if server doesn't support HEAD
-        if (res.statusCode === 405 && options.method === "HEAD") {
-          const retryOptions = { ...options, method: "GET" };
-          const retryReq = protocol.request(url, retryOptions, (retryRes) => {
-            retryRes.resume();
-            if (retryRes.statusCode >= 400) {
-              this.addWarning(
-                `${description} returned status ${retryRes.statusCode}: ${url}`
-              );
-            }
-            resolve();
-          });
-          retryReq.setTimeout(timeout, () => {
-            retryReq.destroy();
-            this.addWarning(`${description} request timed out: ${url}`);
-            resolve();
-          });
-          retryReq.on("error", () => resolve());
-          retryReq.end();
-          return;
-        }
-
-        if (res.statusCode >= 400) {
-          this.addWarning(
-            `${description} returned status ${res.statusCode}: ${url}`
-          );
-        }
-        resolve();
+  // Single HTTP entry point for every check below. Never throws - validation
+  // is advisory, so a broken host must not abort the run. Returns { res } for
+  // any reply, or { error } when nothing came back.
+  async request(url, { method = "GET", redirect = "follow", headers = {} } = {}) {
+    try {
+      const res = await fetch(url, {
+        method,
+        redirect,
+        headers: { "User-Agent": USER_AGENT, ...headers },
+        signal: AbortSignal.timeout(REQUEST_TIMEOUT),
       });
+      return { res };
+    } catch (err) {
+      return { error: classifyRequestError(err) };
+    }
+  }
 
-      // Set timeout properly
-      req.setTimeout(timeout, () => {
-        req.destroy();
-        this.addWarning(`${description} request timed out: ${url}`);
-        resolve();
-      });
-
-      req.on("error", (err) => {
-        if (err.code === "ENOTFOUND" || err.code === "ECONNREFUSED") {
-          this.addWarning(`${description} appears unreachable: ${url}`);
-        } else if (err.code !== "ETIMEDOUT" && err.code !== "ECONNRESET") {
-          this.addWarning(`${description} validation failed: ${err.message}`);
-        }
-        resolve();
-      });
-
-      req.end();
+  // Status-only request. Redirects are reported rather than followed, and any
+  // body is discarded so the connection is released right away.
+  async requestStatus(url, method) {
+    const { res, error } = await this.request(url, {
+      method,
+      redirect: "manual",
     });
+    if (res) await res.body?.cancel().catch(() => {});
+    return { status: res?.status, error };
+  }
+
+  // Validate URL (checks if it's reachable)
+  async validateUrl(url, description) {
+    if (!url) return;
+
+    // Basic URL format check
+    try {
+      new URL(url);
+    } catch (err) {
+      this.addError(`Invalid URL format for ${description}: ${url}`);
+      return;
+    }
+
+    // HEAD is enough to prove a URL resolves, and is cheaper than GET
+    let { status, error } = await this.requestStatus(url, "HEAD");
+
+    // Retry with GET if the server doesn't support HEAD
+    if (status === 405) {
+      ({ status, error } = await this.requestStatus(url, "GET"));
+      // Only a timeout on the retry is worth reporting
+      if (error && error.kind !== "timeout") return;
+    }
+
+    if (error) {
+      if (error.kind === "timeout") {
+        this.addWarning(`${description} request timed out: ${url}`);
+      } else if (error.kind === "unreachable") {
+        this.addWarning(`${description} appears unreachable: ${url}`);
+      } else if (error.kind === "failed") {
+        this.addWarning(`${description} validation failed: ${error.message}`);
+      }
+      return;
+    }
+
+    // A redirect means the URL resolves, which is all this check needs
+    if (status >= 300 && status < 400) return;
+
+    if (status >= 400) {
+      this.addWarning(`${description} returned status ${status}: ${url}`);
+    }
   }
 
   // Validate all URLs in the app data
@@ -426,10 +427,7 @@ class AppValidator {
   // (404, or a non-JSON reply) from "the lookup failed" (no answer, throttled,
   // server error). A null status means nothing usable came back at all.
   async fetchJson(url) {
-    const headers = {
-      "User-Agent": USER_AGENT,
-      Accept: "application/json",
-    };
+    const headers = { Accept: "application/json" };
 
     // CI runners share outbound IPs, so anonymous GitHub API calls can be
     // throttled by unrelated traffic. Authenticate whenever a token is around.
@@ -438,18 +436,16 @@ class AppValidator {
       headers.Authorization = `Bearer ${token}`;
     }
 
-    let res;
-    try {
-      res = await fetch(url, {
-        headers,
-        signal: AbortSignal.timeout(REQUEST_TIMEOUT),
-      });
-    } catch (err) {
-      return { status: null, json: null };
+    const { res, error } = await this.request(url, { headers });
+    if (error) return { status: null, json: null };
+
+    if (!res.ok) {
+      await res.body?.cancel().catch(() => {});
+      return { status: res.status, json: null };
     }
 
     try {
-      return { status: res.status, json: res.ok ? await res.json() : null };
+      return { status: res.status, json: await res.json() };
     } catch (err) {
       // Timing out mid-body is a failed lookup; anything else means the host
       // answered with something that is not JSON, so it lacks this API
