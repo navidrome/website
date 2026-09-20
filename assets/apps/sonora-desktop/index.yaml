@@ -1,0 +1,25 @@
+name: Sonora
+url: https://sonorahq.org/
+repoUrl: https://github.com/sonorahq/sonora
+isOpenSource: true
+platforms:
+  linux: true
+  macos: true
+  windows: true
+api: OpenSubsonic
+description: "Native desktop client for Navidrome and Subsonic servers, written in Rust on Zed's GPUI. Gapless playback, an equalizer, synced and karaoke lyrics, scrobbling to Last.fm and ListenBrainz, themes and icon packs, and local files beside your server library."
+screenshots:
+  thumbnail: thumbnail.webp
+  gallery:
+    - screen1.webp
+    - screen2.webp
+    - screen3.webp
+    - screen4.webp
+pricing: free
+keywords:
+  - rust
+  - gpui
+  - native
+  - desktop
+  - gapless
+  - lyrics
