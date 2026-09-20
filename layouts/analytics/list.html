@@ -47,9 +47,8 @@
 <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
 <script>
   // The insights endpoint keeps accumulating history, so time series charts are
-  // capped at the most recent MAX_DAYS points. 517 also starts the window just
-  // past the Feb-Apr 2025 gap in the data. This counts points on the x-axis, so
-  // it only equals days while the endpoint returns daily buckets.
+  // capped at the most recent MAX_DAYS points. This counts points on the x-axis,
+  // so it only equals days while the endpoint returns daily buckets.
   const MAX_DAYS = 517;
 
   // Keeps only the last MAX_DAYS points of a date-based chart.
