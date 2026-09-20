@@ -12,7 +12,7 @@ Want to list your app in the [Compatible Client Apps](/apps/) catalog? This guid
 
 - Your app must support the [OpenSubsonic](https://opensubsonic.netlify.app/), [Subsonic](https://subsonic.org/pages/api.jsp), or Navidrome API
 - Your app must meet one of these availability requirements (**apps that do not meet either will not be accepted**):
-  - Open source: the repository must have at least **15 stars** on GitHub/GitLab
+  - Open source: the repository must have at least **15 stars** (GitHub, GitLab, Codeberg, or any Gitea/Forgejo host)
   - Closed source: the app must be publicly available on an app store (e.g. Google Play, Apple App Store)
 - Images must be in WebP format, max 1200px (PNG/JPEG needs to be [converted](https://www.navidrome.org/docs/developers/adding-apps/#processing-images))
 - You'll need a GitHub account to submit a pull request

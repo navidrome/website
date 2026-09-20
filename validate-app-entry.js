@@ -44,6 +44,12 @@ function classifyRequestError(err) {
   return { kind: "failed", message: cause.message || err.message };
 }
 
+// Release the connection for a reply whose body will never be read. A HEAD
+// reply has no body at all, hence the optional chain.
+function discardBody(res) {
+  return res.body?.cancel().catch(() => {});
+}
+
 // Token that lifts the anonymous GitHub API rate limit. HUGO_GITHUB_TOKEN is
 // the name the site build already uses, see layouts/partials/last-updated/
 function githubToken() {
@@ -259,13 +265,13 @@ class AppValidator {
   }
 
   // Status-only request. Redirects are reported rather than followed, and any
-  // body is discarded so the connection is released right away.
+  // body that does come back is dropped rather than read.
   async requestStatus(url, method) {
     const { res, error } = await this.request(url, {
       method,
       redirect: "manual",
     });
-    if (res) await res.body?.cancel().catch(() => {});
+    if (res) await discardBody(res);
     return { status: res?.status, error };
   }
 
@@ -299,12 +305,13 @@ class AppValidator {
       } else if (error.kind === "failed") {
         this.addWarning(`${description} validation failed: ${error.message}`);
       }
+      // "transient" stays quiet on purpose: a dropped connection says more
+      // about the network than about the URL. validateRepoStars is stricter,
+      // because a star lookup that fails quietly would look like a clean pass.
       return;
     }
 
-    // A redirect means the URL resolves, which is all this check needs
-    if (status >= 300 && status < 400) return;
-
+    // A redirect still proves the URL resolves, so only 4xx/5xx is a problem
     if (status >= 400) {
       this.addWarning(`${description} returned status ${status}: ${url}`);
     }
@@ -382,6 +389,7 @@ class AppValidator {
     if (repo.host === "github.com") {
       return [
         {
+          host: "api.github.com",
           url: `https://api.github.com/repos/${ownerRepo}`,
           field: "stargazers_count",
         },
@@ -390,10 +398,12 @@ class AppValidator {
 
     return [
       {
+        host: repo.host,
         url: `${repo.origin}/api/v1/repos/${ownerRepo}`,
         field: "stars_count",
       },
       {
+        host: repo.host,
         // GitLab supports subgroups, so keep the full path here
         url: `${repo.origin}/api/v4/projects/${encodeURIComponent(
           repo.repoPath
@@ -407,10 +417,15 @@ class AppValidator {
   // does not speak that API and the next probe should be tried. A 404 or a
   // non-JSON reply means "wrong forge"; a timeout, throttle, or server error
   // means the check itself is broken and must not pass silently.
-  probeFailure(probeUrl, status) {
-    const host = new URL(probeUrl).hostname;
+  probeFailure(host, status, error) {
+    // Reuse the vocabulary validateUrl already reports network trouble with
+    if (error) {
+      if (error.kind === "timeout") return `${host} request timed out`;
+      if (error.kind === "unreachable") return `${host} appears unreachable`;
+      if (error.kind === "transient") return `${host} dropped the connection`;
+      return `${host} lookup failed: ${error.message}`;
+    }
 
-    if (status === null) return `${host} did not respond`;
     if (status === 401) return `${host} rejected the token (401)`;
     if (status === 403 || status === 429) {
       return host === "api.github.com"
@@ -438,10 +453,10 @@ class AppValidator {
     }
 
     const { res, error } = await this.request(url, { headers });
-    if (error) return { status: null, json: null };
+    if (error) return { status: null, json: null, error };
 
     if (!res.ok) {
-      await res.body?.cancel().catch(() => {});
+      await discardBody(res);
       return { status: res.status, json: null };
     }
 
@@ -450,8 +465,10 @@ class AppValidator {
     } catch (err) {
       // Timing out mid-body is a failed lookup; anything else means the host
       // answered with something that is not JSON, so it lacks this API
-      const timedOut = err.name === "TimeoutError";
-      return { status: timedOut ? null : res.status, json: null };
+      if (err.name === "TimeoutError") {
+        return { status: null, json: null, error: classifyRequestError(err) };
+      }
+      return { status: res.status, json: null };
     }
   }
 
@@ -468,7 +485,7 @@ class AppValidator {
     let failure = null;
 
     for (const probe of this.getStarProbes(repo)) {
-      const { status, json } = await this.fetchJson(probe.url);
+      const { status, json, error } = await this.fetchJson(probe.url);
       const stars = json?.[probe.field];
 
       if (typeof stars === "number") {
@@ -480,17 +497,16 @@ class AppValidator {
         return;
       }
 
-      failure = failure || this.probeFailure(probe.url, status);
+      failure ??= this.probeFailure(probe.host, status, error);
     }
 
     // Keeping quiet here would make a broken lookup look like a clean pass, so
     // say so - but only when the host was supposed to be able to answer
     if (!failure && !KNOWN_STAR_HOSTS.includes(repo.host)) return;
 
+    const reason = failure ? ` - ${failure}` : "";
     this.addWarning(
-      `Could not verify the star count (minimum ${MIN_REPO_STARS}): ${
-        data.repoUrl
-      }${failure ? ` - ${failure}` : ""}`
+      `Could not verify the star count (minimum ${MIN_REPO_STARS}): ${data.repoUrl}${reason}`
     );
   }
 

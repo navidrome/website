@@ -70,6 +70,10 @@ jobs:
 
       - name: Validate app entries
         if: steps.detect-apps.outputs.apps != ''
+        env:
+          # Runners share outbound IPs, so anonymous GitHub API calls can be
+          # throttled by unrelated traffic. Authenticates the repo star check.
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           apps="${{ steps.detect-apps.outputs.apps }}"
           error_count=0
