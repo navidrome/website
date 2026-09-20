@@ -46,54 +46,43 @@
 
 <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
 <script>
-  // Maximum number of days shown on time series charts.
+  // The insights endpoint keeps accumulating history, so time series charts are
+  // capped at the most recent MAX_DAYS points. 517 also starts the window just
+  // past the Feb-Apr 2025 gap in the data. This counts points on the x-axis, so
+  // it only equals days while the endpoint returns daily buckets.
   const MAX_DAYS = 517;
 
   // Keeps only the last MAX_DAYS points of a date-based chart.
-  // Charts without a category x-axis (pie, bar) are returned unchanged.
+  // Charts without a dated x-axis (pie, bar) are returned unchanged.
   function limitToMaxDays(options, maxDays) {
-    const axes = Array.isArray(options.xAxis)
-      ? options.xAxis
-      : options.xAxis
-        ? [options.xAxis]
-        : [];
+    const axes = Array.isArray(options.xAxis) ? options.xAxis : [];
     const dates = axes.find((ax) => Array.isArray(ax?.data))?.data;
     if (!dates || dates.length <= maxDays) return options;
 
     const start = dates.length - maxDays;
-    const visibleDates = dates.slice(start);
-    const firstVisible = visibleDates[0];
-    const visible = new Set(visibleDates);
-
-    const trimAxis = (ax) =>
-      Array.isArray(ax?.data) && ax.data.length === dates.length
-        ? { ...ax, data: ax.data.slice(start) }
-        : ax;
+    const firstVisible = dates[start];
+    const visible = new Set(dates.slice(start));
 
     // markArea bands reference x-axis labels, so drop bands that ended before
     // the window and move a band that started before it to the first visible day.
-    const trimMarkArea = (markArea) => {
-      if (!Array.isArray(markArea?.data)) return markArea;
-      const bands = markArea.data
-        .map(([from, to]) => {
-          if (!visible.has(to?.xAxis)) return null;
-          return visible.has(from?.xAxis)
-            ? [from, to]
-            : [{ ...from, xAxis: firstVisible }, to];
-        })
-        .filter(Boolean);
-      return { ...markArea, data: bands };
-    };
+    const trimBands = (bands) =>
+      bands
+        .filter(([, to]) => visible.has(to?.xAxis))
+        .map(([from, to]) =>
+          visible.has(from?.xAxis) ? [from, to] : [{ ...from, xAxis: firstVisible }, to],
+        );
 
     return {
       ...options,
-      xAxis: Array.isArray(options.xAxis) ? axes.map(trimAxis) : trimAxis(options.xAxis),
+      xAxis: axes.map((ax) => (ax.data === dates ? { ...ax, data: dates.slice(start) } : ax)),
       series: options.series?.map((s) => ({
         ...s,
         data: Array.isArray(s.data) && s.data.length === dates.length
           ? s.data.slice(start)
           : s.data,
-        ...(s.markArea ? { markArea: trimMarkArea(s.markArea) } : {}),
+        ...(Array.isArray(s.markArea?.data) && {
+          markArea: { ...s.markArea, data: trimBands(s.markArea.data) },
+        }),
       })),
     };
   }
