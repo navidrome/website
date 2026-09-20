@@ -103,6 +103,10 @@ jobs:
       - name: Validate apps
         id: validate
         if: steps.detect.outputs.apps != ''
+        env:
+          # Runners share outbound IPs, so anonymous GitHub API calls can be
+          # throttled by unrelated traffic. Authenticates the repo star check.
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           apps="${{ steps.detect.outputs.apps }}"
 

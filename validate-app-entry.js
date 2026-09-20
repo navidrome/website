@@ -15,6 +15,23 @@ const http = require("http");
 // Detect if running in CI environment
 const isCI = process.env.CI === "true" || process.env.GITHUB_ACTIONS === "true";
 
+// Minimum stars an open source app's public repository should have.
+// Keep in sync with content/en/docs/developers/adding-apps.md
+const MIN_REPO_STARS = 15;
+
+// Hosts known to expose a star count, so a lookup that comes back empty there
+// is a broken check rather than an unsupported forge
+const KNOWN_STAR_HOSTS = ["github.com", "gitlab.com", "codeberg.org"];
+
+const USER_AGENT = "Navidrome-App-Validator/1.0";
+const REQUEST_TIMEOUT = 5000; // 5 seconds
+
+// Token that lifts the anonymous GitHub API rate limit. HUGO_GITHUB_TOKEN is
+// the name the site build already uses, see layouts/partials/last-updated/
+function githubToken() {
+  return process.env.GITHUB_TOKEN || process.env.HUGO_GITHUB_TOKEN;
+}
+
 // Color codes for terminal output (disabled in CI)
 const colors = isCI
   ? {
@@ -225,12 +242,12 @@ class AppValidator {
       }
 
       const protocol = parsedUrl.protocol === "https:" ? https : http;
-      const timeout = 5000; // 5 seconds
+      const timeout = REQUEST_TIMEOUT;
 
       const options = {
         method: "HEAD", // Use HEAD instead of GET for faster response
         headers: {
-          "User-Agent": "Navidrome-App-Validator/1.0",
+          "User-Agent": USER_AGENT,
         },
       };
 
@@ -329,6 +346,157 @@ class AppValidator {
     await Promise.all(urlChecks);
   }
 
+  // Split a repo URL into the pieces the star lookup needs, or null when it
+  // cannot be parsed. Deep links such as /tree/<ref>/... or /-/blob/... and a
+  // trailing .git are trimmed so the repository itself is left.
+  parseRepoUrl(repoUrl) {
+    let parsedUrl;
+    try {
+      parsedUrl = new URL(repoUrl);
+    } catch (err) {
+      return null;
+    }
+
+    return {
+      host: parsedUrl.hostname.replace(/^www\./, ""),
+      origin: parsedUrl.origin,
+      repoPath: parsedUrl.pathname
+        .replace(/\.git$/, "")
+        .replace(/\/(-|tree|blob|src|commit)\/.*$/, "")
+        .replace(/^\/+|\/+$/g, ""),
+    };
+  }
+
+  // Build the API endpoints that can report a star count for a repo. GitHub
+  // gets a dedicated probe; any other host is tried as Gitea/Forgejo first and
+  // GitLab second, which covers Codeberg, self-hosted Gitea, and both
+  // gitlab.com and self-hosted GitLab.
+  getStarProbes(repo) {
+    const [owner, name] = repo.repoPath.split("/");
+    if (!name) return [];
+
+    const ownerRepo = `${owner}/${name}`;
+
+    if (repo.host === "github.com") {
+      return [
+        {
+          url: `https://api.github.com/repos/${ownerRepo}`,
+          field: "stargazers_count",
+        },
+      ];
+    }
+
+    return [
+      {
+        url: `${repo.origin}/api/v1/repos/${ownerRepo}`,
+        field: "stars_count",
+      },
+      {
+        // GitLab supports subgroups, so keep the full path here
+        url: `${repo.origin}/api/v4/projects/${encodeURIComponent(
+          repo.repoPath
+        )}`,
+        field: "star_count",
+      },
+    ];
+  }
+
+  // Explain why a probe could not answer, or return null when the host simply
+  // does not speak that API and the next probe should be tried. A 404 or a
+  // non-JSON reply means "wrong forge"; a timeout, throttle, or server error
+  // means the check itself is broken and must not pass silently.
+  probeFailure(probeUrl, status) {
+    const host = new URL(probeUrl).hostname;
+
+    if (status === null) return `${host} did not respond`;
+    if (status === 401) return `${host} rejected the token (401)`;
+    if (status === 403 || status === 429) {
+      return host === "api.github.com"
+        ? `${host} rate limit reached, set GITHUB_TOKEN to raise it`
+        : `${host} refused the request (${status})`;
+    }
+    if (status >= 500) return `${host} returned ${status}`;
+
+    return null;
+  }
+
+  // Fetch and parse a JSON endpoint. Never throws - the star check is
+  // advisory, so an unreachable host must not break validation. Returns the
+  // status next to the body, so callers can tell "this host has no such API"
+  // (404, or a non-JSON reply) from "the lookup failed" (no answer, throttled,
+  // server error). A null status means nothing usable came back at all.
+  async fetchJson(url) {
+    const headers = {
+      "User-Agent": USER_AGENT,
+      Accept: "application/json",
+    };
+
+    // CI runners share outbound IPs, so anonymous GitHub API calls can be
+    // throttled by unrelated traffic. Authenticate whenever a token is around.
+    const token = githubToken();
+    if (token && url.startsWith("https://api.github.com/")) {
+      headers.Authorization = `Bearer ${token}`;
+    }
+
+    let res;
+    try {
+      res = await fetch(url, {
+        headers,
+        signal: AbortSignal.timeout(REQUEST_TIMEOUT),
+      });
+    } catch (err) {
+      return { status: null, json: null };
+    }
+
+    try {
+      return { status: res.status, json: res.ok ? await res.json() : null };
+    } catch (err) {
+      // Timing out mid-body is a failed lookup; anything else means the host
+      // answered with something that is not JSON, so it lacks this API
+      const timedOut = err.name === "TimeoutError";
+      return { status: timedOut ? null : res.status, json: null };
+    }
+  }
+
+  // Warn when an open source app's public repository has too few stars.
+  // Hosts without a usable star API (cgit, tangled, ...) are skipped silently.
+  async validateRepoStars(data) {
+    if (!data || !data.repoUrl) return;
+    // Same rule the site renders with, see layouts/partials/app-card.html
+    if (data.isOpenSource === false) return;
+
+    const repo = this.parseRepoUrl(data.repoUrl);
+    if (!repo) return; // validateUrl already reports a malformed repoUrl
+
+    let failure = null;
+
+    for (const probe of this.getStarProbes(repo)) {
+      const { status, json } = await this.fetchJson(probe.url);
+      const stars = json?.[probe.field];
+
+      if (typeof stars === "number") {
+        if (stars < MIN_REPO_STARS) {
+          this.addWarning(
+            `Repository has ${stars} star(s), below the recommended minimum of ${MIN_REPO_STARS}: ${data.repoUrl}`
+          );
+        }
+        return;
+      }
+
+      failure = failure || this.probeFailure(probe.url, status);
+    }
+
+    // Keeping quiet here would make a broken lookup look like a clean pass, so
+    // say so - but only when the host was supposed to be able to answer
+    if (!failure && !KNOWN_STAR_HOSTS.includes(repo.host)) return;
+
+    this.addWarning(
+      `Could not verify the star count (minimum ${MIN_REPO_STARS}): ${
+        data.repoUrl
+      }${failure ? ` - ${failure}` : ""}`
+    );
+  }
+
   // Main validation method
   async validate() {
     if (!this.quiet) {
@@ -362,7 +530,8 @@ class AppValidator {
     if (!isCI && !this.quiet) {
       this.log("Checking URLs (this may take a moment)...", "blue");
     }
-    await this.validateUrls(data);
+    // Both only read data and append warnings, so they can run together
+    await Promise.all([this.validateUrls(data), this.validateRepoStars(data)]);
 
     return this.printResults();
   }
@@ -469,6 +638,19 @@ async function main() {
     if (appDirs.length === 0) {
       console.log("No app entries found to validate");
       process.exit(0);
+    }
+
+    // One GitHub API call per app busts the 60/hour anonymous limit, which
+    // would turn every star check into an "unverified" warning. Say it once
+    // here rather than once per app.
+    if (!githubToken()) {
+      console.log(
+        `${colors.yellow}Note:${colors.reset} checking every app needs a GitHub token.`
+      );
+      console.log(
+        "Without one the anonymous API limit runs out and star counts stay unverified."
+      );
+      console.log("  export GITHUB_TOKEN=$(gh auth token)\n");
     }
 
     if (!quiet) {
