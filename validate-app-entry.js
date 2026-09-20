@@ -22,7 +22,8 @@ const MIN_REPO_STARS = 15;
 const KNOWN_STAR_HOSTS = ["github.com", "gitlab.com", "codeberg.org"];
 
 const USER_AGENT = "Navidrome-App-Validator/1.0";
-const REQUEST_TIMEOUT = 5000; // 5 seconds
+// Deadline for a whole request, not a per-socket idle timer
+const REQUEST_TIMEOUT = 10000; // 10 seconds
 
 // A host that resolves to nothing is worth reporting; a dropped connection is
 // noise, so it is ignored the way the URL check has always ignored it
