@@ -9,6 +9,7 @@
 
 const fs = require("fs");
 const path = require("path");
+const { execFileSync } = require("child_process");
 
 // Detect if running in CI environment
 const isCI = process.env.CI === "true" || process.env.GITHUB_ACTIONS === "true";
@@ -54,6 +55,53 @@ function discardBody(res) {
 // the name the site build already uses, see layouts/partials/last-updated/
 function githubToken() {
   return process.env.GITHUB_TOKEN || process.env.HUGO_GITHUB_TOKEN;
+}
+
+// Run a git command, reporting only whether it succeeded
+function gitSucceeds(args) {
+  try {
+    execFileSync("git", args, { stdio: "ignore" });
+    return true;
+  } catch (err) {
+    return false;
+  }
+}
+
+// The branch a new entry would be merged into. GITHUB_BASE_REF is set by
+// GitHub Actions on pull requests; the rest covers local runs.
+let cachedBaseRef;
+function baseRef() {
+  if (cachedBaseRef !== undefined) return cachedBaseRef;
+
+  const candidates = [
+    process.env.VALIDATE_BASE_REF,
+    process.env.GITHUB_BASE_REF && `origin/${process.env.GITHUB_BASE_REF}`,
+    "origin/master",
+    "master",
+  ].filter(Boolean);
+
+  cachedBaseRef =
+    candidates.find((ref) =>
+      // Resolve the ref first: cat-file alone cannot tell a missing ref from a
+      // missing path, and those two must not mean the same thing here
+      gitSucceeds(["rev-parse", "--verify", "--quiet", `${ref}^{commit}`])
+    ) || null;
+
+  return cachedBaseRef;
+}
+
+// Is this entry absent from the base branch? Rules that only bind new entries
+// ask this. Whenever git cannot answer - no repo, shallow clone, unknown base
+// ref - the answer is "not new", so a rule can never block an existing entry.
+function isNewApp(appName) {
+  const ref = baseRef();
+  if (!ref) return false;
+
+  return !gitSucceeds([
+    "cat-file",
+    "-e",
+    `${ref}:assets/apps/${appName}/index.yaml`,
+  ]);
 }
 
 // Single HTTP entry point for every check in this file. Never throws -
@@ -489,9 +537,18 @@ class AppValidator {
 
       if (typeof stars === "number") {
         if (stars < MIN_REPO_STARS) {
-          this.addWarning(
-            `Repository has ${stars} star(s), below the recommended minimum of ${MIN_REPO_STARS}: ${data.repoUrl}`
-          );
+          // The rule binds new entries. An app already on the base branch
+          // keeps a warning, so the rule cannot block a PR that merely
+          // touches it - its star count can drop long after it was merged.
+          if (isNewApp(this.appName)) {
+            this.addError(
+              `Repository has ${stars} star(s), below the required minimum of ${MIN_REPO_STARS}: ${data.repoUrl}`
+            );
+          } else {
+            this.addWarning(
+              `Repository has ${stars} star(s), below the minimum of ${MIN_REPO_STARS} (existing entry, not blocking): ${data.repoUrl}`
+            );
+          }
         }
         return;
       }
