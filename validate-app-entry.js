@@ -56,6 +56,150 @@ function githubToken() {
   return process.env.GITHUB_TOKEN || process.env.HUGO_GITHUB_TOKEN;
 }
 
+// Single HTTP entry point for every check in this file. Never throws -
+// validation is advisory, so a broken host must not abort the run. Returns
+// { res } for any reply, or { error } when nothing came back.
+async function request(
+  url,
+  { method = "GET", redirect = "follow", headers = {} } = {}
+) {
+  try {
+    const res = await fetch(url, {
+      method,
+      redirect,
+      headers: { "User-Agent": USER_AGENT, ...headers },
+      signal: AbortSignal.timeout(REQUEST_TIMEOUT),
+    });
+    return { res };
+  } catch (err) {
+    return { error: classifyRequestError(err) };
+  }
+}
+
+// Status-only request. Redirects are reported rather than followed, and any
+// body that does come back is dropped rather than read.
+async function requestStatus(url, method) {
+  const { res, error } = await request(url, { method, redirect: "manual" });
+  if (res) await discardBody(res);
+  return { status: res?.status, error };
+}
+
+// Fetch and parse a JSON endpoint. Never throws. Returns the status next to
+// the body, so callers can tell "this host has no such API" (404, or a
+// non-JSON reply) from "the lookup failed" (no answer, throttled, server
+// error). A null status means nothing usable came back at all.
+async function fetchJson(url) {
+  const headers = { Accept: "application/json" };
+
+  // CI runners share outbound IPs, so anonymous GitHub API calls can be
+  // throttled by unrelated traffic. Authenticate whenever a token is around.
+  const token = githubToken();
+  if (token && url.startsWith("https://api.github.com/")) {
+    headers.Authorization = `Bearer ${token}`;
+  }
+
+  const { res, error } = await request(url, { headers });
+  if (error) return { status: null, json: null, error };
+
+  if (!res.ok) {
+    await discardBody(res);
+    return { status: res.status, json: null };
+  }
+
+  try {
+    return { status: res.status, json: await res.json() };
+  } catch (err) {
+    // Timing out mid-body is a failed lookup; anything else means the host
+    // answered with something that is not JSON, so it lacks this API
+    if (err.name === "TimeoutError") {
+      return { status: null, json: null, error: classifyRequestError(err) };
+    }
+    return { status: res.status, json: null };
+  }
+}
+
+// Split a repo URL into the pieces the star lookup needs, or null when it
+// cannot be parsed. Deep links such as /tree/<ref>/... or /-/blob/... and a
+// trailing .git are trimmed so the repository itself is left.
+function parseRepoUrl(repoUrl) {
+  let parsedUrl;
+  try {
+    parsedUrl = new URL(repoUrl);
+  } catch (err) {
+    return null;
+  }
+
+  return {
+    host: parsedUrl.hostname.replace(/^www\./, ""),
+    origin: parsedUrl.origin,
+    repoPath: parsedUrl.pathname
+      .replace(/\.git$/, "")
+      .replace(/\/(-|tree|blob|src|commit)\/.*$/, "")
+      .replace(/^\/+|\/+$/g, ""),
+  };
+}
+
+// Build the API endpoints that can report a star count for a repo. GitHub
+// gets a dedicated probe; any other host is tried as Gitea/Forgejo first and
+// GitLab second, which covers Codeberg, self-hosted Gitea, and both
+// gitlab.com and self-hosted GitLab.
+function getStarProbes(repo) {
+  const [owner, name] = repo.repoPath.split("/");
+  if (!name) return [];
+
+  const ownerRepo = `${owner}/${name}`;
+
+  if (repo.host === "github.com") {
+    return [
+      {
+        host: "api.github.com",
+        url: `https://api.github.com/repos/${ownerRepo}`,
+        field: "stargazers_count",
+      },
+    ];
+  }
+
+  return [
+    {
+      host: repo.host,
+      url: `${repo.origin}/api/v1/repos/${ownerRepo}`,
+      field: "stars_count",
+    },
+    {
+      host: repo.host,
+      // GitLab supports subgroups, so keep the full path here
+      url: `${repo.origin}/api/v4/projects/${encodeURIComponent(
+        repo.repoPath
+      )}`,
+      field: "star_count",
+    },
+  ];
+}
+
+// Explain why a probe could not answer, or return null when the host simply
+// does not speak that API and the next probe should be tried. A 404 or a
+// non-JSON reply means "wrong forge"; a timeout, throttle, or server error
+// means the check itself is broken and must not pass silently.
+function probeFailure(host, status, error) {
+  // Reuse the vocabulary validateUrl already reports network trouble with
+  if (error) {
+    if (error.kind === "timeout") return `${host} request timed out`;
+    if (error.kind === "unreachable") return `${host} appears unreachable`;
+    if (error.kind === "transient") return `${host} dropped the connection`;
+    return `${host} lookup failed: ${error.message}`;
+  }
+
+  if (status === 401) return `${host} rejected the token (401)`;
+  if (status === 403 || status === 429) {
+    return host === "api.github.com"
+      ? `${host} rate limit reached, set GITHUB_TOKEN to raise it`
+      : `${host} refused the request (${status})`;
+  }
+  if (status >= 500) return `${host} returned ${status}`;
+
+  return null;
+}
+
 // Color codes for terminal output (disabled in CI)
 const colors = isCI
   ? {
@@ -247,34 +391,6 @@ class AppValidator {
     });
   }
 
-  // Single HTTP entry point for every check below. Never throws - validation
-  // is advisory, so a broken host must not abort the run. Returns { res } for
-  // any reply, or { error } when nothing came back.
-  async request(url, { method = "GET", redirect = "follow", headers = {} } = {}) {
-    try {
-      const res = await fetch(url, {
-        method,
-        redirect,
-        headers: { "User-Agent": USER_AGENT, ...headers },
-        signal: AbortSignal.timeout(REQUEST_TIMEOUT),
-      });
-      return { res };
-    } catch (err) {
-      return { error: classifyRequestError(err) };
-    }
-  }
-
-  // Status-only request. Redirects are reported rather than followed, and any
-  // body that does come back is dropped rather than read.
-  async requestStatus(url, method) {
-    const { res, error } = await this.request(url, {
-      method,
-      redirect: "manual",
-    });
-    if (res) await discardBody(res);
-    return { status: res?.status, error };
-  }
-
   // Validate URL (checks if it's reachable)
   async validateUrl(url, description) {
     if (!url) return;
@@ -288,11 +404,11 @@ class AppValidator {
     }
 
     // HEAD is enough to prove a URL resolves, and is cheaper than GET
-    let { status, error } = await this.requestStatus(url, "HEAD");
+    let { status, error } = await requestStatus(url, "HEAD");
 
     // Retry with GET if the server doesn't support HEAD
     if (status === 405) {
-      ({ status, error } = await this.requestStatus(url, "GET"));
+      ({ status, error } = await requestStatus(url, "GET"));
       // Only a timeout on the retry is worth reporting
       if (error && error.kind !== "timeout") return;
     }
@@ -355,123 +471,6 @@ class AppValidator {
     await Promise.all(urlChecks);
   }
 
-  // Split a repo URL into the pieces the star lookup needs, or null when it
-  // cannot be parsed. Deep links such as /tree/<ref>/... or /-/blob/... and a
-  // trailing .git are trimmed so the repository itself is left.
-  parseRepoUrl(repoUrl) {
-    let parsedUrl;
-    try {
-      parsedUrl = new URL(repoUrl);
-    } catch (err) {
-      return null;
-    }
-
-    return {
-      host: parsedUrl.hostname.replace(/^www\./, ""),
-      origin: parsedUrl.origin,
-      repoPath: parsedUrl.pathname
-        .replace(/\.git$/, "")
-        .replace(/\/(-|tree|blob|src|commit)\/.*$/, "")
-        .replace(/^\/+|\/+$/g, ""),
-    };
-  }
-
-  // Build the API endpoints that can report a star count for a repo. GitHub
-  // gets a dedicated probe; any other host is tried as Gitea/Forgejo first and
-  // GitLab second, which covers Codeberg, self-hosted Gitea, and both
-  // gitlab.com and self-hosted GitLab.
-  getStarProbes(repo) {
-    const [owner, name] = repo.repoPath.split("/");
-    if (!name) return [];
-
-    const ownerRepo = `${owner}/${name}`;
-
-    if (repo.host === "github.com") {
-      return [
-        {
-          host: "api.github.com",
-          url: `https://api.github.com/repos/${ownerRepo}`,
-          field: "stargazers_count",
-        },
-      ];
-    }
-
-    return [
-      {
-        host: repo.host,
-        url: `${repo.origin}/api/v1/repos/${ownerRepo}`,
-        field: "stars_count",
-      },
-      {
-        host: repo.host,
-        // GitLab supports subgroups, so keep the full path here
-        url: `${repo.origin}/api/v4/projects/${encodeURIComponent(
-          repo.repoPath
-        )}`,
-        field: "star_count",
-      },
-    ];
-  }
-
-  // Explain why a probe could not answer, or return null when the host simply
-  // does not speak that API and the next probe should be tried. A 404 or a
-  // non-JSON reply means "wrong forge"; a timeout, throttle, or server error
-  // means the check itself is broken and must not pass silently.
-  probeFailure(host, status, error) {
-    // Reuse the vocabulary validateUrl already reports network trouble with
-    if (error) {
-      if (error.kind === "timeout") return `${host} request timed out`;
-      if (error.kind === "unreachable") return `${host} appears unreachable`;
-      if (error.kind === "transient") return `${host} dropped the connection`;
-      return `${host} lookup failed: ${error.message}`;
-    }
-
-    if (status === 401) return `${host} rejected the token (401)`;
-    if (status === 403 || status === 429) {
-      return host === "api.github.com"
-        ? `${host} rate limit reached, set GITHUB_TOKEN to raise it`
-        : `${host} refused the request (${status})`;
-    }
-    if (status >= 500) return `${host} returned ${status}`;
-
-    return null;
-  }
-
-  // Fetch and parse a JSON endpoint. Never throws - the star check is
-  // advisory, so an unreachable host must not break validation. Returns the
-  // status next to the body, so callers can tell "this host has no such API"
-  // (404, or a non-JSON reply) from "the lookup failed" (no answer, throttled,
-  // server error). A null status means nothing usable came back at all.
-  async fetchJson(url) {
-    const headers = { Accept: "application/json" };
-
-    // CI runners share outbound IPs, so anonymous GitHub API calls can be
-    // throttled by unrelated traffic. Authenticate whenever a token is around.
-    const token = githubToken();
-    if (token && url.startsWith("https://api.github.com/")) {
-      headers.Authorization = `Bearer ${token}`;
-    }
-
-    const { res, error } = await this.request(url, { headers });
-    if (error) return { status: null, json: null, error };
-
-    if (!res.ok) {
-      await discardBody(res);
-      return { status: res.status, json: null };
-    }
-
-    try {
-      return { status: res.status, json: await res.json() };
-    } catch (err) {
-      // Timing out mid-body is a failed lookup; anything else means the host
-      // answered with something that is not JSON, so it lacks this API
-      if (err.name === "TimeoutError") {
-        return { status: null, json: null, error: classifyRequestError(err) };
-      }
-      return { status: res.status, json: null };
-    }
-  }
-
   // Warn when an open source app's public repository has too few stars.
   // Hosts without a usable star API (cgit, tangled, ...) are skipped silently.
   async validateRepoStars(data) {
@@ -479,13 +478,13 @@ class AppValidator {
     // Same rule the site renders with, see layouts/partials/app-card.html
     if (data.isOpenSource === false) return;
 
-    const repo = this.parseRepoUrl(data.repoUrl);
+    const repo = parseRepoUrl(data.repoUrl);
     if (!repo) return; // validateUrl already reports a malformed repoUrl
 
     let failure = null;
 
-    for (const probe of this.getStarProbes(repo)) {
-      const { status, json, error } = await this.fetchJson(probe.url);
+    for (const probe of getStarProbes(repo)) {
+      const { status, json, error } = await fetchJson(probe.url);
       const stars = json?.[probe.field];
 
       if (typeof stars === "number") {
@@ -497,7 +496,7 @@ class AppValidator {
         return;
       }
 
-      failure ??= this.probeFailure(probe.host, status, error);
+      failure ??= probeFailure(probe.host, status, error);
     }
 
     // Keeping quiet here would make a broken lookup look like a clean pass, so
