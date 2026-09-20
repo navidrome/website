@@ -46,6 +46,58 @@
 
 <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
 <script>
+  // Maximum number of days shown on time series charts.
+  const MAX_DAYS = 517;
+
+  // Keeps only the last MAX_DAYS points of a date-based chart.
+  // Charts without a category x-axis (pie, bar) are returned unchanged.
+  function limitToMaxDays(options, maxDays) {
+    const axes = Array.isArray(options.xAxis)
+      ? options.xAxis
+      : options.xAxis
+        ? [options.xAxis]
+        : [];
+    const dates = axes.find((ax) => Array.isArray(ax?.data))?.data;
+    if (!dates || dates.length <= maxDays) return options;
+
+    const start = dates.length - maxDays;
+    const visibleDates = dates.slice(start);
+    const firstVisible = visibleDates[0];
+    const visible = new Set(visibleDates);
+
+    const trimAxis = (ax) =>
+      Array.isArray(ax?.data) && ax.data.length === dates.length
+        ? { ...ax, data: ax.data.slice(start) }
+        : ax;
+
+    // markArea bands reference x-axis labels, so drop bands that ended before
+    // the window and move a band that started before it to the first visible day.
+    const trimMarkArea = (markArea) => {
+      if (!Array.isArray(markArea?.data)) return markArea;
+      const bands = markArea.data
+        .map(([from, to]) => {
+          if (!visible.has(to?.xAxis)) return null;
+          return visible.has(from?.xAxis)
+            ? [from, to]
+            : [{ ...from, xAxis: firstVisible }, to];
+        })
+        .filter(Boolean);
+      return { ...markArea, data: bands };
+    };
+
+    return {
+      ...options,
+      xAxis: Array.isArray(options.xAxis) ? axes.map(trimAxis) : trimAxis(options.xAxis),
+      series: options.series?.map((s) => ({
+        ...s,
+        data: Array.isArray(s.data) && s.data.length === dates.length
+          ? s.data.slice(start)
+          : s.data,
+        ...(s.markArea ? { markArea: trimMarkArea(s.markArea) } : {}),
+      })),
+    };
+  }
+
   function isDarkMode() {
     const bsTheme = document.documentElement.getAttribute("data-bs-theme");
     if (bsTheme === "dark") return true;
@@ -177,7 +229,8 @@
 
       container.innerHTML = "";
 
-      for (const { id, options } of chartsData) {
+      for (const { id, options: rawOptions } of chartsData) {
+        const options = limitToMaxDays(rawOptions, MAX_DAYS);
         const wrapper = document.createElement("div");
         wrapper.className = "chart-container";
 
