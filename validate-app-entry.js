@@ -9,11 +9,244 @@
 
 const fs = require("fs");
 const path = require("path");
-const https = require("https");
-const http = require("http");
+const { execFileSync } = require("child_process");
 
 // Detect if running in CI environment
 const isCI = process.env.CI === "true" || process.env.GITHUB_ACTIONS === "true";
+
+// Minimum stars an open source app's public repository should have.
+// Keep in sync with content/en/docs/developers/adding-apps.md
+const MIN_REPO_STARS = 15;
+
+// Hosts known to expose a star count, so a lookup that comes back empty there
+// is a broken check rather than an unsupported forge
+const KNOWN_STAR_HOSTS = ["github.com", "gitlab.com", "codeberg.org"];
+
+const USER_AGENT = "Navidrome-App-Validator/1.0";
+// Deadline for a whole request, not a per-socket idle timer
+const REQUEST_TIMEOUT = 10000; // 10 seconds
+
+// A host that resolves to nothing is worth reporting; a dropped connection is
+// noise, so it is ignored the way the URL check has always ignored it
+const UNREACHABLE_ERROR_CODES = ["ENOTFOUND", "ECONNREFUSED"];
+const TRANSIENT_ERROR_CODES = ["ETIMEDOUT", "ECONNRESET"];
+
+// Classify a request that produced no response. fetch reports network trouble
+// as a TypeError and keeps the real code and message on the cause.
+function classifyRequestError(err) {
+  if (err.name === "TimeoutError") return { kind: "timeout" };
+
+  const cause = err.cause || err;
+  if (UNREACHABLE_ERROR_CODES.includes(cause.code)) {
+    return { kind: "unreachable" };
+  }
+  if (TRANSIENT_ERROR_CODES.includes(cause.code)) return { kind: "transient" };
+
+  return { kind: "failed", message: cause.message || err.message };
+}
+
+// Release the connection for a reply whose body will never be read. A HEAD
+// reply has no body at all, hence the optional chain.
+function discardBody(res) {
+  return res.body?.cancel().catch(() => {});
+}
+
+// Token that lifts the anonymous GitHub API rate limit. HUGO_GITHUB_TOKEN is
+// the name the site build already uses, see layouts/partials/last-updated/
+function githubToken() {
+  return process.env.GITHUB_TOKEN || process.env.HUGO_GITHUB_TOKEN;
+}
+
+// Run a git command, reporting only whether it succeeded
+function gitSucceeds(args) {
+  try {
+    execFileSync("git", args, { stdio: "ignore" });
+    return true;
+  } catch (err) {
+    return false;
+  }
+}
+
+// The branch a new entry would be merged into. GITHUB_BASE_REF is set by
+// GitHub Actions on pull requests; the rest covers local runs.
+let cachedBaseRef;
+function baseRef() {
+  if (cachedBaseRef !== undefined) return cachedBaseRef;
+
+  const candidates = [
+    process.env.VALIDATE_BASE_REF,
+    process.env.GITHUB_BASE_REF && `origin/${process.env.GITHUB_BASE_REF}`,
+    "origin/master",
+    "master",
+  ].filter(Boolean);
+
+  cachedBaseRef =
+    candidates.find((ref) =>
+      // Resolve the ref first: cat-file alone cannot tell a missing ref from a
+      // missing path, and those two must not mean the same thing here
+      gitSucceeds(["rev-parse", "--verify", "--quiet", `${ref}^{commit}`])
+    ) || null;
+
+  return cachedBaseRef;
+}
+
+// Is this entry absent from the base branch? Rules that only bind new entries
+// ask this. Whenever git cannot answer - no repo, shallow clone, unknown base
+// ref - the answer is "not new", so a rule can never block an existing entry.
+function isNewApp(appName) {
+  const ref = baseRef();
+  if (!ref) return false;
+
+  return !gitSucceeds([
+    "cat-file",
+    "-e",
+    `${ref}:assets/apps/${appName}/index.yaml`,
+  ]);
+}
+
+// Single HTTP entry point for every check in this file. Never throws -
+// validation is advisory, so a broken host must not abort the run. Returns
+// { res } for any reply, or { error } when nothing came back.
+async function request(
+  url,
+  { method = "GET", redirect = "follow", headers = {} } = {}
+) {
+  try {
+    const res = await fetch(url, {
+      method,
+      redirect,
+      headers: { "User-Agent": USER_AGENT, ...headers },
+      signal: AbortSignal.timeout(REQUEST_TIMEOUT),
+    });
+    return { res };
+  } catch (err) {
+    return { error: classifyRequestError(err) };
+  }
+}
+
+// Status-only request. Redirects are reported rather than followed, and any
+// body that does come back is dropped rather than read.
+async function requestStatus(url, method) {
+  const { res, error } = await request(url, { method, redirect: "manual" });
+  if (res) await discardBody(res);
+  return { status: res?.status, error };
+}
+
+// Fetch and parse a JSON endpoint. Never throws. Returns the status next to
+// the body, so callers can tell "this host has no such API" (404, or a
+// non-JSON reply) from "the lookup failed" (no answer, throttled, server
+// error). A null status means nothing usable came back at all.
+async function fetchJson(url) {
+  const headers = { Accept: "application/json" };
+
+  // CI runners share outbound IPs, so anonymous GitHub API calls can be
+  // throttled by unrelated traffic. Authenticate whenever a token is around.
+  const token = githubToken();
+  if (token && url.startsWith("https://api.github.com/")) {
+    headers.Authorization = `Bearer ${token}`;
+  }
+
+  const { res, error } = await request(url, { headers });
+  if (error) return { status: null, json: null, error };
+
+  if (!res.ok) {
+    await discardBody(res);
+    return { status: res.status, json: null };
+  }
+
+  try {
+    return { status: res.status, json: await res.json() };
+  } catch (err) {
+    // Timing out mid-body is a failed lookup; anything else means the host
+    // answered with something that is not JSON, so it lacks this API
+    if (err.name === "TimeoutError") {
+      return { status: null, json: null, error: classifyRequestError(err) };
+    }
+    return { status: res.status, json: null };
+  }
+}
+
+// Split a repo URL into the pieces the star lookup needs, or null when it
+// cannot be parsed. Deep links such as /tree/<ref>/... or /-/blob/... and a
+// trailing .git are trimmed so the repository itself is left.
+function parseRepoUrl(repoUrl) {
+  let parsedUrl;
+  try {
+    parsedUrl = new URL(repoUrl);
+  } catch (err) {
+    return null;
+  }
+
+  return {
+    host: parsedUrl.hostname.replace(/^www\./, ""),
+    origin: parsedUrl.origin,
+    repoPath: parsedUrl.pathname
+      .replace(/\.git$/, "")
+      .replace(/\/(-|tree|blob|src|commit)\/.*$/, "")
+      .replace(/^\/+|\/+$/g, ""),
+  };
+}
+
+// Build the API endpoints that can report a star count for a repo. GitHub
+// gets a dedicated probe; any other host is tried as Gitea/Forgejo first and
+// GitLab second, which covers Codeberg, self-hosted Gitea, and both
+// gitlab.com and self-hosted GitLab.
+function getStarProbes(repo) {
+  const [owner, name] = repo.repoPath.split("/");
+  if (!name) return [];
+
+  const ownerRepo = `${owner}/${name}`;
+
+  if (repo.host === "github.com") {
+    return [
+      {
+        host: "api.github.com",
+        url: `https://api.github.com/repos/${ownerRepo}`,
+        field: "stargazers_count",
+      },
+    ];
+  }
+
+  return [
+    {
+      host: repo.host,
+      url: `${repo.origin}/api/v1/repos/${ownerRepo}`,
+      field: "stars_count",
+    },
+    {
+      host: repo.host,
+      // GitLab supports subgroups, so keep the full path here
+      url: `${repo.origin}/api/v4/projects/${encodeURIComponent(
+        repo.repoPath
+      )}`,
+      field: "star_count",
+    },
+  ];
+}
+
+// Explain why a probe could not answer, or return null when the host simply
+// does not speak that API and the next probe should be tried. A 404 or a
+// non-JSON reply means "wrong forge"; a timeout, throttle, or server error
+// means the check itself is broken and must not pass silently.
+function probeFailure(host, status, error) {
+  // Reuse the vocabulary validateUrl already reports network trouble with
+  if (error) {
+    if (error.kind === "timeout") return `${host} request timed out`;
+    if (error.kind === "unreachable") return `${host} appears unreachable`;
+    if (error.kind === "transient") return `${host} dropped the connection`;
+    return `${host} lookup failed: ${error.message}`;
+  }
+
+  if (status === 401) return `${host} rejected the token (401)`;
+  if (status === 403 || status === 429) {
+    return host === "api.github.com"
+      ? `${host} rate limit reached, set GITHUB_TOKEN to raise it`
+      : `${host} refused the request (${status})`;
+  }
+  if (status >= 500) return `${host} returned ${status}`;
+
+  return null;
+}
 
 // Color codes for terminal output (disabled in CI)
 const colors = isCI
@@ -207,88 +440,45 @@ class AppValidator {
   }
 
   // Validate URL (checks if it's reachable)
-  validateUrl(url, description) {
-    return new Promise((resolve) => {
-      if (!url) {
-        resolve();
-        return;
-      }
+  async validateUrl(url, description) {
+    if (!url) return;
 
-      // Basic URL format check
-      let parsedUrl;
-      try {
-        parsedUrl = new URL(url);
-      } catch (err) {
-        this.addError(`Invalid URL format for ${description}: ${url}`);
-        resolve();
-        return;
-      }
+    // Basic URL format check
+    try {
+      new URL(url);
+    } catch (err) {
+      this.addError(`Invalid URL format for ${description}: ${url}`);
+      return;
+    }
 
-      const protocol = parsedUrl.protocol === "https:" ? https : http;
-      const timeout = 5000; // 5 seconds
+    // HEAD is enough to prove a URL resolves, and is cheaper than GET
+    let { status, error } = await requestStatus(url, "HEAD");
 
-      const options = {
-        method: "HEAD", // Use HEAD instead of GET for faster response
-        headers: {
-          "User-Agent": "Navidrome-App-Validator/1.0",
-        },
-      };
+    // Retry with GET if the server doesn't support HEAD
+    if (status === 405) {
+      ({ status, error } = await requestStatus(url, "GET"));
+      // Only a timeout on the retry is worth reporting
+      if (error && error.kind !== "timeout") return;
+    }
 
-      const req = protocol.request(url, options, (res) => {
-        // Follow redirects (3xx) silently
-        if (res.statusCode >= 300 && res.statusCode < 400) {
-          resolve();
-          return;
-        }
-
-        // Retry with GET if server doesn't support HEAD
-        if (res.statusCode === 405 && options.method === "HEAD") {
-          const retryOptions = { ...options, method: "GET" };
-          const retryReq = protocol.request(url, retryOptions, (retryRes) => {
-            retryRes.resume();
-            if (retryRes.statusCode >= 400) {
-              this.addWarning(
-                `${description} returned status ${retryRes.statusCode}: ${url}`
-              );
-            }
-            resolve();
-          });
-          retryReq.setTimeout(timeout, () => {
-            retryReq.destroy();
-            this.addWarning(`${description} request timed out: ${url}`);
-            resolve();
-          });
-          retryReq.on("error", () => resolve());
-          retryReq.end();
-          return;
-        }
-
-        if (res.statusCode >= 400) {
-          this.addWarning(
-            `${description} returned status ${res.statusCode}: ${url}`
-          );
-        }
-        resolve();
-      });
-
-      // Set timeout properly
-      req.setTimeout(timeout, () => {
-        req.destroy();
+    if (error) {
+      if (error.kind === "timeout") {
         this.addWarning(`${description} request timed out: ${url}`);
-        resolve();
-      });
+      } else if (error.kind === "unreachable") {
+        this.addWarning(`${description} appears unreachable: ${url}`);
+      } else if (error.kind === "failed") {
+        this.addWarning(`${description} validation failed: ${error.message}`);
+      }
+      // "transient" stays quiet on purpose: a dropped connection says more
+      // about the network than about the URL. validateRepoStars is stricter,
+      // because a star lookup that fails quietly would look like a clean pass.
+      return;
+    }
 
-      req.on("error", (err) => {
-        if (err.code === "ENOTFOUND" || err.code === "ECONNREFUSED") {
-          this.addWarning(`${description} appears unreachable: ${url}`);
-        } else if (err.code !== "ETIMEDOUT" && err.code !== "ECONNRESET") {
-          this.addWarning(`${description} validation failed: ${err.message}`);
-        }
-        resolve();
-      });
-
-      req.end();
-    });
+    // A redirect still proves the URL resolves, so only 4xx/5xx is a problem
+    if (status >= 400) {
+      this.addWarning(`${description} returned status ${status}: ${url}`);
+    }
   }
 
   // Validate all URLs in the app data
@@ -329,6 +519,53 @@ class AppValidator {
     await Promise.all(urlChecks);
   }
 
+  // Warn when an open source app's public repository has too few stars.
+  // Hosts without a usable star API (cgit, tangled, ...) are skipped silently.
+  async validateRepoStars(data) {
+    if (!data || !data.repoUrl) return;
+    // Same rule the site renders with, see layouts/partials/app-card.html
+    if (data.isOpenSource === false) return;
+
+    const repo = parseRepoUrl(data.repoUrl);
+    if (!repo) return; // validateUrl already reports a malformed repoUrl
+
+    let failure = null;
+
+    for (const probe of getStarProbes(repo)) {
+      const { status, json, error } = await fetchJson(probe.url);
+      const stars = json?.[probe.field];
+
+      if (typeof stars === "number") {
+        if (stars < MIN_REPO_STARS) {
+          // The rule binds new entries. An app already on the base branch
+          // keeps a warning, so the rule cannot block a PR that merely
+          // touches it - its star count can drop long after it was merged.
+          if (isNewApp(this.appName)) {
+            this.addError(
+              `Repository has ${stars} star(s), below the required minimum of ${MIN_REPO_STARS}: ${data.repoUrl}`
+            );
+          } else {
+            this.addWarning(
+              `Repository has ${stars} star(s), below the minimum of ${MIN_REPO_STARS} (existing entry, not blocking): ${data.repoUrl}`
+            );
+          }
+        }
+        return;
+      }
+
+      failure ??= probeFailure(probe.host, status, error);
+    }
+
+    // Keeping quiet here would make a broken lookup look like a clean pass, so
+    // say so - but only when the host was supposed to be able to answer
+    if (!failure && !KNOWN_STAR_HOSTS.includes(repo.host)) return;
+
+    const reason = failure ? ` - ${failure}` : "";
+    this.addWarning(
+      `Could not verify the star count (minimum ${MIN_REPO_STARS}): ${data.repoUrl}${reason}`
+    );
+  }
+
   // Main validation method
   async validate() {
     if (!this.quiet) {
@@ -362,7 +599,8 @@ class AppValidator {
     if (!isCI && !this.quiet) {
       this.log("Checking URLs (this may take a moment)...", "blue");
     }
-    await this.validateUrls(data);
+    // Both only read data and append warnings, so they can run together
+    await Promise.all([this.validateUrls(data), this.validateRepoStars(data)]);
 
     return this.printResults();
   }
@@ -469,6 +707,19 @@ async function main() {
     if (appDirs.length === 0) {
       console.log("No app entries found to validate");
       process.exit(0);
+    }
+
+    // One GitHub API call per app busts the 60/hour anonymous limit, which
+    // would turn every star check into an "unverified" warning. Say it once
+    // here rather than once per app.
+    if (!githubToken()) {
+      console.log(
+        `${colors.yellow}Note:${colors.reset} checking every app needs a GitHub token.`
+      );
+      console.log(
+        "Without one the anonymous API limit runs out and star counts stay unverified."
+      );
+      console.log("  export GITHUB_TOKEN=$(gh auth token)\n");
     }
 
     if (!quiet) {
