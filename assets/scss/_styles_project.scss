@@ -608,5 +608,32 @@
   }
 }
 
+// 404 page. Matches the content width used by the apps page; only the search
+// box and the suggestion list need rules of their own.
+.nd-404 {
+  max-width: 1280px;
+  margin: 0 auto;
+
+  &__search {
+    max-width: 34rem;
+    margin-bottom: 1.5rem;
+  }
+
+  &__results {
+    padding-left: 0;
+    list-style: none;
+
+    li {
+      margin-bottom: 0.75rem;
+    }
+
+    p {
+      margin-bottom: 0;
+      color: var(--bs-secondary-color);
+      font-size: 0.9rem;
+    }
+  }
+}
+
 // Import app filters styling
 @import "app-filters";
