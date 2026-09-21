@@ -1,8 +1,39 @@
-{{ define "main"}}
-    <main id="main">
-      <div>
-       <h1 id="title">Not found</h1>
-       <p>Oops! This page doesn't exist. Try going back to our <a href="{{ "/" | relURL }}">home page</a>.</p>
-      </div>
-    </main>
+{{ define "main" }}
+<div class="td-content nd-404">
+  <h1>Page not found</h1>
+
+  <p class="lead">
+    We can't find <code id="nd-404-path">this page</code> on this site.
+    It may have moved, or the link may have a typo.
+  </p>
+
+  {{ with .Site.Params.offlineSearch }}
+  {{ $index := resources.Get "json/offline-search-index.json" | resources.ExecuteAsTemplate "offline-search-index.json" $ }}
+  {{ if hugo.IsProduction }}{{ $index = $index | fingerprint "md5" }}{{ end }}
+  <input
+    type="search"
+    id="nd-404-input"
+    class="form-control nd-404__search"
+    placeholder="Search the documentation…"
+    aria-label="Search the documentation"
+    autocomplete="off"
+    data-search-index-src="{{ $index.RelPermalink }}">
+
+  <h2 id="nd-404-results-title" hidden>Did you mean?</h2>
+  <ul id="nd-404-results-list" class="nd-404__results" hidden></ul>
+  <p id="nd-404-results-empty" hidden></p>
+  {{ end }}
+
+  <h2>Browse the site</h2>
+  <ul>
+    <li><a href="{{ "/docs/" | relURL }}">Documentation</a></li>
+    <li><a href="{{ "/docs/installation/" | relURL }}">Installation</a></li>
+    <li><a href="{{ "/docs/getting-started/" | relURL }}">Getting Started</a></li>
+    <li><a href="{{ "/apps/" | relURL }}">Client Apps</a></li>
+    <li><a href="{{ "/docs/faq/" | relURL }}">FAQ</a></li>
+    <li><a href="{{ "/community/" | relURL }}">Community</a></li>
+  </ul>
+</div>
+
+<script src="{{ "js/404-search.js" | relURL }}"></script>
 {{ end }}
