@@ -1,10 +1,10 @@
 name: EKO
-url: https://eko.reactivepixels.com
+url: https://www.reactivepixels.com/eko
 repoUrl: https://github.com/reactivepixels/eko
 platforms:
   macos: true
 api: OpenSubsonic
-description: "A bit-perfect audiophile player for macOS. A native Rust engine matches the output device to each file's sample rate (no OS resampling), with an honest SOURCE → OUTPUT signal-path display and a true bit-perfect seal — plus a 10-band graphic EQ, ReplayGain, gapless playback, a live FFT spectrum, lyrics, scrobbling, a sleep timer and media keys, in a neumorphic light/dark interface."
+description: "A bit-perfect audiophile player for macOS. A native Rust engine matches the output device to each file's sample rate (no OS resampling), with an honest SOURCE → OUTPUT signal-path display and a true bit-perfect seal, plus a 10-band graphic EQ, ReplayGain, gapless playback, a live FFT spectrum, lyrics, scrobbling, a sleep timer and media keys, in a neumorphic light/dark interface."
 pricing: free
 screenshots:
   thumbnail: thumbnail.webp
