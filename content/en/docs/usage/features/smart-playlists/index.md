@@ -427,7 +427,7 @@ Alternatively, the `inPlaylist` and `notInPlaylist` operators can take a `path` 
 absolute or relative to your playlist. This allows your smart playlists to be tranferrable between servers.
 
 ```json
-{ "inPlaylist": { "id": "../other_playlist.nsp" } }
+{ "inPlaylist": { "path": "../other_playlist.nsp" } }
 ```
 
 Here's an example of building a smart playlist out of multiple more focused playlists. Keep all the rules under a
