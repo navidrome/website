@@ -31,6 +31,17 @@ in it. Example of a configuration file (select your OS):
 
 {{< tabpane lang="toml">}}
 {{< tab header="**Example**:" disabled=true />}}
+{{< tab header="Unix-based systems" >}}
+
+# This is just an example! Please see available options to customize Navidrome for your needs at
+
+# https://www.navidrome.org/docs/usage/configuration/options/#available-options
+
+LogLevel = 'DEBUG'
+Scanner.Schedule = '@every 24h'
+TranscodingCacheSize = '150MiB'
+MusicFolder = '/mnt/music'
+{{< /tab >}}
 {{< tab header="Windows"  highlight="guessSyntax=true">}}
 
 # This is just an example! Please see available options to customize Navidrome for your needs at
@@ -49,7 +60,7 @@ MusicFolder = 'C:\Users\JohnDoe\Music'
 
 FFmpegPath = 'C:\Program Files\ffmpeg\bin\ffmpeg.exe'
 {{< /tab >}}
-{{< tab header="macOS" lang="macos" >}}
+{{< tab header="macOS" >}}
 
 # This is just an example! Please see available options to customize Navidrome for your needs at
 
@@ -64,17 +75,6 @@ MusicFolder = '/Users/JohnDoe/Music'
 
 FFmpegPath = '/opt/homebrew/bin/ffmpeg'
 {{< /tab >}}
-{{< tab header="Unix-based systems" lang="unix" >}}
-
-# This is just an example! Please see available options to customize Navidrome for your needs at
-
-# https://www.navidrome.org/docs/usage/configuration/options/#available-options
-
-LogLevel = 'DEBUG'
-Scanner.Schedule = '@every 24h'
-TranscodingCacheSize = '150MiB'
-MusicFolder = '/mnt/music'
-{{< /tab >}}
 {{< /tabpane >}}
 
 You can also specify a different path for the configuration file, using the `-c/--configfile` option.
@@ -84,14 +84,14 @@ The example below assume you have created a `navidrome.toml` file in your home d
 
 {{< tabpane >}}
 {{< tab header="**Example**:" disabled=true />}}
+{{< tab header="Unix-based systems" lang="unix" >}}
+$ navidrome --configfile "/home/johndoe/navidrome.toml"
+{{< /tab >}}
 {{< tab header="Windows" lang="windows" >}}
 C:\> navidrome --configfile "c:\User\JohnDoe\navidrome.toml"
 {{< /tab >}}
-{{< tab header="macOs" lang="macos" >}}
+{{< tab header="macOS" lang="macos" >}}
 $ navidrome --configfile "/User/JohnDoe/navidrome.toml"
-{{< /tab >}}
-{{< tab header="Unix-based systems" lang="unix" >}}
-$ navidrome --configfile "/home/johndoe/navidrome.toml"
 {{< /tab >}}
 {{< /tabpane >}}
 
@@ -104,14 +104,14 @@ under your home directory:
 
 {{< tabpane >}}
 {{< tab header="**Example**:" disabled=true />}}
+{{< tab header="Unix-based systems" lang="unix" >}}
+$ navidrome --musicfolder "/mnt/music"
+{{< /tab >}}
 {{< tab header="Windows" lang="windows" >}}
 C:\> navidrome --musicfolder "c:\User\JohnDoe\Music"
 {{< /tab >}}
-{{< tab header="macOs" lang="macos" >}}
+{{< tab header="macOS" lang="macos" >}}
 $ navidrome --musicfolder "/User/JohnDoe/Music"
-{{< /tab >}}
-{{< tab header="Unix-based systems" lang="unix" >}}
-$ navidrome --musicfolder "/mnt/music"
 {{< /tab >}}
 {{< /tabpane >}}
 
