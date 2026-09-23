@@ -1,0 +1,26 @@
+name: SoundFlow
+url: https://apps.apple.com/cn/app/soundflow-your-music-in-flow/id6810233571
+
+platforms:
+  ios:
+    store: https://apps.apple.com/cn/app/soundflow-your-music-in-flow/id6810233571
+
+api: OpenSubsonic
+
+description: "SoundFlow is a native iOS client for Navidrome, built for focused listening across multiple servers and music libraries. Stream or cache your music for offline playback, manage queues and favorites, view synchronized lyrics, and listen with AirPlay."
+
+screenshots:
+  thumbnail: thumbnail.webp
+  gallery:
+    - screen1.webp
+    - screen2.webp
+
+pricing: freemium
+
+keywords:
+  - navidrome
+  - opensubsonic
+  - offline
+  - airplay
+  - lyrics
+  - ios
