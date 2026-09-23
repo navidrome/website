@@ -1,6 +1,10 @@
 // Project-specific style overrides.
 // Docsy automatically picks this file up when present.
 
+// Syntax highlighting colors for light and dark modes. Required because
+// `markup.highlight.noClasses` is false in hugo.yaml.
+@import 'td/code-dark';
+
 .config-options {
   table {
     width: 100%;
