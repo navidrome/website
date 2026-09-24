@@ -1,0 +1,34 @@
+name: Primuse
+url: https://github.com/chenqi92/primuse
+repoUrl: https://github.com/chenqi92/primuse
+
+platforms:
+  ios:
+    store: https://apps.apple.com/us/app/primuse/id6761675450
+  macos:
+    store: https://apps.apple.com/us/app/primuse/id6761675450?platform=mac
+  tvos:
+    store: https://apps.apple.com/us/app/primuse/id6761675450?platform=tv
+
+api: OpenSubsonic
+
+description: "Free, open-source native music player for iPhone, iPad, Mac, and Apple TV, bringing Navidrome/OpenSubsonic, NAS, cloud, and local libraries into one unified library. Features offline downloads, gapless and crossfade playback, ReplayGain, synchronized lyrics, CarPlay, Apple Watch, widgets, and Last.fm/ListenBrainz scrobbling."
+
+screenshots:
+  thumbnail: thumbnail.webp
+  gallery:
+    - ios-home.webp
+    - ios-now-playing.webp
+    - ios-sources.webp
+    - tvos-home.webp
+    - tvos-now-playing.webp
+
+isFree: true
+
+keywords:
+  - carplay
+  - apple watch
+  - offline
+  - gapless
+  - replaygain
+  - synced lyrics
