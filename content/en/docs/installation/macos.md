@@ -47,15 +47,17 @@ The example shown assumes a few things:
 
 ## File ownership and permissions
 
-A `LaunchAgent` runs as your own user, not as `root`. All files must therefore belong to
-your user. If you created `/opt/navidrome` with `sudo`, the folder belongs to `root` and
-Navidrome cannot write to it.
+A `LaunchAgent` runs as your own user, not as `root`. Navidrome must be able to write to its
+data folder and to its log file. If you created `/opt/navidrome` with `sudo`, the folder belongs
+to `root` and Navidrome cannot write to it. The simplest solution is to give the folder to your
+user.
 
 Set the owner and the permissions like this:
 
 ```bash
 # Give the whole folder to your user
 sudo chown -R "$(whoami):staff" /opt/navidrome
+chmod 755 /opt/navidrome
 
 # Make the binary executable
 chmod 755 /opt/navidrome/navidrome
@@ -72,29 +74,31 @@ chmod 700 /opt/navidrome/data
 touch /opt/navidrome/navidrome.log
 chmod 600 /opt/navidrome/navidrome.log
 
-# launchd refuses a plist that other users can write
+# launchd refuses a plist that all users can write (for example mode 666)
 chmod 644 ~/Library/LaunchAgents/navidrome.plist
 ```
 
-This table shows the required values:
+This table shows the recommended values:
 
 | Path | Owner | Mode | Notes |
 |------|-------|------|-------|
 | `/opt/navidrome` | your user | `755` | Working directory |
 | `/opt/navidrome/navidrome` | your user | `755` | Must be executable |
-| `/opt/navidrome/navidrome.toml` | your user | `600` | Read only for you |
+| `/opt/navidrome/navidrome.toml` | your user | `600` | Only you can read and write it |
 | `/opt/navidrome/data` | your user | `700` | `DataFolder`, see the warning below |
 | `/opt/navidrome/navidrome.log` | your user | `600` | See the warning below |
 | `~/Library/LaunchAgents/navidrome.plist` | your user | `644` | `launchd` rejects mode `666` |
-| Your music folder | any | — | Read access is sufficient |
+| Your music folder | any | — | Your user must be able to read the files and open the folders |
 
 {{% alert title="Keep the data folder private" color="warning" %}}
 The `DataFolder` option sets where the data folder is. If you did not use
 `/opt/navidrome/data`, apply the commands above to your own path.
 
-Navidrome makes this folder on the first start if it does not exist. It makes the folder and
-the database file readable for all users. The database holds the accounts and the passwords of
-your users. Thus, on a Mac with more than one account, a different user can read them.
+Navidrome makes this folder on the first start if it does not exist. With the default macOS
+settings, it makes the folder and the database file readable for all users. The database holds
+the accounts and the passwords of your users. The passwords are encrypted, but if you did not set
+the `PasswordEncryptionKey` option, Navidrome uses a built-in key that is not secret. Thus, on a
+Mac with more than one account, a different user can read them.
 
 Set the mode of the data folder to `700` to prevent this. Navidrome operates correctly with
 this mode. If Navidrome already made the folder, set the mode again after the first start.
@@ -102,8 +106,9 @@ this mode. If Navidrome already made the folder, set the mode again after the fi
 
 {{% alert title="Keep the log file private" color="warning" %}}
 The log can contain secrets. If you set `LogLevel` to `debug`, Navidrome writes the full
-configuration to the log at each start. Some values are shown as `[REDACTED]`, but not all of
-them. For example, the Last.fm `ApiKey` and `Secret` are written in plain text.
+configuration to the log at each start. Secret values are shown as `[REDACTED]`, but Navidrome
+0.64.2 and older write the Last.fm `ApiKey` and `Secret`, and the Prometheus `Password`, in plain
+text.
 
 `launchd` makes the log file readable for all users if the file does not exist. Thus, make the
 file yourself before you start the service, and set the mode to `600`. `launchd` keeps this
@@ -116,17 +121,17 @@ Correct file permissions are not always sufficient. macOS has a second, independ
 system. It blocks some folders even when the file permissions permit access. A service started
 by `launchd` gets no permissions from your terminal, so this problem is common.
 
-These folders are blocked:
+These are the most common blocked folders:
 
 - `~/Desktop`, `~/Documents` and `~/Downloads`
 - `~/Music/Music`, the Apple Music library folder
-- All external and network volumes in `/Volumes`
+- External drives and network shares in `/Volumes`
 
 These folders are not blocked:
 
 - `~/Music` itself, but not the `Music` subfolder in it
 - `/Users/Shared`
-- `/opt` and other folders outside your home folder
+- `/opt`
 
 **The simplest solution is to keep your music in a folder that macOS does not block**, for
 example `/Users/Shared/Music`. Then you do not need any of the steps below.
@@ -137,17 +142,18 @@ When macOS blocks your music folder, Navidrome does not report a clear error. Lo
 signs instead:
 
 - The library is empty after a scan, and no track is found.
-- The log contains this line, which gives the wrong reason:
+- The log contains a line like this, which gives the wrong reason:
 
   ```
-  level=warning msg="Scanner: Target folder does not exist." error="open .: operation not permitted"
+  level=warning msg="Scanner: Target folder does not exist." error="open .: operation not permitted" path=.
   ```
 
   The folder does exist. The permission is the real cause.
 
 There is a third symptom that is easy to miss. The first time Navidrome reads a blocked folder,
 macOS shows a permission dialog, and Navidrome **waits** for your answer. If you do not see the
-dialog, the scan seems to freeze, and the log shows:
+dialog, the scan never finishes. The web UI still works. When you stop or restart the service,
+the log shows:
 
 ```
 level=error msg="Scan failed" error="library count: context canceled"
@@ -169,19 +175,24 @@ Two methods are possible. Both work.
    - Restart the service.
 
 {{% alert title="You must do this again after each update" color="warning" %}}
-macOS attaches the permission to the binary itself, not to its path. When you install a new
-version of Navidrome, the permission no longer applies.
+macOS attaches the permission to this exact build of the binary, and to its path. When you
+install a new version of Navidrome, or move the binary, the permission no longer applies.
 
 After an update, Navidrome cannot read your music folder, and macOS shows the dialog again. If
-nobody answers that dialog, the scan waits and then fails with `context canceled`.
+nobody answers that dialog, the scan waits until you stop the service.
 
 Keep your music in a folder that macOS does not block to prevent this.
 {{% /alert %}}
 
-Then to load the service, run:
+## Start the service
+
+To load the service, run:
 ```bash
 launchctl load ~/Library/LaunchAgents/navidrome.plist
 ```
+
+If this prints `Load failed: 5: Input/output error`, the service did not load, even though the
+command reports success. Check the mode of the plist file, as shown above.
 
 To start the service, run:
 ```bash
