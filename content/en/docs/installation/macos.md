@@ -106,9 +106,7 @@ this mode. If Navidrome already made the folder, set the mode again after the fi
 
 {{% alert title="Keep the log file private" color="warning" %}}
 The log can contain secrets. If you set `LogLevel` to `debug`, Navidrome writes the full
-configuration to the log at each start. Secret values are shown as `[REDACTED]`, but Navidrome
-0.64.2 and older write the Last.fm `ApiKey` and `Secret`, and the Prometheus `Password`, in plain
-text.
+configuration to the log at each start.
 
 `launchd` makes the log file readable for all users if the file does not exist. Thus, make the
 file yourself before you start the service, and set the mode to `600`. `launchd` keeps this
