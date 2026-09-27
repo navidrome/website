@@ -14,9 +14,9 @@ It integrates with Navidrome through a [plugin](/docs/usage/features/plugins/), 
 - **Similar songs and similar artists** in Subsonic clients such as Symfonium, Feishin, Substreamer, Tempus, and Wavio, through the standard `getSimilarSongs`/`getSimilarSongs2` (songs/radio) and `getArtistInfo`/`getArtistInfo2` (related artists) endpoints
 - The [OpenSubsonic `sonicSimilarity` extension](#opensubsonic-sonicsimilarity-extension), which clients can use to fetch sonic matches and build song-to-song transitions
 
-{{< alert color="warning" title="Third-Party Project" >}}
+{{% alert color="warning" title="Third-Party Project" %}}
 AudioMuse-AI and its Navidrome plugin are developed and maintained by the community, **not** by the Navidrome team. Review their documentation and source code before installing, and report issues with them in their own repositories.
-{{< /alert >}}
+{{% /alert %}}
 
 ## Requirements
 

@@ -67,10 +67,10 @@ Each tag field has a specific purpose. Here are the important ones and how to us
   but many (like iTunes or Picard) will mark an album as a compilation for you if you specify it. If you can't find 
   this tag, simply ensuring Album Artist is "Various Artists" usually works, but using the compilation tag is a best practice.
 
-{{< alert "info" >}}
+{{% alert "info" %}}
 Here's a [complete list of tags](https://github.com/navidrome/navidrome/blob/master/resources/mappings.yaml) 
 that Navidrome import and use by default. For adding custom tags, see the [Custom Tags](/docs/usage/configuration/custom-tags) page.
-{{< /alert >}}
+{{% /alert %}}
 
 ### File and Folder Naming (Optional but Helpful)
 Navidrome ignores actual file names and folder structure when organizing music (it relies on tags), but a clear 
@@ -153,10 +153,10 @@ browse and click) as two separate things:
 This is why the ideal example below sets *both*: `ARTIST` controls how the name reads (`Alice feat. Bob`), while
 `ARTISTS` preserves `Alice` and `Bob` as distinct, individually-linkable artists.
 
-{{< alert "info" >}}
+{{% alert "info" %}}
 If you use Picard, check the scripts available in the [Picard specific tips](/docs/usage/library/tagging/#picard-specific-tips) below. 
 These scripts can help set up multi-valued artist tags automatically.
-{{< /alert >}}
+{{% /alert %}}
 
 ### Examples:
 
@@ -186,7 +186,7 @@ split the artist names based on the default separators (like `" feat. "`, `" / "
 Note that the display name still shows the full `ARTIST` string (`Alice feat. Bob`); the split only affects the
 individual artists.
 
-{{< alert color="warning" title="Avoid using separators for multiple artists" >}}
+{{% alert color="warning" title="Avoid using separators for multiple artists" %}}
 Relying on separators can cause issues with artist names that legitimately contain a separator character. This is
 usually not a problem with the *default* artist separators: the slash separator is `" / "` (with surrounding spaces)
 rather than a bare `/`, so a name like `AC/DC` is left intact. (The `"; "` separator only requires a trailing space,
@@ -202,9 +202,9 @@ If you need to keep such names intact, you have two options:
 
 If multi-valued tags are not supported by your tag editor, you can, as a last resort, use a common separator
 (like `" / "` or `"; "`) to combine values in a single tag. Navidrome will attempt to split them based on the separator.
-{{< /alert >}} 
+{{% /alert %}} 
 
-{{< alert title="Note on other Artist Roles" >}}
+{{% alert title="Note on other Artist Roles" %}}
 Other role tags (`COMPOSER`, `LYRICIST`, `ARRANGER`, `ENGINEER`, ..) do not have a plural version. For those, you can add the singular
 tag multiple times (for Vorbis/FLAC) or make it multi-valued (for ID3v2.4). Navidrome will recognize and display them
 correctly. For example, in a FLAC file, you could have:
@@ -216,7 +216,7 @@ In this case, Navidrome will treat both Alice and Bob as composers for the track
 
 Single-valued role tags are also split, but on a different set of separators than artist tags: the defaults are `"/"`
 and `";"` (with no surrounding spaces required). As with artists, multi-valued role tags are never split.
-{{< /alert >}}
+{{% /alert %}}
 
 ### Multi-Valued Tags Support by Format
 - **Vorbis/FLAC, Opus:** Multi-valued tags are fully supported and straightforward.
@@ -342,11 +342,11 @@ Here are some recommendations and tips on workflow:
     5. **Save (write) tags**: Apply the changes and save the tags to the files. If you're renaming/moving files as 
          part of this (many tools can do so based on tags), ensure the files end up in the correct location 
          (your Navidrome music library folder). 
-{{< alert color="warning" >}}
-**Caution**: If you are retagging files that are already in Navidrome, avoid retagging and moving in one step, as this 
-could cause Navidrome to lose track of the files. Instead, retag and save, rescan, then move the files and rescan 
-again. See details [here](/docs/usage/configuration/persistent-ids/#handling-file-moves-and-retagging).
-{{< /alert >}}
+       {{% alert color="warning" %}}
+       **Caution**: If you are retagging files that are already in Navidrome, avoid retagging and moving in one step, as this 
+       could cause Navidrome to lose track of the files. Instead, retag and save, rescan, then move the files and rescan 
+       again. See details [here](/docs/usage/configuration/persistent-ids/#handling-file-moves-and-retagging).
+       {{% /alert %}}
     6. **Rescan in Navidrome**: Navidrome usually auto-detects changes, but you can trigger a library rescan or 
          restart the server to be sure. Once scanned, check in the Navidrome interface that everything appears 
          as expected. You can check the tags of any file in Navidrome by looking at the "Get Info"->"Raw Tags" tab:

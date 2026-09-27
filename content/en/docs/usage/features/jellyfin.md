@@ -9,11 +9,11 @@ description: >
 Starting with version 0.64.0, Navidrome can answer a subset of the [Jellyfin](https://jellyfin.org/) API. Music apps built
 for Jellyfin can connect to Navidrome and play your library. You do not need a Jellyfin server.
 
-{{< alert color="warning" title="Experimental" >}}
+{{% alert color="warning" title="Experimental" %}}
 This API is new, and some clients may hit requests that Navidrome does not answer yet. It covers what a music client
 needs. Video, live TV and the Jellyfin admin dashboard are not part of it. Please report problems in
 [GitHub issues](https://github.com/navidrome/navidrome/issues).
-{{< /alert >}}
+{{% /alert %}}
 
 ## Enabling the API
 
@@ -85,9 +85,9 @@ web UI and API, and UDP `7359` for discovery. Navidrome also sees the real IP of
 
 If you cannot use host networking, turn auto-discovery off and type the server address in the client.
 
-{{< alert color="warning" >}}
+{{% alert color="warning" %}}
 Keep UDP port 7359 on your local network. Do not forward it from the internet.
-{{< /alert >}}
+{{% /alert %}}
 
 ### Quick Connect
 

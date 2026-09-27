@@ -17,13 +17,13 @@ When the same option is set using multiple methods, Navidrome uses the following
 
 ## Configuration File
 
-{{< alert >}}
+{{% alert %}}
 Some options are only configurable using a configuration file. If you are using environment variables
 (ex: with Docker), you may not be able to set all options.
 
 If you want to use a configuration file with Docker, you can do so by creating a `navidrome.toml` config file in the
 host folder that is mapped to your `/data` volume. Docker installations automatically look for a `navidrome.toml` file in the `/data` folder.
-{{< /alert >}}
+{{% /alert %}}
 
 Navidrome tries to load the configuration from a `navidrome.toml` file in the current working
 directory, if it exists. You can create this file and put any of the [configuration options below](#available-options)

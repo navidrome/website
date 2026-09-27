@@ -24,6 +24,15 @@ jobs:
                   hugo-version: "0.166.0"
                   extended: true
 
+            - name: Install Dart Sass
+              # Docsy 0.17+ compiles its SCSS with Dart Sass. Same version as the Docker image.
+              env:
+                DART_SASS_VERSION: "1.104.0"
+              run: |
+                curl -fsSL "https://github.com/sass/dart-sass/releases/download/${DART_SASS_VERSION}/dart-sass-${DART_SASS_VERSION}-linux-x64.tar.gz" | tar -xz -C "$RUNNER_TEMP"
+                echo "$RUNNER_TEMP/dart-sass" >> "$GITHUB_PATH"
+                "$RUNNER_TEMP/dart-sass/sass" --version
+
             - name: Setup Node.js
               uses: actions/setup-node@v7
               with:

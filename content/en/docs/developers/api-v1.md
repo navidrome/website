@@ -6,11 +6,11 @@ description: >
   Reference documentation for Navidrome's own API
 ---
 
-{{< alert color="warning" title="Work in progress" >}}
+{{% alert color="warning" title="Work in progress" %}}
 This API is still being designed and is **not ready for implementation yet**. Anything in it may change without notice.
 When it is ready, it will be announced in the [Navidrome release notes](https://github.com/navidrome/navidrome/releases).
 Feedback is welcome in [GitHub Discussions](https://github.com/navidrome/navidrome/discussions).
-{{< /alert >}}
+{{% /alert %}}
 
 Navidrome API v1 is Navidrome's own HTTP API. It is separate from the [Subsonic API](../subsonic-api/).
 

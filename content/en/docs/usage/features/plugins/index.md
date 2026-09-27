@@ -11,9 +11,9 @@ aliases:
 
 Navidrome supports a plugin system that allows you to extend its functionality with community-developed extensions. Plugins run in a secure WebAssembly sandbox, providing isolation from the main application while enabling powerful customizations.
 
-{{< alert color="info" >}}
+{{% alert color="info" %}}
 Plugins are developed by the community. While they run in a secure sandbox, you should always review a plugin's documentation and source code before installation.
-{{< /alert >}}
+{{% /alert %}}
 
 ## What Plugins Can Do
 
@@ -37,9 +37,9 @@ When evaluating a plugin, consider:
 - **Issues and discussions**: Review any reported problems or user feedback
 - **Source code**: Plugins are open source, so you can review the code before installing
 
-{{< alert color="warning" title="Third-Party Code" >}}
+{{% alert color="warning" title="Third-Party Code" %}}
 Unless otherwise stated, plugins are **not** developed or maintained by the Navidrome team. Install plugins only from sources you trust, and review the plugin's permissions and documentation carefully.
-{{< /alert >}}
+{{% /alert %}}
 
 ## Installing Plugins
 

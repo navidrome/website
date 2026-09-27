@@ -53,11 +53,11 @@ It can also work as a lightweight Subsonic-API compatible server, that can be us
 - [Jukebox mode](/docs/usage/features/jukebox)
 - [Shares](/docs/usage/features/sharing)
 
-{{< alert color="warning" title="NOTE" >}}
+{{% alert color="warning" title="NOTE" %}}
 Navidrome [**does not support**](/docs/faq/#can-you-add-a-browsing-by-folder-optionmode-to-navidrome)
 browsing by folders, but simulates it based on the tags with a structure like:
 `/AlbumArtist/Album/01-Song.ext`
-{{</alert>}}
+{{%/alert%}}
 
 ## Apps
 

@@ -1,9 +1,12 @@
 <!doctype html>
-<html lang="{{ .Site.Language.Lang }}" class="no-js {{ if .IsHome }}smooth-scroll{{ end }}">
+<html lang="{{ .Site.Language.Name }}" class="no-js {{ if .IsHome }}smooth-scroll{{ end }}"
+  {{- $darkMode := partialCached "dark-mode-config.html" "dark-mode-global" -}}
+  {{- if $darkMode.enable }} data-theme-init{{ end }}>
   <head>
     {{ partial "head.html" . }}
   </head>
   <body class="td-{{ .Kind }}">
+    {{ partial "llms-directive.html" . -}}
     <header>
       {{ partial "navbar.html" . }}
     </header>

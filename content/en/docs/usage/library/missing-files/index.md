@@ -91,9 +91,9 @@ Or set the environment variable:
 ND_SCANNER_PURGEMISSING=always
 ```
 
-{{< alert >}}
+{{% alert %}}
 **Warning:** Purging missing files will permanently delete them from the database, including any associated ratings, play counts, and playlist entries.
-{{< /alert >}}
+{{% /alert %}}
 
 ## How to permanently delete Missing Files
 

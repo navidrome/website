@@ -19,9 +19,9 @@ Navidrome allows the usage of a `.ndignore` file to exclude content from being a
 - **Cascading**: Patterns from parent directories apply to all subdirectories
 - **Multiple files**: You can place `.ndignore` files in different directories
 
-{{< alert color="info" >}}
+{{% alert color="info" %}}
 A new or updated `.ndignore` file should be auto-detected by Navidrome, or can be detected with a Quick Scan. 
-{{< /alert >}}
+{{% /alert %}}
 
 ## Syntax Usage and Examples
 

@@ -4,6 +4,33 @@ Add styles or override variables from the theme here.
 
 */
 
+// Keep the site's original look. Docsy 0.13+ falls back to Bootstrap's default
+// colors and fonts, so these restore the Docsy 0.11 values.
+$enable-gradients: true;
+$enable-shadows: true;
+
+$primary: #30638e;
+$secondary: #ffa630;
+$success: #3772ff;
+$info: #c0e0de;
+$warning: #ed6a5a;
+$danger: #ed6a5a;
+$light: #d3f3ee;
+$dark: #403f4c;
+
+$code-color: shade-color($secondary, 40%);
+$link-color: $blue;
+$link-shade-percentage: 30%;
+
+$td-enable-google-fonts: true;
+
+$h3-font-size: $font-size-base * 1.5;
+$h4-font-size: $font-size-base * 1.35;
+$h5-font-size: $font-size-base * 1.15;
+
+// Keep the primary-colored navbar used before Docsy 0.14
+$td-navbar-bg-color: rgba(var(--bs-primary-rgb), var(--bs-bg-opacity));
+
 html.smooth-scroll {
   scroll-behavior: smooth;
 }
