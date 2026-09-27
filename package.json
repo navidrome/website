@@ -24,7 +24,7 @@
     "ajv": "^8.20.0",
     "ajv-formats": "^3.0.1",
     "autoprefixer": "^10.6.1",
-    "hugo-extended": "0.158.0",
+    "hugo-extended": "0.166.0",
     "js-yaml": "^4.1.0",
     "postcss-cli": "^11.0.0",
     "rtlcss": "^4.3.0",
