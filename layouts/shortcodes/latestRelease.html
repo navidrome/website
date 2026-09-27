@@ -1,2 +1,13 @@
-{{ $releaseJ := getJSON "https://api.github.com/repos/deluan/navidrome/releases/latest" }}
-{{ $releaseJ.tag_name }}
+{{- /* Prints the tag of the latest Navidrome release */ -}}
+{{- $apiUrl := "https://api.github.com/repos/navidrome/navidrome/releases/latest" -}}
+{{- $opts := dict -}}
+{{- with os.Getenv "HUGO_GITHUB_TOKEN" -}}
+  {{- $opts = dict "headers" (dict "Authorization" (printf "Bearer %s" .)) -}}
+{{- end -}}
+{{- with try (resources.GetRemote $apiUrl $opts) -}}
+  {{- with .Err -}}
+    {{- warnf "[latestRelease] failed to fetch %s: %s" $apiUrl . -}}
+  {{- else with .Value -}}
+    {{- (transform.Unmarshal .Content).tag_name -}}
+  {{- end -}}
+{{- end -}}
