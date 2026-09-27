@@ -99,13 +99,15 @@ All the `service` commands need `sudo`:
 
 Without `sudo`, `service status` shows `Stopped`, even when Navidrome runs.
 
-To apply changes to the configuration file, stop the service and start it again.
+To apply changes to the configuration file, stop the service and start it again. If you change
+`DataFolder` or `LogFile`, uninstall the service and install it again instead, because the log
+location is set when you install the service.
 
 `service uninstall` removes only the service. Your configuration file, data folder and music stay.
 
 Navidrome writes its log to `/opt/navidrome/data/navidrome.err.log`. The file
-`navidrome.out.log` next to it stays empty. To use a different file, create its folder, set the
-`LogFile` option, then uninstall the service and install it again.
+`navidrome.out.log` next to it stays empty. To use a different file, create its folder, and set
+the `LogFile` option.
 
 ## Update Navidrome
 
