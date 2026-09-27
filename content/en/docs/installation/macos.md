@@ -24,10 +24,10 @@ sudo chown "$(whoami):staff" /opt/navidrome
 
 Download the latest release from the [release page](https://github.com/navidrome/navidrome/releases/latest).
 Use `darwin_arm64` for a Mac with Apple silicon, or `darwin_amd64` for a Mac with an Intel
-processor. Then extract it:
+processor. Then extract it. Replace the file name with the name of the file that you downloaded:
 
 ```bash
-tar -xzf navidrome_*_darwin_*.tar.gz -C /opt/navidrome
+tar -xzf navidrome_0.64.2_darwin_arm64.tar.gz -C /opt/navidrome
 ```
 
 {{% alert title="macOS Quarantine Error" color="warning" %}}
@@ -109,11 +109,16 @@ Navidrome writes its log to `/opt/navidrome/data/navidrome.err.log`. The file
 
 ## Update Navidrome
 
-Stop the service, extract the new release over the old binary, and start the service again:
+Stop the service, extract the new release over the old binary, and start the service again. Use
+the name of the file that you downloaded:
 
 ```bash
 sudo /opt/navidrome/navidrome service stop
-tar -xzf navidrome_*_darwin_*.tar.gz -C /opt/navidrome
+tar -xzf navidrome_0.64.2_darwin_arm64.tar.gz -C /opt/navidrome
+
+# Only if you downloaded the file with a browser: remove the quarantine flag again
+xattr -d com.apple.quarantine /opt/navidrome/navidrome
+
 sudo /opt/navidrome/navidrome service start
 ```
 
