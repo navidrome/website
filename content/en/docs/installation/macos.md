@@ -6,6 +6,38 @@ description: >
   Steps to install on macOS
 ---
 
+## Homebrew install
+
+The easy way to install Navidrome on macOS is with the
+[Homebrew formula](https://formulae.brew.sh/formula/navidrome).
+
+{{% alert title="Note" %}}
+The Homebrew formula is maintained by the Homebrew community, not by the Navidrome project.
+{{% /alert %}}
+
+To install Navidrome, run:
+```bash
+brew install navidrome
+```
+
+To update Navidrome, run:
+```bash
+brew upgrade navidrome
+```
+
+The formula installs only the `navidrome` binary, in `$(brew --prefix)/bin`. It does not make a
+configuration file, a data folder or a log file. If you run `navidrome` without a
+[configuration file](https://www.navidrome.org/docs/usage/configuration/options), it keeps its
+data in a `data` folder in the current directory.
+
+The formula does not include a service, so `brew services` does not work with it. To run
+Navidrome in the background, follow the manual steps below, but skip the steps for the binary.
+In the plist, replace `/opt/navidrome/navidrome` with the path that `which navidrome` prints.
+Keep the configuration file, the data folder and the log file in `/opt/navidrome`. The
+[Access to protected folders](#access-to-protected-folders) section also applies to the Homebrew
+binary, and each `brew upgrade` counts as an update.
+
+## Manual installation
 
 Navidrome can be ran by simply double-clicking the binary that has been downloaded from the [release page](https://github.com/navidrome/navidrome/releases/latest) or by running it in the command line. However, that will keep a terminal window open while Navidrome is running.
 
