@@ -24,7 +24,7 @@
   "devDependencies": {
     "ajv": "^8.12.0",
     "ajv-formats": "^2.1.1",
-    "autoprefixer": "^10.4.20",
+    "autoprefixer": "^10.4.27",
     "hugo-extended": "0.152.2",
     "js-yaml": "^4.1.0",
     "postcss-cli": "^11.0.0",
