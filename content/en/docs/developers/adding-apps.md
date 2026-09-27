@@ -180,9 +180,9 @@ The validation checks:
 - YAML syntax and structure
 - Required fields are present
 - APIs are correctly specified
-- Image files exist
+- The folder name is kebab-case
+- Image files exist and are WebP, max 1200px, and under 500KB
 - URLs are valid and reachable
-- File sizes (warns if images > 500KB)
 
 ## Updating an Existing App
 

@@ -18,6 +18,13 @@ const isCI = process.env.CI === "true" || process.env.GITHUB_ACTIONS === "true";
 // Keep in sync with content/en/docs/developers/adding-apps.md
 const MIN_REPO_STARS = 15;
 
+// Limits every catalog image must meet. convert-app-images.js produces
+// images within them. Keep in sync with content/en/docs/developers/adding-apps.md
+const MAX_IMAGE_DIMENSION = 1200;
+const MAX_IMAGE_KB = 500;
+
+const KEBAB_CASE = /^[a-z0-9]+(-[a-z0-9]+)*$/;
+
 // Hosts known to expose a star count, so a lookup that comes back empty there
 // is a broken check rather than an unsupported forge
 const KNOWN_STAR_HOSTS = ["github.com", "gitlab.com", "codeberg.org"];
@@ -306,6 +313,17 @@ class AppValidator {
       this.addError(`App directory not found: ${this.appDir}`);
       return false;
     }
+
+    // The rule binds new entries, so older folders named before it existed
+    // only get a warning
+    if (!KEBAB_CASE.test(this.appName)) {
+      const message = `Folder name "${this.appName}" is not kebab-case (e.g. my-awesome-app)`;
+      if (isNewApp(this.appName)) {
+        this.addError(message);
+      } else {
+        this.addWarning(`${message} (existing entry, not blocking)`);
+      }
+    }
     return true;
   }
 
@@ -357,48 +375,68 @@ class AppValidator {
     }
   }
 
-  // Check if image files exist
-  validateImages(data) {
+  // Check that image files exist and meet the catalog limits
+  async validateImages(data) {
     if (!data || !data.screenshots) return;
 
-    // Check thumbnail
+    const images = [];
     if (data.screenshots.thumbnail) {
-      const thumbnailPath = path.join(this.appDir, data.screenshots.thumbnail);
-      if (!fs.existsSync(thumbnailPath)) {
-        this.addError(
-          `Thumbnail image not found: ${data.screenshots.thumbnail}`
-        );
-      } else {
-        // Check file size (warn if > 500KB)
-        const stats = fs.statSync(thumbnailPath);
-        const sizeInKB = stats.size / 1024;
-        if (sizeInKB > 500) {
-          this.addWarning(
-            `Thumbnail is ${Math.round(sizeInKB)}KB (recommended: < 500KB)`
-          );
-        }
-      }
+      images.push({ file: data.screenshots.thumbnail, label: "Thumbnail image" });
+    }
+    if (Array.isArray(data.screenshots.gallery)) {
+      data.screenshots.gallery.forEach((file) =>
+        images.push({ file, label: "Gallery image" })
+      );
     }
 
-    // Check gallery images
-    if (data.screenshots.gallery && Array.isArray(data.screenshots.gallery)) {
-      data.screenshots.gallery.forEach((imgPath) => {
-        const fullPath = path.join(this.appDir, imgPath);
-        if (!fs.existsSync(fullPath)) {
-          this.addError(`Gallery image not found: ${imgPath}`);
-        } else {
-          // Check file size
-          const stats = fs.statSync(fullPath);
-          const sizeInKB = stats.size / 1024;
-          if (sizeInKB > 500) {
-            this.addWarning(
-              `Gallery image ${imgPath} is ${Math.round(
-                sizeInKB
-              )}KB (recommended: < 500KB)`
-            );
-          }
-        }
-      });
+    for (const image of images) {
+      await this.validateImage(image);
+    }
+  }
+
+  async validateImage({ file, label }) {
+    const fullPath = path.join(this.appDir, file);
+    if (!fs.existsSync(fullPath)) {
+      this.addError(`${label} not found: ${file}`);
+      return;
+    }
+
+    const sharp = require("sharp");
+    let metadata;
+    try {
+      metadata = await sharp(fullPath).metadata();
+    } catch (err) {
+      this.addError(`${label} ${file} is not a readable image: ${err.message}`);
+      return;
+    }
+
+    // Everything convert-app-images.js fixes goes into one error, with the
+    // command that fixes it
+    const problems = [];
+    if (metadata.format !== "webp") {
+      problems.push(`is ${metadata.format}, not WebP`);
+    } else if (path.extname(file).toLowerCase() !== ".webp") {
+      problems.push("is WebP but its name does not end in .webp");
+    }
+
+    const { width, height } = metadata;
+    if (Math.max(width, height) > MAX_IMAGE_DIMENSION) {
+      problems.push(
+        `is ${width}x${height}px (maximum: ${MAX_IMAGE_DIMENSION}px on the longest side)`
+      );
+    }
+
+    const sizeInKB = fs.statSync(fullPath).size / 1024;
+    if (sizeInKB > MAX_IMAGE_KB) {
+      problems.push(
+        `is ${Math.round(sizeInKB)}KB (maximum: ${MAX_IMAGE_KB}KB)`
+      );
+    }
+
+    if (problems.length > 0) {
+      this.addError(
+        `${label} ${file} ${problems.join(", ")}. Fix with: npm run convert:images ${this.appName}`
+      );
     }
   }
 
@@ -590,7 +628,7 @@ class AppValidator {
     await this.validateSchema(data);
 
     // Validate images
-    this.validateImages(data);
+    await this.validateImages(data);
 
     // Check for dangling (unreferenced) images
     this.validateDanglingImages(data);
@@ -667,7 +705,7 @@ async function main() {
   const appName = args.find((arg) => !arg.startsWith("-"));
 
   // Check for required dependencies
-  const requiredModules = ["js-yaml", "ajv", "ajv-formats"];
+  const requiredModules = ["js-yaml", "ajv", "ajv-formats", "sharp"];
   const missingModules = [];
 
   for (const mod of requiredModules) {
