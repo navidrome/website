@@ -28,7 +28,7 @@ brew upgrade navidrome
 The formula installs only the `navidrome` binary, in `$(brew --prefix)/bin`. It does not make a
 configuration file, a data folder or a log file. If you run `navidrome` without a
 [configuration file](https://www.navidrome.org/docs/usage/configuration/options), it keeps its
-data in a `data` folder in the current directory.
+database and cache in the current directory.
 
 The formula does not include a service, so `brew services` does not work with it. To run
 Navidrome in the background, follow the manual steps below, but skip the steps for the binary.
