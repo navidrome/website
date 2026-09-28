@@ -1,0 +1,31 @@
+name: AmpSonic
+url: https://ampsonic.reserveapps.com
+
+platforms:
+  ios:
+    store: https://apps.apple.com/app/ampsonic-self-hosted-music/id6810258216
+  macos:
+    store: https://apps.apple.com/app/ampsonic-self-hosted-music/id6810258216?platform=mac
+
+api: OpenSubsonic
+
+description: "A native Swift music player for Mac, iPhone and iPad that launches fast, scrolls large libraries without stutter and keeps CPU usage low. You can reorder, hide and pin items on Home, pick your player controls, and use the equalizer, offline downloads, CarPlay, AirPlay and synced lyrics."
+
+screenshots:
+  thumbnail: thumbnail.webp
+  gallery:
+    - screen1.webp
+    - screen2.webp
+    - screen3.webp
+    - screen4.webp
+    - screen5.webp
+
+pricing: free
+
+keywords:
+  - ampache
+  - carplay
+  - airplay
+  - offline
+  - equalizer
+  - lyrics
