@@ -3,6 +3,8 @@ url: https://nostalgicflow.com
 platforms:
   android:
     store: https://play.google.com/store/apps/details?id=com.nostalgicflow.app
+  ios:
+    store: https://testflight.apple.com/join/AArmYhd8
 api: Subsonic
 description: "NostalgicFlow is a music player with a Metro interface inspired by Zune HD and Windows Phone, with large typography, fluid navigation and real-time visualizers. It connects to your Navidrome server and also plays local lossless and hi-res files, with internet radio and podcasts built in."
 screenshots:
