@@ -140,9 +140,9 @@ Check Picard's configuration to make sure it preserves all your existing tag dat
 
 **Prevention**: When tagging new AAC/M4A files, using MusicBrainz Picard consistently should avoid this issue. If you prefer other tag editors, test a few files to ensure multi-valued tags display correctly in Navidrome before batch-processing your entire library.
 
-{{< alert color="info" title="Note" >}}
+{{% alert color="info" title="Note" %}}
 This issue is specific to AAC/M4A files. Other formats like FLAC, MP3, and Ogg Vorbis handle multi-valued tags differently and are not affected by this problem.
-{{< /alert >}}
+{{% /alert %}}
 
 ---
 

@@ -13,10 +13,10 @@ Smart Playlists in Navidrome offer a dynamic way to organize and enjoy your musi
 JSON objects stored in files with a `.nsp` extension. These playlists are automatically updated based on specified
 criteria, providing a personalized and evolving music experience.
 
-{{< alert color="warning" title="Beta Feature" >}}
+{{% alert color="warning" title="Beta Feature" %}}
 Smart Playlists are currently in beta and may have some limitations. Please report any issues or suggestions in the
 [Navidrome GitHub discussions](https://github.com/navidrome/navidrome/discussions).
-{{</alert>}}
+{{%/alert%}}
 
 ## Creating Smart Playlists
 

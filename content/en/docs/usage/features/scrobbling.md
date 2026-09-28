@@ -90,6 +90,6 @@ Navidrome rejects rules that use them, and rules with unknown fields.
 
 Starting with version 0.59.0, Navidrome tracks your scrobble/listen history natively. This means that for music added after this version, Navidrome maintains a complete record of when each track was played. This historical data will be used in future features such as statistics and analytics ("Navidrome Wrapped" style reports).
 
-{{< alert color="info" >}}
+{{% alert color="info" %}}
 **Note:** For music that was added before version 0.59.0, the scrobble history will start from the moment you upgrade. The total count of scrobbles per song may not match the song's playcount for tracks that were already in your library before the upgrade.
-{{< /alert >}}
+{{% /alert %}}
