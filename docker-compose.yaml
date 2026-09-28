@@ -7,6 +7,7 @@ services:
       - "1313:1313"
     environment:
       - HUGO_CACHEDIR=/tmp/hugo_cache
+      - HUGO_GITHUB_TOKEN
       # Git worktrees keep their .git data outside the mounted folder, so Hugo can't read it
       - HUGO_ENABLEGITINFO=false
       # The image sets NODE_PATH to include /usr/lib/node_modules. With Node 26, Hugo's resolver
