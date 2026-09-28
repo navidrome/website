@@ -25,6 +25,16 @@ const MAX_IMAGE_KB = 500;
 
 const KEBAB_CASE = /^[a-z0-9]+(-[a-z0-9]+)*$/;
 
+// App Store pages pick the platform from the "platform" query param, and
+// show the iPhone version without it. Apple only knows iphone, ipad, mac
+// and tv; any other value, such as "appleTV", also falls back to iPhone.
+const APPLE_STORE_HOSTS = ["apps.apple.com", "itunes.apple.com"];
+const APPLE_STORE_PLATFORMS = {
+  ios: { allowed: ["iphone", "ipad"], required: false },
+  macos: { allowed: ["mac"], required: true },
+  tvos: { allowed: ["tv"], required: true },
+};
+
 // Hosts known to expose a star count, so a lookup that comes back empty there
 // is a broken check rather than an unsupported forge
 const KNOWN_STAR_HOSTS = ["github.com", "gitlab.com", "codeberg.org"];
@@ -557,6 +567,44 @@ class AppValidator {
     await Promise.all(urlChecks);
   }
 
+  // Check that each App Store link opens the page for its own platform
+  validateAppleStoreUrls(data) {
+    if (!data || !data.platforms) return;
+
+    // The rule binds new entries, so older links only get a warning
+    const report = (message) =>
+      isNewApp(this.appName)
+        ? this.addError(message)
+        : this.addWarning(`${message} (existing entry, not blocking)`);
+
+    for (const [platform, rule] of Object.entries(APPLE_STORE_PLATFORMS)) {
+      const store = data.platforms[platform]?.store;
+      if (typeof store !== "string") continue;
+
+      let url;
+      try {
+        url = new URL(store);
+      } catch (err) {
+        continue; // validateUrl already reports a malformed URL
+      }
+      if (!APPLE_STORE_HOSTS.includes(url.hostname)) continue;
+
+      const value = url.searchParams.get("platform");
+      const expected = rule.allowed.map((v) => `?platform=${v}`).join(" or ");
+      if (value === null) {
+        if (rule.required) {
+          report(
+            `${platform} store URL must include ${expected}, or it can open the iPhone page: ${store}`
+          );
+        }
+      } else if (!rule.allowed.includes(value)) {
+        report(
+          `${platform} store URL has ?platform=${value}, but it must be ${expected}: ${store}`
+        );
+      }
+    }
+  }
+
   // Warn when an open source app's public repository has too few stars.
   // Hosts without a usable star API (cgit, tangled, ...) are skipped silently.
   async validateRepoStars(data) {
@@ -632,6 +680,9 @@ class AppValidator {
 
     // Check for dangling (unreferenced) images
     this.validateDanglingImages(data);
+
+    // Check that App Store links select the right platform
+    this.validateAppleStoreUrls(data);
 
     // Validate URLs
     if (!isCI && !this.quiet) {

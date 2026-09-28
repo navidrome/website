@@ -19,9 +19,13 @@ platforms:
   # iOS with App Store link
   ios:
     store: https://apps.apple.com/app/my-app/id123456789
-  # macOS with optional Mac App Store link
+  # macOS with optional Mac App Store link. It must end with ?platform=mac,
+  # or the App Store opens the iPhone version
   macos:
-    store: https://apps.apple.com/app/my-app/id123456789
+    store: https://apps.apple.com/app/my-app/id123456789?platform=mac
+  # Apple TV with App Store link. It must end with ?platform=tv
+  tvos:
+    store: https://apps.apple.com/app/my-app/id123456789?platform=tv
   # Or just boolean for platforms without store links
   windows: true
   linux: true
