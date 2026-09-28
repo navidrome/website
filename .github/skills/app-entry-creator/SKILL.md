@@ -90,7 +90,8 @@ Map discovered information to platforms:
 | --------------------------- | -------------------------------------------- |
 | Play Store URL              | `android: { store: <url> }`                  |
 | App Store URL (iPhone/iPad) | `ios: { store: <url> }`                      |
-| Mac App Store URL           | `macos: { store: <url> }`                    |
+| Mac App Store URL           | `macos: { store: <url>?platform=mac }`       |
+| Apple TV App Store URL      | `tvos: { store: <url>?platform=tv }`         |
 | macOS downloads/releases    | `macos: true`                                |
 | Windows downloads/releases  | `windows: true`                              |
 | Linux downloads/releases    | `linux: true`                                |
