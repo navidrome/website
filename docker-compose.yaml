@@ -1,6 +1,6 @@
 services:
   site:
-    image: floryn90/hugo:0.153.0-ext-ubuntu
+    image: floryn90/hugo:0.166.0-ext-ubuntu
     entrypoint: ["/bin/sh", "-c"]
     command: ["./fetch-charts.sh && hugo server"]
     ports:
@@ -9,6 +9,9 @@ services:
       - HUGO_CACHEDIR=/tmp/hugo_cache
       # Git worktrees keep their .git data outside the mounted folder, so Hugo can't read it
       - HUGO_ENABLEGITINFO=false
+      # The image sets NODE_PATH to include /usr/lib/node_modules. With Node 26, Hugo's resolver
+      # hook loops forever on that path under the Node permission model, and PostCSS hangs
+      - NODE_PATH=
       - CHARTS_URL
       - CHARTS_API_KEY
     #      - HUGO_ENV=production
