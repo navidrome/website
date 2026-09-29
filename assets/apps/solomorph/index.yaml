@@ -1,0 +1,19 @@
+name: Solomorph
+url: https://solomorph.com/
+platforms:
+  android:
+    store: https://play.google.com/store/apps/details?id=com.kloudmorph.solomorph
+api: OpenSubsonic
+description: "A music client with no brand color: the only color it shows is sampled from the art of whatever album is playing. The free tier covers one server, uncapped, with a real per-device equalizer; a one-time unlock adds offline downloads, several servers browsed as one merged library, and the music already on the phone as its own source."
+screenshots:
+  thumbnail: screen1.webp
+  gallery:
+    - screen2.webp
+    - screen3.webp
+    - screen4.webp
+keywords:
+  - offline
+  - equalizer
+  - local files
+  - android tv
+pricing: freemium
