@@ -1,0 +1,23 @@
+name: Pawse
+url: https://github.com/popovpsk/pawse
+repoUrl: https://github.com/popovpsk/pawse
+platforms:
+  macos: true
+  windows: true
+  linux: true
+api: Subsonic
+description: "A fast, native desktop music player written in Rust with a customizable, minimalist and beautiful UI and a single library that combines local files and Subsonic-compatible servers. Exclusive (bit-perfect) output, gapless playback, synced lyrics and customizable scrobbling."
+screenshots:
+  thumbnail: thumbnail.webp
+  gallery:
+    - screen1.webp
+    - screen2.webp
+    - screen3.webp
+    - screen4.webp
+pricing: free
+keywords:
+  - bit-perfect
+  - native
+  - rust
+  - lyrics
+  - scrobbling
