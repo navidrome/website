@@ -192,6 +192,10 @@ To update an existing app entry:
 2. Modify the `index.yaml` or replace images as needed
 3. Run validation and submit a pull request
 
+## Using the Navidrome name and logo
+
+If you want to use "Navidrome" in your app's name or show the Navidrome logo in your app, read the [name and logo guidelines](/brand/) first.
+
 ## Questions?
 
 If you have questions about adding your app, please [open an issue](https://github.com/navidrome/website/issues) on GitHub.
