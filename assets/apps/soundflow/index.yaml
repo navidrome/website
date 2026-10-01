@@ -1,9 +1,9 @@
 name: SoundFlow
-url: https://apps.apple.com/cn/app/soundflow-your-music-in-flow/id6810233571
+url: https://apps.apple.com/app/soundflow-your-music-in-flow/id6810233571
 
 platforms:
   ios:
-    store: https://apps.apple.com/cn/app/soundflow-your-music-in-flow/id6810233571
+    store: https://apps.apple.com/app/soundflow-your-music-in-flow/id6810233571
 
 api: OpenSubsonic
 
