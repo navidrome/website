@@ -161,7 +161,7 @@ Jukebox mode is currently not supported through the Navidrome Web UI.
 
 ## Troubleshooting
 
-If Jukebox mode is enabled one should see the message "**Starting playback server**" in the log. The number of detected audio devices and the device chosen will be given in the log as well:
+If Jukebox mode is enabled one should see the message "**Starting Jukebox service**" in the log. The number of detected audio devices and the device chosen will be given in the log as well:
 
 ```log
 INFO[0000] Starting playback server

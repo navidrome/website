@@ -1,0 +1,32 @@
+name: Minidisc
+url: https://minidisc.dev
+repoUrl: https://github.com/Loriage/Minidisc
+
+platforms:
+  ios:
+    store: https://apps.apple.com/app/id6794636813
+
+api: OpenSubsonic
+description: >-
+  A native music player for iOS 26.1 and later with an Apple Music-inspired
+  interface, offline downloads, gapless playback, crossfade, and ReplayGain.
+  Includes AirPlay, lyrics, ListenBrainz scrobbling, and built-in Lidarr integration.
+
+screenshots:
+  thumbnail: thumbnail.webp
+  gallery:
+    - home.webp
+    - discover.webp
+    - player.webp
+    - album.webp
+    - lidarr-album.webp
+
+pricing: free
+
+keywords:
+  - offline
+  - gapless
+  - airplay
+  - lyrics
+  - listenbrainz
+  - lidarr

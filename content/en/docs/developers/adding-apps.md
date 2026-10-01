@@ -12,7 +12,7 @@ Want to list your app in the [Compatible Client Apps](/apps/) catalog? This guid
 
 - Your app must support the [OpenSubsonic](https://opensubsonic.netlify.app/), [Subsonic](https://subsonic.org/pages/api.jsp), or Navidrome API
 - Your app must meet one of these availability requirements (**apps that do not meet either will not be accepted**):
-  - Open source: the repository must have at least **15 stars** on GitHub/GitLab
+  - Open source: the repository must have at least **15 stars** (GitHub, GitLab, Codeberg, or any Gitea/Forgejo host)
   - Closed source: the app must be publicly available on an app store (e.g. Google Play, Apple App Store)
 - Images must be in WebP format, max 1200px (PNG/JPEG needs to be [converted](https://www.navidrome.org/docs/developers/adding-apps/#processing-images))
 - You'll need a GitHub account to submit a pull request
@@ -60,17 +60,30 @@ Use the template at [`assets/apps/_template/index.yaml`](https://github.com/navi
 | `api`                   | Supported API: `OpenSubsonic`, `Subsonic`, or `Navidrome` |
 | `description`           | Brief description (1-2 sentences)                         |
 | `screenshots.thumbnail` | Filename of thumbnail image (must NOT be a logo)          |
+| `pricing`               | Pricing model: `free`, `freemium`, `trial`, or `paid` (see below) |
 
 ### Optional Fields
 
-| Field                 | Description                                                 |
-|-----------------------|-------------------------------------------------------------|
-| `repoUrl`             | Repository URL (GitHub, GitLab) - used for release date tracking |
-| `isOpenSource`        | Whether the source code is publicly available (see below)   |
-| `isFree`              | Whether the app is free (no purchase required) - boolean    |
-| `keywords`            | Additional search terms (max 6) - not displayed on app card |
-| `screenshots.gallery` | Array of additional screenshot filenames                    |
-| `platforms.*.store`   | Platform-specific store URLs                                |
+| Field                 | Description                                                       |
+|-----------------------|-------------------------------------------------------------------|
+| `repoUrl`             | Repository URL (GitHub, GitLab) - used for release date tracking  |
+| `isOpenSource`        | Whether the source code is publicly available (see below)         |
+| `keywords`            | Additional search terms (max 6) - not displayed on app card       |
+| `screenshots.gallery` | Array of additional screenshot filenames                          |
+| `platforms.*.store`   | Platform-specific store URLs                                      |
+
+### Pricing
+
+The `pricing` field controls the badge shown on the app card and the "Free Only" filter:
+
+| Value      | Meaning                                        | Badge shown        |
+|------------|------------------------------------------------|--------------------|
+| `free`     | No cost at all                                 | none               |
+| `freemium` | Free to download, has in-app purchases         | `In-App Purchases` |
+| `trial`    | Purchase required, but a free trial is offered | `Free Trial`       |
+| `paid`     | Purchase required                              | `Paid`             |
+
+The "Free Only" filter matches `free` and `freemium` apps, since both can be used without paying. `trial` and `paid` apps are hidden, because they must be bought to keep using them.
 
 ### Open Source vs Repository URL
 
@@ -91,6 +104,7 @@ The `isOpenSource` field controls whether the app displays an open source badge 
 - `macos` - macOS (optionally with Mac App Store link)
 - `windows` - Windows
 - `linux` - Linux
+- `freebsd` - FreeBSD
 - `web` - Web browser
 - `docker` - Docker container (optionally with Docker Hub link)
 - `other` - CLI tools, other platforms
@@ -166,9 +180,9 @@ The validation checks:
 - YAML syntax and structure
 - Required fields are present
 - APIs are correctly specified
-- Image files exist
+- The folder name is kebab-case
+- Image files exist and are WebP, max 1200px, and under 500KB
 - URLs are valid and reachable
-- File sizes (warns if images > 500KB)
 
 ## Updating an Existing App
 
@@ -177,6 +191,10 @@ To update an existing app entry:
 1. Find the app folder in `assets/apps/`
 2. Modify the `index.yaml` or replace images as needed
 3. Run validation and submit a pull request
+
+## Using the Navidrome name and logo
+
+If you want to use "Navidrome" in your app's name or show the Navidrome logo in your app, read the [name and logo guidelines](/brand/) first.
 
 ## Questions?
 

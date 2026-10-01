@@ -60,10 +60,10 @@ You can create custom PID configurations to meet specific needs, such as:
   ```
   This will use the old ID generation method, which is based on the file path for tracks and name+releaseDate for albums.
 
-{{< alert color="warning" title="Important considerations" >}}
+{{% alert color="warning" title="Important considerations" %}}
 - **Full Rescan Required:** Changing PID configurations triggers a full rescan. Navidrome will reassign PIDs accordingly, preserving playlists, stars, ratings, shares, and playcounts.
 - **Backup Your Database:** Before changing PID configurations, back up your Navidrome database to prevent data loss.
-{{< /alert >}}
+{{% /alert %}}
 
 ### Handling File Moves and Retagging
 
@@ -78,10 +78,10 @@ This ensures minimal disruption to playlists, ratings, and play counts when mana
 
 You can also retag your files, and Navidrome will automatically update the PIDs based on the new tags. 
 
-{{< alert color="warning" title="Important" >}}
+{{% alert color="warning" title="Important" %}}
 Retagging and moving files **cannot** be done in the same scan, because Navidrome will not match new files with the old 
 ones. First, retag the files and perform a scan, then move them and scan again, or move first, scan, and then retag.
-{{< /alert >}}
+{{% /alert %}}
 
 
 ### Artist IDs

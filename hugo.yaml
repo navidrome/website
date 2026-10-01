@@ -156,6 +156,10 @@ params:
 
     showLightDarkModeMenu: true
 
+    # Docsy 0.14+ defaults to a light navbar. Keep the dark one (see also
+    # $td-navbar-bg-color in assets/scss/_variables_project.scss).
+    navbar_theme: dark
+
   links:
     user:
       - name: "Reddit"
@@ -205,7 +209,5 @@ module:
     extended: true
     min: "0.75.0"
   imports:
-    - path: "github.com/google/docsy"
-      disable: false
-    - path: "github.com/google/docsy/dependencies"
+    - path: "github.com/google/docsy/theme"
       disable: false

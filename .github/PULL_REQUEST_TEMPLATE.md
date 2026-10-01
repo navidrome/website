@@ -16,9 +16,8 @@ Thanks for contributing to the Navidrome website! 🎉
 
 ## Checklist
 
-- [ ] Internal links use Hugo's `relref` shortcode
-- [ ] I previewed my changes locally (`npm start`) when relevant
 - [ ] The build passes (`npm run build`)
+- [ ] I previewed my changes locally (`npm start`) when relevant
 
 <!-- ⬇️ Only fill in the section below if this PR adds or updates an app. Otherwise, delete it. -->
 

@@ -19,7 +19,7 @@ jobs:
 
         steps:
             - name: Download validation results
-              uses: actions/download-artifact@v5
+              uses: actions/download-artifact@v8
               with:
                   name: validation-results
                   github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -39,7 +39,7 @@ jobs:
             - name: Get PR number
               id: get-pr
               if: steps.check-results.outputs.results_exist == 'true'
-              uses: actions/github-script@v7
+              uses: actions/github-script@v9
               with:
                   script: |
                       const response = await github.rest.search.issuesAndPullRequests({
@@ -57,7 +57,7 @@ jobs:
 
             - name: Find existing comment
               if: steps.check-results.outputs.results_exist == 'true' && steps.get-pr.outputs.result != ''
-              uses: peter-evans/find-comment@v3
+              uses: peter-evans/find-comment@v4
               id: find-comment
               with:
                   issue-number: ${{ steps.get-pr.outputs.result }}
@@ -66,7 +66,7 @@ jobs:
 
             - name: Create or update comment
               if: steps.check-results.outputs.results_exist == 'true' && steps.get-pr.outputs.result != ''
-              uses: peter-evans/create-or-update-comment@v4
+              uses: peter-evans/create-or-update-comment@v5
               with:
                   comment-id: ${{ steps.find-comment.outputs.comment-id }}
                   issue-number: ${{ steps.get-pr.outputs.result }}

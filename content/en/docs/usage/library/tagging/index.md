@@ -50,13 +50,14 @@ Each tag field has a specific purpose. Here are the important ones and how to us
 - **Disc Number**: If an album spans multiple discs, use this to differentiate disc 1, disc 2, etc. For example, 
   "1/2" for Disc 1 of 2. Ensure all tracks that are on the same disc have the same disc number, and all tracks share 
   the Album name. Navidrome will group multi-disc albums together and may show disc divisions.
-- **Year/Date**: The year (or full date) of the album’s recording. While not strictly required, the year is useful 
-  information and some views or clients might use it. Formats accepted are: `YYYY` (for `YEAR` and `DATE`) 
-  and `YYYY-MM-DD` or `YYYY-MM` (for `DATE`).
-  For a more precise date information, you can leverage other Date fields:
-    - `DATE`/`YEAR`: The date of the track recording.
-    - `ORIGINALDATE`/`ORIGINALYEAR`: The original release date of the album.
-    - `RELEASEDATE`/`RELEASEYEAR`: The release date of the album.
+- **Year/Date**: The date associated with the track. While not strictly required, it is useful information and many 
+  views or clients use it. All date fields accept `YYYY`, `YYYY-MM`, or `YYYY-MM-DD`. Navidrome recognizes several 
+  distinct date tags, each with its own meaning:
+    - `DATE`: The recording date of the track (stored internally as `recordingdate`; ID3v2.4 `TDRC`).
+    - `YEAR`: Treated as the **release** date (it is an alias of `releasedate`). Note that a plain `YEAR` tag maps to 
+      the release date, *not* the recording date.
+    - `RELEASEDATE`: The release date of the album (same field as `YEAR`).
+    - `ORIGINALDATE`/`ORIGINALYEAR`: The original release date of the album (stored internally as `originaldate`).
 - **Genre**: The genre of the music (e.g., Rock, Jazz). This is a multi-valued field and can help when browsing or 
   creating genre-based playlists.
 - **Compilation (Part of a Compilation)**: A special flag for various-artists albums. For a “Various Artists” 
@@ -66,10 +67,10 @@ Each tag field has a specific purpose. Here are the important ones and how to us
   but many (like iTunes or Picard) will mark an album as a compilation for you if you specify it. If you can't find 
   this tag, simply ensuring Album Artist is "Various Artists" usually works, but using the compilation tag is a best practice.
 
-{{< alert "info" >}}
+{{% alert "info" %}}
 Here's a [complete list of tags](https://github.com/navidrome/navidrome/blob/master/resources/mappings.yaml) 
 that Navidrome import and use by default. For adding custom tags, see the [Custom Tags](/docs/usage/configuration/custom-tags) page.
-{{< /alert >}}
+{{% /alert %}}
 
 ### File and Folder Naming (Optional but Helpful)
 Navidrome ignores actual file names and folder structure when organizing music (it relies on tags), but a clear 
@@ -131,21 +132,31 @@ identify individual artists and improve library organization.
 
 ### Singular vs. Plural Tags
 - **Singular (`ARTIST`)**: Typically a single text entry (e.g., "Artist1 feat. Artist2").
-    - Navidrome will attempt to parse this field into multiple artists if common separators 
-      (e.g., `" / "`, `" feat. "`, `"; "`) are used.
+    - Navidrome will attempt to parse this field into multiple artists if one of the default separators is
+      found: `" / "`, `" feat. "`, `" feat "`, `" ft. "`, `" ft "`, or `"; "`. Matching is case-insensitive
+      (so `" FEAT. "` works too), and only applies to *single-valued* tags — multi-valued tags are never split.
     - However, relying on separators is less precise than multi-valued tags.
 
 - **Plural (`ARTISTS`)**: Explicitly multi-valued tag allowing multiple distinct entries.
     - Each artist can have individual associated metadata (like MusicBrainz IDs).
     - Preferred method, as it avoids ambiguity and parsing errors.
 
-Note that if you have both singular and plural tags, Navidrome will use the singular one (`ARTIST` or `ALBUMARTIST`)
-as a "Display Name" for the artist (or album artist)
+Navidrome treats the *display name* (the text shown in the UI) and the *individual artists* (the entries you can
+browse and click) as two separate things:
 
-{{< alert "info" >}}
+- If you have **both** singular and plural tags, Navidrome uses the singular one (`ARTIST` or `ALBUMARTIST`) **only
+  as the display name**, and takes the individual artists from the plural tag (`ARTISTS` or `ALBUMARTISTS`). In this
+  case the singular tag is *not* split — it is shown verbatim.
+- If you provide **only** a plural tag (no singular one), the display name is built automatically by joining its
+  values with `" • "` (e.g. `Alice • Bob`). This joiner is configurable via the `Scanner.ArtistJoiner` option.
+
+This is why the ideal example below sets *both*: `ARTIST` controls how the name reads (`Alice feat. Bob`), while
+`ARTISTS` preserves `Alice` and `Bob` as distinct, individually-linkable artists.
+
+{{% alert "info" %}}
 If you use Picard, check the scripts available in the [Picard specific tips](/docs/usage/library/tagging/#picard-specific-tips) below. 
 These scripts can help set up multi-valued artist tags automatically.
-{{< /alert >}}
+{{% /alert %}}
 
 ### Examples:
 
@@ -171,17 +182,29 @@ ALBUMARTIST=Alice
 ```
 
 In the ideal example, Navidrome clearly identifies each artist separately. In the less ideal example, Navidrome may 
-split the artist names based on common separators (like `" feat. "`, `" / "`, or `"; "`), but it’s less accurate.
+split the artist names based on the default separators (like `" feat. "`, `" / "`, or `"; "`), but it’s less accurate.
+Note that the display name still shows the full `ARTIST` string (`Alice feat. Bob`); the split only affects the
+individual artists.
 
-{{< alert color="warning" title="Avoid using separators for multiple artists" >}}
-Relying on separators in tags can cause issues with some artist names (Ex: `AC/DC`, `Earth, Wind & Fire`).
-If possible, use multi-valued tags (`ARTISTS` and `ALBUMARTISTS`) to avoid such problems.
+{{% alert color="warning" title="Avoid using separators for multiple artists" %}}
+Relying on separators can cause issues with artist names that legitimately contain a separator character. This is
+usually not a problem with the *default* artist separators: the slash separator is `" / "` (with surrounding spaces)
+rather than a bare `/`, so a name like `AC/DC` is left intact. (The `"; "` separator only requires a trailing space,
+so `Foo; Bar` would still be split.) It becomes a problem if you customize the separator list to include a bare `"/"`
+(without spaces), or in **role tags** (`COMPOSER`, `PERFORMER`, …), whose default separators `"/"` and `";"` have no
+surrounding spaces — there, `AC/DC` *would* be split into `AC` and `DC`.
+
+If you need to keep such names intact, you have two options:
+
+- Prefer multi-valued tags (`ARTISTS` and `ALBUMARTISTS`), which are never split.
+- Add the affected names to the [`Scanner.ArtistSplitExceptions`](/docs/usage/configuration/options/) configuration
+  option (e.g. `AC/DC`), so Navidrome never splits them, regardless of the configured separators.
 
 If multi-valued tags are not supported by your tag editor, you can, as a last resort, use a common separator
 (like `" / "` or `"; "`) to combine values in a single tag. Navidrome will attempt to split them based on the separator.
-{{< /alert >}} 
+{{% /alert %}} 
 
-{{< alert title="Note on other Artist Roles" >}}
+{{% alert title="Note on other Artist Roles" %}}
 Other role tags (`COMPOSER`, `LYRICIST`, `ARRANGER`, `ENGINEER`, ..) do not have a plural version. For those, you can add the singular
 tag multiple times (for Vorbis/FLAC) or make it multi-valued (for ID3v2.4). Navidrome will recognize and display them
 correctly. For example, in a FLAC file, you could have:
@@ -190,7 +213,10 @@ COMPOSER: Alice
 COMPOSER: Bob
 ```
 In this case, Navidrome will treat both Alice and Bob as composers for the track.
-{{< /alert >}}
+
+Single-valued role tags are also split, but on a different set of separators than artist tags: the defaults are `"/"`
+and `";"` (with no surrounding spaces required). As with artists, multi-valued role tags are never split.
+{{% /alert %}}
 
 ### Multi-Valued Tags Support by Format
 - **Vorbis/FLAC, Opus:** Multi-valued tags are fully supported and straightforward.
@@ -203,23 +229,24 @@ In this case, Navidrome will treat both Alice and Bob as composers for the track
 
 ### Best Practices:
 - Always prefer multi-valued tags (`ARTISTS` and `ALBUMARTISTS`) when supported by your tagging software.
-- If multi-valued tags are unavailable, use consistent separators (`" feat. "`, `" / "`, or `"; "`).
+- If multi-valued tags are unavailable, use one of the default separators consistently (`" / "`, `" feat. "`, `" ft. "`, or `"; "`).
 - Maintain consistency throughout your library to avoid duplicate or misidentified artist entries.
 - Always verify how your tags appear in Navidrome and adjust tagging accordingly.
 
 Proper use of multi-valued tags significantly enhances the accuracy and enjoyment of your music library in Navidrome.
 
 **Example:** For a song **"Sunshine"** by **Alice** featuring **Bob** on the album *Brighter Days* (which is primarily Alice's album):
-- In a FLAC (Vorbis comments) file, you might have tags:
+- In a FLAC (Vorbis comments) file, the recommended tagging is:
   ```text
   TITLE=Sunshine  
-  ARTIST=Alice  
-  ARTIST=Bob  
+  ARTIST=Alice feat. Bob  
+  ARTISTS=Alice  
+  ARTISTS=Bob  
   ALBUM=Brighter Days  
   ALBUMARTIST=Alice  
   TRACKNUMBER=7  
   ```
-- In an MP3 with ID3v2.3, the tags could be:
+- In an MP3 using the older ID3v2.3 format (which lacks multi-valued tags), the closest equivalent is:
   ```text
   Title: Sunshine  
   Artist: Alice / Bob  
@@ -227,9 +254,13 @@ Proper use of multi-valued tags significantly enhances the accuracy and enjoymen
   Album Artist: Alice  
   Track: 7  
   ```  
-  In the FLAC example, there are two separate ARTIST fields (one for Alice, one for Bob). In the MP3 example, the 
-  two artist names are combined in one field with a `" / "` separator. Both will display correctly in Navidrome, 
-  but the FLAC method more explicitly preserves the two distinct artist entries.
+  In the FLAC example, `ARTIST` gives the display name (`Alice feat. Bob`) while the two `ARTISTS` fields preserve
+  `Alice` and `Bob` as distinct, individually-linkable artists. In the ID3v2.3 example, the two names are combined
+  in a single `ARTIST` field with a `" / "` separator; Navidrome will split them into `Alice` and `Bob` and show
+  `Alice / Bob` as the display name. Both work, but the FLAC method is more explicit and accurate.
+
+  Note: if you instead put two separate `ARTIST` values (`Alice` and `Bob`) with no `ARTISTS` tag, the display name
+  becomes `Alice • Bob` — which is why the `ARTIST` + `ARTISTS` combination above is preferred.
 
 ## Differences in Tag Formats (ID3, Vorbis, APE, etc.)
 Different audio file formats use different tagging standards. You don't need to know all the technical details, but it's 
@@ -311,11 +342,11 @@ Here are some recommendations and tips on workflow:
     5. **Save (write) tags**: Apply the changes and save the tags to the files. If you're renaming/moving files as 
          part of this (many tools can do so based on tags), ensure the files end up in the correct location 
          (your Navidrome music library folder). 
-{{< alert color="warning" >}}
-**Caution**: If you are retagging files that are already in Navidrome, avoid retagging and moving in one step, as this 
-could cause Navidrome to lose track of the files. Instead, retag and save, rescan, then move the files and rescan 
-again. See details [here](/docs/usage/configuration/persistent-ids/#handling-file-moves-and-retagging).
-{{< /alert >}}
+       {{% alert color="warning" %}}
+       **Caution**: If you are retagging files that are already in Navidrome, avoid retagging and moving in one step, as this 
+       could cause Navidrome to lose track of the files. Instead, retag and save, rescan, then move the files and rescan 
+       again. See details [here](/docs/usage/configuration/persistent-ids/#handling-file-moves-and-retagging).
+       {{% /alert %}}
     6. **Rescan in Navidrome**: Navidrome usually auto-detects changes, but you can trigger a library rescan or 
          restart the server to be sure. Once scanned, check in the Navidrome interface that everything appears 
          as expected. You can check the tags of any file in Navidrome by looking at the "Get Info"->"Raw Tags" tab:

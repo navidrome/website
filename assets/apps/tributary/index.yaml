@@ -9,7 +9,7 @@ api: OpenSubsonic
 description: "Tributary is a high-performance, Rhythmbox-style media manager written in pure Rust with GTK4 and libadwaita."
 screenshots:
   thumbnail: thumbnail.webp
-isFree: true
+pricing: free
 isOpenSource: true
 keywords:
   - gtk4

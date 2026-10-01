@@ -15,7 +15,7 @@ Instead of managing user credentials in Navidrome itself, the responsibility is 
 
 The external system comprises a reverse proxy (nginx, Caddy, Traefik, etc.) and an authentication service (Authelia, Authentik, or any other authentication service that works with your reverse proxy).
 
-{{< alert title="For Beginners" color="primary" >}}
+{{% alert title="For Beginners" color="primary" %}}
 If you're new to reverse proxies, they act as intermediaries between your users and Navidrome.
 They can handle things like SSL certificates, load balancing, and authentication before requests reach Navidrome.
 
@@ -29,7 +29,7 @@ They can handle things like SSL certificates, load balancing, and authentication
                     Authentication
                         Service
 ```
-{{< /alert >}}
+{{% /alert %}}
 
 Navidrome supports a header-based mechanism to retrieve data about the authenticated user from the reverse proxy.
 
@@ -39,12 +39,12 @@ This approach is usually called "reverse proxy authentication", and offers sever
 * **Single Sign-On** (SSO): Users can login once and access multiple services
 * **Centralized user management**: Manage all your users in one place
 
-{{< alert title="Security Note" color="warning" >}}
+{{% alert title="Security Note" color="warning" %}}
 **Navidrome works out of the box behind a reverse proxy without enabling externalized authentication.**
 
 You only need to enable externalized authentication if you want the proxy to handle the authentication.
 In other cases, enabling the feature without securing the reverse proxy configuration **can leave your Navidrome setup vulnerable** to impersonation attacks.
-{{< /alert >}}
+{{% /alert %}}
 
 ### How It Works
 
@@ -83,10 +83,10 @@ ND_EXTAUTH_TRUSTEDSOURCES=192.168.1.10/32
 ND_EXTAUTH_USERHEADER=Remote-User
 ```
 
-{{< alert title="Security Note" color="warning" >}}
+{{% alert title="Security Note" color="warning" %}}
 Only add IP addresses you trust to the trusted sources.
 Navidrome will accept the username from any requests coming from these addresses without further verification.
-{{< /alert >}}
+{{% /alert %}}
 
 #### Special Value for UNIX Sockets
 
@@ -187,12 +187,12 @@ services:
 
 ## Security Considerations
 
-{{< alert title="Key Security Principle" color="primary" >}}
+{{% alert title="Key Security Principle" color="primary" %}}
 When you enable externalized authentication by configuring trusted sources, you must ensure that all the trusted sources are configured to:
 
 1. Not let untrusted clients set the user header themselves (i.e. remove the header if they do).
 2. Not set the header if the request is not authenticated (e.g. when the authentication is bypassed for the subsonic endpoints).
-{{< /alert >}}
+{{% /alert %}}
 
 Make sure to check the [Security Considerations](/docs/usage/admin/security/#externalized-authentication) page for important security information.
 

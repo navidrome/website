@@ -8,7 +8,13 @@ api: OpenSubsonic
 description: "A simple but full-featured web player for Open Subsonic compatible music servers, inspired by Strawberry with a unique queue-focused design"
 screenshots:
   thumbnail: thumbnail.webp
-isFree: true
+  gallery:
+    - screen1.webp
+    - screen2.webp
+    - screen3.webp
+    - screen4.webp
+    - screen5.webp
+pricing: free
 keywords:
   - simple
   - lightweight

@@ -1,6 +1,71 @@
 // Project-specific style overrides.
 // Docsy automatically picks this file up when present.
 
+// Syntax highlighting colors for light and dark modes. Required because
+// `markup.highlight.noClasses` is false in hugo.yaml.
+@import 'td/code-dark';
+
+// Subsonic icon font, used by the home page. It must load after Font Awesome:
+// FA7's `.fas::before { content: var(--fa) }` would hide the glyph otherwise.
+@font-face {
+  font-family: 'subsonic';
+  src: url('../font/subsonic.eot?1159799');
+  src: url('../font/subsonic.eot?1159799#iefix') format('embedded-opentype'),
+       url('../font/subsonic.woff2?1159799') format('woff2'),
+       url('../font/subsonic.woff?1159799') format('woff'),
+       url('../font/subsonic.ttf?1159799') format('truetype'),
+       url('../font/subsonic.svg?1159799#subsonic') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+/* Chrome hack: SVG is rendered more smooth in Windozze. 100% magic, uncomment if you need it. */
+/* Note, that will break hinting! In other OS-es font will be not as sharp as it could be */
+/*
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  @font-face {
+    font-family: 'subsonic';
+    src: url('../font/subsonic.svg?1159799#subsonic') format('svg');
+  }
+}
+*/
+ 
+ [class^="icon-"]:before, [class*=" icon-"]:before {
+  font-family: "subsonic";
+  font-style: normal;
+  font-weight: normal;
+  speak: never;
+ 
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+ 
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+ 
+  /* fix buttons height, for X bootstrap */
+  line-height: 1em;
+ 
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+ 
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+ 
+  /* Font smoothing. That was taken from TWBS */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+ 
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+}
+ 
+.icon-subsonic:before { content: '\e800'; } /* '' */
+
 .config-options {
   table {
     width: 100%;
@@ -72,6 +137,13 @@
         }
       }
 
+      // Let long config names (e.g. DefaultPlaylistPublicVisibility) wrap so
+      // the trailing anchor icon stays in flow instead of being pushed offscreen.
+      &:nth-child(1) {
+        overflow-wrap: anywhere;
+        word-break: break-word;
+      }
+
       &:nth-child(1)::before {
         content: "Config";
       }
@@ -94,6 +166,91 @@
       white-space: normal;
       overflow-wrap: anywhere;
       word-break: break-word;
+    }
+  }
+
+  // Per-option anchor links (added by js/config-anchors.js) for easy sharing.
+  tbody tr {
+    // Offset so the row isn't hidden under the sticky top navbar when linked to.
+    scroll-margin-top: 5rem;
+  }
+
+  .config-anchor {
+    display: inline-block;
+    margin-left: 0.35rem;
+    color: var(--bs-secondary-color);
+    text-decoration: none;
+    font-size: 0.85em;
+    line-height: 1;
+    position: relative;
+    opacity: 0.5;
+    transition: opacity 0.15s ease, color 0.15s ease;
+
+    &:hover,
+    &:focus {
+      color: var(--bs-primary);
+      opacity: 1;
+    }
+
+    // "Copied!" confirmation bubble shown briefly after clicking.
+    &.config-anchor--copied::after {
+      content: "Copied!";
+      position: absolute;
+      left: 50%;
+      bottom: calc(100% + 0.35rem);
+      transform: translateX(-50%);
+      padding: 0.2rem 0.4rem;
+      border-radius: 0.25rem;
+      background: var(--bs-emphasis-color, #333);
+      color: var(--bs-body-bg, #fff);
+      font-size: 0.7rem;
+      line-height: 1;
+      white-space: nowrap;
+      pointer-events: none;
+    }
+  }
+
+  // In the wide table layout on pointer devices, keep the icon hidden until the
+  // row is hovered. In the stacked layout (mobile) the icon stays visible so it
+  // is reachable without hover.
+  @media (min-width: 1200px) and (hover: hover) {
+    .config-anchor {
+      opacity: 0;
+    }
+
+    tbody tr:hover .config-anchor {
+      opacity: 0.6;
+
+      &:hover,
+      &:focus {
+        opacity: 1;
+      }
+    }
+  }
+
+  // Persistent glow on the option currently linked to via its anchor, so it
+  // stays easy to spot after the page finishes scrolling to it. Applied to the
+  // cells because browsers don't reliably paint backgrounds/shadows on
+  // `display: table-row` elements.
+  tbody tr.config-anchor-current td {
+    background-color: rgba(var(--bs-primary-rgb), 0.16);
+    box-shadow: inset 0 0 0.6rem rgba(var(--bs-primary-rgb), 0.4);
+    transition: background-color 0.35s ease, box-shadow 0.35s ease;
+  }
+
+  // In the stacked (mobile) layout each cell is a full-width block, so highlight
+  // the whole card once instead of every stacked cell.
+  @media (max-width: 1199.98px) {
+    tbody tr.config-anchor-current {
+      border-radius: 0.375rem;
+      background-color: rgba(var(--bs-primary-rgb), 0.16);
+      box-shadow: 0 0 0 0.12rem rgba(var(--bs-primary-rgb), 0.4);
+      transition: background-color 0.35s ease, box-shadow 0.35s ease;
+    }
+
+    tbody tr.config-anchor-current td {
+      background-color: transparent;
+      box-shadow: none;
     }
   }
 }
@@ -275,33 +432,40 @@
     }
   }
 
-  .app-paid-badge {
+  .app-pricing-badge {
     margin-left: 0.5rem;
     cursor: help;
     vertical-align: middle;
 
-    .app-paid-pill {
+    .app-pricing-pill {
       display: inline-flex;
       align-items: center;
       gap: 0.3rem;
       height: 1.25rem;
       padding: 0 0.4rem;
-      background-color: #dc3545;
       color: #fff;
       border-radius: 3px;
       font-size: 0.7rem;
       font-weight: 600;
       vertical-align: middle;
       transform: translateY(-3px);
+      white-space: nowrap;
 
       i.fas {
         font-size: 0.75rem;
       }
     }
 
-    [data-bs-theme="dark"] & .app-paid-pill {
-      background-color: #b02a37;
-      color: #fff;
+    .app-pricing-pill--free { background-color: #198754; }
+    .app-pricing-pill--paid { background-color: #dc3545; }
+    .app-pricing-pill--freemium { background-color: #6c757d; }
+    .app-pricing-pill--trial { background-color: #0d6efd; }
+
+    [data-bs-theme="dark"] & {
+      .app-pricing-pill--free { background-color: #146c43; }
+      .app-pricing-pill--paid { background-color: #b02a37; }
+      .app-pricing-pill--freemium { background-color: #565e64; }
+      .app-pricing-pill--trial { background-color: #0a58ca; }
     }
   }
 }
@@ -506,6 +670,33 @@
   .app-gallery-close {
     width: 2.5rem;
     height: 2.5rem;
+  }
+}
+
+// 404 page. Matches the content width used by the apps page; only the search
+// box and the suggestion list need rules of their own.
+.nd-404 {
+  max-width: 1280px;
+  margin: 0 auto;
+
+  &__search {
+    max-width: 34rem;
+    margin-bottom: 1.5rem;
+  }
+
+  &__results {
+    padding-left: 0;
+    list-style: none;
+
+    li {
+      margin-bottom: 0.75rem;
+    }
+
+    p {
+      margin-bottom: 0;
+      color: var(--bs-secondary-color);
+      font-size: 0.9rem;
+    }
   }
 }
 

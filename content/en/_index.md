@@ -7,11 +7,11 @@ linkTitle = "Navidrome"
 {{< blocks/cover title="Welcome to Navidrome!" image_anchor="top" height="full" >}}
 
 <div class="mx-auto">
-	<a class="btn btn-lg btn-primary mr-3 mb-4" href="{{< relref "/docs" >}}">
-		Learn More <i class="fas fa-arrow-alt-circle-right ml-2"></i>
+	<a class="btn btn-lg btn-primary me-3 mb-4" href="{{< relref "/docs" >}}">
+		Learn More <i class="fas fa-arrow-alt-circle-right ms-2"></i>
 	</a>
-	<a class="btn btn-lg btn-secondary mr-3 mb-4" href="{{< relref "/docs/installation" >}}">
-		Download <i class="fas fa-cloud-download-alt ml-2 "></i>
+	<a class="btn btn-lg btn-secondary me-3 mb-4" href="{{< relref "/docs/installation" >}}">
+		Download <i class="fas fa-cloud-download-alt ms-2 "></i>
 	</a>
 	<p class="lead mt-5">Your Personal Streaming Service</p>
 </div>

@@ -32,6 +32,8 @@ it available through a nice web player and also by using any
 Your music becomes searchable and you can create playlists, rate and "favourite" your loved tracks, 
 albums and artists
 
+Building an app or writing about Navidrome? See how to use our [name and logo](/brand/).
+
 <div class="mt-5 mb-5 text-center">
   <div class="d-flex flex-wrap justify-content-center">
     <div class="col-md-6">

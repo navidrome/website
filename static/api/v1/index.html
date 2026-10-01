@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Navidrome API v1</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Reference documentation for the Navidrome API v1" />
+    <link rel="icon" href="/favicons/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" href="/favicons/favicon-32x32.png" sizes="32x32" />
+    <link rel="apple-touch-icon" href="/favicons/apple-icon-180x180.png" />
+  </head>
+
+  <body>
+    <div id="app"></div>
+
+    <!-- Pinned to an exact version, so a new Scalar release cannot break this page -->
+    <script src="https://cdn.jsdelivr.net/npm/@scalar/api-reference@1.72.1"></script>
+
+    <script>
+      Scalar.createApiReference('#app', {
+        // Always fetch the latest spec from Navidrome's master branch
+        url: 'https://raw.githubusercontent.com/navidrome/navidrome/master/api/bundled/openapi.yaml',
+        // The spec's server is the relative "/api/v1", which would point at navidrome.org.
+        // Replace it with a placeholder the reader can edit to match their own server.
+        servers: [
+          {
+            url: '{scheme}://{host}/api/v1',
+            description: 'Your Navidrome server',
+            variables: {
+              scheme: { default: 'http', enum: ['http', 'https'] },
+              host: { default: 'localhost:4533' },
+            },
+          },
+        ],
+        // Requests from this page to a user's server would be blocked by the browser
+        // (CORS / mixed content), so do not offer the "Test Request" client
+        hideTestRequestButton: true,
+        hideClientButton: true,
+        // Hide Scalar's hosted-service extras ("Ask AI", "Generate MCP") and its dev toolbar
+        agent: { disabled: true },
+        mcp: { disabled: true },
+        showDeveloperTools: 'never',
+      })
+    </script>
+  </body>
+</html>

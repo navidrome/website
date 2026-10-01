@@ -20,7 +20,7 @@ jobs:
 
         steps:
             - name: Download build output
-              uses: actions/download-artifact@v5
+              uses: actions/download-artifact@v8
               with:
                   name: preview-build
                   path: preview/
@@ -39,14 +39,14 @@ jobs:
                   echo "pr_number=$pr_number" >> $GITHUB_OUTPUT
 
             - name: Deploy to Cloudflare Pages
-              uses: cloudflare/wrangler-action@v3
+              uses: cloudflare/wrangler-action@v4
               with:
                   apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
                   accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
                   command: pages deploy preview/ --project-name=navidrome-website --branch=pr-${{ steps.get-pr.outputs.pr_number }}
 
             - name: Find existing comment
-              uses: peter-evans/find-comment@v3
+              uses: peter-evans/find-comment@v4
               id: find-comment
               with:
                   issue-number: ${{ steps.get-pr.outputs.pr_number }}
@@ -54,7 +54,7 @@ jobs:
                   body-includes: "Preview Deployment"
 
             - name: Create or update comment
-              uses: peter-evans/create-or-update-comment@v4
+              uses: peter-evans/create-or-update-comment@v5
               with:
                   comment-id: ${{ steps.find-comment.outputs.comment-id }}
                   issue-number: ${{ steps.get-pr.outputs.pr_number }}

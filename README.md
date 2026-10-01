@@ -114,10 +114,15 @@ git clone https://github.com/navidrome/website
 cd website
 ```
 
-3. If you want to do SCSS edits and want to publish these, you need to install `PostCSS`:
+3. Install the npm dependencies. The Docsy theme gets Bootstrap and Font Awesome from npm, and
+   production builds run PostCSS:
 ```bash
 npm install
 ```
+
+4. Install [Dart Sass](https://gohugo.io/functions/css/sass/#dart-sass). Docsy compiles its SCSS
+   with it, so the `sass` command must be on your `PATH` (for example `brew install sass/sass/sass`
+   on macOS, or `sudo snap install dart-sass` on Linux). The Docker setup already includes it.
 
 > NOTE: For Windows users, be sure to install the extended edition of Hugo via `choco install hugo-extended`.
 

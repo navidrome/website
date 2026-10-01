@@ -15,7 +15,7 @@ screenshots:
     - screen1.webp
     - screen2.webp
 repoUrl: https://github.com/JPGuillemin/Airdrome
-isFree: true
+pricing: free
 keywords:
   - web
   - self-hosted

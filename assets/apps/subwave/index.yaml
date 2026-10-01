@@ -7,7 +7,7 @@ platforms:
 
 api: Subsonic
 
-isFree: false
+pricing: paid
 
 description: An Android music player featuring stunning Milkdrop visualizations powered by ProjectM, external equalizer support, synced lyrics, offline caching, local file playback, dashboard listening activity overview, and more!
 

@@ -9,17 +9,17 @@ aliases:
   - /docs/usage/externalized-authentication/
 ---
 
-{{< alert title="For Beginners" color="primary" >}}
+{{% alert title="For Beginners" color="primary" %}}
 Externalized authentication is a relatively advanced topic.
 You can check the [Quick Start guide](/docs/getting-started/extauth-quickstart/) for a beginner-friendly introduction.
-{{< /alert >}}
+{{% /alert %}}
 
-{{< alert title="Security Note" color="warning" >}}
+{{% alert title="Security Note" color="warning" %}}
 **Navidrome works out of the box behind a reverse proxy without enabling externalized authentication.**
 
 You only need to enable externalized authentication if you want the proxy to handle the authentication.
 In other cases, enabling the feature without securing the reverse proxy configuration **can leave your Navidrome setup vulnerable** to impersonation attacks.
-{{< /alert >}}
+{{% /alert %}}
 
 ## Configuration
 
@@ -47,11 +47,11 @@ The subsonic endpoint also supports externalized authentication, and will ignore
 
 If your reverse proxy does not support the standard subsonic authentication scheme, or if the subsonic clients you want to use don't support an alternate authentication mechanism also supported by your proxy (such as BasicAuth), you can still configure your proxy to bypass authentication on `/rest/*` URLs and let Navidrome perform authentication for those requests. In that case, your users will have to update their (initially random) password in Navidrome, to use it with their subsonic client.
 
-{{< alert title="Note" >}}
+{{% alert title="Note" %}}
 Most reverse proxies and authentication services don't support the subsonic authentication scheme out of the box.
 
 A handful of clients claim to support BasicAuth (e.g. DSub and Symfonium on Android, and play:Sub on iOS), but even then it might not work as you expect (as it is not standardized by the subsonic specification): you will likely need to generate a subsonic error response instead of a proper BasicAuth authentication failure response. Otherwise, some clients might display an unexpected error such as "server unreachable" when the credentials are incorrect, and other clients might refuse to connect altogether even with valid credentials.
-{{< /alert >}}
+{{% /alert %}}
 
 ### Navidrome Web App
 
@@ -63,12 +63,12 @@ Note that if you don't intend to support third-party subsonic clients, you can s
 
 ## Security
 
-{{< alert title="Key Security Principle" color="primary" >}}
+{{% alert title="Key Security Principle" color="primary" %}}
 When you enable externalized authentication by configuring trusted sources, you must ensure that all the trusted sources are configured to:
 
 1. Not let untrusted clients set the user header themselves (i.e. remove the header if they do).
 2. Not set the header if the request is not authenticated (e.g. when the authentication is bypassed for the subsonic endpoints).
-{{< /alert >}}
+{{% /alert %}}
 
 Make sure to check the externalized authentication section in the dedicated [Security Considerations](/docs/usage/admin/security/#externalized-authentication) page.
 

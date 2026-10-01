@@ -13,10 +13,10 @@ Smart Playlists in Navidrome offer a dynamic way to organize and enjoy your musi
 JSON objects stored in files with a `.nsp` extension. These playlists are automatically updated based on specified
 criteria, providing a personalized and evolving music experience.
 
-{{< alert color="warning" title="Beta Feature" >}}
+{{% alert color="warning" title="Beta Feature" %}}
 Smart Playlists are currently in beta and may have some limitations. Please report any issues or suggestions in the
 [Navidrome GitHub discussions](https://github.com/navidrome/navidrome/discussions).
-{{</alert>}}
+{{%/alert%}}
 
 ## Creating Smart Playlists
 
@@ -118,6 +118,38 @@ This playlist includes 10% of all loved tracks, selected randomly. Use `limitPer
 }
 ```
 
+### Example 8: Recently Added Albums, in Album Order
+
+Sorting by the track-level `dateadded` scatters an album's tracks, because each track has its own timestamp. Sorting by `albumdateadded` keeps the album together and puts the most recently added albums first, while `discnumber` and `tracknumber` order the tracks within each album.
+
+```json
+{
+  "name": "Recently Added Albums",
+  "all": [{ "inTheLast": { "albumdateadded": 30 } }],
+  "sort": "-albumdateadded,album,discnumber,tracknumber"
+}
+```
+
+{{% alert title="Why the extra `album` sort field?" color="info" %}}
+An album's "date added" is the oldest file creation date among its tracks. If you copied or restored many albums at once, they can end up with the *exact* same timestamp — and when albums tie, the following sort fields (`discnumber`, `tracknumber`) apply across all of them, interleaving their tracks. Adding `album` breaks the tie so each album stays together.
+{{% /alert %}}
+
+### Example 9: Daily Mix (stable for a day)
+
+This playlist picks 20 random tracks played in the last 30 days, and keeps the same track list for a full day
+before re-evaluating. Without `refreshDelay`, a playlist like this would change after every song you play,
+which breaks offline caches. See [Refreshing Playlists](#refreshing-playlists) for details.
+
+```json
+{
+  "name": "Daily Mix",
+  "all": [{ "inTheLast": { "lastPlayed": 30 } }],
+  "sort": "random",
+  "limit": 20,
+  "refreshDelay": "1d"
+}
+```
+
 ## Creating Smart Playlists using the UI
 
 Currently Smart Playlists can only be created by manually editing `.nsp` files. We plan to add a UI for creating and
@@ -163,6 +195,31 @@ This delay can be adjusted by setting the
 [`SmartPlaylistRefreshDelay`](/docs/usage/configuration/options/#:~:text=SmartPlaylistRefreshDelay) configuration option.
 By default, this is set to `5s`, meaning that Smart Playlists refreshes are spaced at least 5 seconds apart.
 You can adjust this value in the configuration file.
+
+#### Per-Playlist Refresh Delay
+
+You can override the global delay for an individual playlist by adding a `refreshDelay` to its `.nsp` file. The
+playlist then keeps the same track list until that much time has passed since it was last evaluated. This is useful
+for "daily mix" style playlists whose rules would otherwise reshuffle the tracks on every access, and it keeps the
+track list stable for clients that cache playlists for offline playback.
+
+```json
+{
+  "name": "Weekly Discoveries",
+  "all": [{ "notInTheLast": { "lastPlayed": 90 } }],
+  "sort": "random",
+  "limit": 50,
+  "refreshDelay": "1w"
+}
+```
+
+The value is a duration string. Besides the standard units (`h`, `m`, `s`), `d` (days) and `w` (weeks) are also
+supported, so values like `"12h"`, `"1d"`, `"1w"` or `"1d12h"` all work. The delay is a rolling window measured
+from the last evaluation, not aligned to calendar days. When `refreshDelay` is not set, the global
+`SmartPlaylistRefreshDelay` applies.
+
+Editing the playlist's rules (by changing the `.nsp` file or via a client) always takes effect on the next access,
+even if the refresh delay has not elapsed yet.
 
 ## Troubleshooting Common Issues
 
@@ -277,6 +334,11 @@ Here's a table of fields you can use in your Smart Playlists:
 | `albumlastplayed`      | Album last play date                     |
 | `albumdateloved`       | Date album was starred                   |
 | `albumdaterated`       | Date album was rated                     |
+| `albumdateadded`       | Date album was added to library          |
+| `albumdatemodified`    | Date album was last updated              |
+| `albumduration`        | Album total duration (seconds)           |
+| `albumsongcount`       | Number of tracks in the album            |
+| `albumsize`            | Album total size (bytes)                 |
 | `artistrating`         | Artist rating                            |
 | `artistloved`          | Whether artist is starred                |
 | `artistplaycount`      | Artist total play count                  |
@@ -298,9 +360,9 @@ Here's a table of fields you can use in your Smart Playlists:
 - Boolean fields: `hascoverart`, `compilation`, `missing`, `loved`, `albumloved`, `artistloved`.
 - `filepath` is relative to your music library folder. Ensure your paths are correctly specified without the `/music`
   prefix (or whatever value you set in `MusicFolder`).
-- Numeric fields like `library_id`, `year`, `tracknumber`, `discnumber`, `size`, `duration`, `bitrate`, `bitdepth`, `samplerate`, `bpm`, `channels`, `playcount`, `rating`, `averagerating`, and the ReplayGain fields (`rgtrackgain`, `rgtrackpeak`, `rgalbumgain`, `rgalbumpeak`) support numeric comparisons (`gt`, `lt`, `inTheRange`, etc.).
+- Numeric fields like `library_id`, `year`, `tracknumber`, `discnumber`, `size`, `duration`, `bitrate`, `bitdepth`, `samplerate`, `bpm`, `channels`, `playcount`, `rating`, `averagerating`, `albumduration`, `albumsongcount`, `albumsize`, and the ReplayGain fields (`rgtrackgain`, `rgtrackpeak`, `rgalbumgain`, `rgalbumpeak`) support numeric comparisons (`gt`, `lt`, `inTheRange`, etc.).
 - **Multi-Library**: Smart Playlists can include songs from multiple libraries if the user has access to them. Use the `library_id` field to filter songs from specific libraries.
-- **Album & Artist Fields**: Fields prefixed with `album` or `artist` (e.g., `albumrating`, `artistplaycount`) filter tracks based on their parent album or artist properties. This lets you create playlists like "tracks from highly-rated albums" or "tracks from frequently-played artists".
+- **Album & Artist Fields**: Fields prefixed with `album` or `artist` (e.g., `albumrating`, `artistplaycount`) filter tracks based on their parent album or artist properties. This lets you create playlists like "tracks from highly-rated albums" or "tracks from frequently-played artists". `albumdateadded`, `albumdatemodified`, `albumduration`, `albumsongcount` and `albumsize` describe the album itself rather than your listening history, so they are the same for every track on an album — which is what makes them useful as a sort key (see [Example 8](#example-8-recently-added-albums-in-album-order)).
 
 ##### Special Fields
 
@@ -345,17 +407,26 @@ Here's a table of operators you can use in your Smart Playlists:
 | `notInTheLast`  | Not in the last          | Number of days                    |
 | `inPlaylist`    | In playlist              | Playlist condition (see below)    |
 | `notInPlaylist` | Not in playlist          | Playlist condition (see below)    |
-| `isMissing`     | Tag/role is absent       | Boolean (see below)               |
-| `isPresent`     | Tag/role is present      | Boolean (see below)               |
+| `isMissing`     | Field is absent or empty | Boolean (see below)               |
+| `isPresent`     | Field has a value        | Boolean (see below)               |
 
 The nature of the field determines the argument type. For example, `year` and `tracknumber` require a number,
 while `title` and `album` require a string.
 
 ### Checking for Missing or Present Tags
 
-The `isMissing` and `isPresent` operators let you match tracks based on whether a tag or role has any value at all,
-regardless of what that value is. They are only supported for **tag fields** (such as `genre`, `mood`, or any
-[custom tag](/docs/usage/configuration/custom-tags)) and **role fields** (such as `composer` or `conductor`).
+The `isMissing` and `isPresent` operators let you match tracks based on whether a field has any value at all,
+regardless of what that value is. They are supported for:
+
+- **Tag fields**, such as `genre`, `mood`, or any [custom tag](/docs/usage/configuration/custom-tags)
+- **Role fields**, such as `composer` or `conductor`
+- **Numeric fields** where Navidrome stores no value when the tag is absent: the ReplayGain fields
+  (`rgtrackgain`, `rgtrackpeak`, `rgalbumgain`, `rgalbumpeak`), `bpm`, and `bitdepth` (a missing bit depth
+  also matches lossy formats such as MP3, which have no bit depth)
+- **Text fields**, where an empty value also counts as missing: `album`, `comment`, `lyrics`, `catalognumber`,
+  `discsubtitle`, `albumcomment`, `explicitstatus`, `sorttitle`, `sortalbum`, `sortartist`, `sortalbumartist`,
+  and the [MusicBrainz ID fields](#musicbrainz-fields) (`mbz_album_id`, `mbz_album_artist_id`, `mbz_artist_id`,
+  `mbz_recording_id`, `mbz_release_track_id`, `mbz_release_group_id`)
 
 Each takes a single field mapped to a boolean. The boolean inverts the check, so `isMissing` and `isPresent` are
 mirror images of each other:
@@ -397,18 +468,22 @@ Alternatively, the `inPlaylist` and `notInPlaylist` operators can take a `path` 
 absolute or relative to your playlist. This allows your smart playlists to be tranferrable between servers.
 
 ```json
-{ "inPlaylist": { "id": "../other_playlist.nsp" } }
+{ "inPlaylist": { "path": "../other_playlist.nsp" } }
 ```
 
-Here's an example of building a smart playlist out of multiple more focused playlists:
+Here's an example of building a smart playlist out of multiple more focused playlists. Keep all the rules under a
+single top-level group (`all` or `any`) and nest a group when you need to mix the two logics: a top-level `any` and
+`all` cannot be combined at the same level.
 
-```
+```json
 {
   "name": "Overplayed Favorites",
   "comment": "Most Played Favorites Played Within Last 4yr",
   "public": true,
-  "any": [{ "inPlaylist": { "path": "most-played-favorites.nsp" } }],
-  "all": [{ "notInPlaylist": { "path": "favorites-not-played-in-4-yrs.nsp" } }],
+  "all": [
+    { "inPlaylist": { "path": "most-played-favorites.nsp" } },
+    { "notInPlaylist": { "path": "favorites-not-played-in-4-yrs.nsp" } }
+  ],
   "sort": "playCount, lastPlayed"
 }
 ```

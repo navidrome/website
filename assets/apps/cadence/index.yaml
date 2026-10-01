@@ -6,10 +6,9 @@ platforms:
   macos:
     store: https://apps.apple.com/us/app/cadence-for-navidrome/id6748622506?mt=12
 api: Subsonic
-description: "A minimal iOS/macOS client with CarPlay integration, Spotlight search support and a focus on queing artists and albums. Playlists are not supported."
+pricing: paid
+description: "A minimal iOS/macOS client with CarPlay integration, Spotlight search support and a focus on queuing artists, albums and playlists."
 screenshots:
   thumbnail: thumbnail.webp
   gallery:
     - screen1.webp
-    - screen2.webp
-    - screen3.webp

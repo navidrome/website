@@ -21,17 +21,17 @@ metadata beyond the default supported tags. This functionality can be configured
 
 ## Configuring custom tags
 
-{{< alert >}}
+{{% alert %}}
 This customization is only available when using a [configuration file](/docs/usage/configuration/options).
 
 If you want to use a configuration file with Docker, you can do so by creating a `navidrome.toml` config file in the
 host folder that is mapped to your `/data` volume. Docker installations automatically look for a `navidrome.toml` file in the `/data` folder.
-{{< /alert >}}
+{{% /alert %}}
 
-{{< alert color="warning" >}}
+{{% alert color="warning" %}}
 **Important:** After making changes to tag configurations, you must perform a **full scan** for the changes to take effect.
 A quick scan will not process the updated tag configurations.
-{{< /alert >}}
+{{% /alert %}}
 
 Custom tags are defined under the `Tags` configuration section. A custom tag configuration accepts the following properties:
 
@@ -107,13 +107,19 @@ Tags.Genre.Split = []
 ```
 
 ### Artist splitting
-By default, Navidrome will split the `artist` tag value by various common separators (e.g., `feat.`, `ft.`, `/`, etc.) 
-to identify multiple artists. To customize the separators used for artist splitting, you can configure the 
-`Tags.Artist.Split` option:
+By default, Navidrome will split the `artist` tag value by various common separators to identify multiple artists.
+The default `Tags.Artist.Split` value is:
 
 ```toml
-Tags.Artist.Split = ["/", " / ", " feat. ", " feat ", " ft. ", " ft ", "; "]
+Tags.Artist.Split = [" / ", " feat. ", " feat ", " ft. ", " ft ", "; "]
 ```
+
+Because the slash separator is `" / "` (with surrounding spaces) rather than a bare `/`, a name like `AC/DC` is left
+intact by default. Note that `"; "` only requires a *trailing* space, so a value like `Foo; Bar` is still split.
+
+To customize the separators, override this option. Be careful when adding a bare `/` (without spaces): it will split
+names like `AC/DC`. See [`Scanner.ArtistSplitExceptions`](/docs/usage/configuration/options/) to protect specific
+names from being split.
 
 Note that the separators are case insensitive, so both `FEAT.` and `feat.` will be recognized by default.
 

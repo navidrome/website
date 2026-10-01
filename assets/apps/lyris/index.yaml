@@ -1,7 +1,7 @@
 name: Lyris
 url: https://getlyris.com
 isOpenSource: false
-isFree: true
+pricing: free
 
 platforms:
   ios:

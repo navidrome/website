@@ -21,10 +21,8 @@ Includes daily backups and regular app updates.
 
 <a href="https://www.pikapods.com/pods?run=navidrome"><img style="height:40px;width:auto" src="https://www.pikapods.com/static/run-button.svg" alt="Run on PikaPods"></a>
 
-### DANIAN
+### Zenith
 
-Offers 1-click deployments for Navidrome with a 7-day free trial — no credit card needed.
-21 worldwide regions available. Includes automated security, daily backups, updates, monitoring,
-and excellent customer support.
+Offers 1-click deployments for Navidrome.
 
-[Get started with Navidrome on DANIAN →](https://danian.co/navidrome?nd)
+[Get started with Navidrome on Zenith →](https://zenith.hosting/host/navidrome?ref=navidrome)

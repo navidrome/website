@@ -109,6 +109,7 @@ Map discovered information to platforms:
 2. **Download images** using terminal commands:
 
    ```bash
+   mkdir -p assets/apps/<app-name>  # kebab-case name
    cd assets/apps/<app-name>
    curl -L -o thumbnail.png "<image-url>"
    curl -L -o screen1.png "<image-url>"
@@ -133,7 +134,7 @@ Map discovered information to platforms:
    mkdir -p assets/apps/<app-name>
    ```
 
-2. **Generate `index.yaml`** with all discovered information following the schema in `references/app-schema.json`
+2. **Generate `index.yaml`** with all discovered information following the schema in `assets/apps/app-schema.json`
 
 3. **Required fields** (must have values):
    - `name`: Display name
@@ -142,11 +143,11 @@ Map discovered information to platforms:
    - `api`: One of `OpenSubsonic`, `Subsonic`, `Navidrome`
    - `description`: 1-2 sentences (max 500 chars)
    - `screenshots.thumbnail`: Filename of downloaded thumbnail
+   - `pricing`: `free`, `freemium` (free + in-app purchases), `trial` (paid + free trial), or `paid`
 
 4. **Optional fields** (include if found):
    - `repoUrl`: Repository URL (for release date tracking)
    - `isOpenSource`: Set to `false` if repo exists but source is not public (see Step 3)
-   - `isFree`: Set to `true` if app is free
    - `screenshots.gallery`: Array of screenshot filenames (max 5)
    - `keywords`: Search terms not in name/description (max 6)
 
@@ -195,8 +196,8 @@ After completion, present:
 
 ## References
 
-- Schema: `apps/app-schema.json` - JSON Schema for validation
-- Template: `apps/_template/index.yaml` - Example index.yaml structure
+- Schema: `assets/apps/app-schema.json` - JSON Schema for validation
+- Template: `assets/apps/_template/index.yaml` - Example index.yaml structure
 - Documentation: [Adding Client Apps](/content/en/docs/developers/adding-apps.md)
 
 ## Error Handling
