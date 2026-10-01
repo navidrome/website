@@ -5,7 +5,7 @@ description: How apps, projects and the community can use the Navidrome name and
 layout: docs
 ---
 
-{{< blocks/cover title="Using the Navidrome name and logo" image_anchor="bottom" height="min" >}}
+{{< blocks/cover title="Name and Logo Guidelines" image_anchor="bottom" height="min" >}}
 
 <p class="lead mt-5">
   Rules for app developers, packagers, writers and anyone else who wants to mention Navidrome
