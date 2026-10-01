@@ -5,19 +5,21 @@ platforms:
   android:
     store: https://github.com/Aut0iq/Vici/releases/latest
   windows: true
+  linux: true
 api: OpenSubsonic
-description: "A music player for Navidrome and Subsonic servers on Android and Windows, based on Castafiore. Features a full-screen player with a MilkDrop visualizer, synced lyrics from the server or LRCLIB, on-device Last.fm scrobbling, a home screen widget, and a desktop app with a queue sidebar, media keys and auto-updates."
+description: "A music player for Navidrome and Subsonic servers on Android, Windows and Linux, based on Castafiore. Features a full-screen player with a MilkDrop visualizer, synced lyrics from the server or LRCLIB, on-device Last.fm scrobbling, an endless random mix, a home screen widget, a desktop app with a queue sidebar and media keys, and vici-tui, a keyboard-driven player for the Linux terminal."
 screenshots:
   thumbnail: thumbnail.webp
   gallery:
     - screen1.webp
     - screen2.webp
     - screen3.webp
+    - screen4.webp
 pricing: free
 keywords:
   - castafiore
   - last.fm
   - visualizer
-  - milkdrop
   - lyrics
-  - widget
+  - tui
+  - terminal
