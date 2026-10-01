@@ -9,7 +9,7 @@ description: >-
   Browse and stream your server, or pin albums to keep them offline at the original
   file's rate.
 isOpenSource: false
-isFree: false
+pricing: freemium
 screenshots:
   thumbnail: thumbnail.webp
   gallery:
