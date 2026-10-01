@@ -31,7 +31,7 @@ app store reviewer asks for proof, send them a link to this page:
 **You can, without asking:**
 
 - Say your app or project works with Navidrome ("for Navidrome", "Navidrome compatible").
-- Add Navidrome to your app's store name, after your own app name ("Minidisc - Navidrome & Lidarr").
+- Add Navidrome to your app's store name, after your own app name ("MyAmazingApp - Navidrome & Jellyfin").
 - Show the Navidrome logo inside your app, next to a Navidrome server or login option.
 - Use the name and logo in articles, videos, tutorials, talks and dashboards about Navidrome.
 - Package and distribute unmodified Navidrome under its own name.
@@ -63,7 +63,7 @@ people what it works with.
 
 | OK | Not OK |
 |----|--------|
-| Minidisc - Navidrome & Lidarr | Navidrome |
+| MyAmazingApp - Navidrome & Jellyfin | Navidrome |
 | Foobar for Navidrome | Navidrome Mobile |
 | Foobar: a Navidrome client | Navidrome Player by Foobar |
 | | Navidrome Foobar |
