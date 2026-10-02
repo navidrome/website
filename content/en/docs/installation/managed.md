@@ -26,3 +26,9 @@ Includes daily backups and regular app updates.
 Offers 1-click deployments for Navidrome. Upload and manage music in your browser and use your own domain for Navidrome.
 
 [![Deploy with Zenith](https://cdn.zenith.hosting/buttons/deploy-with-zenith.svg)](https://zenith.hosting/host/navidrome?ref=navidrome)
+
+### ElfHosted
+
+Offers 1-click deployments for Navidrome with a 7-day free trial.
+
+[Get started with Navidrome on ElfHosted](https://store.elfhosted.com/product/navidrome/)
