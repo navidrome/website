@@ -21,8 +21,8 @@ Includes daily backups and regular app updates.
 
 <a href="https://www.pikapods.com/pods?run=navidrome"><img style="height:40px;width:auto" src="https://www.pikapods.com/static/run-button.svg" alt="Run on PikaPods"></a>
 
-### Zenith
+### Zenith Hosting
 
-Offers 1-click deployments for Navidrome.
+Offers 1-click deployments for Navidrome. Upload and manage music in your browser and use your own domain for Navidrome.
 
-[Get started with Navidrome on Zenith →](https://zenith.hosting/host/navidrome?ref=navidrome)
+[![Deploy with Zenith](https://cdn.zenith.hosting/buttons/deploy-with-zenith.svg)](https://zenith.hosting/host/navidrome?ref=navidrome)
