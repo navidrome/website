@@ -1,0 +1,26 @@
+name: PixelAmp
+url: https://pixelamp.archy.net/
+
+platforms:
+  macos:
+    store: https://apps.apple.com/fr/app/pixelamp/id6806595528
+
+api: Subsonic
+
+description: "A native macOS music player for Navidrome and Subsonic servers, featuring a compact classic interface, equalizer, audio-reactive spectrum, playlists, favorites, and scrobbling."
+
+screenshots:
+  thumbnail: thumbnail.webp
+  gallery:
+    - screen1.webp
+    - screen2.webp
+    - screen3.webp
+
+pricing: paid
+
+keywords:
+  - equalizer
+  - spectrum
+  - playlists
+  - scrobbling
+  - native
