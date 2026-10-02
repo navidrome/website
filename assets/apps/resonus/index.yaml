@@ -19,9 +19,9 @@ screenshots:
   gallery:
     - 2-player.webp
     - 3-lyrics.webp
-    - 4-artist.webp
-    - 5-library.webp
-    - 6-servers.webp
+    - 4-album.webp
+    - 5-artist.webp
+    - 6-library.webp
 
 isOpenSource: true
 
