@@ -10,14 +10,12 @@ platforms:
   other:
     store: https://appgallery.huawei.com/app/detail?id=com.tlntin.sonawave&channelId=SHARE&source=appshare
 api: Navidrome
-description: "A smart music player for HarmonyOS 5.0+, Android (phone, tablet, TV) and Windows. Plays from Navidrome/Subsonic, Emby, Jellyfin, WebDAV and local files, with synced lyrics, EQ, DSD playback and offline downloads. Available in English, Simplified Chinese and Traditional Chinese."
+description: "A smart music player for HarmonyOS 5.0+, Android (phone, tablet, TV) and Windows. Plays from Navidrome/Subsonic, Emby, Jellyfin, WebDAV and local files, with synced lyrics, EQ and offline downloads. Available in English, Simplified Chinese and Traditional Chinese."
 screenshots:
   thumbnail: thumbnail.webp
   gallery:
     - screen1.webp
     - screen2.webp
-    - screen3.webp
-    - screen4.webp
 pricing: freemium
 keywords:
   - sonawave
