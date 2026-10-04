@@ -10,7 +10,7 @@ platforms:
 
 api: OpenSubsonic
 
-description: "A native SwiftUI player for iPhone and Apple Watch. Lossless and gapless playback, synced lyrics, a 5-band EQ with ReplayGain, Instant Mix radios and mixes built from your own listening, CarPlay, and full offline downloads."
+description: "A native SwiftUI player for iPhone and Apple Watch. Lossless playback, synced lyrics, a 5-band EQ with ReplayGain, Instant Mix radios and mixes built from your own listening, CarPlay, and full offline downloads."
 
 screenshots:
   thumbnail: thumbnail.webp
