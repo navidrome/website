@@ -67,7 +67,7 @@ You can create custom PID configurations to meet specific needs, such as:
 
 ### Per-library Persistent IDs
 
-Since v0.65.0, each [library](/docs/usage/features/multi-library/) can override the global `PID.Album` and `PID.Track`
+Each [library](/docs/usage/features/multi-library/) can override the global `PID.Album` and `PID.Track`
 settings. This is useful when your libraries are organized differently. For example, your main music library can use
 the default MusicBrainz-based grouping, and an audiobooks or classical library can group albums by folder.
 
