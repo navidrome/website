@@ -1,0 +1,31 @@
+name: "Aura: Self-Hosted Music"
+
+url: https://getauraios.vercel.app
+
+repoUrl: https://github.com/adrbn/aura
+
+platforms:
+  ios:
+    store: https://apps.apple.com/app/id6818241470
+
+api: OpenSubsonic
+
+description: "A native SwiftUI player for iPhone and Apple Watch. Lossless and gapless playback, synced lyrics, a 10-band EQ, Instant Mix radios and mixes built from your own listening, CarPlay, and full offline downloads."
+
+screenshots:
+  thumbnail: thumbnail.webp
+  gallery:
+    - ios-home.webp
+    - ios-radio.webp
+    - ios-offline.webp
+    - watch-now-playing.webp
+
+pricing: free
+
+keywords:
+  - swiftui
+  - apple watch
+  - carplay
+  - lyrics
+  - offline
+  - equalizer
