@@ -20,7 +20,7 @@ Persistent IDs are unique, user-configurable identifiers for tracks and albums, 
 
 ### Key Features
 - **Configurable and Flexible:** Users can define their PID structure using various tags, including 
-  `musicbrainz_trackid`, `albumid`, `discnumber`, `tracknumber`, `title`, `folder`, `albumartistid`, `catalognum`, 
+  `musicbrainz_trackid`, `albumid`, `discnumber`, `tracknumber`, `title`, `folder`, `albumartistid`, `catalognumber`, 
   Discogs IDs, or even [custom tags](/docs/usage/configuration/custom-tags/)
 - **Accurate File Detection:** Navidrome recognizes moved or re-tagged files, preventing duplication or mismatches.
 - **Album Disambiguation:** Easily differentiate albums with identical names through custom tags like `albumversion` (e.g., Deluxe Editions).
@@ -61,9 +61,40 @@ You can create custom PID configurations to meet specific needs, such as:
   This will use the old ID generation method, which is based on the file path for tracks and name+releaseDate for albums.
 
 {{% alert color="warning" title="Important considerations" %}}
-- **Full Rescan Required:** Changing PID configurations triggers a full rescan. Navidrome will reassign PIDs accordingly, preserving playlists, stars, ratings, shares, and playcounts.
+- **Full Rescan Required:** Changing PID configurations triggers a full rescan of the affected libraries. Navidrome will reassign PIDs accordingly, preserving playlists, shares, and track stars, ratings and playcounts. Album stars and ratings move to the new albums where an old album maps to a new one. When several old albums merge into one new album, only one of them keeps its star and rating.
 - **Backup Your Database:** Before changing PID configurations, back up your Navidrome database to prevent data loss.
 {{% /alert %}}
+
+### Per-library Persistent IDs
+
+Since v0.65.0, each [library](/docs/usage/features/multi-library/) can override the global `PID.Album` and `PID.Track`
+settings. This is useful when your libraries are organized differently. For example, your main music library can use
+the default MusicBrainz-based grouping, and an audiobooks or classical library can group albums by folder.
+
+To change it, go to **Settings** → **Libraries**, open a library, and find the **Persistent IDs** section.
+The same section is also available when you create a new library.
+
+<img width="640" src="/screenshots/library-pid-custom.webp">
+
+- **Album grouping** sets the album PID for this library:
+    - **Use global setting:** uses the `PID.Album` value from your configuration file. This is the default.
+    - **Folder (one album per folder):** same as `PID.Album = "folder"`.
+    - **Custom:** enter your own PID spec, using the same syntax as `PID.Album`. The field starts with the global
+      value, so you can edit it instead of typing it from scratch.
+- **Track identity** sets the track PID for this library. It has the same options, except **Folder**.
+
+Navidrome checks a custom spec when you save it. It rejects unknown tags and attributes. Album specs must use the tag
+name, not one of its aliases (for example `catalognumber`, not `wm/catalogno`), and cannot use `albumid`.
+
+When you save a change, Navidrome asks you to confirm it:
+
+<img width="500" src="/screenshots/library-pid-confirm.webp">
+
+After you confirm, Navidrome rescans only this library in full. If a scan is already running, the rescan starts
+when it finishes. A new library uses its PID settings from its first scan, so it does not need an extra full scan.
+
+When you change the global `PID.Album` or `PID.Track` settings, Navidrome rescans in full only the libraries that use
+the changed setting. A library that has its own value for that setting is not affected.
 
 ### Handling File Moves and Retagging
 
