@@ -1,0 +1,17 @@
+name: naviList
+url: https://github.com/ofernander/navilist
+repoUrl: https://github.com/ofernander/navilist
+platforms:
+  web: true
+  docker:
+    store: https://ghcr.io/ofernander/navilist
+api: Subsonic
+description: Self-hosted companion that generates and manages playlists for Navidrome from the tracks already in your library, using rules (artist, genre, decade, listening stats, similar artists, popularity, studio or live). Also imports m3u, JSPF and Exportify files, subscribes to ListenBrainz and Last.fm playlists, and wraps Navidrome smart playlists.
+screenshots:
+  thumbnail: screen1.webp
+  gallery:
+    - screen2.webp
+    - screen3.webp
+pricing: free
+keywords:
+  - playlist
