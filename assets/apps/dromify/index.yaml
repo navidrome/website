@@ -1,0 +1,28 @@
+name: Dromify
+url: https://dromify.app
+
+platforms:
+  ios:
+    store: https://apps.apple.com/app/dromify-self-hosted-music/id6812532020
+
+api: Subsonic
+
+description: "Native player for iPhone, iPad and Apple Watch. CarPlay, Siri & Shortcuts, AirPlay, a standalone Watch app with offline downloads, full-text search and playlist editing."
+
+screenshots:
+  thumbnail: thumbnail.webp
+  gallery:
+    - iphone-library.webp
+    - iphone-nowplaying.webp
+    - ipad-nowplaying.webp
+    - watch-nowplaying.webp
+
+pricing: freemium
+
+keywords:
+  - carplay
+  - apple watch
+  - siri
+  - offline
+  - airplay
+  - ipad
