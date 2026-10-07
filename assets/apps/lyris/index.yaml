@@ -1,15 +1,15 @@
 name: Lyris
 url: https://getlyris.com
 isOpenSource: false
-pricing: free
+pricing: trial
 
 platforms:
   ios:
-    store: https://testflight.apple.com/join/hVvZ1F7t
+    store: https://apps.apple.com/app/id6764873657
 
 api: OpenSubsonic
 
-description: Native iOS music player for Navidrome with a built-in discovery engine that recommends albums outside your library, based on your listening history and favorites.
+description: Native iOS music player for Navidrome with a built-in discovery engine that recommends albums outside your library, based on your listening history and favorites. 7-day free trial, then a one-time purchase.
 
 screenshots:
   thumbnail: thumbnail.webp
