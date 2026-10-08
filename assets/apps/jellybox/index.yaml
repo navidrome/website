@@ -1,0 +1,36 @@
+name: JellyBox
+url: https://jellybox.app
+repoUrl: https://github.com/avdept/JellyBoxPlayer
+
+platforms:
+  android:
+    store: https://play.google.com/store/apps/details?id=com.prodigytech.jellybox
+  ios:
+    store: https://apps.apple.com/us/app/jellybox-player/id6469732117
+  macos:
+    store: https://apps.apple.com/us/app/jellybox-player/id6469732117?platform=mac
+  windows: true
+  linux: true
+
+api: OpenSubsonic
+
+description: "A native music player for desktop and mobile with CarPlay and Android Auto, offline downloads, Continuity playback, synced lyrics, Spotify-like daily mixes, AirPlay, Chromecast and DLNA casting, artwork-based theming and a UI built for each platform."
+
+screenshots:
+  thumbnail: thumbnail.webp
+  gallery:
+    - screen1.webp
+    - screen2.webp
+    - screen3.webp
+    - screen4.webp
+    - screen5.webp
+
+pricing: free
+
+keywords:
+  - carplay
+  - android auto
+  - offline
+  - lyrics
+  - chromecast
+  - dlna
