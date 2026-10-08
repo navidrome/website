@@ -8,7 +8,7 @@ platforms:
   ios:
     store: https://apps.apple.com/us/app/jellybox-player/id6469732117
   macos:
-    store: https://apps.apple.com/us/app/jellybox-player/id6469732117
+    store: https://apps.apple.com/us/app/jellybox-player/id6469732117?platform=mac
   windows: true
   linux: true
 
