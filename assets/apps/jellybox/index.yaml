@@ -14,7 +14,7 @@ platforms:
 
 api: OpenSubsonic
 
-description: "A native music player for desktop and mobile with CarPlay and Android Auto, offline downloads, synced lyrics, Spotify-like daily mixes, AirPlay, Chromecast and DLNA casting, artwork-based theming and a UI built for each platform."
+description: "A native music player for desktop and mobile with CarPlay and Android Auto, offline downloads, Continuity playback, synced lyrics, Spotify-like daily mixes, AirPlay, Chromecast and DLNA casting, artwork-based theming and a UI built for each platform."
 
 screenshots:
   thumbnail: thumbnail.webp
