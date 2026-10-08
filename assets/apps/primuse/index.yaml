@@ -23,7 +23,7 @@ screenshots:
     - tvos-home.webp
     - tvos-now-playing.webp
 
-isFree: true
+pricing: free
 
 keywords:
   - carplay
