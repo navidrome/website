@@ -1,20 +1,29 @@
 name: SonaWave
 url: https://music.http5.cn/
+repoUrl: https://github.com/Tlntin/SonaWave-Release
+# Public repo for releases and issues only; the source code is not published
+isOpenSource: false
 platforms:
+  android: true
+  windows: true
+  # Intel and Apple silicon DMGs on GitHub Releases
+  macos: true
+  # AppImage and .deb on GitHub Releases
+  linux: true
+  # HarmonyOS 5.0+ (Huawei AppGallery)
   other:
     store: https://appgallery.huawei.com/app/detail?id=com.tlntin.sonawave&channelId=SHARE&source=appshare
 api: Navidrome
-description: "A smart music player designed for true music lovers(Supports HarmonyOS 5.0 and above only). Multi-language support (Simplified Chinese, Traditional Chinese, English)."
+description: "A smart music player for HarmonyOS 5.0+, Android (phone, tablet, TV), Windows, macOS and Linux. Plays from Navidrome/Subsonic, Emby, Jellyfin, WebDAV and local files, with synced lyrics, EQ and offline downloads. Available in English, Simplified Chinese and Traditional Chinese."
 screenshots:
   thumbnail: thumbnail.webp
   gallery:
     - screen1.webp
     - screen2.webp
-    - screen3.webp
-    - screen4.webp
-    - screen5.webp
+pricing: freemium
 keywords:
   - sonawave
   - harmonyos navidrome client
-
-pricing: freemium
+  - android tv
+  - jellyfin
+  - emby
