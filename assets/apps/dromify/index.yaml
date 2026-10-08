@@ -4,10 +4,12 @@ url: https://dromify.app
 platforms:
   ios:
     store: https://apps.apple.com/app/dromify-self-hosted-music/id6812532020
+  macos:
+    store: https://apps.apple.com/app/dromify-self-hosted-music/id6812532020?platform=mac
 
 api: Subsonic
 
-description: "Native player for iPhone, iPad and Apple Watch. CarPlay, Siri & Shortcuts, AirPlay, a standalone Watch app with offline downloads, full-text search and playlist editing."
+description: "Native player for iPhone, iPad, Mac, Apple Watch, Apple TV and Vision Pro, in one download. CarPlay, Siri & Shortcuts, AirPlay, full-text search and playlist editing. A one-time Pro purchase adds gapless playback, multiple servers, seasonal filters, offline downloads and a standalone Watch app."
 
 screenshots:
   thumbnail: thumbnail.webp
@@ -16,6 +18,7 @@ screenshots:
     - iphone-nowplaying.webp
     - ipad-nowplaying.webp
     - watch-nowplaying.webp
+    - mac-tv-vision.webp
 
 pricing: freemium
 
@@ -25,4 +28,4 @@ keywords:
   - siri
   - offline
   - airplay
-  - ipad
+  - apple tv
