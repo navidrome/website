@@ -102,12 +102,17 @@ The `isOpenSource` field controls whether the app displays an open source badge 
 - `android` - Google Play Store
 - `ios` - Apple App Store  
 - `macos` - macOS (optionally with Mac App Store link)
+- `tvos` - Apple TV (optionally with App Store link)
 - `windows` - Windows
 - `linux` - Linux
 - `freebsd` - FreeBSD
 - `web` - Web browser
 - `docker` - Docker container (optionally with Docker Hub link)
 - `other` - CLI tools, other platforms
+
+An App Store link opens the iPhone version of the app, unless it selects a platform. Add
+`?platform=mac` to the `macos` link and `?platform=tv` to the `tvos` link, for example
+`https://apps.apple.com/app/my-app/id123456789?platform=mac`.
 
 ### Example index.yaml
 
@@ -182,6 +187,7 @@ The validation checks:
 - APIs are correctly specified
 - The folder name is kebab-case
 - Image files exist and are WebP, max 1200px, and under 500KB
+- App Store links for macOS and Apple TV select the right platform
 - URLs are valid and reachable
 
 ## Updating an Existing App
