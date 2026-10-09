@@ -56,7 +56,7 @@ Write it as **Navidrome**: one word, capital N. Not "NaviDrome" or "Navi-drome".
 
 Keep it true. If your app only supports the Subsonic API, do not suggest that your app supports Navidrome-only features.
 
-**App and project names.** Your app needs its own name. You can add "Navidrome" at the end of the name to tell people what it works with.
+**App and project names.** Your app needs its own name. You can add "Navidrome" after your own app name to tell people what it works with.
 
 Here are some examples of allowed and prohibited use (this is a non-exhaustive list to help guide you):
 
