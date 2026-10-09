@@ -19,13 +19,13 @@ solutions**[\*](/docs/faq/#-can-i-run-navidrome-in-the-cloud-without-managing-my
 Offers 1-click deployments for Navidrome with $5 free welcome credit. EU and US regions available.
 Includes daily backups and regular app updates.
 
-<a href="https://www.pikapods.com/pods?run=navidrome"><img style="height:40px;width:auto" src="https://www.pikapods.com/static/run-button.svg" alt="Run on PikaPods"></a>
+<a href="https://www.pikapods.com/pods?run=navidrome"><img style="height:40px;width:auto" src="/images/hosting/pikapods.svg" alt="Run on PikaPods"></a>
 
 ### Zenith Hosting
 
 Offers 1-click deployments for Navidrome. Upload and manage music in your browser and use your own domain for Navidrome.
 
-<a href="https://zenith.hosting/host/navidrome?ref=navidrome"><img style="height:40px;width:auto" src="https://cdn.zenith.hosting/buttons/deploy-with-zenith.svg" alt="Deploy with Zenith"></a>
+<a href="https://zenith.hosting/host/navidrome?ref=navidrome"><img style="height:40px;width:auto" src="/images/hosting/zenith.svg" alt="Deploy with Zenith"></a>
 
 ### ElfHosted
 
