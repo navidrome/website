@@ -6,6 +6,8 @@ platforms:
     store: https://apps.apple.com/app/dromify-self-hosted-music/id6812532020
   macos:
     store: https://apps.apple.com/app/dromify-self-hosted-music/id6812532020?platform=mac
+  tvos:
+    store: https://apps.apple.com/app/dromify-self-hosted-music/id6812532020?platform=tv
 
 api: Subsonic
 
