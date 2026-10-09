@@ -18,29 +18,28 @@ layout: docs
 
 <div class="col-12">
 
-We want people to build apps for Navidrome, write about it and show it off. We also want users to
-know which apps come from the Navidrome project and which come from someone else. These rules
-keep both of those true.
+We want people to build apps for Navidrome, write about Navidrome or the apps they build, and show off their work.
 
-If your use follows this page, **you don't need to ask us**. This page is your permission. If an
-app store reviewer asks for proof, send them a link to this page:
-`https://www.navidrome.org/brand/`
+We also want to ensure that **users know which apps come from the official Navidrome project and which come from other projects**. This is what the guidelines below are for.
+
+If your use of the Navidrome name and brand follows the below guidelines, **you do not need to ask us for permission**: this page is your permission. If an
+app store reviewer asks for evidence, send them a link to this page: `https://navidrome.org/brand/`
 
 ## The short version
 
-**You can, without asking:**
+**You are free, without asking for permission, to:**
 
-- Say your app or project works with Navidrome ("for Navidrome", "Navidrome compatible").
-- Add Navidrome to your app's store name, after your own app name ("MyAmazingApp - Navidrome & Jellyfin").
-- Show the Navidrome logo inside your app, next to a Navidrome server or login option.
-- Use the name and logo in articles, videos, tutorials, talks and dashboards about Navidrome.
-- Package and distribute unmodified Navidrome under its own name.
+- Say that your app or project works with Navidrome (e.g. "for Navidrome", "Navidrome-compatible", "for Navidrome users").
+- Add the name "Navidrome" to your app's store name, after your own app name (e.g. "MyAmazingApp - Navidrome & Jellyfin", "TheBestClient for Navidrome").
+- Show the Navidrome logo inside your app as part of a flow or screen that lets users manage a connection to a Navidrome server.
+- Use the Navidrome name and logo in your app's store description, website, or marketing material to explain your app's functionality and capabilities.
+- Use the Navidrome name and logo in articles, videos, tutorials, talks, and dashboards about Navidrome.
+- Package and distribute the unmodified Navidrome software under its own name.
 
-**You can't:**
+**You are not allowed, without explicit, written permission from us, to:**
 
-- Call your app "Navidrome", or start its name with "Navidrome".
-- Say or suggest that your app is official, or that the Navidrome project made, endorses or
-  sponsors it.
+- Call your app "Navidrome", or start your app's name with "Navidrome" (e.g. "Navidrome For Music Lovers")
+- Say, imply, or suggest that your app is the official Navidrome app, or that the official Navidrome project made, endorses or sponsors your app.
 - Use the Navidrome logo as your app icon, or as part of it.
 - Change the logo, or make a new logo that looks like it.
 - Sell merchandise with the Navidrome name or logo.
@@ -49,34 +48,35 @@ app store reviewer asks for proof, send them a link to this page:
 
 Write it as **Navidrome**: one word, capital N. Not "NaviDrome" or "Navi-drome".
 
-**Describing compatibility.** Any accurate statement is fine. For example:
+**Describing compatibility.** Any accurate statement is allowed. For example:
 
 - "A music player for Navidrome"
 - "Works with Navidrome and other Subsonic servers"
-- "Navidrome compatible"
+- "Navidrome-compatible"
 
-Keep it true. If your app only supports the Subsonic API, don't say it supports Navidrome-only
-features.
+Keep it true. If your app only supports the Subsonic API, do not suggest that your app supports Navidrome-only features.
 
-**App and project names.** Your app needs its own name. You can add "Navidrome" after it to tell
-people what it works with.
+**App and project names.** Your app needs its own name. You can add "Navidrome" after your own app name to tell people what it works with.
 
-| OK | Not OK |
+Here are some examples of allowed and prohibited use (this is a non-exhaustive list to help guide you):
+
+| Allowed use | Prohibited use |
 |----|--------|
 | MyAmazingApp - Navidrome & Jellyfin | Navidrome |
 | Foobar for Navidrome | Navidrome Mobile |
 | Foobar: a Navidrome client | Navidrome Player by Foobar |
-| | Navidrome Foobar |
-| | Navidromer, Navydrome and other near-copies |
+| TheBestClient for Navidrome | Navidrome Foobar |
+| | Navidromer
+| | Navydrome
 
-Names that share part of the word, like "Navi-something", are fine as long as they don't read as
-"Navidrome". Many apps in our [catalog](/apps/) already do this.
+Names that share part of the word, like "Navi-something", are allowed as long as they don't read as "Navidrome". Many apps in our [catalog](/apps/) already have names that follow this pattern (e.g. "NaviBeat for Linux", "NaviBeat").
 
-**Domains and social accounts.** Don't register domains, app store accounts or social media
-handles that look like they belong to the project, like `navidrome-app.com` or `@navidrome_music`.
-Using `navidrome.yourdomain.com` for your own server is fine.
+**Domains and social accounts.** Do not register domains, app store accounts, or social media
+handles that look like they belong to the official Navidrome project, like `navidrome-app.com` or `@navidrome_music`. You can use `navidrome.yourdomain.com` for your own server.
 
 ## Using the logo
+
+Here is the official Navidrome logo:
 
 <div class="d-flex flex-wrap align-items-center gap-4 my-4">
   <img src="/brand/navidrome-logo.svg" alt="Navidrome logo" width="96" height="96">
@@ -90,28 +90,23 @@ Using `navidrome.yourdomain.com` for your own server is fine.
 
 - A server type picker on a login or connection screen.
 - A list of supported servers or integrations.
-- A badge on a server entry, so users can tell a Navidrome server from other kinds.
+- A badge on a server entry, so users can tell a Navidrome server from other types of server.
 
 The logo should be the same size or smaller than the other server logos around it. It must not be
 the main image of your app or of a screen.
 
-**Your app icon and store listing.** Don't use the logo as your app icon, in your icon, or as the
-main image of your store listing. Store screenshots can show the logo if it appears in your app
+**Your app icon and store listing.** Do not use the Navidrome logo as your app icon, in your icon, or as the main image of your store listing. Store screenshots can show the logo if it appears in your app
 as described above.
 
-**Articles, videos and dashboards.** Use it freely to talk about Navidrome. This covers blog posts,
-YouTube thumbnails, conference slides, and icon packs for self-hosting dashboards.
+**Articles, videos and dashboards.** Use the Navidrome logo freely to talk about Navidrome. This covers blog posts, YouTube thumbnails, conference slides, and icon packs for self-hosting dashboards.
 
-**Keep it as is.** Don't change its colors or proportions, add parts to it, or cut parts out. You can
-scale it to any size. Leave some empty space around it.
+**Keep the Navidrome logo as is.** Do not change the logo's colors or proportions, add new elements to it, or cut parts out. You can scale it to any size. Leave some empty space around it so it is clear that it is not part of nearby images.
 
 ## Say you are independent
 
-If you make an app, website or service for Navidrome, say that it is independent. Put a line like
-this in your README, store description or About screen:
+If you make an app, website, or service for Navidrome, say explicitly that it is an independent project. Include a line in your README, store description or About screen, such as:
 
-> Foobar is an independent third-party client. It is not affiliated with or endorsed by the
-> Navidrome project.
+> Foobar is an independent third-party client. It is not affiliated with or endorsed by the Navidrome project.
 
 ## Forks and packages
 
@@ -120,15 +115,12 @@ You can fork it, change it and share it. The license covers the code, not the na
 
 - **Packages.** You can package and ship Navidrome (Docker images, Linux distributions, NAS app
   stores and similar) under the name Navidrome, with the logo. Small patches needed for packaging
-  are fine. Link back to the official project.
-- **Forks.** If you ship a changed version with new features or different behavior, give it a
-  different name and a different logo. You can say it is "based on Navidrome".
+  are allowed. Please link back to the official project.
+- **Forks.** If you ship a modified version with new features or different behavior, give it a different name and a different logo. You can say it is "based on Navidrome".
 
 ## Anything else
 
-For uses not covered here, [open a discussion](https://github.com/navidrome/navidrome/discussions)
-on GitHub and ask. We may update this page over time. If we see a use that confuses users, we may
-ask you to change it.
+For uses not covered here or to request permission, [open a discussion](https://github.com/navidrome/navidrome/discussions) on GitHub and ask. We may update this page over time. If we see a use that confuses users, we may ask you to change it.
 
 </div>
 
