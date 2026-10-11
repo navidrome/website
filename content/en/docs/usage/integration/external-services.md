@@ -40,7 +40,7 @@ Last.fm provides the broadest set of metadata among the built-in agents.
 </p>
 
 3. Copy the values above to your [configuration file](/docs/usage/configuration/options#configuration-file) as `LastFM.ApiKey` and `LastFM.Secret` (or set them as environment variables `ND_LASTFM_APIKEY` and `ND_LASTFM_SECRET`)
-4. After the configuration is done, you can set up [scrobbling](/docs/usage/features/scrobbling#last.fm) for your user.
+4. After the configuration is done, you can set up [scrobbling](/docs/usage/features/scrobbling/#lastfm) for your user.
 
 Last.fm can be completely disabled by setting `LastFM.Enabled` to `false`.
 

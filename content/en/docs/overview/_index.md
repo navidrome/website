@@ -46,7 +46,7 @@ It can also work as a lightweight Subsonic-API compatible server, that can be us
 - Get/Save Play Queue (to continue listening in a different device)
 - Last.fm and ListenBrainz scrobbling
 - Artist Bio from [Last.fm](/docs/usage/integration/external-services/#lastfm)
-- Artist Images from [Last.fm](/docs/usage/integration/external-services/#lastfm), [Spotify](/docs/usage/integration/external-services/#spotify) and [Deezer](/docs/usage/integration/external-services/#deezer)
+- Artist Images from [Last.fm](/docs/usage/integration/external-services/#lastfm) and [Deezer](/docs/usage/integration/external-services/#deezer)
 - Album images and description from [Last.fm](/docs/usage/integration/external-services/#lastfm)
 - Lyrics (from embedded tags and external files)
 - Internet Radios
@@ -54,7 +54,7 @@ It can also work as a lightweight Subsonic-API compatible server, that can be us
 - [Shares](/docs/usage/features/sharing)
 
 {{% alert color="warning" title="NOTE" %}}
-Navidrome [**does not support**](/docs/faq/#can-you-add-a-browsing-by-folder-optionmode-to-navidrome)
+Navidrome [**does not support**](/docs/faq/#-can-you-add-a-browsing-by-folder-optionmode-to-navidrome)
 browsing by folders, but simulates it based on the tags with a structure like:
 `/AlbumArtist/Album/01-Song.ext`
 {{%/alert%}}
