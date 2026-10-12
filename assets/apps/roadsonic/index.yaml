@@ -1,0 +1,20 @@
+name: RoadSonic
+url: https://www.roadsonic.com/
+platforms:
+  ios:
+    store: https://apps.apple.com/app/id6811639958
+api: OpenSubsonic
+description: "A Navidrome and Subsonic player made for CarPlay: your own library on every drive, with offline caching, automatic radio queues and synced karaoke lyrics."
+screenshots:
+  thumbnail: thumbnail.webp
+  gallery:
+    - screen1.webp
+    - screen2.webp
+    - screen3.webp
+    - screen4.webp
+pricing: trial
+keywords:
+  - carplay
+  - car
+  - offline
+  - radio
