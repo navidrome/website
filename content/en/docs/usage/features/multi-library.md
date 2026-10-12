@@ -108,6 +108,33 @@ It is up to the user where to save music collections. You can store your artists
 - Consider using the same ownership/permissions across all library folders
 - Ensure adequate disk space for each library's cache and metadata
 
+### Music stored on another computer or NAS
+
+A library's **Path** must be a filesystem path accessible to the machine running Navidrome. If your music is stored on another computer or a NAS, first make the shared folder available through the operating system.
+
+For example, if Navidrome runs on a Linux server and your music is on a Windows computer:
+
+1. [Share the music folder over the network in Windows](https://support.microsoft.com/en-us/windows/experience/connectivity-networking/file-sharing-over-a-network-in-windows) using SMB.
+2. Mount the share on the Linux server, for example at `/mnt/remote-music`. See your distribution's documentation for mounting SMB shares, such as the [`mount.cifs` manual](https://manpages.debian.org/bookworm/cifs-utils/mount.cifs.8.en.html).
+3. Verify that the operating-system user running Navidrome can read the mounted folder and its music files.
+4. Go to **Settings** → **Libraries** and create a library with **Path** set to `/mnt/remote-music`.
+
+Use the mounted filesystem path in Navidrome, rather than an SMB URL. The share must be mounted before Navidrome starts and remain available during scans and playback. Persistent mounts and network credentials are configured in the operating system, outside Navidrome.
+
+#### Docker
+
+If Navidrome runs in Docker, mount the share on the **Docker host** first, then add a separate volume mapping to the Navidrome container. Keep your existing `/music` mapping and use another container path, such as `/music2`, for the additional library:
+
+```yaml
+volumes:
+  - /path/to/existing/music:/music:ro # Existing library: keep your current mapping
+  - /mnt/remote-music:/music2:ro      # Additional network library
+```
+
+This snippet shows only the music volumes. Add the new mapping to your existing `volumes` list; keep all other mappings, including `/data`. The paths on the left of each colon are paths on the Docker host: replace them with your actual paths.
+
+Apply the updated container configuration, then create the additional library in **Settings** → **Libraries** with **Path** set to `/music2`, the path inside the container. The user running Navidrome inside the container must also have read access to this folder. See the [Docker installation guide](/docs/installation/docker/) for volume and permission details.
+
 ### Performance
 
 - Each library maintains its own file system watcher
