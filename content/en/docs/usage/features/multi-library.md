@@ -56,6 +56,8 @@ When Navidrome starts, it automatically creates a default library using your `Mu
    - Provide a **Name** for the library (e.g., "Audiobooks", "FLAC Collection")
    - Set the **Path** to the folder containing your music files
    - Optionally set the library as default for new users
+   - Optionally change how albums and tracks are identified in the **Persistent IDs** section. See
+     [Per-library Persistent IDs](/docs/usage/configuration/persistent-ids/#per-library-persistent-ids)
    - Click **Save**
 
 3. **Initial Scan**
@@ -169,4 +171,5 @@ Most Subsonic-compatible clients that support multiple music folders will work w
 
 - [Configuration Options](/docs/usage/configuration/options/): Basic setup and MusicFolder configuration
 - [Smart Playlists](/docs/usage/features/smart-playlists/): Create dynamic playlists with library-specific filters
+- [Persistent IDs](/docs/usage/configuration/persistent-ids/#per-library-persistent-ids): Group albums differently in each library
 - [Backup](/docs/usage/admin/backup/): Protecting your multi-library setup
