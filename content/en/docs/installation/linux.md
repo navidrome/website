@@ -169,7 +169,7 @@ For additional configuration options see the [configuration options page](https:
 ### Create a systemd Unit
 
 Create a new file under `/etc/systemd/system/` named `navidrome.service` with the following data. Make sure you replace
-`<user>` and `<group>` with the user and group you want to run Navidrome under. If you use the backup feature, you will also need to add the backup path to the systemd allow-list for Navidrome as shown in the [Backup usage documentation](/docs/usage/admin/backup/).
+`<user>` and `<group>` with the user and group you want to run Navidrome under. If you use the [backup feature](/docs/usage/admin/backup/), you will also need to add the backup path to the `ReadWritePaths` allow-list in the unit below, so Navidrome can write backups there.
 
 ```systemd
 [Unit]
