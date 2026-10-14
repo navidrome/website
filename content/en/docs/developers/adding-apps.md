@@ -106,6 +106,7 @@ The `isOpenSource` field controls whether the app displays an open source badge 
 - `windows` - Windows
 - `linux` - Linux
 - `freebsd` - FreeBSD
+- `metavr` - Meta Quest
 - `web` - Web browser
 - `docker` - Docker container (optionally with Docker Hub link)
 - `other` - CLI tools, other platforms
