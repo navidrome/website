@@ -10,7 +10,7 @@ platforms:
   macos: false
   windows: true
   linux: true
-  vr: true
+  metavr: true
   freebsd: false
   web: false
   docker: false
