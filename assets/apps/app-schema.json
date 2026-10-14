@@ -86,6 +86,7 @@
         },
         "linux": { "type": "boolean" },
         "freebsd": { "type": "boolean" },
+        "metavr": { "type": "boolean" },
         "web": {
           "oneOf": [
             { "type": "boolean" },
