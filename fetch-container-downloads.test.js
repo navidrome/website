@@ -227,3 +227,58 @@ test("asks to stop the deploy when a source fails and the published result canno
   assert.equal(result.status, "none");
   assert.equal(result.mustFail, true);
 });
+
+// Runs the script the way the workflows do, with fetch replaced before it loads.
+// The script writes next to itself, so it runs from a temporary copy.
+function runScript({ failGhcr = false, published = 404, env = {} } = {}) {
+  const dir = tempDir();
+  fs.copyFileSync(
+    path.join(__dirname, "fetch-container-downloads.js"),
+    path.join(dir, "fetch-container-downloads.js"),
+  );
+  const preload = path.join(dir, "fake-fetch.js");
+  fs.writeFileSync(
+    preload,
+    `globalThis.fetch = async (url) => {
+      const reply = (status, body) => ({
+        ok: status < 300, status,
+        json: async () => JSON.parse(body), text: async () => body,
+      });
+      if (url.includes("/pkgs/container/")) {
+        if (${failGhcr}) throw new Error("simulated GHCR outage");
+        return reply(200, '<span>Total downloads</span><h3 title="2661197">2.66M</h3>');
+      }
+      if (url.includes("hub.docker.com")) return reply(200, '{"pull_count":100}');
+      return reply(${published}, "unavailable");
+    };`,
+  );
+  const { spawnSync } = require("child_process");
+  const { HUGO_ENV, ...parentEnv } = process.env;
+  const result = spawnSync(process.execPath, ["-r", preload, "fetch-container-downloads.js"], {
+    cwd: dir,
+    env: { ...parentEnv, ...env },
+    encoding: "utf8",
+  });
+  return { ...result, output: result.stdout + result.stderr, badgesDir: path.join(dir, "static", "badges") };
+}
+
+test("the workflow command writes both files when every source answers", () => {
+  const result = runScript();
+  assert.equal(result.status, 0);
+  assert.doesNotMatch(result.output, /::warning::/);
+  assert.equal(readJson(result.badgesDir, DETAILS_FILE).total, 2661397);
+  assert.equal(readJson(result.badgesDir, BADGE_FILE).message, "2.7M");
+});
+
+test("a preview build warns and continues when a source fails", () => {
+  const result = runScript({ failGhcr: true, published: 503 });
+  assert.equal(result.status, 0);
+  assert.match(result.output, /::warning::Container download counts not refreshed: .*simulated GHCR outage/);
+  assert.equal(fs.existsSync(result.badgesDir), false);
+});
+
+test("a production build stops when a source fails and the published result cannot be read", () => {
+  const result = runScript({ failGhcr: true, published: 503, env: { HUGO_ENV: "production" } });
+  assert.equal(result.status, 1);
+  assert.match(result.output, /::error::Container download counts not refreshed: .*simulated GHCR outage/);
+});

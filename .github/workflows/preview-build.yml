@@ -104,6 +104,11 @@ jobs:
           CHARTS_API_KEY: ${{ secrets.CHARTS_API_KEY }}
         run: ./fetch-charts.sh
 
+      - name: Fetch container download counts
+        # Same step as the daily build, so previews serve the badge. Without
+        # HUGO_ENV=production a failed collection only adds a warning.
+        run: node fetch-container-downloads.js
+
       - name: Build site
         env:
           HUGO_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
