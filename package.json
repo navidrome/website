@@ -8,7 +8,9 @@
     "build": "docker compose run --remove-orphans site hugo build",
     "sync-images": "./sync-images.sh 20072696",
     "validate:app": "node validate-app-entry.js",
-    "convert:images": "node convert-app-images.js"
+    "convert:images": "node convert-app-images.js",
+    "fetch:downloads": "node fetch-container-downloads.js",
+    "test": "node --test fetch-container-downloads.test.js"
   },
   "repository": {
     "type": "git",

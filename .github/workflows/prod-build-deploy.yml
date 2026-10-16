@@ -56,6 +56,13 @@ jobs:
                   CHARTS_API_KEY: ${{ secrets.CHARTS_API_KEY }}
               run: ./fetch-charts.sh
 
+            - name: Fetch container download counts
+              # Publishes the /badges/container-downloads.json Shields badge.
+              # Keeps the published counts when a registry fails.
+              env:
+                  HUGO_ENV: production
+              run: node fetch-container-downloads.js
+
             - name: Build site
               env:
                   HUGO_ENV: production

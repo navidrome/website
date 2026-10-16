@@ -6,6 +6,8 @@ node_modules/
 .DS_Store
 .hugo_cache
 tmp/*
+# Written by fetch-container-downloads.js before each build
+/static/badges/
 !.claude
 .claude/settings.local.json
 AGENTS.md
