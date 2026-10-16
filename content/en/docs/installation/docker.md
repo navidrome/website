@@ -6,7 +6,7 @@ description: >
   Using the official docker images with Docker and Docker Compose
 ---
 
-[Docker images](https://hub.docker.com/r/deluan/navidrome) are available for the
+[Docker images](https://hub.docker.com/r/navidrome/navidrome) are available for the
 _linux/amd64_, _linux/arm/v6_, _linux/arm/v7_ and _linux/arm64_ platforms. They include everything needed to
 run Navidrome.
 
@@ -18,7 +18,7 @@ below to your existing file):
 ```yaml
 services:
   navidrome:
-    image: deluan/navidrome:latest
+    image: navidrome/navidrome:latest
     user: 1000:1000 # must own the data folder and be able to read music folder(s). See Permissions below
     ports:
       - "4533:4533"
@@ -45,7 +45,7 @@ $ docker run -d \
    -v /path/to/data:/data \
    -p 4533:4533 \
    -e ND_LOGLEVEL=info \
-   deluan/navidrome:latest
+   navidrome/navidrome:latest
 ```
 
 ### Permissions

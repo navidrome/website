@@ -6,7 +6,7 @@ description: >
   Using the official container images with Podman and Podman Quadlet
 ---
 
-[Container images](https://hub.docker.com/r/deluan/navidrome) are available for the
+[Container images](https://hub.docker.com/r/navidrome/navidrome) are available for the
 _linux/amd64_, _linux/arm/v7_ and _linux/arm64_ platforms. They include everything needed to
 run Navidrome.
 
@@ -23,7 +23,7 @@ Description=Quadlet-Navidrome
 
 [Container]
 Environment=ND_DEFAULTDOWNSAMPLINGFORMAT=opus ND_AGENTS=lastfm
-Image=deluan/navidrome:latest
+Image=navidrome/navidrome:latest
 Pull=always
 UserNS=keep-id
 PublishPort=4533:4533 #1st number is published port, can be change or set yourself
@@ -55,7 +55,7 @@ $ podman run --rm -d \
         -v /path/to/your/music/folder:/music:ro,z \
         --env ND_DEFAULTDOWNSAMPLINGFORMAT=opus \
         --env ND_AGENTS=lastfm \
-        deluan/navidrome:latest
+        navidrome/navidrome:latest
 ```
 
 ### Customization

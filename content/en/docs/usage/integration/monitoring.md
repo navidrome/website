@@ -39,7 +39,7 @@ containers:
 version: '3'
 services:
   navidrome:
-    image: deluan/navidrome
+    image: navidrome/navidrome
     user: 1000:1000 # should be owner of volumes
     ports:
       - "4533:4533"
