@@ -3,17 +3,15 @@
 /**
  * Fetch Container Downloads Script
  *
- * Sums the downloads of the Navidrome container images and writes them as a
- * Shields endpoint badge, published with the website:
- *   /badges/container-downloads.json         - Shields endpoint badge
- *   /badges/container-downloads-details.json - exact counts and collection time
+ * Sums the downloads of the Navidrome container images and writes:
+ *   static/badges/container-downloads.json         - Shields endpoint badge
+ *   static/badges/container-downloads-details.json - exact counts and collection time
  *
- * A result is only written when every source answers. When one fails, the last
- * complete result is kept, taken from the newest valid copy found locally or on
- * the published website. Each website deploy replaces all files, so a build
- * that wrote nothing would remove the badge.
+ * Counts are only written when all sources answer. When one fails, the result
+ * published on the website is written again, because each deploy replaces all
+ * files and a build without them would remove the badge.
  *
- * Usage: node fetch-container-downloads.js
+ * Usage: npm run fetch:pulls
  *
  * In production (HUGO_ENV=production), the script fails if a source fails and
  * the published result cannot be read, so the deploy keeps the current badge.
@@ -23,262 +21,107 @@ const fs = require("fs");
 const path = require("path");
 
 const OUTPUT_DIR = path.join(__dirname, "static", "badges");
-const BADGE_FILE = "container-downloads.json";
-const DETAILS_FILE = "container-downloads-details.json";
-const PUBLISHED_URL = `https://www.navidrome.org/badges/${DETAILS_FILE}`;
+const PUBLISHED_URL = "https://www.navidrome.org/badges/container-downloads-details.json";
+const IS_PRODUCTION = process.env.HUGO_ENV === "production";
 
-// Docker Hub returns exact counts in its API. GHCR has no API for downloads,
-// so its count is read from the package page, like
-// https://github.com/eliasbenb/ghcr-badge does.
-const SOURCES = [
-  {
-    image: "docker.io/deluan/navidrome",
-    url: "https://hub.docker.com/v2/repositories/deluan/navidrome/",
-    parse: async (response) => parseDockerHubPullCount(await response.json()),
-  },
-  {
-    image: "docker.io/navidrome/navidrome",
-    url: "https://hub.docker.com/v2/repositories/navidrome/navidrome/",
-    parse: async (response) => parseDockerHubPullCount(await response.json()),
-  },
-  {
-    image: "ghcr.io/navidrome/navidrome",
-    url: "https://github.com/navidrome/navidrome/pkgs/container/navidrome",
-    parse: async (response) => parseGhcrDownloadCount(await response.text()),
-  },
-];
-
-const REQUEST_TIMEOUT_MS = 30000;
-const ATTEMPTS = 2;
-const SUFFIXES = { K: 1e3, M: 1e6, B: 1e9 };
-
-const isCount = (value) => Number.isSafeInteger(value) && value >= 0;
-
-function parseDockerHubPullCount(body) {
-  const count = body?.pull_count;
-  if (!isCount(count)) {
-    throw new Error(`Docker Hub response has no valid pull_count: ${JSON.stringify(count)}`);
-  }
-  return count;
+async function dockerHubPulls(repo) {
+  const data = await getJson(`https://hub.docker.com/v2/repositories/${repo}/`);
+  return data.pull_count;
 }
 
-function parseGhcrDownloadCount(html) {
-  const match = html.match(/Total downloads[\s\S]{0,500}?<h3\b([^>]*)>([^<]+)<\/h3>/i);
-  if (!match) {
-    throw new Error("GHCR page has no Total downloads value");
-  }
-  const title = match[1].match(/\btitle="([^"]*)"/i)?.[1] ?? "";
-  if (!/^(\d+|\d{1,3}(,\d{3})+)$/.test(title)) {
-    throw new Error(`GHCR page has no exact Total downloads value: title="${title}"`);
-  }
-  const count = Number(title.replace(/,/g, ""));
-  if (!isCount(count)) {
-    throw new Error(`GHCR Total downloads value is too large: ${title}`);
-  }
-
-  // The visible text is rounded (for example "2.66M"). It must agree with the
-  // exact title, to catch a page whose layout changed under the pattern above.
-  const text = match[2].trim();
-  const shown = text.match(/^([\d,]+)(?:\.(\d+))?\s*([KMB])?$/i);
-  if (!shown) {
-    throw new Error(`GHCR Total downloads text is not a number: "${text}"`);
-  }
-  const multiplier = SUFFIXES[shown[3]?.toUpperCase()] ?? 1;
-  const decimals = shown[2] ?? "";
-  const value = Number(`${shown[1].replace(/,/g, "")}.${decimals || "0"}`) * multiplier;
-  const precision = multiplier / 10 ** decimals.length;
-  const agrees = shown[3] ? Math.abs(count - value) < precision : count === value;
-  if (!agrees) {
-    throw new Error(`GHCR exact value ${count} does not match the shown value "${text}"`);
-  }
-  return count;
+// GHCR has no API for downloads. The exact count is in the title of the
+// "Total downloads" value on the package page, as eliasbenb/ghcr-badge reads it.
+async function ghcrDownloads() {
+  const html = await getText("https://github.com/navidrome/navidrome/pkgs/container/navidrome");
+  const match = html.match(/Total downloads[\s\S]{0,500}?<h3\b[^>]*\btitle="([\d,]+)"/i);
+  if (!match) throw new Error("Total downloads not found on the GHCR page");
+  return Number(match[1].replace(/,/g, ""));
 }
 
-function formatCount(count) {
-  return new Intl.NumberFormat("en-US", {
-    notation: "compact",
-    maximumFractionDigits: 1,
-  }).format(count);
+const SOURCES = {
+  "docker.io/deluan/navidrome": () => dockerHubPulls("deluan/navidrome"),
+  "docker.io/navidrome/navidrome": () => dockerHubPulls("navidrome/navidrome"),
+  "ghcr.io/navidrome/navidrome": ghcrDownloads,
+};
+
+async function get(url) {
+  const response = await fetch(url, { signal: AbortSignal.timeout(30000) });
+  if (!response.ok) throw new Error(`${url} returned HTTP ${response.status}`);
+  return response;
+}
+const getJson = async (url) => (await get(url)).json();
+const getText = async (url) => (await get(url)).text();
+
+const isCount = (n) => Number.isSafeInteger(n) && n >= 0;
+
+// A complete result has a count for every source, and their sum as total
+function isComplete(details) {
+  const images = Object.keys(SOURCES);
+  return (
+    !Number.isNaN(Date.parse(details?.collectedAt)) &&
+    details.sources?.length === images.length &&
+    details.sources.every((s, i) => s.image === images[i] && isCount(s.count)) &&
+    details.total === details.sources.reduce((sum, s) => sum + s.count, 0)
+  );
 }
 
-// Shields rejects any field that is not part of its endpoint schema
-function buildBadge(details) {
+async function collect() {
+  const sources = [];
+  for (const [image, count] of Object.entries(SOURCES)) {
+    sources.push({ image, count: await count() });
+  }
   return {
     schemaVersion: 1,
+    collectedAt: new Date().toISOString(),
+    total: sources.reduce((sum, s) => sum + s.count, 0),
+    sources,
+  };
+}
+
+function write(details) {
+  // Shields rejects any field that is not part of its endpoint schema
+  const badge = {
+    schemaVersion: 1,
     label: "docker pulls",
-    message: formatCount(details.total),
+    message: new Intl.NumberFormat("en-US", { notation: "compact", maximumFractionDigits: 1 }).format(details.total),
     color: "blue",
     namedLogo: "docker",
     cacheSeconds: 21600,
   };
+  fs.mkdirSync(OUTPUT_DIR, { recursive: true });
+  fs.writeFileSync(path.join(OUTPUT_DIR, "container-downloads.json"), JSON.stringify(badge, null, 2) + "\n");
+  fs.writeFileSync(path.join(OUTPUT_DIR, "container-downloads-details.json"), JSON.stringify(details, null, 2) + "\n");
 }
 
-function isValidDetails(details, now) {
-  if (!details || details.schemaVersion !== 1) return false;
-  const collectedAt = new Date(details.collectedAt);
-  if (
-    typeof details.collectedAt !== "string" ||
-    Number.isNaN(collectedAt.getTime()) ||
-    collectedAt.toISOString() !== details.collectedAt ||
-    collectedAt > now
-  ) {
-    return false;
-  }
-  const sources = details.sources;
-  if (!Array.isArray(sources) || sources.length !== SOURCES.length) return false;
-  const sameSources = sources.every(
-    (source, i) => source?.image === SOURCES[i].image && isCount(source.count),
-  );
-  if (!sameSources) return false;
-  const total = sources.reduce((sum, source) => sum + source.count, 0);
-  return isCount(details.total) && details.total === total;
-}
-
-async function fetchCount(source, { fetchImpl, retryDelayMs }) {
-  let lastError;
-  for (let attempt = 1; attempt <= ATTEMPTS; attempt++) {
-    try {
-      const response = await fetchImpl(source.url, {
-        headers: { "User-Agent": "navidrome-website (+https://www.navidrome.org)" },
-        signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
-      });
-      if (!response.ok) {
-        throw new Error(`HTTP ${response.status}`);
-      }
-      return await source.parse(response);
-    } catch (err) {
-      lastError = err;
-      if (attempt < ATTEMPTS) {
-        await new Promise((resolve) => setTimeout(resolve, retryDelayMs));
-      }
-    }
-  }
-  throw new Error(`${source.image} (${source.url}): ${lastError.message}`);
-}
-
-async function collect(options) {
-  const results = await Promise.allSettled(SOURCES.map((source) => fetchCount(source, options)));
-  const failures = results.filter((r) => r.status === "rejected").map((r) => r.reason.message);
-  if (failures.length > 0) {
-    return { failures };
-  }
-  const sources = SOURCES.map((source, i) => ({ image: source.image, count: results[i].value }));
-  return {
-    details: {
-      schemaVersion: 1,
-      collectedAt: options.now().toISOString(),
-      total: sources.reduce((sum, source) => sum + source.count, 0),
-      sources,
-    },
-  };
-}
-
-function readLocalDetails(outputDir) {
+async function main() {
   try {
-    return JSON.parse(fs.readFileSync(path.join(outputDir, DETAILS_FILE), "utf8"));
-  } catch {
-    return null;
-  }
-}
-
-// Returns the published details, or why they could not be used. A 404 means
-// nothing was published yet, so there is nothing to keep.
-async function fetchPublishedDetails({ fetchImpl, publishedUrl, now }) {
-  try {
-    const response = await fetchImpl(publishedUrl, {
-      signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
-    });
-    if (response.status === 404) {
-      return { details: null, unreadable: false, reason: "not published yet" };
-    }
-    if (!response.ok) {
-      return { details: null, unreadable: true, reason: `HTTP ${response.status}` };
-    }
-    const details = await response.json();
-    if (!isValidDetails(details, now())) {
-      return { details: null, unreadable: true, reason: "invalid content" };
-    }
-    return { details, unreadable: false };
+    const details = await collect();
+    if (!isComplete(details)) throw new Error(`Invalid counts: ${JSON.stringify(details.sources)}`);
+    write(details);
+    console.log(`Collected ${details.total} container downloads at ${details.collectedAt}`);
+    return;
   } catch (err) {
-    return { details: null, unreadable: true, reason: err.message };
-  }
-}
-
-function writeJson(outputDir, file, data) {
-  const target = path.join(outputDir, file);
-  const temp = `${target}.tmp`;
-  fs.writeFileSync(temp, `${JSON.stringify(data, null, 2)}\n`);
-  fs.renameSync(temp, target);
-}
-
-function writeResult(outputDir, details) {
-  fs.mkdirSync(outputDir, { recursive: true });
-  writeJson(outputDir, DETAILS_FILE, details);
-  writeJson(outputDir, BADGE_FILE, buildBadge(details));
-}
-
-async function run({
-  fetchImpl = fetch,
-  outputDir = OUTPUT_DIR,
-  publishedUrl = PUBLISHED_URL,
-  now = () => new Date(),
-  log = console.log,
-  retryDelayMs = 5000,
-} = {}) {
-  const fresh = await collect({ fetchImpl, now, retryDelayMs });
-  if (fresh.details) {
-    writeResult(outputDir, fresh.details);
-    log(`Collected ${fresh.details.total} container downloads at ${fresh.details.collectedAt}`);
-    return { status: "fresh", details: fresh.details };
+    console.warn(`::warning::Container download counts not refreshed: ${err.message}`);
   }
 
-  fresh.failures.forEach((failure) => log(`Source failed: ${failure}`));
-  const published = await fetchPublishedDetails({ fetchImpl, publishedUrl, now });
-  if (!published.details) {
-    log(`Published result not used: ${published.reason}`);
+  // Keep the last complete result, from the published website
+  const response = await fetch(PUBLISHED_URL, { signal: AbortSignal.timeout(30000) }).catch((err) => err);
+  if (response.status === 404) {
+    console.warn("::warning::No result was published yet, so no badge was written");
+    return;
   }
-
-  const local = readLocalDetails(outputDir);
-  const previous = [published.details, isValidDetails(local, now()) ? local : null]
-    .filter(Boolean)
-    .sort((a, b) => b.collectedAt.localeCompare(a.collectedAt))[0];
-
-  if (previous) {
-    writeResult(outputDir, previous);
-    log(`Kept the result collected at ${previous.collectedAt}`);
-    return { status: "previous", details: previous, failures: fresh.failures };
+  const published = response.ok ? await response.json().catch(() => null) : null;
+  if (!isComplete(published)) {
+    const message = `Published result not usable (${response.status ?? response.message}), so no badge was written`;
+    if (IS_PRODUCTION) throw new Error(message);
+    console.warn(`::warning::${message}`);
+    return;
   }
-
-  log("No complete result is available, so no badge was written");
-  return { status: "none", mustFail: published.unreadable, failures: fresh.failures };
+  write(published);
+  console.log(`Kept the result collected at ${published.collectedAt}`);
 }
 
-if (require.main === module) {
-  const isProduction = process.env.HUGO_ENV === "production";
-  run()
-    .then((result) => {
-      if (result.status === "fresh") return;
-      const message = `Container download counts not refreshed: ${result.failures.join("; ")}`;
-      if (result.mustFail && isProduction) {
-        console.error(`::error::${message}`);
-        process.exit(1);
-      }
-      console.warn(`::warning::${message}`);
-    })
-    .catch((err) => {
-      console.error(err);
-      process.exit(1);
-    });
-}
-
-module.exports = {
-  SOURCES,
-  BADGE_FILE,
-  DETAILS_FILE,
-  parseDockerHubPullCount,
-  parseGhcrDownloadCount,
-  formatCount,
-  buildBadge,
-  isValidDetails,
-  run,
-};
+main().catch((err) => {
+  console.error(`::error::${err.message}`);
+  process.exit(1);
+});
