@@ -69,7 +69,7 @@ the default (bridge) network mode, even if you publish port 7359. You must use h
 ```yaml
 services:
   navidrome:
-    image: deluan/navidrome:latest
+    image: navidrome/navidrome:latest
     network_mode: host
     environment:
       ND_JELLYFIN_ENABLED: "true"

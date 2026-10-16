@@ -43,7 +43,7 @@ Make sure the [plugin system](/docs/usage/features/plugins/#server-configuration
 ```yaml
 services:
   navidrome:
-    image: deluan/navidrome:latest
+    image: navidrome/navidrome:latest
     ports:
       - "4533:4533"
     environment:

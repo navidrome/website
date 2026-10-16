@@ -169,7 +169,7 @@ services:
       traefik.http.middlewares.drop-untrusted-auth-headers.headers.customrequestheaders.Remote-User:
 
   navidrome:
-    image: deluan/navidrome:0.52.0
+    image: navidrome/navidrome:0.52.0
     labels:
       # Main Navidrome access with web authentication
       traefik.http.routers.navidrome.rule: Host(`music.example.com`)

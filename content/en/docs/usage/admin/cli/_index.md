@@ -105,7 +105,7 @@ docker run --rm -it \
   -v /path/to/data:/data \
   --env-file /path/to/navidrome.env \
   -e ND_CONFIGFILE=/data/navidrome.toml \
-  deluan/navidrome:latest \
+  navidrome/navidrome:latest \
   user list
 ```
 

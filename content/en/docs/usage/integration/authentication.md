@@ -162,7 +162,7 @@ services:
       traefik.http.middlewares.drop-untrusted-auth-headers.headers.customrequestheaders.Remote-User:
 
   navidrome:
-    image: deluan/navidrome:0.52.0
+    image: navidrome/navidrome:0.52.0
     labels:
       # Default rule which uses Authelia's web-based authentication. If you enable
       # navidrome's Sharing feature, you can configure Authelia to bypass
