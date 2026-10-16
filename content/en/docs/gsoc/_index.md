@@ -33,7 +33,7 @@ As for the mentors:
 Development methodology
 -----------------------
 
-The main repository is hosted on [Github](https://github.com/deluan/navidrome), which is also used for tracking bugs and running the continuous integration. The main communication medium is [Discord]( https://discord.gg/xh7j7yF ), along with [X]( https://x.com/navidrome ) for announcements, and [Reddit](https://www.reddit.com/r/navidrome/) as general purpose forum.
+The main repository is hosted on [Github](https://github.com/navidrome/navidrome), which is also used for tracking bugs and running the continuous integration. The main communication medium is [Discord]( https://discord.gg/xh7j7yF ), along with [X]( https://x.com/navidrome ) for announcements, and [Reddit](https://www.reddit.com/r/navidrome/) as general purpose forum.
 The usual way to get code in is to submit a pull-request, which will be reviewed by the community and merged. Adding some tests might of course speed up this process.
 
 
@@ -99,7 +99,7 @@ We would also need a standalone player similar to what is provided by Spotify wh
 
 #### Links and further reading
 
-- https://github.com/deluan/navidrome/issues/748
+- https://github.com/navidrome/navidrome/issues/748
 
 
 ### 2. **Jukebox mode**
@@ -121,7 +121,7 @@ Some servers can be run in ["jukebox"]( http://www.subsonic.org/pages/features.j
 
 #### Links and further reading
 
-- https://github.com/deluan/navidrome/issues/364
+- https://github.com/navidrome/navidrome/issues/364
 - https://airsonic.github.io/docs/jukebox/
 - http://subsonic.org/pages/api.jsp#jukeboxControl
 
@@ -145,7 +145,7 @@ This task can be nicely paired with the jukebox one.
 
 #### Links and further reading
 
-- https://github.com/deluan/navidrome/issues/682
+- https://github.com/navidrome/navidrome/issues/682
 - https://developers.google.com/assistant/
 - https://developer.amazon.com/en-US/alexa/alexa-skills-kit
 
@@ -170,7 +170,7 @@ Some users want to use multiple libraries at the same time, for example to separ
 
 #### Links and further reading
 
-- https://github.com/deluan/navidrome/issues/192
+- https://github.com/navidrome/navidrome/issues/192
 - http://subsonic.org/pages/api.jsp#getMusicFolders
 
 ### 5. **Omnisearch**
@@ -192,8 +192,8 @@ One search bar to search across the whole library, using proper [SQLite's Full T
 
 #### Links and further reading
 
-- https://github.com/deluan/navidrome/issues/255
-- https://github.com/deluan/navidrome/issues/468
+- https://github.com/navidrome/navidrome/issues/255
+- https://github.com/navidrome/navidrome/issues/468
 - https://www.sqlite.org/fts5.html
 - https://www.sqlite.org/spellfix1.html#overview
 
@@ -213,7 +213,7 @@ Currently, navidrome is using pagination instead of providing a more convenient 
 
 #### Links and further reading
 
-- https://github.com/deluan/navidrome/issues/132
+- https://github.com/navidrome/navidrome/issues/132
 - https://marmelab.com/blog/2019/01/17/react-timeline.html
 - https://marmelab.com/react-admin/List.html#uselistcontroller
 
@@ -237,7 +237,7 @@ It would be nice for navidrome to support [LRC files]( https://en.wikipedia.org/
 
 #### Links and further reading
 
-- https://github.com/deluan/navidrome/issues/249
+- https://github.com/navidrome/navidrome/issues/249
 - http://subsonic.org/pages/api.jsp#getLyrics
 - https://github.com/lijinke666/react-music-player
 
@@ -260,7 +260,7 @@ It would be nice if navidrome could perform audio normalization, to avoid having
 
 #### Links and further reading
 
-- https://github.com/deluan/navidrome/issues/233
+- https://github.com/navidrome/navidrome/issues/233
 - https://en.wikipedia.org/wiki/Audio_normalization
 - https://trac.ffmpeg.org/wiki/AudioVolume
 
@@ -283,7 +283,7 @@ It would be nice to have something resembling [Plex](https://www.plex.tv/)'s int
 
 #### Links and further reading
 
-- https://github.com/deluan/navidrome/issues/323
+- https://github.com/navidrome/navidrome/issues/323
 - https://www.plex.tv/
 
 

@@ -78,7 +78,7 @@ make docker-build PLATFORMS=windows/386
 To get a list of all available platforms, run `make docker-platforms`.
 
 If you want to build a Docker image with your local changes, use `make docker-image`. 
-The built image will be tagged locally as `deluan/navidrome:develop`. This can be overridden by setting the `DOCKER_TAG` variable.
+The built image will be tagged locally as `navidrome/navidrome:develop`. This can be overridden by setting the `DOCKER_TAG` variable.
 Use `IMAGE_PLATFORMS` to specify the platforms you want to build the image for. Example:
 
 ```shell
