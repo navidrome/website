@@ -23,7 +23,7 @@ Description=Quadlet-Navidrome
 
 [Container]
 Environment=ND_DEFAULTDOWNSAMPLINGFORMAT=opus ND_AGENTS=lastfm
-Image=deluan/navidrome:latest
+Image=docker.io/deluan/navidrome:latest
 Pull=always
 UserNS=keep-id
 PublishPort=4533:4533 #1st number is published port, can be change or set yourself
