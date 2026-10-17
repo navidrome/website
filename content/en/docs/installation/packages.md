@@ -28,6 +28,7 @@ More packages available, with links to download/install instructions:
 |-------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | Cloudron                | https://www.cloudron.io/store/org.navidrome.cloudronapp.html                                                                                                                  |
 | Fedora                  | https://copr.fedorainfracloud.org/coprs/lchh/navidrome/                                                                                                                       |    
+| MASH (Ansible)          | [MASH Ansible playbook](https://github.com/mother-of-all-self-hosting/mash-playbook/blob/main/docs/services/navidrome.md)                                                     |
 | OpenMediaVault          | [Instructions using docker-compose](https://forum.openmediavault.org/index.php?thread/36635-how-to-install-navidrome-using-docker-compose-an-airsonic-booksonic-alternative/) |
 | QNAP                    | https://www.myqnap.org/product/navidrome/                                                                                                                                     |
 | TrueCharts Helm Chart   | https://truecharts.org/charts/stable/navidrome/                                                                                                                               | 
