@@ -8,7 +8,7 @@ name: Cassette
 url: https://getcassette.app
 
 # Optional: GitHub repository URL (displays an open source badge)
-repoUrl: https://github.com/CassetteLab/cassette
+repoUrl: https://github.com/cassettelab/cassette
 
 # Required: At least one platform must be specified
 # Platforms can be boolean (true) or object with store URL
@@ -27,24 +27,26 @@ api: OpenSubsonic
 
 # Required: Brief description (1-2 sentences, max 500 characters)
 # Highlight key features that make this app unique
-description: Cassette is another native iOS and macOS client for Subsonic and OpenSubsonic. Open-source, fast, and built for people who self-host.
+description: Cassette is a native iOS, iPadOS and macOS client for Subsonic and OpenSubsonic, with CarPlay support. Open-source, fast, and built for people who self-host.
 
 # Required: Screenshots configuration
 screenshots:
   # Required: Thumbnail image filename (must exist in app folder). This is the image that will show in the main catalog page, it is NOT a logo or icon.
-  thumbnail: iPhone_2.webp
+  thumbnail: thumbnail.webp
   gallery:
-    - iPhone.webp
-    - macOS_2.webp
-    - macOS.webp
+    - home.webp
+    - album.webp
+    - player.webp
+    - playlist.webp
+    - artist.webp
 
 pricing: free
 
 # Optional: Additional search terms (max 6, not displayed on app card)
 # Use for alternative names, abbreviations, or key features
 keywords:
-  - iOS
-  - macOS
   - carplay
   - offline
   - lyrics
+  - airplay
+  - listenbrainz
