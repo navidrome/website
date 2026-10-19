@@ -1,0 +1,27 @@
+name: SideDeck
+url: https://github.com/manueljpy/SideDeck
+repoUrl: https://github.com/manueljpy/SideDeck
+
+platforms:
+  android:
+    store: https://play.google.com/store/apps/details?id=es.manifold.sidedeck
+
+api: Subsonic
+
+description: "Free open-source Android DJ app with dual decks, waveforms, BPM/key analysis, and Subsonic browse-and-download. Mix on the phone or send separate stereo decks over USB to an external mixer such as the Teenage Engineering EP-136 K.O. Sidekick."
+
+screenshots:
+  thumbnail: thumbnail.webp
+  gallery:
+    - screen1.webp
+    - screen2.webp
+
+pricing: free
+
+keywords:
+  - mixing
+  - offline
+  - djing
+  - waveforms
+  - mixer
+  - playlist
