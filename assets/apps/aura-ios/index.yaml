@@ -1,8 +1,6 @@
 name: "Aura: Self-Hosted Music"
 
-url: https://getauraios.vercel.app
-
-repoUrl: https://github.com/adrbn/aura
+url: https://aura.adrbn.dev
 
 platforms:
   ios:
