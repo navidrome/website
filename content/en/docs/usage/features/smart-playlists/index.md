@@ -22,7 +22,7 @@ A Smart Playlist can come from two places:
   [Creating Smart Playlists using the UI](#creating-smart-playlists-using-the-ui).
 
 Both kinds use the same rules, [fields](#fields) and [operators](#operators). Where they differ is how you edit
-them. See [Editing Playlists](#editing-playlists).
+them. See [Editing Smart Playlists](#editing-smart-playlists).
 
 {{% alert color="warning" title="Beta Feature" %}}
 Smart Playlists are currently in beta and may have some limitations. Please report any issues or suggestions in the
@@ -240,6 +240,22 @@ Editing the playlist's rules always takes effect on the next access, even if the
 For a playlist created in a client, that is the next access after you save the rules. For an imported playlist, it
 is the next access after the library scan imports the changed `.nsp` file.
 
+<a id="editing-playlists"></a>
+
+## Editing Smart Playlists
+
+Where you edit the rules depends on where the playlist came from:
+
+- **Imported from a `.nsp` file:** edit the file. Keep **Auto-import** enabled for the playlist, and the library
+  scan imports the new rules. A client can also change the rules of an imported playlist, but while Auto-import is
+  enabled, a later scan can import the file again and replace those changes. Navidrome never writes rule changes
+  back to the `.nsp` file.
+- **Created in a client, such as [Feishin](https://github.com/jeffvli/feishin/):** edit it in the client. The rules
+  live only in Navidrome's database, so there is no file to edit, and the change applies as soon as you save it.
+
+In both cases the list of tracks is read-only. Navidrome builds it from the rules, so you cannot add, remove or
+reorder tracks by hand. Change the rules instead.
+
 ## Troubleshooting Common Issues
 
 ### Playlist Not Showing Up
@@ -286,20 +302,6 @@ The global `order` field can still be used and will reverse the direction of all
 
 If you encounter issues deleting users with shared Smart Playlists, check if the playlists are used by other users.
 See [this issue](https://github.com/navidrome/navidrome/issues/3180) for details.
-
-### Editing Playlists
-
-Where you edit the rules depends on where the playlist came from:
-
-- **Imported from a `.nsp` file:** edit the file. Keep **Auto-import** enabled for the playlist, and the library
-  scan imports the new rules. A client can also change the rules of an imported playlist, but while Auto-import is
-  enabled, a later scan can import the file again and replace those changes. Navidrome never writes rule changes
-  back to the `.nsp` file.
-- **Created in a client, such as [Feishin](https://github.com/jeffvli/feishin/):** edit it in the client. The rules
-  live only in Navidrome's database, so there is no file to edit, and the change applies as soon as you save it.
-
-In both cases the list of tracks is read-only. Navidrome builds it from the rules, so you cannot add, remove or
-reorder tracks by hand. Change the rules instead.
 
 ## Additional Resources
 
