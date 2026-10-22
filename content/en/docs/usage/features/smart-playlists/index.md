@@ -9,9 +9,20 @@ aliases:
   - /docs/usage/smartplaylists/
 ---
 
-Smart Playlists in Navidrome offer a dynamic way to organize and enjoy your music collection. They are created using
-JSON objects stored in files with a `.nsp` extension. These playlists are automatically updated based on specified
-criteria, providing a personalized and evolving music experience.
+Smart Playlists in Navidrome offer a dynamic way to organize and enjoy your music collection. Each one is defined by
+a set of rules, written as a JSON object. Navidrome picks the tracks that match the rules, and updates the list as
+your library and listening history change.
+
+A Smart Playlist can come from two places:
+
+- **An imported `.nsp` file.** You write the rules in a file with a `.nsp` extension, and the library scan imports
+  it. The file is the source of the rules. See [Importing Smart Playlists](#importing-smart-playlists).
+- **A client app, such as Feishin.** The client sends the rules to Navidrome through its API, and Navidrome stores
+  them in its database. Navidrome does not create a `.nsp` file for these playlists. See
+  [Creating Smart Playlists using the UI](#creating-smart-playlists-using-the-ui).
+
+Both kinds use the same rules, [fields](#fields) and [operators](#operators). Where they differ is how you edit
+them. See [Editing Smart Playlists](#editing-smart-playlists).
 
 {{% alert color="warning" title="Beta Feature" %}}
 Smart Playlists are currently in beta and may have some limitations. Please report any issues or suggestions in the
@@ -21,8 +32,8 @@ Smart Playlists are currently in beta and may have some limitations. Please repo
 ## Creating Smart Playlists
 
 To create a Smart Playlist, you need to define a JSON object with specific [fields](#fields)
-and [operators](#operators) that describe the criteria for selecting tracks. The JSON object is stored in a `.nsp` file
-Here are some examples to get you started:
+and [operators](#operators) that describe the criteria for selecting tracks. To import it, save the JSON object in a
+`.nsp` file. Here are some examples to get you started:
 
 ### Example 1: Recently Played Tracks
 
@@ -152,22 +163,27 @@ which breaks offline caches. See [Refreshing Playlists](#refreshing-playlists) f
 
 ## Creating Smart Playlists using the UI
 
-Currently Smart Playlists can only be created by manually editing `.nsp` files. We plan to add a UI for creating and
-editing Smart Playlists in future releases.
+Navidrome's web UI does not have a rule editor yet. We plan to add one in a future release.
 
-In the meantime, if you want a graphical way to create playlists, you can use
-[Feishin](https://github.com/jeffvli/feishin/), a desktop/web client for Navidrome, that supports creating
-Smart Playlists:
+If you want a graphical way to create Smart Playlists, you can use [Feishin](https://github.com/jeffvli/feishin/), a
+desktop/web client for Navidrome that has a rule editor:
 
 {{< imgproc feishin_nsp_editor Fit "2000x2000" />}}
 
-Smart Playlists created/edited in Feishin will be available in Navidrome UI as soon as they are saved.
+Feishin sends the rules to Navidrome through its API. Navidrome stores them in its database, and the playlist is
+available in the Navidrome UI and in other clients as soon as you save it. No `.nsp` file is created, and no library
+scan is needed. The user who creates the playlist owns it.
 
 ## Importing Smart Playlists
 
 Smart Playlists are imported the same way as regular (`.m3u`) playlists, during the library scan. Place your `.nsp`
 files in any folder in your library or the path specified by the `PlaylistsPath` configuration. Navidrome will
-automatically detect and import these playlists.
+automatically detect and import these playlists. The [`AutoImportPlaylists`](/docs/usage/configuration/options/)
+configuration option must be `true`, which is the default.
+
+An imported Smart Playlist has its **Auto-import** option enabled. While it is enabled, the library scan imports the
+`.nsp` file again after you change it. If you turn off **Auto-import** for the playlist in the Playlists list, scans
+ignore changes to its file.
 
 ## Managing Smart Playlists
 
@@ -178,19 +194,21 @@ automatically detect and import these playlists.
   playlist's owner: owners can reference their own playlists (public or private), any user can reference public
   playlists, and admins can reference any playlist. See [Referencing Other Playlists](#referencing-other-playlists)
   for details.
-- Ownership: By default, Smart Playlists are owned by the first admin user. You can change the ownership in the
-  Playlists view to allow other users to manage them.
+- Ownership: Smart Playlists imported from `.nsp` files are owned by the first admin user. Smart Playlists created in
+  a client are owned by the user who created them. An admin can change the ownership in the Playlists view to allow
+  other users to manage them.
 
 ### User-Specific Playlists
 
 Smart Playlists based on user interactions (e.g., play count, loved tracks) are automatically updated based on
 the owner's interactions. If you want personalized playlists for each user, create separate `.nsp` files for each user
-and assign ownership accordingly.
+and assign ownership accordingly, or let each user create their own Smart Playlists in a client.
 
 ### Refreshing Playlists
 
-Smart Playlists are refreshed automatically when they are accessed by the UI or any Subsonic client. This ensures
-that the playlist is up-to-date when you view it. To avoid unnecessary load, there is a minimum delay between refreshes.
+The track list of a Smart Playlist is not fixed. Navidrome evaluates the rules again, and refreshes the
+track list, when the UI or any Subsonic client accesses the playlist. This ensures that the playlist is up-to-date
+when you view it. To avoid unnecessary load, there is a minimum delay between refreshes.
 This delay can be adjusted by setting the
 [`SmartPlaylistRefreshDelay`](/docs/usage/configuration/options/#:~:text=SmartPlaylistRefreshDelay) configuration option.
 By default, this is set to `5s`, meaning that Smart Playlists refreshes are spaced at least 5 seconds apart.
@@ -218,14 +236,31 @@ supported, so values like `"12h"`, `"1d"`, `"1w"` or `"1d12h"` all work. The del
 from the last evaluation, not aligned to calendar days. When `refreshDelay` is not set, the global
 `SmartPlaylistRefreshDelay` applies.
 
-Editing the playlist's rules (by changing the `.nsp` file or via a client) always takes effect on the next access,
-even if the refresh delay has not elapsed yet.
+Editing the playlist's rules always takes effect on the next access, even if the refresh delay has not elapsed yet.
+For a playlist created in a client, that is the next access after you save the rules. For an imported playlist, it
+is the next access after the library scan imports the changed `.nsp` file.
+
+<a id="editing-playlists"></a>
+
+## Editing Smart Playlists
+
+Where you edit the rules depends on where the playlist came from:
+
+- **Imported from a `.nsp` file:** edit the file. Keep **Auto-import** enabled for the playlist, and the library
+  scan imports the new rules. A client can also change the rules of an imported playlist, but while Auto-import is
+  enabled, a later scan can import the file again and replace those changes. Navidrome never writes rule changes
+  back to the `.nsp` file.
+- **Created in a client, such as [Feishin](https://github.com/jeffvli/feishin/):** edit it in the client. The rules
+  live only in Navidrome's database, so there is no file to edit, and the change applies as soon as you save it.
+
+In both cases the list of tracks is read-only. Navidrome builds it from the rules, so you cannot add, remove or
+reorder tracks by hand. Change the rules instead.
 
 ## Troubleshooting Common Issues
 
 ### Playlist Not Showing Up
 
-If a Smart Playlist is not showing up in the Navidrome UI, check the following:
+If a Smart Playlist imported from a `.nsp` file is not showing up in the Navidrome UI, check the following:
 
 - Check the logs for any errors during the library scan.
 - Ensure the `.nsp` file is in the correct folder and has the correct permissions.
@@ -267,12 +302,6 @@ The global `order` field can still be used and will reverse the direction of all
 
 If you encounter issues deleting users with shared Smart Playlists, check if the playlists are used by other users.
 See [this issue](https://github.com/navidrome/navidrome/issues/3180) for details.
-
-### Editing Playlists
-
-To change the rules of a Smart Playlist, you need to edit the `.nsp` file directly
-(or use [Feishin](https://github.com/jeffvli/feishin/)). Changes are automatically detected during the next library scan.
-The list of tracks in a Smart Playlist is read-only and cannot be edited directly.
 
 ## Additional Resources
 
