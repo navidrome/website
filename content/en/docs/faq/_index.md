@@ -157,3 +157,26 @@ Yes, there are several options for running Navidrome in the cloud:
 **Docker-based Platforms**: Many cloud platforms support Docker deployments, making it easy to run Navidrome using the official Docker image.
 
 Check our [installation documentation](/docs/installation/) for specific guides on different deployment methods.
+
+---
+
+## ▶︎ Why can't I add, remove or reorder tracks in a playlist imported from an M3U file?
+
+In recent versions of Navidrome, a regular playlist imported from an `.m3u` file is read-only while its
+**Auto-import** option is enabled. The M3U file owns the track list. Each library scan reads the file again and
+replaces the playlist's tracks with the tracks in the file, so any change you made in Navidrome would be lost at
+the next scan. To prevent that, Navidrome refuses track changes to these playlists, in the web UI and in client
+apps. You can still rename the playlist, change its comment, and make it public or private.
+
+Pick one of these two ways to change the tracks:
+
+- **Edit the source M3U file.** Keep Auto-import enabled and change the `.m3u` file with a text editor or the
+  tool that created it. Navidrome loads the new track list at the next library scan.
+- **Disable Auto-import for that playlist.** In the Playlists list, turn off the **Auto-import** toggle for the
+  playlist. You can then add, remove and reorder its tracks in Navidrome or in any client. Navidrome stops reading
+  the M3U file for this playlist, and it never writes your changes back to the file. If you enable Auto-import
+  again later, the next scan replaces the playlist's tracks with the contents of the file.
+
+The [`AutoImportPlaylists`](/docs/usage/configuration/options/) configuration option is a different setting. It
+controls whether scans import playlist files at all. Setting it to `false` does not make playlists that were
+already imported editable. Use the per-playlist **Auto-import** toggle for that.
