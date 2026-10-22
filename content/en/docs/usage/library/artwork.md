@@ -130,8 +130,9 @@ Animated GIFs embedded in or associated with your music files are preserved duri
 
 ## Troubleshooting
 
-When artwork is wrong or missing, the `navidrome artwork` [CLI commands](/docs/usage/admin/cli/artwork/)
-show what happened. `artwork explain` prints the priority chain recorded for one item. It shows which
+When artwork is wrong or missing, start with one affected album or artist, not the whole library.
+Recent versions of Navidrome include the `navidrome artwork` [CLI commands](/docs/usage/admin/cli/artwork/),
+which show what happened. `artwork explain` prints the priority chain recorded for one item. It shows which
 candidate won, why the others lost, and whether a file was missing or present but unreadable.
 `artwork status` shows the queue, how many items have no image, and whether artwork settings changed
 since the last full reprocess.
@@ -140,5 +141,59 @@ Navidrome doesn't retry missing artwork by itself. Changing an artwork setting d
 that is already stored, either. `navidrome artwork reprocess` handles both. Use `--source absent` to
 retry missing artwork, or `--all` to apply a setting change. For a single album or artist, admins can
 use **Refresh Metadata** in its context menu.
+
+### Finding out why one item has no artwork
+
+1. **Run the commands with your server's settings.** The CLI must read the same configuration file and data
+   folder as the server, or it looks at a different database. Pass them with `--configfile` and `--datafolder`
+   if they are not in the default location. In Docker, run the commands inside the Navidrome container, as
+   explained in [Running the CLI in Docker](/docs/usage/admin/cli/#running-the-cli-in-docker):
+
+   ```bash
+   navidrome --configfile /etc/navidrome/navidrome.toml artwork status
+   docker compose exec navidrome navidrome artwork status
+   ```
+
+2. **Check the overall state.** `navidrome artwork status` shows how many items have no image, and how many
+   gave up after repeated errors. It also tells you if you changed an artwork setting since the last full
+   reprocess.
+
+3. **Explain one item.** Open the album or artist in the web UI and copy its ID from the URL. It is the part
+   after `/album/` or `/artist/`. Then run:
+
+   ```bash
+   navidrome artwork explain <id>
+   ```
+
+   The `Chain` table lists every place Navidrome tried, and what happened at each. `miss` means nothing was
+   there. `unreadable` means a file exists but Navidrome could not open or decode it, so check that file.
+   `skipped` and `error` have the reason in the `DETAIL` column. The command reads the result Navidrome
+   recorded, and it makes no external requests. Add `--live` only when you want it to try again now.
+
+4. **Fix the cause, then resolve that item again** with `navidrome artwork refresh <id>`. If many items had the
+   same problem, use `navidrome artwork reprocess --source absent --dry-run` to preview the bulk retry before
+   you run it.
+
+### Asking for help
+
+If you still need help, open a [discussion](https://github.com/navidrome/navidrome/discussions) and include:
+
+- Your Navidrome version (shown in the web UI's **About** dialog, or with `navidrome --version`) and how you
+  installed it (Docker, binary, package manager, Windows installer, and so on).
+- Where the missing image should come from: embedded in the music files, a local image file next to the
+  music (such as `cover.jpg` or `artist.jpg`), or an external service such as Last.fm.
+- The output of `navidrome artwork status`, and of `navidrome artwork explain` for the one item.
+
+Before you post, remove passwords, API keys, tokens, and private URLs, such as your server's address, from the
+output and your configuration.
+
+{{% alert color="warning" title="Things to avoid" %}}
+Do not delete the database (`navidrome.db`) to "reset" artwork. You lose users, playlists, play counts and
+ratings, and Navidrome then resolves the same artwork again from the same sources.
+
+Do not change permissions on your whole music or data folder (for example with `chmod -R 777`). It rarely fixes
+missing artwork, and it gives every user on the system write access to your files. If `explain` shows a file as
+`unreadable`, fix only that file, and give the user that runs Navidrome read access to it.
+{{% /alert %}}
 
 [advanced-configuration]: /docs/usage/configuration/options/#advanced-configuration
