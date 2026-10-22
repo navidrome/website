@@ -185,7 +185,7 @@ already imported editable. Use the per-playlist **Auto-import** toggle for that.
 
 ## ▶︎ Some albums or artists have no artwork. How do I find out why?
 
-Start with one affected album or artist, not the whole library. Navidrome 0.64.0 and later include the
+Start with one affected album or artist, not the whole library. Recent versions of Navidrome include the
 [`navidrome artwork`](/docs/usage/admin/cli/artwork/) commands, which show what Navidrome found for an item and
 why. See [Artwork resolution](/docs/usage/library/artwork/) for where Navidrome looks for images and in what order.
 
