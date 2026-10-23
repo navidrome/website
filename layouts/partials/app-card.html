@@ -172,7 +172,13 @@
           {{ end }}
         {{ end }}
         {{ if $platforms.windows }}
-          <span title="Windows"><i class="fab fa-windows"></i></span>
+          {{ if and (ne (printf "%T" $platforms.windows) "bool") (isset $platforms.windows "store") }}
+            <a href="{{ $platforms.windows.store }}" target="_blank" rel="noopener" title="Windows">
+              <i class="fab fa-windows"></i>
+            </a>
+          {{ else }}
+            <span title="Windows"><i class="fab fa-windows"></i></span>
+          {{ end }}
         {{ end }}
         {{ if $platforms.linux }}
           <span title="Linux"><i class="fab fa-linux"></i></span>
