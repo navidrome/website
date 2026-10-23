@@ -7,10 +7,12 @@ platforms:
     store: https://apps.apple.com/app/navibeat/id6763518834?platform=mac
   tvos:
     store: https://apps.apple.com/us/app/navibeat/id6763518834?platform=tv
+  android:
+    store: https://play.google.com/store/apps/details?id=app.navibeat.android
   windows:
     store: https://navibeat.app/windows
 api: OpenSubsonic
-description: "A native player for Subsonic, OpenSubsonic and Navidrome: iPhone, iPad, Mac, Apple TV, Apple Watch and CarPlay from one Universal Purchase, and Windows, sold on its own. Time-synced lyrics, offline downloads, internet radio, Last.fm and ListenBrainz. Sessions move between devices over the play queue. Similar artists come from your own server, AudioMuse-AI included. Its own Navidrome plugin puts personal mixes on Home. No analytics, no accounts, no backend. A paid Mac add-on syncs to Rockbox."
+description: "A native player for Subsonic, OpenSubsonic and Navidrome: iPhone, iPad, Mac, Apple TV, Apple Watch and CarPlay from one Universal Purchase, and Android and Windows, each sold on its own. Time-synced lyrics, offline downloads, internet radio, Last.fm and ListenBrainz. Sessions move between devices over the play queue. Similar artists come from your own server. Its own Navidrome plugin puts personal mixes on Home. No analytics, no accounts, no backend. A paid Mac add-on syncs to Rockbox."
 screenshots:
   thumbnail: thumbnail.webp
   gallery:
