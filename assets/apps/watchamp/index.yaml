@@ -1,6 +1,7 @@
 name: WatchAmp
 url: https://watchamp.nerdypup.com
 repoUrl: https://github.com/fkick/WatchAmp
+isOpenSource: false
 
 platforms:
   ios:
