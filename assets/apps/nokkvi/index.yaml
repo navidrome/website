@@ -4,20 +4,20 @@ repoUrl: https://github.com/f-o-o-g-s/nokkvi
 platforms:
   linux: true
 api: Navidrome
-description: "A native Navidrome client for Linux, built in Rust on its own PipeWire engine for gapless, opt-in bit-perfect playback, with a GPU-accelerated visualizer, in-app smart playlists, and shell control of the running player."
+description: "A native Navidrome player for Linux, built in Rust on its own PipeWire engine for gapless playback, crossfades and opt-in bit-perfect output. Comes with GPU visualizers and MilkDrop presets, lyrics synced by line or by word, a smart playlist editor, a mix builder, and a CLI for scripting the running player."
 screenshots:
-  thumbnail: queue-scope.webp
+  thumbnail: hero.webp
   gallery:
-    - queue-tall.webp
-    - queue-bars.webp
-    - albums.webp
-    - playlists-collage.webp
-    - artists.webp
+    - queue.webp
+    - lyrics.webp
+    - milkdrop.webp
+    - tiling.webp
+    - shell.webp
 pricing: free
 keywords:
-  - rust
-  - pipewire
-  - bit-perfect
   - tiling-wm
-  - smart-playlists
+  - wayland
+  - equalizer
+  - karaoke
+  - themes
   - scriptable
