@@ -5,6 +5,7 @@ name: WatchAmp
    platforms:
      ios:
        store: https://apps.apple.com/us/app/watchamp-for-plex-jellyfin/id6761737569
+     other: true
 
    api: OpenSubsonic
    description: A native Apple Watch music & audiobook player for Navidrome, OpenSubsonic, Plex, and Jellyfin. Stream or download your library for phone-free listening, with browsing, search, playlists, and playback controls.
