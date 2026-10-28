@@ -1,0 +1,28 @@
+name: Naviamp
+url: https://goosepod.com/naviamp/
+repoUrl: https://github.com/goosepod/naviamp
+isOpenSource: true
+pricing: free
+platforms:
+  android: true
+  ios: true
+  macos:
+    store: https://apps.apple.com/app/naviamp-music-player/id6821135881?platform=mac
+  windows:
+    store: https://apps.microsoft.com/detail/9PCFJ644LXLL
+  linux: true
+api: Navidrome
+description: "A cross-platform music player with offline downloads, gapless playback, crossfade, ReplayGain, synced lyrics, playlists, and customizable artwork-based layouts. Available on macOS, Windows, Linux and Android, with an iOS beta through TestFlight."
+screenshots:
+  thumbnail: thumbnail.webp
+  gallery:
+    - library.webp
+    - album.webp
+    - compact.webp
+keywords:
+  - offline
+  - replaygain
+  - crossfade
+  - lyrics
+  - chromecast
+  - android auto
