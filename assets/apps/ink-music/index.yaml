@@ -1,0 +1,24 @@
+name: ink music
+url: https://inkhome.app/music
+repoUrl: https://github.com/inkappdev/ink-music
+platforms:
+  android: true
+  macos: true
+  windows: true
+  linux: true
+api: OpenSubsonic
+description: "A free, open-source player for Android, Mac, Windows and Linux, built around your album art. Gapless, ReplayGain, offline, Chromecast and DLNA, sync between phone and computer, ListenBrainz and Last.fm."
+screenshots:
+  thumbnail: thumbnail.webp
+  gallery:
+    - screen1.webp
+    - screen2.webp
+    - screen3.webp
+keywords:
+  - chromecast
+  - dlna
+  - offline
+  - android auto
+  - replaygain
+
+pricing: free
