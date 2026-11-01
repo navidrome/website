@@ -1,0 +1,28 @@
+name: Trackhop
+url: https://xlollx.github.io/Trackhop/
+repoUrl: https://github.com/xlollx/Trackhop
+platforms:
+  android:
+    store: https://f-droid.org/packages/com.xlollx.songport/
+  windows:
+    store: https://apps.microsoft.com/detail/9PFX74Q2XN9P
+  macos: true
+  linux: true
+  docker:
+    store: https://hub.docker.com/r/xlollx/trackhop
+api: OpenSubsonic
+description: Keeps playlists in sync between Navidrome and streaming services such as Spotify, TIDAL, Deezer, Apple Music and YouTube Music, in either direction and on a schedule. Matches tracks by ISRC, then by title, artist and duration, and lists what was not found. Android app, desktop app for Windows, macOS and Linux, and a Docker server with a web UI.
+screenshots:
+  thumbnail: thumbnail.webp
+  gallery:
+    - screen1.webp
+    - screen2.webp
+    - screen3.webp
+    - screen4.webp
+pricing: free
+keywords:
+  - playlist
+  - sync
+  - spotify
+  - transfer
+  - migration
