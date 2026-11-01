@@ -1,0 +1,28 @@
+name: Subsonic Player
+url: https://play.google.com/store/apps/details?id=com.subsonic20.player
+
+platforms:
+  android:
+    store: https://play.google.com/store/apps/details?id=com.subsonic20.player
+
+api: Subsonic
+
+description: "A modern Android music player designed for Navidrome and compatible Subsonic servers. Features Android Auto, offline playback, synchronized lyrics, multi-server support, playlists, internet radio, and listening statistics."
+
+pricing: free
+
+screenshots:
+  thumbnail: thumbnail.webp
+  gallery:
+    - library.webp
+    - home.webp
+    - albums.webp
+    - player.webp
+
+keywords:
+  - navidrome
+  - subsonic
+  - android auto
+  - offline
+  - lyrics
+  - music
