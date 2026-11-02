@@ -1,0 +1,23 @@
+name: Dino's Jukebox
+url: https://www.matthews.casa/iphonejukebox/
+platforms:
+  ios:
+    store: https://apps.apple.com/app/id6825466032
+api: Subsonic
+description: "A jukebox for your own music on iPhone and CarPlay. Plays from Navidrome and other Subsonic servers, plus Plex, Jellyfin, Emby, Synology Audio Station, SMB, WebDAV, UPnP and Dropbox, with a Hot Here chart, a countdown with a DJ voice, crossfades, a 10-band EQ, synced lyrics and offline downloads."
+screenshots:
+  thumbnail: thumbnail.webp
+  gallery:
+    - screen1.webp
+    - screen2.webp
+    - screen3.webp
+    - screen4.webp
+    - screen5.webp
+keywords:
+  - jukebox
+  - carplay
+  - dj voice
+  - countdown
+  - crossfade
+  - offline
+pricing: trial
