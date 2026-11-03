@@ -1,0 +1,35 @@
+name: LynMusic (App Store)
+url: https://apps.apple.com/us/app/lynmusic/id6797922509
+
+isOpenSource: false
+pricing: freemium
+
+platforms:
+  ios:
+    store: https://apps.apple.com/us/app/lynmusic/id6797922509
+  macos:
+    store: https://apps.apple.com/us/app/lynmusic/id6797922509?platform=mac
+  tvos:
+    store: https://apps.apple.com/us/app/lynmusic/id6797922509?platform=tv
+
+api: Navidrome
+
+description: >-
+  LynMusic is a music player for iPhone, iPad, Mac, and Apple TV. Bring your music together from local files, SMB, WebDAV, Navidrome, Subsonic, Emby, and Jellyfin. 
+  Enjoy synced lyrics, playlists, favorites, a sleep timer, and AirPlay. On iPhone, iPad, and Mac, download music for offline listening and share lyrics as images.
+
+screenshots:
+  thumbnail: thumbnail.webp
+  gallery:
+    - iphone-library.webp
+    - iphone-player-lrc.webp
+    - mac-player.webp
+    - tv-library.webp
+    - tv-player.webp
+
+keywords:
+  - offline
+  - Navidrome
+  - smb
+  - webdav
+  - nas
