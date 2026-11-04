@@ -372,6 +372,12 @@ Here are some recommendations and tips on workflow:
     $setmulti(albumartists,%_albumartists%)
     $setmulti(albumartistssort,%_albumartists_sort%)
     $setmulti(artistssort,%_artists_sort%)
+    # This is very helpful for unifying artist names,
+    # as Navidrome prefers a consistent singular name for display
+    # just like: Eminem featuring Dido -> Eminem; Dido
+    $copy(artist,artists)
+    # For the album artist
+    $copy(albumartist,albumartists)
     ```
     ```shell
     # Album Version
