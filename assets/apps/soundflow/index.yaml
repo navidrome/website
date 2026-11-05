@@ -4,23 +4,30 @@ url: https://apps.apple.com/app/soundflow-your-music-in-flow/id6810233571
 platforms:
   ios:
     store: https://apps.apple.com/app/soundflow-your-music-in-flow/id6810233571
+  macos:
+    store: https://apps.apple.com/app/soundflow-your-music-in-flow/id6810233571?platform=mac
+  tvos:
+    store: https://apps.apple.com/app/soundflow-your-music-in-flow/id6810233571?platform=tv
 
 api: OpenSubsonic
 
-description: "SoundFlow is a native iOS client for Navidrome, built for focused listening across multiple servers and music libraries. Stream or cache your music for offline playback, manage queues and favorites, view synchronized lyrics, and listen with AirPlay."
+description: "SoundFlow is a native Navidrome client for iPhone, iPad, Mac, and Apple TV, with unified browsing across multiple servers and music libraries. Enjoy synchronized lyrics, queues and favorites, offline downloads on iOS and macOS, AirPlay, and password-encrypted iCloud configuration backups."
 
 screenshots:
   thumbnail: thumbnail.webp
   gallery:
-    - screen1.webp
-    - screen2.webp
+    - iphone-player.webp
+    - ipad-library.webp
+    - mac-home.webp
+    - mac-player.webp
+    - tv-player.webp
 
 pricing: freemium
 
 keywords:
-  - navidrome
   - opensubsonic
-  - offline
-  - airplay
-  - lyrics
   - ios
+  - macos
+  - tvos
+  - self-hosted
+  - streaming
