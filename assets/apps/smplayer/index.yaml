@@ -1,0 +1,26 @@
+name: SMPlayer
+url: https://smplayer.gaotao.vip/
+platforms:
+  ios:
+    store: https://apps.apple.com/app/smplayer/id6828838119
+  tvos:
+    store: https://apps.apple.com/app/smplayer/id6828838119?platform=tv
+  macos: true
+  android: true
+api: OpenSubsonic
+description: "All-in-one player for iPhone, iPad, Mac, Apple Watch and Apple TV, with an Android app too. Plays FLAC, ALAC, APE and DSD natively with gapless playback, ReplayGain, a 10-band EQ, word-by-word synced lyrics, CarPlay, offline downloads and a Run Mode that matches songs to your cadence. Also connects to Jellyfin, Plex, Synology and WebDAV/SMB."
+screenshots:
+  thumbnail: thumbnail.webp
+  gallery:
+    - screen1.webp
+    - screen2.webp
+    - screen3.webp
+    - screen4.webp
+pricing: freemium
+keywords:
+  - carplay
+  - apple watch
+  - apple tv
+  - lossless
+  - dsd
+  - lyrics
