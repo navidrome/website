@@ -1,0 +1,21 @@
+name: Cadenza
+url: https://apps.garmin.com/en-US/apps/2d27d725-3a76-4dfb-9155-3b093e04b871
+platforms:
+  other:
+    store: https://apps.garmin.com/en-US/apps/2d27d725-3a76-4dfb-9155-3b093e04b871
+api: Subsonic
+description: "Offline music for Garmin watches. Syncs playlists, albums and whole artists over Wi-Fi for playback with Bluetooth headphones. On Navidrome it uses the native API to page long playlists; it also works with Plex and Jellyfin."
+screenshots:
+  thumbnail: player.webp
+  gallery:
+    - playlists.webp
+    - choose-lists.webp
+    - sync.webp
+    - servers.webp
+keywords:
+  - garmin
+  - watch
+  - offline
+  - connect iq
+
+pricing: free
