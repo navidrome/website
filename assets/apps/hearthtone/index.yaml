@@ -1,0 +1,20 @@
+name: Hearthtone
+url: https://hearthtone.app/
+platforms:
+  ios:
+    store: https://apps.apple.com/app/id6823359629
+  macos:
+    store: https://apps.apple.com/app/id6823359629?platform=mac
+api: OpenSubsonic
+description: "Native Navidrome and Subsonic player for iPhone, iPad, and Mac with library search, synced lyrics, and CarPlay on iPhone. Streaming from one server is free, and a one-time Pro purchase adds offline downloads and multiple servers."
+screenshots:
+  thumbnail: thumbnail.webp
+  gallery:
+    - iphone-album.webp
+    - iphone-downloads.webp
+pricing: freemium
+keywords:
+  - carplay
+  - offline
+  - downloads
+  - synced lyrics
