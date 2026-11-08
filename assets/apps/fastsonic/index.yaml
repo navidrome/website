@@ -1,0 +1,22 @@
+name: Fastsonic
+url: https://fastsonic.wojsznis.eu
+platforms:
+  ios:
+    store: https://apps.apple.com/app/fastsonic/id6821304227
+api: OpenSubsonic
+description: "A fast, dark, music first iPhone client that keeps your catalog on the device for instant browsing and search, even offline. Give it both a local and a remote server URL and it switches between them seamlessly as you leave or come home. Gapless playback, synced lyrics, custom headers for reverse proxies, and album downloads with a one-time in-app purchase."
+screenshots:
+  thumbnail: thumbnail.webp
+  gallery:
+    - screen1.webp
+    - screen2.webp
+    - screen3.webp
+    - screen4.webp
+pricing: freemium
+keywords:
+  - offline
+  - gapless
+  - lyrics
+  - lossless
+  - scrobbling
+  - reverse proxy
