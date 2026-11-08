@@ -1,6 +1,3 @@
-# Bzide's entry for Navidrome's app catalog (navidrome.org/apps), Gitea #23.
-# Copy this folder to assets/apps/bzide/ in a fork of navidrome/website once
-# Bzide is on the App Store, then follow README.md next to this folder.
 name: Bzide
 url: https://bzide.hillcraft-sc.com
 pricing: free
