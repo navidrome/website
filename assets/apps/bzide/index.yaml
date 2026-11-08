@@ -1,0 +1,26 @@
+# Bzide's entry for Navidrome's app catalog (navidrome.org/apps), Gitea #23.
+# Copy this folder to assets/apps/bzide/ in a fork of navidrome/website once
+# Bzide is on the App Store, then follow README.md next to this folder.
+name: Bzide
+url: https://bzide.hillcraft-sc.com
+repoUrl: https://github.com/hillcraft-sc/bzide
+pricing: free
+platforms:
+  ios:
+    store: https://apps.apple.com/app/bzide/id6825602899
+api: OpenSubsonic
+description: "A native iPhone and iPad player for Navidrome, built for reliable playback: gapless, offline downloads, CarPlay, widgets, Siri, synced lyrics, internet radio and a music visualizer."
+screenshots:
+  thumbnail: thumbnail.webp
+  gallery:
+    - screen1.webp
+    - screen2.webp
+    - screen3.webp
+    - screen4.webp
+keywords:
+  - carplay
+  - widgets
+  - siri
+  - offline
+  - radio
+  - lyrics
