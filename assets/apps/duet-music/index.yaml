@@ -1,0 +1,23 @@
+name: Duet Music
+url: https://apps.apple.com/app/duet-music/id6824556362
+platforms:
+  ios:
+    store: https://apps.apple.com/app/duet-music/id6824556362
+api: OpenSubsonic
+description: "A native iPhone player built for iPhone Duo and CarPlay. Smart mixes made from your own library, lossless gapless playback, synced lyrics, offline downloads with automatic rules, playlist editing, Siri, widgets, and seasonal blackouts that hide music like Christmas songs for the rest of the year."
+screenshots:
+  thumbnail: home.webp
+  gallery:
+    - now-playing.webp
+    - duo-up-next.webp
+    - duo-lyrics.webp
+    - downloaded.webp
+    - search.webp
+pricing: free
+keywords:
+  - carplay
+  - iphone duo
+  - offline
+  - lyrics
+  - gapless
+  - smart mixes
