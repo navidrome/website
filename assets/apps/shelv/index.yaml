@@ -7,16 +7,13 @@ platforms:
     store: https://apps.apple.com/us/app/shelv-player/id6762255865?platform=mac
   tvos:
     store: https://apps.apple.com/us/app/shelv-player/id6762255865?platform=tv
-  docker:
-    store: https://ghcr.io/gatzenga/shelv-web:latest
 api: Subsonic
-description: "Shelv is a native SwiftUI music client for Navidrome and Subsonic-compatible servers. Browse albums, artists, playlists, favorites, lyrics and radio in a clean Apple-style interface for iPhone, iPad, Mac and Apple TV. Offline downloads, smart caching, queue tools and optional iCloud sync keep your music flowing everywhere."
+description: "Shelv is a native, open-source SwiftUI client for iPhone, iPad, Mac and Apple TV. Browse albums, artists, playlists, favorites, lyrics and radio in a clean Apple-style interface, with offline downloads and optional iCloud sync."
 screenshots:
   thumbnail: thumbnail.webp
   gallery:
     - ipad.webp
     - mac.webp
     - tv.webp
-repoUrl: https://github.com/gatzenga/Shelv
-
+repoUrl: https://codefloe.com/gatzenga/Shelv
 pricing: free
