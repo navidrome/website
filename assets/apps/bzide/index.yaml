@@ -3,7 +3,6 @@
 # Bzide is on the App Store, then follow README.md next to this folder.
 name: Bzide
 url: https://bzide.hillcraft-sc.com
-repoUrl: https://github.com/hillcraft-sc/bzide
 pricing: free
 platforms:
   ios:
