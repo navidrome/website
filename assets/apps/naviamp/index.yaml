@@ -5,14 +5,15 @@ isOpenSource: true
 pricing: free
 platforms:
   android: true
-  ios: true
+  ios:
+    store: https://testflight.apple.com/join/efbB6TFd
   macos:
     store: https://apps.apple.com/app/naviamp-music-player/id6821135881?platform=mac
   windows:
     store: https://apps.microsoft.com/detail/9PCFJ644LXLL
   linux: true
 api: Navidrome
-description: "A cross-platform music player with offline downloads, gapless playback, crossfade, ReplayGain, synced lyrics, playlists, and customizable artwork-based layouts. Available on macOS, Windows, Linux and Android, with an iOS beta through TestFlight."
+description: "A cross-platform music player with offline downloads, gapless playback, crossfade, ReplayGain, synced lyrics, smart playlists, Aurral music discovery, certificate-protected server connections, and customizable artwork-based layouts. Available on macOS, Windows, Linux and Android, with an iOS beta through TestFlight."
 screenshots:
   thumbnail: thumbnail.webp
   gallery:
@@ -20,9 +21,9 @@ screenshots:
     - album.webp
     - compact.webp
 keywords:
-  - offline
+  - jellyfin
   - replaygain
   - crossfade
-  - lyrics
+  - android tv
   - chromecast
   - android auto
