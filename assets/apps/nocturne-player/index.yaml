@@ -1,0 +1,40 @@
+name: Nocturne Player
+url: https://nocturne.razex.online/?lang=en
+repoUrl: https://github.com/RAZEX0LOL/nocturne-player
+# Source-available under PolyForm Noncommercial 1.0.0, not an open source license.
+isOpenSource: false
+
+platforms:
+  ios:
+    store: https://apps.apple.com/app/id6814215090
+  macos:
+    store: https://apps.apple.com/app/id6814215090?platform=mac
+  android: true
+  windows: true
+  linux: true
+
+api: OpenSubsonic
+
+description: >-
+  A free music player for Navidrome and Subsonic servers on iPhone, iPad, Mac,
+  Windows, Linux and Android. Features offline downloads, local files, synced
+  lyrics with optional LRCLIB lookup, ReplayGain, an equalizer, crossfade and
+  playback queue synchronization between devices.
+
+screenshots:
+  thumbnail: thumbnail.webp
+  gallery:
+    - desktop-album.webp
+    - ios-player.webp
+    - android-player.webp
+    - desktop-settings-light.webp
+
+pricing: free
+
+keywords:
+  - ipad
+  - offline
+  - lyrics
+  - equalizer
+  - replaygain
+  - local files
