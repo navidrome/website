@@ -1,0 +1,25 @@
+name: QuietCast
+url: https://quietlyuseful.co.uk/quietcast/
+# Source-available (PolyForm Strict 1.0.0), not open source
+repoUrl: https://github.com/QuietlyUseful/QuietCast
+isOpenSource: false
+platforms:
+  ios:
+    store: https://apps.apple.com/app/quietcast-music-audiobooks/id6774639678
+api: OpenSubsonic
+description: "Music from Navidrome, plus audiobooks and podcasts from Audiobookshelf, in one native iPhone player. Gapless albums, playlists and smart playlists, lyrics, lossless and hi-res marked, CarPlay, Apple Watch and Siri. No accounts, ads or analytics. Free to stream; a one-off Pro purchase adds unlimited downloads."
+screenshots:
+  thumbnail: thumbnail.webp
+  gallery:
+    - home.webp
+    - library.webp
+    - album.webp
+    - book.webp
+pricing: freemium
+keywords:
+  - audiobookshelf
+  - audiobooks
+  - podcasts
+  - carplay
+  - apple watch
+  - offline
