@@ -1,0 +1,28 @@
+name: Söngr
+url: https://apps.apple.com/app/id6827109298
+
+platforms:
+  ios:
+    store: https://apps.apple.com/app/id6827109298
+
+api: OpenSubsonic
+
+description: "A calm, fast iPhone player for Navidrome and Subsonic that connects straight to your own server, with no account, ads or subscription. Browse your library, playlists and favourites, search by quality, year, genre and duration, download for offline listening, and get Quick Picks, radio and lyrics when your server supports them."
+
+screenshots:
+  thumbnail: thumbnail.webp
+  gallery:
+    - screen1.webp
+    - screen2.webp
+    - screen3.webp
+    - screen4.webp
+
+pricing: free
+
+keywords:
+  - navidrome
+  - subsonic
+  - self-hosted
+  - offline
+  - lyrics
+  - radio
