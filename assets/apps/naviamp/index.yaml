@@ -13,7 +13,7 @@ platforms:
     store: https://apps.microsoft.com/detail/9PCFJ644LXLL
   linux: true
 api: Navidrome
-description: "A cross-platform music player with offline downloads, gapless playback, crossfade, ReplayGain, synced lyrics, smart playlists, Aurral music discovery, certificate-protected server connections, and customizable artwork-based layouts. Available on macOS, Windows, Linux and Android, with an iOS beta through TestFlight."
+description: "A cross-platform music player with offline downloads, gapless playback, crossfade, ReplayGain, synced lyrics, smart playlists, internet radio, Aurral discovery and request tracking, and customizable artwork layouts. Available on macOS, Windows, Linux (including an official signed Flatpak), Android and Android TV, with an iOS beta through TestFlight."
 screenshots:
   thumbnail: thumbnail.webp
   gallery:
