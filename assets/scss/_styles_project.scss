@@ -700,5 +700,12 @@
   }
 }
 
+// The theme toggle's hidden label is absolutely positioned. Without a
+// positioned ancestor inside the navbar's scroll area, it escapes that area's
+// clipping and widens the page on phones, causing horizontal scroll.
+.td-navbar .dropdown-toggle {
+  position: relative;
+}
+
 // Import app filters styling
 @import "app-filters";
