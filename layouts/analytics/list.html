@@ -1,17 +1,18 @@
 {{ define "main" }}
 <div class="container">
   <div class="analytics-page">
-    <h1 class="text-center my-4">Navidrome Usage Statistics</h1>
+    <h1 class="analytics-heading text-center my-4">Navidrome Usage Statistics</h1>
     <p class="lead text-center mb-4">
       These charts display anonymous, aggregated data from Navidrome
       installations worldwide. Understanding how the software is used helps
       prioritize features and improvements.
     </p>
-    <p class="text-center mb-5">
+    <p class="text-center mb-2">
       <a href="/docs/getting-started/insights/"
         >Learn more about how this data is gathered</a
       >
     </p>
+    <p id="charts-meta" class="analytics-meta text-center text-muted mb-5"></p>
     <div id="charts-container">
       <div class="loading text-center py-5 text-muted">Loading charts...</div>
     </div>
@@ -25,13 +26,29 @@
     padding-top: 80px;
     padding-bottom: 20px;
   }
-  .chart-container {
+  .analytics-meta {
+    font-size: 0.9rem;
+  }
+  .analytics-page .chart-card {
     background: var(--bs-body-bg);
     border: 1px solid var(--bs-border-color);
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     margin-bottom: 20px;
     padding: 20px;
+  }
+  .chart-title {
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin: 0 0 4px;
+  }
+  .chart-note {
+    font-size: 0.85rem;
+    color: var(--bs-secondary-color);
+    margin: 0 0 8px;
+  }
+  .chart-note:empty {
+    display: none;
   }
   .chart {
     width: 100%;
@@ -42,6 +59,33 @@
     padding: 50px;
     color: #d32f2f;
   }
+
+  /* Phones: let the charts use the full screen width. */
+  @media (max-width: 639.98px) {
+    .analytics-page {
+      padding-top: 64px;
+    }
+    .analytics-heading {
+      font-size: 1.75rem;
+    }
+    .analytics-page .lead {
+      font-size: 1.05rem;
+    }
+    #charts-container {
+      margin: 0 -12px;
+    }
+    .analytics-page .chart-card {
+      border-radius: 0;
+      border-left: 0;
+      border-right: 0;
+      box-shadow: none;
+      margin-bottom: 12px;
+      padding: 16px 12px 12px;
+    }
+    .chart-title {
+      font-size: 1.05rem;
+    }
+  }
 </style>
 
 <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
@@ -50,6 +94,13 @@
   // capped at the most recent MAX_DAYS points. This counts points on the x-axis,
   // so it only equals days while the endpoint returns daily buckets.
   const MAX_DAYS = 517;
+
+  // Charts narrower than this get the phone layout.
+  const NARROW_WIDTH = 640;
+
+  // On phones, pie charts become ranked bars: the biggest slices, plus one
+  // "Others" bar that holds the rest.
+  const MAX_RANKED_BARS = 12;
 
   // Keeps only the last MAX_DAYS points of a date-based chart.
   // Charts without a dated x-axis (pie, bar) are returned unchanged.
@@ -98,113 +149,293 @@
     return {
       textColor: dark ? "#e0e0e0" : "#333333",
       legendTextColor: dark ? "#cccccc" : "#000000",
+      barColor: dark ? "#7fa9d4" : "#30638e",
+      mutedBarColor: dark ? "#5c6470" : "#b8c0ca",
+      gridLineColor: dark ? "#3a3f46" : "#e0e6f1",
     };
   }
 
+  const toArray = (v) => (v == null ? [] : Array.isArray(v) ? v : [v]);
+  const isPie = (options) => options.series?.[0]?.type === "pie";
+  const categoryAxis = (axes) => toArray(axes).find((ax) => Array.isArray(ax.data));
+
+  function formatPercent(value, total) {
+    const pct = total ? (value / total) * 100 : 0;
+    return pct < 1 ? `${pct.toFixed(1)}%` : `${Math.round(pct)}%`;
+  }
+
+  // "Dec 17, 2024" -> "Dec '24". Leaves any other label as it is.
+  function shortDate(label) {
+    const m = /^([A-Za-z]{3}) \d{1,2}, \d{2}(\d{2})$/.exec(label);
+    return m ? `${m[1]} '${m[2]}` : label;
+  }
+
+  // Desktop keeps the chart as the endpoint sends it. Only the title moves
+  // out of the canvas, into the card heading.
+  function wideOptions(options) {
+    const legend = options.legend || {};
+    const topLegend = legend.show !== false && legend.orient === "horizontal";
+    return {
+      ...options,
+      legend: topLegend ? { ...legend, top: 0 } : legend,
+      grid: options.grid?.map((g) => ({ ...g, top: topLegend ? 40 : 24 })),
+    };
+  }
+
+  // Phone layout for line and bar charts: the plot gets the full width, the
+  // legend goes under it, and labels get smaller.
+  function narrowOptions(options) {
+    const series = options.series || [];
+    const legend = options.legend || {};
+    const showLegend = legend.show !== false && series.length > 1;
+    const yIsCategory = Boolean(categoryAxis(options.yAxis));
+
+    const axis = (ax, isX) => {
+      const isCategory = Array.isArray(ax.data);
+      const label = {
+        ...ax.axisLabel,
+        fontSize: 10,
+        hideOverlap: true,
+        ...(isCategory && isX && { formatter: shortDate }),
+      };
+      // The card heading names the categories, so their axis name goes.
+      // A value axis keeps its name, set small and out of the plot's way.
+      if (isCategory) return { ...ax, name: "", axisLabel: label };
+      return {
+        ...ax,
+        axisLabel: label,
+        nameTextStyle: { fontSize: 11 },
+        ...(isX
+          ? { nameLocation: "center", nameGap: 26 }
+          : { nameLocation: "end", nameGap: 10, nameTextStyle: { fontSize: 11, align: "left" } }),
+      };
+    };
+
+    return {
+      ...options,
+      legend: showLegend
+        ? {
+            ...legend,
+            type: "scroll",
+            orient: "horizontal",
+            top: undefined,
+            right: undefined,
+            left: "center",
+            bottom: 0,
+            itemWidth: 14,
+            itemHeight: 10,
+            itemGap: 12,
+            pageIconSize: 10,
+            textStyle: { ...legend.textStyle, fontSize: 11 },
+          }
+        : { ...legend, show: false },
+      grid: [
+        {
+          left: 4,
+          right: 16,
+          top: yIsCategory ? 8 : 28,
+          bottom: (yIsCategory ? 28 : 4) + (showLegend ? 32 : 0),
+          containLabel: true,
+        },
+      ],
+      tooltip: { ...options.tooltip, confine: true, textStyle: { fontSize: 11 } },
+      xAxis: toArray(options.xAxis).map((ax) => axis(ax, true)),
+      yAxis: toArray(options.yAxis).map((ax) => axis(ax, false)),
+      series: series.map((s) => ({
+        ...s,
+        ...(s.type === "line" && { symbol: "none" }),
+        ...(s.markArea && {
+          markArea: { ...s.markArea, label: { ...s.markArea.label, fontSize: 10 } },
+        }),
+      })),
+    };
+  }
+
+  // A pie with dozens of thin slices and a long legend can't be read on a
+  // phone. A ranked list of bars, labeled with its share, can.
+  function rankedBarRows(options) {
+    const slices = [...(options.series[0].data || [])].sort((a, b) => b.value - a.value);
+    const total = slices.reduce((sum, s) => sum + (s.value || 0), 0);
+    const named = slices.filter((s) => s.name !== "Others");
+    const head = named.slice(0, MAX_RANKED_BARS);
+    const rest = slices
+      .filter((s) => !head.includes(s))
+      .reduce((sum, s) => sum + (s.value || 0), 0);
+    const rows = head.map((s) => ({ name: s.name, value: s.value, others: false }));
+    if (rest > 0) rows.push({ name: "Others", value: rest, others: true });
+    return { rows, total };
+  }
+
+  function rankedBarOptions(options, colors, width) {
+    const { rows, total } = rankedBarRows(options);
+    const seriesName = options.series[0].name;
+    return {
+      backgroundColor: options.backgroundColor,
+      legend: { show: false },
+      grid: [{ left: 4, right: 44, top: 4, bottom: 4, containLabel: true }],
+      tooltip: {
+        trigger: "item",
+        confine: true,
+        textStyle: { fontSize: 11 },
+        formatter: (p) =>
+          `${p.name}<br><b>${p.value.toLocaleString()}</b> (${formatPercent(p.value, total)})`,
+      },
+      xAxis: [{ type: "value", show: false, max: "dataMax" }],
+      yAxis: [
+        {
+          type: "category",
+          inverse: true,
+          data: rows.map((r) => r.name),
+          axisTick: { show: false },
+          axisLine: { show: false },
+          axisLabel: {
+            fontSize: 11,
+            width: Math.round(width * 0.42),
+            // Wrap long names: truncating can make two names look the same
+            overflow: "break",
+            lineHeight: 13,
+          },
+        },
+      ],
+      series: [
+        {
+          name: seriesName,
+          type: "bar",
+          barCategoryGap: "28%",
+          data: rows.map((r) => ({
+            value: r.value,
+            itemStyle: {
+              color: r.others ? colors.mutedBarColor : colors.barColor,
+              borderRadius: [0, 3, 3, 0],
+            },
+          })),
+          label: {
+            show: true,
+            position: "right",
+            fontSize: 11,
+            color: colors.textColor,
+            formatter: (p) => formatPercent(p.value, total),
+          },
+        },
+      ],
+    };
+  }
+
+  function chartHeight(options, narrow) {
+    if (!narrow) return 500;
+    if (isPie(options)) return rankedBarRows(options).rows.length * 30 + 8;
+    const categories = categoryAxis(options.yAxis);
+    const multiSeries = (options.series || []).length > 1;
+    if (categories) return categories.data.length * (multiSeries ? 30 : 24) + 70;
+    return 320 + (multiSeries && options.legend?.show !== false ? 32 : 0);
+  }
+
+  function chartNote(options, narrow) {
+    if (!narrow || !isPie(options)) return "";
+    return "Share of installations. Tap a bar to see the count.";
+  }
+
   function buildThemedOptions(options, themeColors) {
-    // Calculate appropriate grid.right based on legend text length
+    // A vertical legend sits right of the plot, so make room for its longest label
     const hasVerticalLegend = options.legend?.orient === 'vertical';
-    let gridRight = options.grid?.[0]?.right || '280';
-    
-    // If there's a vertical legend, calculate required space based on longest label
+    let gridRight = options.grid?.[0]?.right;
+
     if (hasVerticalLegend && options.series && options.series.length > 0) {
       // Find the longest legend label
       const maxLabelLength = Math.max(
         ...options.series.map(s => (s.name || '').length)
       );
-      
+
       // Estimate width needed:
       // - ~7px per character (approximate for most fonts)
       // - 35px for the legend symbol/color box
       const estimatedWidth = maxLabelLength * 7 + 35;
-      
+
       // Use at least 280px, but increase if labels are long
       gridRight = Math.max(280, estimatedWidth).toString();
     }
-    
+
     const themed = {
       ...options,
       backgroundColor: "transparent",
       textStyle: { ...options.textStyle, color: themeColors.textColor },
-      title: {
-        ...options.title,
-        textStyle: { ...options.title?.textStyle, color: themeColors.textColor },
-        subtextStyle: { ...options.title?.subtextStyle, color: themeColors.textColor },
-      },
+      // The card heading shows the title, so the canvas doesn't repeat it
+      title: { ...options.title, show: false },
       legend: {
         ...options.legend,
         textStyle: {
           ...options.legend?.textStyle,
           color: themeColors.legendTextColor,
         },
+        pageTextStyle: { color: themeColors.textColor },
+        pageIconColor: themeColors.textColor,
       },
+      // An explicit `right: undefined` would override the ECharts default
       grid: options.grid ? options.grid.map((g, i) => ({
         ...g,
-        right: i === 0 ? gridRight : g.right
+        ...(i === 0 && gridRight !== undefined && { right: gridRight }),
       })) : undefined,
     };
-    if (options.xAxis) {
-      themed.xAxis = Array.isArray(options.xAxis)
-        ? options.xAxis.map((ax) => ({
-            ...ax,
-            axisLabel: { ...ax.axisLabel, color: themeColors.textColor },
-            axisLine: {
-              ...ax.axisLine,
-              lineStyle: {
-                ...ax.axisLine?.lineStyle,
-                color: themeColors.textColor,
-              },
-            },
-          }))
-        : {
-            ...options.xAxis,
-            axisLabel: {
-              ...options.xAxis.axisLabel,
-              color: themeColors.textColor,
-            },
-            axisLine: {
-              ...options.xAxis.axisLine,
-              lineStyle: {
-                ...options.xAxis.axisLine?.lineStyle,
-                color: themeColors.textColor,
-              },
-            },
-          };
-    }
-    if (options.yAxis) {
-      themed.yAxis = Array.isArray(options.yAxis)
-        ? options.yAxis.map((ax) => ({
-            ...ax,
-            axisLabel: { ...ax.axisLabel, color: themeColors.textColor },
-            axisLine: {
-              ...ax.axisLine,
-              lineStyle: {
-                ...ax.axisLine?.lineStyle,
-                color: themeColors.textColor,
-              },
-            },
-          }))
-        : {
-            ...options.yAxis,
-            axisLabel: {
-              ...options.yAxis.axisLabel,
-              color: themeColors.textColor,
-            },
-            axisLine: {
-              ...options.yAxis.axisLine,
-              lineStyle: {
-                ...options.yAxis.axisLine?.lineStyle,
-                color: themeColors.textColor,
-              },
-            },
-          };
-    }
+    const themeAxis = (ax) => ({
+      ...ax,
+      axisLabel: { ...ax.axisLabel, color: themeColors.textColor },
+      nameTextStyle: { ...ax.nameTextStyle, color: themeColors.textColor },
+      splitLine: {
+        ...ax.splitLine,
+        lineStyle: { ...ax.splitLine?.lineStyle, color: themeColors.gridLineColor },
+      },
+      axisLine: {
+        ...ax.axisLine,
+        lineStyle: {
+          ...ax.axisLine?.lineStyle,
+          color: themeColors.textColor,
+        },
+      },
+    });
+    if (options.xAxis) themed.xAxis = toArray(options.xAxis).map(themeAxis);
+    if (options.yAxis) themed.yAxis = toArray(options.yAxis).map(themeAxis);
     return themed;
+  }
+
+  function optionsFor(options, width, colors) {
+    const narrow = width < NARROW_WIDTH;
+    let layout;
+    if (!narrow) layout = wideOptions(options);
+    else if (isPie(options)) layout = rankedBarOptions(options, colors, width);
+    else layout = narrowOptions(options);
+    return { narrow, themed: buildThemedOptions(layout, colors) };
+  }
+
+  function renderChart(entry) {
+    const width = entry.el.clientWidth;
+    if (!width) return;
+    const { narrow, themed } = optionsFor(entry.options, width, getThemeColors());
+    entry.width = width;
+    entry.note.textContent = chartNote(entry.options, narrow);
+    entry.el.style.height = `${chartHeight(entry.options, narrow)}px`;
+    entry.chart.resize();
+    entry.chart.setOption(themed, { notMerge: true });
+  }
+
+  function showMeta(data) {
+    const meta = document.getElementById("charts-meta");
+    const parts = [];
+    if (data.totalInstances) {
+      parts.push(`Based on ${data.totalInstances.toLocaleString()} installations.`);
+    }
+    const updated = data.lastUpdated && new Date(data.lastUpdated);
+    if (updated && !isNaN(updated)) {
+      // The timestamp is in UTC. Show the UTC day, so a visitor west of UTC
+      // does not see the day before.
+      const day = updated.toLocaleDateString(undefined, { dateStyle: "long", timeZone: "UTC" });
+      parts.push(`Updated ${day}.`);
+    }
+    meta.textContent = parts.join(" ");
   }
 
   async function loadCharts() {
     const container = document.getElementById("charts-container");
-    const chartInstances = [];
+    const entries = [];
 
     try {
       const response = await fetch("/data/charts.json");
@@ -213,40 +444,52 @@
       }
       const data = await response.json();
       const chartsData = data.charts || data; // Support both old and new format
-      const themeColors = getThemeColors();
 
       container.innerHTML = "";
+      showMeta(data);
 
       for (const { id, options: rawOptions } of chartsData) {
         const options = limitToMaxDays(rawOptions, MAX_DAYS);
-        const wrapper = document.createElement("div");
-        wrapper.className = "chart-container";
 
-        const chartDiv = document.createElement("div");
-        chartDiv.id = id;
-        chartDiv.className = "chart";
+        const card = document.createElement("section");
+        card.className = "chart-card";
+        card.setAttribute("aria-labelledby", `${id}-title`);
 
-        wrapper.appendChild(chartDiv);
-        container.appendChild(wrapper);
+        const title = document.createElement("h2");
+        title.className = "chart-title";
+        title.id = `${id}-title`;
+        title.textContent = options.title?.text || "";
 
-        const chart = echarts.init(chartDiv);
-        const themedOptions = buildThemedOptions(options, themeColors);
-        chart.setOption(themedOptions);
-        chartInstances.push({ chart, options });
+        const note = document.createElement("p");
+        note.className = "chart-note";
 
-        window.addEventListener("resize", () => chart.resize());
+        const el = document.createElement("div");
+        el.id = id;
+        el.className = "chart";
+
+        card.append(title, note, el);
+        container.appendChild(card);
+
+        const entry = { el, note, options, chart: echarts.init(el), width: 0 };
+        entries.push(entry);
+        renderChart(entry);
       }
 
-      const updateTheme = () => {
-        const newColors = getThemeColors();
-        chartInstances.forEach(({ chart, options }) => {
-          const themedOptions = buildThemedOptions(options, newColors);
-          chart.setOption(themedOptions, { notMerge: true });
-        });
-      };
+      // Rebuild a chart when its width changes: the phone layout depends on
+      // the width, not only on the breakpoint (label widths, for example).
+      const observer = new ResizeObserver((items) => {
+        for (const item of items) {
+          const entry = entries.find((e) => e.el === item.target);
+          if (entry && Math.round(item.contentRect.width) !== Math.round(entry.width)) {
+            renderChart(entry);
+          }
+        }
+      });
+      entries.forEach((e) => observer.observe(e.el));
 
-      const observer = new MutationObserver(updateTheme);
-      observer.observe(document.documentElement, {
+      const updateTheme = () => entries.forEach(renderChart);
+
+      new MutationObserver(updateTheme).observe(document.documentElement, {
         attributes: true,
         attributeFilter: ["data-bs-theme"],
       });
