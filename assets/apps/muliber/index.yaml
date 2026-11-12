@@ -1,0 +1,24 @@
+name: Muliber
+
+url: https://muliber.com/en/
+
+platforms:
+  android:
+    store: https://play.google.com/store/apps/details?id=io.muliber.app
+
+api: OpenSubsonic
+
+description: "An Android player that brings your Navidrome server together with the music on your phone, NAS shares and cloud storage in one library of albums and artists. Tracks you play stay in the cache and replay without a connection, and any album or track can be saved from your server to your phone or SD card as the original file. Server playlists, favorites and listening history, lossless, gapless with crossfade, an equalizer, synced lyrics and internet radio. Free, no ads, no account."
+
+screenshots:
+  thumbnail: thumbnail.webp
+
+pricing: free
+
+keywords:
+  - jellyfin
+  - smb
+  - webdav
+  - dlna
+  - internet radio
+  - offline
