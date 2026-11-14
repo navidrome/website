@@ -1,0 +1,31 @@
+name: CLAUDIO
+
+url: https://claudio-app.de/en/
+
+platforms:
+  ios:
+    store: https://apps.apple.com/app/claudio/id6760961153
+  macos:
+    store: https://apps.apple.com/app/claudio/id6760961153?platform=mac
+
+api: OpenSubsonic
+
+description: "Audio player for your own audiobooks, podcasts and music that takes data protection seriously. Plays from Navidrome and other Subsonic servers, Jellyfin, Audiobookshelf, NAS/SMB, WebDAV, SFTP, DLNA and iCloud Drive, with downloads, scrobbling, CarPlay and a 10-band EQ."
+
+screenshots:
+  thumbnail: thumbnail.webp
+  gallery:
+    - screen1.webp
+    - screen2.webp
+    - screen3.webp
+    - screen4.webp
+
+pricing: trial
+
+keywords:
+  - audiobooks
+  - podcasts
+  - carplay
+  - offline
+  - equalizer
+  - scrobbling
