@@ -1,5 +1,6 @@
 name: Söngr
 url: https://apps.apple.com/app/id6827109298
+repoUrl: https://github.com/Split5/songr
 
 platforms:
   ios:
