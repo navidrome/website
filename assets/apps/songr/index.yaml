@@ -4,6 +4,8 @@ url: https://apps.apple.com/app/id6827109298
 platforms:
   ios:
     store: https://apps.apple.com/app/id6827109298
+  macos:
+    store: https://apps.apple.com/app/id6827109298?platform=mac
 
 api: OpenSubsonic
 
