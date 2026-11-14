@@ -14,10 +14,11 @@ description: "A calm, fast iPhone player for Navidrome and Subsonic that connect
 screenshots:
   thumbnail: thumbnail.webp
   gallery:
-    - screen1.webp
-    - screen2.webp
-    - screen3.webp
-    - screen4.webp
+    - 00-no-ads.webp
+    - 01-smart-recommendations.webp
+    - 02-player-tools.webp
+    - 03-queue-control.webp
+    - 04-offline-data-saver.webp
 
 pricing: free
 
