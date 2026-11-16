@@ -1,22 +1,25 @@
 name: "Sound Room"
-url: https://apps.apple.com/app/sound-room-subsonic-client/id6762375751
+url: https://www.soundroom.in
 platforms:
   ios:
     store: https://apps.apple.com/app/sound-room-subsonic-client/id6762375751
-api: Subsonic
-description: "Jam: listen together in real time, shared queue, synced playback. A Subsonic client for iPhone with playlists, downloads, and lossless streaming and more coming."
+  macos:
+    store: https://apps.apple.com/app/sound-room-subsonic-client/id6762375751?platform=mac
+api: OpenSubsonic
+description: "An audiophile music player for iPhone, iPad, Mac and CarPlay that works with Navidrome, Subsonic, OpenSubsonic and LMS servers. All core features are free forever: streaming, offline downloads, synced lyrics, multiple servers, CarPlay, widgets, Siri and Spotlight. Sound Room Pro adds Jam to listen together in real time on one synced queue, Bit-Perfect DAC playback with EQ and a live signal path, and custom themes, fonts and layouts."
 screenshots:
-  thumbnail: screen1.webp
+  thumbnail: thumbnail.webp
   gallery:
+    - screen1.webp
     - screen2.webp
     - screen3.webp
     - screen4.webp
     - screen5.webp
-pricing: free
+pricing: freemium
 keywords:
-  - navidrome jam
-  - subsonic jam
-  - subsonic client
-  - navidrome jukebox
-  - jam
-  - offline
+  - listen together
+  - jam session
+  - shared listening
+  - lossless
+  - hi-res
+  - equalizer
