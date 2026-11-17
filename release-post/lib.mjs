@@ -134,6 +134,25 @@ export function hasRawHtml(markdown) {
   return /<\/?[a-z!?][^>]*>/i.test(text);
 }
 
+// Parts of Markdown where an @ must stay as it is: fenced code, code spans, links, autolinks, URLs.
+const NO_LINK = String.raw`^(\`{3,}|~{3,})[\s\S]*?^\1[^\n]*$|(\`+)[\s\S]*?\2|!?\[[^\]\n]*\]\([^)\n]*\)|<[^>\s]+>|https?:\/\/[^\s)>\]]+`;
+// A GitHub login: letters, digits and single inner hyphens, 39 characters at most. It must not
+// be part of an email ("a@b.c"), a path, or a team ("@org/team").
+const HANDLE = String.raw`(?<![\w@./\`\[-])@([A-Za-z0-9](?:[A-Za-z0-9]|-(?=[A-Za-z0-9])){0,38})(?![\w/-])`;
+
+// Turns each bare "@handle" into a link to that GitHub profile.
+export function linkHandles(markdown) {
+  return String(markdown).replace(new RegExp(`${NO_LINK}|${HANDLE}`, "gm"), (match, _f, _c, login) =>
+    login ? `[@${login}](https://github.com/${login})` : match,
+  );
+}
+
+// Same as linkHandles, for a whole index.md. The front matter is left as it is.
+export function linkHandlesInPost(indexMd) {
+  const m = /^---\n[\s\S]*?\n---\n/.exec(indexMd);
+  return m ? m[0] + linkHandles(indexMd.slice(m[0].length)) : linkHandles(indexMd);
+}
+
 // Finds the most recent existing release post, to use as a style example.
 export function latestPost(excludeTag) {
   const root = path.join(contentRoot(), RELEASES_DIR);

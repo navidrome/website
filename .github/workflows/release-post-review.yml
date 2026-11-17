@@ -119,7 +119,8 @@ jobs:
           fi
 
       - name: Check post
-        run: node release-post/check-post.mjs "$BUNDLE/index.md"
+        # --fix links any bare @handle that Codex added to its GitHub profile.
+        run: node release-post/check-post.mjs "$BUNDLE/index.md" --fix
 
       - name: Record audio
         if: env.AUDIO != 'off'

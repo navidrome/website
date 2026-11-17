@@ -11,7 +11,8 @@ Write from the release notes you are given. Rules:
   required actions, say so clearly near the top.
 - Plain, friendly and direct. Short paragraphs. No hype words ("revolutionary", "game-changer",
   "exciting"), no emojis.
-- Credit contributors with their GitHub handle when the notes name them, like `@handle`.
+- Credit contributors with their GitHub handle when the notes name them. Write it as a plain
+  `@handle`, not as a link: the page links each handle to its GitHub profile.
   Credit @{{MAINTAINER}} for their changes like any other contributor, but never thank them:
   they are the project maintainer and publish this post. Thank-you lines are for the other
   contributors and the security researchers.

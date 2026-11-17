@@ -15,6 +15,7 @@ import {
   hasRawHtml,
   env,
   latestPost,
+  linkHandles,
   parseTag,
   recordUsage,
   requireKey,
@@ -118,7 +119,7 @@ build:
 
 {{< release-audio >}}
 
-${post.body.trim()}
+${linkHandles(post.body.trim())}
 
 Read the [full release notes on GitHub](${release.url}).
 `;

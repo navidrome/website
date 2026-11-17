@@ -14,6 +14,8 @@ import {
   checkPost,
   chunkText,
   hasRawHtml,
+  linkHandles,
+  linkHandlesInPost,
   narrationHash,
   parseTag,
   tagFromBranch,
@@ -97,6 +99,11 @@ describe("post", () => {
     assert.ok(out.includes(release.url));
   });
 
+  it("links handles in the body", () => {
+    const out = renderIndex({ ...good, body: "Smart playlists by @kgarner7." }, release);
+    assert.ok(out.includes("Smart playlists by [@kgarner7](https://github.com/kgarner7)."));
+  });
+
   it("flags common model mistakes", () => {
     assert.deepEqual(validatePost(good, "v0.65.0"), []);
     const bad = { ...good, title: "New release", body: "# Title\n{{< x >}}\n<img src=x onerror=alert(1)>", narration: "See https://x.y" };
@@ -140,6 +147,35 @@ describe("raw HTML", () => {
     assert.match(checkPost(ok + "{{< youtube x >}}\n").join(), /youtube/);
     assert.match(checkPost(ok.replace("{{< release-audio >}}", "")).join(), /lost/);
     assert.match(checkPost("no front matter").join(), /front matter/);
+  });
+});
+
+describe("GitHub handles", () => {
+  const gh = (h) => `[@${h}](https://github.com/${h})`;
+
+  it("links bare handles to their profiles", () => {
+    assert.equal(linkHandles("By @deluan, (@kgarner7) and @Huang-404-Q."), `By ${gh("deluan")}, (${gh("kgarner7")}) and ${gh("Huang-404-Q")}.`);
+    assert.equal(linkHandles("@zerovox added it"), `${gh("zerovox")} added it`);
+  });
+
+  it("leaves emails, teams, code, URLs and existing links alone", () => {
+    for (const text of [
+      "Mail bot@users.noreply.github.com now",
+      "Ping @navidrome/core",
+      "Run `npm i @types/node`",
+      "```\nnpm i @scope/pkg @deluan\n```",
+      "See https://example.com/@deluan",
+      "Thanks [@deluan](https://github.com/deluan)",
+      "Read [what @deluan said](https://example.com)",
+      "Not a handle: @-x or @x- or foo@bar",
+    ]) {
+      assert.equal(linkHandles(text), text);
+    }
+  });
+
+  it("keeps the front matter and links the body", () => {
+    const post = '---\ntitle: "By @deluan"\n---\n\nBy @deluan.\n';
+    assert.equal(linkHandlesInPost(post), `---\ntitle: "By @deluan"\n---\n\nBy ${gh("deluan")}.\n`);
   });
 });
 

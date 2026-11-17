@@ -24,7 +24,7 @@ Reviews from other people do nothing.
 3. [`release-post-review.yml`](../.github/workflows/release-post-review.yml) handles reviews.
    Codex works on copies of the post files in a folder outside the repo, so it cannot change
    scripts, workflows or `.git`. The workflow copies back only `index.md` and `narration.txt`,
-   rejects raw HTML and unknown shortcodes (`check-post.mjs`), then commits and pushes.
+   rejects raw HTML and unknown shortcodes (`check-post.mjs --fix`, which also links bare `@handle`s to their GitHub profiles), then commits and pushes.
    Only the reviewer's own comments are sent to Codex.
 
 You can also start it by hand: Actions, "Release Post", "Run workflow", with a tag like `v0.65.0`.

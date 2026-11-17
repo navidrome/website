@@ -21,8 +21,9 @@ Rules:
    HTML and no other Hugo shortcodes. The workflow rejects them.
 6. Never thank @{{MAINTAINER}}, the project maintainer who reviews this post. Crediting their
    changes is fine.
-7. `narration.txt` stays plain spoken text: no Markdown, no URLs, no code, no emojis.
-8. If a comment is a question, or you decide not to change something, explain why in your
+7. Write GitHub handles as a plain `@handle`. The workflow links each one to its GitHub profile.
+8. `narration.txt` stays plain spoken text: no Markdown, no URLs, no code, no emojis.
+9. If a comment is a question, or you decide not to change something, explain why in your
    final message.
 
 Your final message is posted on the pull request. Keep it short: a list of what you changed,
