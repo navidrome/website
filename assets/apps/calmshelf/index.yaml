@@ -1,0 +1,23 @@
+name: CalmShelf
+url: https://calmtechnotebook.ca/calmshelf/
+isOpenSource: false
+platforms:
+  ios:
+    store: https://apps.apple.com/app/calmshelf/id6817030836
+api: OpenSubsonic
+description: A local-first iPhone and iPad music and podcast player with Navidrome, offline downloads and CarPlay. Its Pause tab makes room for guided breathing while music continues; a 30-day trial is followed by a one-time purchase.
+screenshots:
+  thumbnail: thumbnail.webp
+  gallery:
+  - thumbnail.webp
+  - player.webp
+  - podcasts.webp
+  - pause.webp
+pricing: trial
+keywords:
+- carplay
+- offline
+- podcasts
+- local music
+- oscilloscope
+- breathing
