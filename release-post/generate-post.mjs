@@ -50,7 +50,7 @@ export function buildInput(release, styleExample) {
   if (styleExample) {
     parts.push(
       "",
-      "Here is the previous release post, after the maintainer reviewed it. Match its tone and structure, not its facts:",
+      "Here is the previous release post, after the maintainer reviewed it. Match its tone, not its facts. Where its structure differs from the rules, follow the rules:",
       "<<<PREVIOUS_POST",
       styleExample,
       "PREVIOUS_POST>>>",
