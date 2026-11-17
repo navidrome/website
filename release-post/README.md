@@ -25,8 +25,8 @@ Reviews from other people do nothing.
    Codex works on copies of the post files in a folder outside the repo, so it cannot change
    scripts, workflows or `.git`. The workflow copies back only `index.md` and `narration.txt`,
    and checks them with `check-post.mjs --fix`. The check rejects anything that looks like an
-   HTML tag (even in code), shortcodes other than the player, and front matter keys that
-   `generate-post.mjs` does not write. `--fix` also links bare `@handle`s to their GitHub
+   HTML tag (even in code), shortcodes other than the player, front matter keys that
+   `generate-post.mjs` does not write, and YAML escapes, tags or aliases that could hide a tag. `--fix` also links bare `@handle`s to their GitHub
    profiles. Then the workflow commits and pushes. Only the reviewer's own comments are sent
    to Codex. If recording the audio fails, the text is still pushed, and the reply says to
    comment `/regen-audio`.

@@ -14,6 +14,7 @@ import {
   checkPost,
   chunkText,
   hasRawHtml,
+  yamlString,
   linkHandles,
   linkHandlesInPost,
   postBody,
@@ -200,6 +201,15 @@ describe("raw HTML", () => {
     assert.match(checkPost(post("title: x")).join(), /lost build.publishResources/);
     assert.match(checkPost(post("build: {publishResources: false}")).join(), /must be a block/);
     assert.match(checkPost(post(`description: "<img src=x onerror=alert(12)>"\n${build}`)).join(), /front matter has raw HTML/);
+    for (const esc of [String.raw`\u003c`, String.raw`\x3c`, String.raw`\U0000003c`, String.raw`\N`]) {
+      const problems = checkPost(post(`description: "${esc}img src=x onerror=alert(21)>"\n${build}`)).join();
+      assert.match(problems, /escapes it must not have/, esc);
+    }
+    assert.match(checkPost(post(`description: !!binary PGltZz4=\n${build}`)).join(), /YAML tag/);
+    assert.match(checkPost(post(`title: &a x\ndescription: *a\n${build}`)).join(), /YAML tag/);
+    assert.match(checkPost(post(`description:\n  !!binary PGltZz4=\n${build}`)).join(), /YAML tag/);
+    // What yamlString writes must still pass: quotes, backslashes and line breaks.
+    assert.deepEqual(checkPost(post(`title: ${yamlString('Say "hi" \\ bye\n')}\n${build}`)), []);
   });
 });
 

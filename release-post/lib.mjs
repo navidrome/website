@@ -141,6 +141,12 @@ export function checkFrontMatter(frontMatter) {
     }
   }
   if (!unpublished) problems.push("front matter lost build.publishResources: false");
+  // YAML turns escapes such as \u003c or \x3c into "<" after this check reads the text. Only the
+  // escapes that yamlString writes for text are allowed. YAML tags (!!binary) and aliases are
+  // other ways to hide a value, and renderIndex writes none.
+  const escapes = [...frontMatter.matchAll(/\\(.)/gs)].map((x) => x[1]).filter((c) => !`"\\/nrt`.includes(c));
+  if (escapes.length) problems.push(`front matter has escapes it must not have: ${escapes.map((c) => `\\${c}`).join(", ")}`);
+  if (/^(?:[^\s#][^:]*:)?\s*[!&*]/m.test(frontMatter)) problems.push("front matter has a YAML tag, anchor or alias");
   return problems;
 }
 

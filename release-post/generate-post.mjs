@@ -115,7 +115,7 @@ export function validatePost(post, tag, owner = maintainer(), notes = "") {
   if (hasRawHtml(post.title) || hasRawHtml(post.description)) problems.push("title or description has raw HTML");
   if (/https?:\/\/|[`*#@]/.test(post.narration)) problems.push("narration has URLs or Markdown");
   const n = post.narration.split(/\s+/).filter(Boolean).length;
-  if (n < 80 || n > 800) problems.push(`narration has ${n} words (asked for 150 to 600)`);
+  if (n < 80 || n > 800) problems.push(`narration has ${n} words (asked for 150 to 450)`);
   return problems;
 }
 
