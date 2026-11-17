@@ -140,7 +140,8 @@ jobs:
             git -c http.extraheader="AUTHORIZATION: basic $auth" push origin "$BRANCH"
           else
             git fetch -q origin "$BRANCH"
-            git log -1 --format=%b FETCH_HEAD | sed '1,/^Warnings:$/d' > "$RELEASE_POST_WARNINGS_FILE"
+            # Keeps the lines after "Warnings:". That line can be the first one of the body.
+            git log -1 --format=%b FETCH_HEAD | awk 'found; /^Warnings:$/ { found = 1 }' > "$RELEASE_POST_WARNINGS_FILE"
           fi
 
           url=$(jq -r .url "$RUNNER_TEMP/release.json")

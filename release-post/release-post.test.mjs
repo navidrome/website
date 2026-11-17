@@ -112,6 +112,11 @@ describe("post", () => {
     for (const p of [/title/, /top-level heading/, /shortcodes/, /raw HTML/, /URLs/, /narration has 2 words/]) assert.match(problems, p);
   });
 
+  it("flags HTML in the title and description, which the page shows", () => {
+    assert.match(validatePost({ ...good, description: "<img src=x onerror=alert(12)>" }, "v0.65.0").join(), /description has raw HTML/);
+    assert.match(validatePost({ ...good, title: "Navidrome v0.65.0 <b>now</b>" }, "v0.65.0").join(), /description has raw HTML/);
+  });
+
   it("flags a post that hides security fixes or reads upgrade steps aloud", () => {
     const notes = "### Security\n- Fixed GHSA-xxxx: SQL injection";
     const check = (body, narration = good.narration) => validatePost({ ...good, body, narration }, "v0.65.0", "deluan", notes).join("\n");
@@ -167,6 +172,8 @@ describe("raw HTML", () => {
       "\\`<img src=x onerror=alert(1)>`",
       "Use `<audio>` tags.",
       "```html\n<script>x</script>\n```",
+      "See <https://a<script>alert(1)<https://b</script> now",
+      "See <mailto:a<script>alert(1)<mailto:b</script> now",
     ]) {
       assert.equal(hasRawHtml(text), true, text);
     }
@@ -192,6 +199,7 @@ describe("raw HTML", () => {
     assert.match(checkPost(post(`${build}\n  render: always`)).join(), /render: always/);
     assert.match(checkPost(post("title: x")).join(), /lost build.publishResources/);
     assert.match(checkPost(post("build: {publishResources: false}")).join(), /must be a block/);
+    assert.match(checkPost(post(`description: "<img src=x onerror=alert(12)>"\n${build}`)).join(), /front matter has raw HTML/);
   });
 });
 
@@ -439,9 +447,9 @@ describe("command line", () => {
     assert.equal(req.path, "/v1/responses");
     assert.equal(req.auth, "Bearer test");
     assert.equal(req.json.text.format.type, "json_schema");
-    assert.match(req.json.instructions, /never thank them/);
-    assert.match(req.json.instructions, /Credit @deluan for their changes/);
+    // The maintainer's login replaces the placeholder in the prompt.
     assert.doesNotMatch(req.json.instructions, /\{\{MAINTAINER\}\}/);
+    assert.match(req.json.instructions, /@deluan\b/);
     assert.match(req.json.input, /thing by @someone/);
     assert.match(readFileSync(path.join(dir, "index.md"), "utf8"), /title: "Navidrome v0.0.1: tests"/);
     assert.equal(readFileSync(path.join(dir, "narration.txt"), "utf8").trim(), post.narration);

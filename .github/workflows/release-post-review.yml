@@ -147,8 +147,10 @@ jobs:
           AUDIO_OUTCOME: ${{ steps.audio.outcome }}
         run: |
           if [ "$AUDIO_OUTCOME" = "failure" ]; then
-            # Do not push a half-written recording.
-            git checkout -- "$BUNDLE/narration.mp3" "$BUNDLE/audio.json" 2>/dev/null || true
+            # Do not push a half-written recording. A file that is not in the last commit is removed.
+            for f in narration.mp3 audio.json; do
+              git checkout -- "$BUNDLE/$f" 2>/dev/null || rm -f "$BUNDLE/$f"
+            done
             echo "AUDIO_CHANGED=false" >> "$GITHUB_ENV"
           fi
           git add -A "$BUNDLE"
@@ -183,7 +185,9 @@ jobs:
             if [ "$CODEX_OUTCOME" = "success" ]; then
               echo "### Codex"
               echo
-              echo "$CODEX_MESSAGE"
+              # A zero-width space (UTF-8 bytes, so the locale does not matter) after each @, so the reply does not notify the people it names.
+              # Emails ("a@b.com") are left alone.
+              printf '%s\n' "$CODEX_MESSAGE" | sed "s/\(^\|[^A-Za-z0-9_.]\)@\([A-Za-z0-9]\)/\1@$(printf '\342\200\213')\2/g"
               echo
             fi
             [ "$PUSHED" = "true" ] && echo "Pushed the changes to this PR." || echo "No changes were pushed."

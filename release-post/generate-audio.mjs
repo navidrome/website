@@ -108,7 +108,10 @@ export function realtimeChunk({ text, model, voice, apiKey, connect, timeoutMs =
         case "response.done": {
           const r = event.response ?? {};
           if (r.status && r.status !== "completed") {
-            finish(new Error(`Realtime response ${r.status}: ${JSON.stringify(r.status_details ?? {})}`));
+            // A failed take is still billed, so its usage goes with the error.
+            const err = new Error(`Realtime response ${r.status}: ${JSON.stringify(r.status_details ?? {})}`);
+            err.usage = r.usage;
+            finish(err);
           } else {
             finish(null, { pcm: Buffer.concat(audio), transcript, usage: r.usage });
           }
@@ -154,6 +157,7 @@ export async function synthesize(narration, opts = {}) {
             : await realtimeChunk({ text, model, voice, apiKey, connect });
         if (!result.pcm.length) throw new Error("no audio returned");
       } catch (e) {
+        if (e.usage) recordUsage({ step: `audio ${i + 1}/${chunks.length} (failed)`, model, usage: e.usage, characters: text.length });
         if (attempt === MAX_ATTEMPTS && !best) throw new Error(`Chunk ${i + 1}: ${e.message}`);
         console.warn(`Chunk ${i + 1}, attempt ${attempt}: ${e.message}`);
         continue;

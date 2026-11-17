@@ -150,6 +150,8 @@ export function checkPost(indexMd) {
   if (!post) return ["index.md has no front matter"];
   const { body } = post;
   const problems = checkFrontMatter(post.frontMatter);
+  // Docsy renders the description as Markdown, so the front matter is checked too.
+  if (hasRawHtml(post.frontMatter)) problems.push("front matter has raw HTML");
   if (hasRawHtml(body)) problems.push("index.md has raw HTML");
   // Any shortcode opening counts here, complete or not.
   const shortcodes = [...body.matchAll(/\{\{[<%]\s*\/?\s*([\w/-]+)/g)].map((x) => x[1]);
@@ -164,9 +166,9 @@ export function checkPost(indexMd) {
 // Model output and Codex edits must not add any. This check does not try to find code spans or
 // fences: a regex cannot follow CommonMark closely enough, and each gap is a way to put HTML on
 // the page. So it rejects anything that looks like a tag, even inside code. Only URL and email
-// autolinks are allowed.
+// autolinks are allowed. An autolink cannot hold "<", so "<https://a<script>" is not one.
 export function hasRawHtml(markdown) {
-  const text = String(markdown).replace(/<(?:https?:\/\/|mailto:)[^>\s]*>/gi, "");
+  const text = String(markdown).replace(/<(?:https?:\/\/|mailto:)[^<>\s]*>/gi, "");
   return /<\/?[a-z!?]/i.test(text);
 }
 
