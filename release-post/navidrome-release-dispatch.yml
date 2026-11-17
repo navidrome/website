@@ -1,0 +1,32 @@
+# Copy this file to navidrome/navidrome as .github/workflows/website-release-post.yml.
+#
+# It tells navidrome/website that a release was published. The website then writes a draft
+# blog post and opens a PR for review.
+#
+# Needs the WEBSITE_DISPATCH_TOKEN secret in navidrome/navidrome: a fine-grained token with
+# access to navidrome/website only, and the "Contents: Read and write" permission
+# (repository_dispatch needs it).
+#
+# Note: GoReleaser creates the release as a draft. The "published" event fires when a person
+# publishes it. A release published with GITHUB_TOKEN would not start this workflow.
+name: Website Release Post
+
+on:
+  release:
+    types: [published]
+
+permissions: {}
+
+jobs:
+  notify-website:
+    if: github.repository == 'navidrome/navidrome' && !github.event.release.prerelease
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send repository_dispatch to navidrome/website
+        env:
+          GH_TOKEN: ${{ secrets.WEBSITE_DISPATCH_TOKEN }}
+          TAG: ${{ github.event.release.tag_name }}
+        run: |
+          gh api repos/navidrome/website/dispatches \
+            -f event_type=navidrome-release \
+            -f "client_payload[tag]=$TAG"

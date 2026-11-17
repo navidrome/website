@@ -48,6 +48,9 @@ jobs:
           restore-keys: |
             hugo-resources-${{ runner.os }}-
 
+      - name: Test release post scripts
+        run: npm run test:release-post
+
       - name: Detect changed app entries
         id: detect-apps
         run: |

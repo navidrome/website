@@ -1,0 +1,137 @@
+name: Release Post
+
+# A published navidrome/navidrome release sends a repository_dispatch here
+# (see release-post/navidrome-release-dispatch.yml). This workflow writes a blog post and its
+# audio from the release notes, and opens a PR for review. Nothing is published until the
+# reviewer approves the PR (see release-post-review.yml).
+on:
+  repository_dispatch:
+    types: [navidrome-release]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Navidrome release tag, for example v0.65.0"
+        required: true
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write # To create the release-post label.
+
+concurrency:
+  group: release-post-${{ github.event.client_payload.tag || inputs.tag }}
+  cancel-in-progress: false
+
+jobs:
+  create:
+    if: github.repository == 'navidrome/website' && vars.RELEASE_POST_ENABLED != 'false'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      TAG: ${{ github.event.client_payload.tag || inputs.tag }}
+      REVIEWER: ${{ vars.RELEASE_POST_REVIEWER || 'deluan' }}
+      AUDIO: ${{ vars.RELEASE_POST_AUDIO || 'on' }}
+    steps:
+      - name: Check tag
+        run: |
+          if ! [[ "$TAG" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "::error::'$TAG' is not a stable release tag. Prereleases are skipped."
+            exit 1
+          fi
+          echo "BRANCH=release-post/$TAG" >> "$GITHUB_ENV"
+          echo "BUNDLE=content/en/blog/releases/$TAG" >> "$GITHUB_ENV"
+          echo "RELEASE_POST_USAGE_FILE=$RUNNER_TEMP/usage.jsonl" >> "$GITHUB_ENV"
+          echo "RELEASE_POST_WARNINGS_FILE=$RUNNER_TEMP/warnings.md" >> "$GITHUB_ENV"
+
+      # Optional GitHub App. A PR opened with GITHUB_TOKEN does not start the Preview Build,
+      # and a personal token would make the reviewer the PR author, who cannot approve it.
+      - name: Get app token
+        id: app-token
+        if: vars.RELEASE_POST_APP_ID != ''
+        uses: actions/create-github-app-token@v3
+        with:
+          app-id: ${{ vars.RELEASE_POST_APP_ID }}
+          private-key: ${{ secrets.RELEASE_POST_APP_PRIVATE_KEY }}
+
+      - name: Checkout code
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - name: Skip if the post already exists
+        id: exists
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if [ -e "$BUNDLE/index.md" ] || git ls-remote --exit-code --heads origin "$BRANCH" >/dev/null; then
+            echo "A post or a branch for $TAG already exists. Nothing to do."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Get release notes
+        if: steps.exists.outputs.skip != 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release view "$TAG" -R navidrome/navidrome \
+            --json tagName,name,body,url,publishedAt,isDraft,isPrerelease > "$RUNNER_TEMP/release.json"
+          if jq -e '.isDraft or .isPrerelease' "$RUNNER_TEMP/release.json" >/dev/null; then
+            echo "::error::$TAG is a draft or a prerelease."
+            exit 1
+          fi
+
+      - name: Setup Node.js
+        if: steps.exists.outputs.skip != 'true'
+        uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+
+      - name: Install ffmpeg
+        if: steps.exists.outputs.skip != 'true' && env.AUDIO != 'off'
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+
+      - name: Write post
+        if: steps.exists.outputs.skip != 'true'
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          RELEASE_POST_MODEL: ${{ vars.RELEASE_POST_MODEL }}
+        run: node release-post/generate-post.mjs "$RUNNER_TEMP/release.json"
+
+      - name: Record audio
+        if: steps.exists.outputs.skip != 'true' && env.AUDIO != 'off'
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          RELEASE_POST_TTS_ENGINE: ${{ vars.RELEASE_POST_TTS_ENGINE }}
+          RELEASE_POST_TTS_MODEL: ${{ vars.RELEASE_POST_TTS_MODEL }}
+          RELEASE_POST_VOICE: ${{ vars.RELEASE_POST_VOICE }}
+        run: node release-post/generate-audio.mjs "$BUNDLE"
+
+      - name: Open PR
+        if: steps.exists.outputs.skip != 'true'
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token || github.token }}
+          PUSH_TOKEN: ${{ steps.app-token.outputs.token || github.token }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git switch -c "$BRANCH"
+          git add "$BUNDLE"
+          git commit -m "blog: add Navidrome $TAG release post"
+          auth=$(printf 'x-access-token:%s' "$PUSH_TOKEN" | base64 -w0)
+          echo "::add-mask::$auth"
+          git -c http.extraheader="AUTHORIZATION: basic $auth" push origin "$BRANCH"
+
+          url=$(jq -r .url "$RUNNER_TEMP/release.json")
+          node release-post/pr-body.mjs "$TAG" "$url" "$REVIEWER" "$RELEASE_POST_USAGE_FILE" "$RELEASE_POST_WARNINGS_FILE" > "$RUNNER_TEMP/body.md"
+          gh label create release-post --color 5319e7 --description "Generated release blog post" 2>/dev/null || true
+          gh pr create --base master --head "$BRANCH" --label release-post \
+            --title "blog: Navidrome $TAG release post" --body-file "$RUNNER_TEMP/body.md"
+          gh pr edit "$BRANCH" --add-reviewer "$REVIEWER" || echo "::warning::Could not request a review from $REVIEWER"
+
+      - name: Usage summary
+        if: always() && steps.exists.outputs.skip != 'true'
+        run: |
+          {
+            echo "## API usage for $TAG (generation key)"
+            node -e 'import("./release-post/lib.mjs").then(l => console.log(l.usageMarkdown(l.readUsage(process.argv[1]))))' "$RELEASE_POST_USAGE_FILE"
+          } >> "$GITHUB_STEP_SUMMARY"

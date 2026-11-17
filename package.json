@@ -9,7 +9,8 @@
     "sync-images": "./sync-images.sh 20072696",
     "validate:app": "node validate-app-entry.js",
     "convert:images": "node convert-app-images.js",
-    "fetch:pulls": "node fetch-container-downloads.js"
+    "fetch:pulls": "node fetch-container-downloads.js",
+    "test:release-post": "node --test release-post/*.test.mjs"
   },
   "repository": {
     "type": "git",
