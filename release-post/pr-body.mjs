@@ -26,7 +26,7 @@ ${warnings ? `\n> [!WARNING]\n> Checks found problems. Fix them before you appro
 
 ${usageMarkdown(readUsage(usageFile))}
 
-Codex review edits are not in this table. They use \`CODEX_OPENAI_API_KEY\`, or the generation key when that one is not set.
+Codex review edits are not in this table.
 
 ## Type of change
 
