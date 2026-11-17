@@ -26,7 +26,7 @@ ${warnings ? `\n> [!WARNING]\n> Checks found problems. Fix them before you appro
 
 ${usageMarkdown(readUsage(usageFile))}
 
-Codex uses a separate key, so its cost shows in its own OpenAI project.
+Codex review edits are not in this table. They use \`CODEX_OPENAI_API_KEY\`, or the generation key when that one is not set.
 
 ## Type of change
 
