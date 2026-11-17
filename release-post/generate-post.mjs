@@ -11,6 +11,8 @@ import {
   REPO_ROOT,
   apiBase,
   bundleDir,
+  contentRoot,
+  hasRawHtml,
   env,
   latestPost,
   parseTag,
@@ -73,6 +75,7 @@ export function validatePost(post, tag) {
   if (!post.title.includes(tag)) problems.push(`title does not contain ${tag}`);
   if (/^#\s/m.test(post.body)) problems.push("body has a top-level heading");
   if (/\{\{[<%]/.test(post.body)) problems.push("body has Hugo shortcodes");
+  if (hasRawHtml(post.body)) problems.push("body has raw HTML");
   if (/https?:\/\/|[`*#@]/.test(post.narration)) problems.push("narration has URLs or Markdown");
   const n = post.narration.split(/\s+/).filter(Boolean).length;
   if (n < 80 || n > 800) problems.push(`narration has ${n} words (asked for 150 to 600)`);
@@ -128,7 +131,7 @@ async function main() {
   if (!releaseFile) throw new Error("Usage: generate-post.mjs <release.json>");
   const release = JSON.parse(readFileSync(releaseFile, "utf8"));
   const { tag } = parseTag(release.tagName);
-  const dir = path.join(REPO_ROOT, bundleDir(tag));
+  const dir = path.join(contentRoot(), bundleDir(tag));
   if (existsSync(path.join(dir, "index.md"))) throw new Error(`${bundleDir(tag)}/index.md already exists`);
 
   let post;
@@ -139,6 +142,10 @@ async function main() {
     if (!problems.length) break;
     console.warn(`Attempt ${attempt}: ${problems.join("; ")}`);
   }
+
+  // These two would put the model's output on the page unescaped, so they stop the run.
+  const blocking = problems.filter((p) => /raw HTML|shortcodes/.test(p));
+  if (blocking.length) throw new Error(`Refusing to write the post: ${blocking.join("; ")}`);
 
   mkdirSync(dir, { recursive: true });
   writeFileSync(path.join(dir, "index.md"), renderIndex(post, release));

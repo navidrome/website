@@ -59,7 +59,8 @@ jobs:
           tag=$(node -e 'import("./release-post/lib.mjs").then(l => console.log(l.tagFromBranch(process.argv[1])))' "$BRANCH")
           echo "BUNDLE=content/en/blog/releases/$tag" >> "$GITHUB_ENV"
           echo "RELEASE_POST_USAGE_FILE=$RUNNER_TEMP/usage.jsonl" >> "$GITHUB_ENV"
-          echo "PROMPT_FILE=.git/release-post-prompt.md" >> "$GITHUB_ENV"
+          echo "PROMPT_FILE=$RUNNER_TEMP/codex-prompt.md" >> "$GITHUB_ENV"
+          echo "CODEX_DIR=$RUNNER_TEMP/codex-post" >> "$GITHUB_ENV"
 
       - name: Read review
         id: review
@@ -74,6 +75,17 @@ jobs:
         if: env.AUDIO != 'off'
         run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
 
+      # Codex works on copies in a folder outside the repo. Its sandbox can only write there,
+      # so it cannot change the scripts that run after it, the workflows or .git.
+      - name: Prepare Codex folder
+        if: steps.review.outputs.has_feedback == 'true'
+        run: |
+          mkdir -p "$CODEX_DIR"
+          cp "$BUNDLE/index.md" "$BUNDLE/narration.txt" "$BUNDLE/release-notes.txt" "$CODEX_DIR/"
+          git -C "$CODEX_DIR" init -q
+          git -C "$CODEX_DIR" add -A
+          git -C "$CODEX_DIR" -c user.name=bot -c user.email=bot@localhost commit -q -m "post"
+
       # Codex has its own OpenAI key, so its cost shows in its own OpenAI project.
       - name: Run Codex
         id: codex
@@ -82,22 +94,32 @@ jobs:
         with:
           openai-api-key: ${{ secrets.CODEX_OPENAI_API_KEY }}
           prompt-file: ${{ env.PROMPT_FILE }}
+          working-directory: ${{ env.CODEX_DIR }}
           permission-profile: ":workspace"
           safety-strategy: drop-sudo
           model: ${{ vars.CODEX_MODEL }}
           effort: ${{ vars.CODEX_EFFORT }}
 
-      - name: Check changed files
+      # Shell only: nothing from the repo runs until the post files are checked.
+      - name: Copy Codex edits back
+        if: steps.review.outputs.has_feedback == 'true'
         run: |
-          git status --porcelain --untracked-files=all | cut -c4- > "$RUNNER_TEMP/changed.txt"
-          cat "$RUNNER_TEMP/changed.txt"
-          node -e '
-            const fs = require("fs");
-            import("./release-post/lib.mjs").then(l => {
-              const paths = fs.readFileSync(process.argv[1], "utf8").split("\n").filter(Boolean);
-              const bad = l.disallowedChanges(paths, process.env.BUNDLE);
-              if (bad.length) { console.error("Codex changed files it must not change:\n" + bad.join("\n")); process.exit(1); }
-            });' "$RUNNER_TEMP/changed.txt"
+          for f in index.md narration.txt; do
+            src="$CODEX_DIR/$f"
+            if [ -L "$src" ] || [ ! -f "$src" ]; then
+              echo "::error::Codex left $f missing or as a link."
+              exit 1
+            fi
+            cp "$src" "$BUNDLE/$f"
+          done
+          bad=$(git status --porcelain --untracked-files=all | cut -c4- | grep -vxF -e "$BUNDLE/index.md" -e "$BUNDLE/narration.txt" || true)
+          if [ -n "$bad" ]; then
+            echo "::error::Unexpected changes in the repo: $bad"
+            exit 1
+          fi
+
+      - name: Check post
+        run: node release-post/check-post.mjs "$BUNDLE/index.md"
 
       - name: Record audio
         if: env.AUDIO != 'off'
@@ -207,6 +229,8 @@ jobs:
           fail() { echo "::error::$1"; gh pr comment "$PR_NUMBER" --body "Not published: $1"; exit 1; }
           [ "$REVIEWED_SHA" = "$HEAD_SHA" ] || fail "the approval is for an older commit. Approve the latest commit."
           tag=$(node -e 'import("./release-post/lib.mjs").then(l => console.log(l.tagFromBranch(process.argv[1])))' "$BRANCH")
+          node release-post/check-post.mjs "content/en/blog/releases/$tag/index.md" \
+            || fail "the post has raw HTML or shortcodes it must not have. See the logs."
           if [ "$AUDIO" != "off" ]; then
             node release-post/generate-audio.mjs "content/en/blog/releases/$tag" --check \
               || fail "the audio does not match narration.txt. Comment \`/regen-audio\` to record it again."

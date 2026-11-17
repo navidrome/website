@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // Turns a pull request review into a prompt for Codex.
 //
-// Env: GITHUB_TOKEN, GITHUB_REPOSITORY, PR_NUMBER, REVIEW_ID, REVIEW_BODY, REVIEWER, BUNDLE_DIR,
+// Env: GITHUB_TOKEN, GITHUB_REPOSITORY, PR_NUMBER, REVIEW_ID, REVIEW_BODY, REVIEWER, BUNDLE,
 //      PROMPT_FILE (output), GITHUB_OUTPUT (optional, for has_feedback and force_audio).
 import { appendFileSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
@@ -10,7 +10,9 @@ import { REPO_ROOT } from "./lib.mjs";
 export const REGEN_COMMAND = "/regen-audio";
 
 // Groups review comments into threads, and keeps the threads the given review added to.
-export function threadsForReview(comments, reviewId) {
+// Only the reviewer's comments are kept. Anyone can comment on a public PR, and their text
+// must not reach Codex.
+export function threadsForReview(comments, reviewId, reviewer) {
   const byId = new Map(comments.map((c) => [c.id, c]));
   const rootOf = (c) => {
     let cur = c;
@@ -23,7 +25,10 @@ export function threadsForReview(comments, reviewId) {
     if (!threads.has(root)) threads.set(root, []);
     threads.get(root).push(c);
   }
-  return [...threads.values()].filter((t) => t.some((c) => c.pull_request_review_id === reviewId));
+  return [...threads.values()]
+    .filter((t) => t.some((c) => c.pull_request_review_id === reviewId))
+    .map((t) => t.filter((c) => c.user?.login === reviewer))
+    .filter((t) => t.length);
 }
 
 export function formatFeedback({ body, threads, reviewer }) {
@@ -40,7 +45,7 @@ export function formatFeedback({ body, threads, reviewer }) {
         (first.diff_hunk ?? "").split("\n").slice(-8).join("\n"),
         "```",
         "",
-        ...t.map((c) => `**@${c.user?.login ?? "unknown"}:** ${c.body.trim()}`),
+        ...t.map((c) => c.body.trim()),
       ].join("\n"),
     );
   }
@@ -62,7 +67,10 @@ async function gh(url) {
 }
 
 async function main() {
-  const { GITHUB_REPOSITORY: repo, PR_NUMBER: pr, REVIEWER: reviewer, BUNDLE_DIR: dir, PROMPT_FILE: promptFile } = process.env;
+  const { GITHUB_REPOSITORY: repo, PR_NUMBER: pr, REVIEWER: reviewer, BUNDLE: dir, PROMPT_FILE: promptFile } = process.env;
+  for (const [name, value] of Object.entries({ GITHUB_REPOSITORY: repo, PR_NUMBER: pr, REVIEWER: reviewer, BUNDLE: dir, PROMPT_FILE: promptFile })) {
+    if (!value) throw new Error(`${name} is not set`);
+  }
   const reviewId = Number(process.env.REVIEW_ID);
   const body = process.env.REVIEW_BODY ?? "";
 
@@ -73,7 +81,7 @@ async function main() {
     comments.push(...page.json);
     url = page.next;
   }
-  const threads = threadsForReview(comments, reviewId);
+  const threads = threadsForReview(comments, reviewId, reviewer);
   const reviewerTexts = [body, ...threads.flatMap((t) => t.filter((c) => c.pull_request_review_id === reviewId).map((c) => c.body))];
   const forceAudio = reviewerTexts.some((t) => t.includes(REGEN_COMMAND));
   const audioOnly = wantsAudioOnly(reviewerTexts);

@@ -58,14 +58,23 @@ jobs:
         with:
           persist-credentials: false
 
+      # A branch without a PR means an earlier run failed after the push. Then only the PR
+      # is opened, and nothing is generated (or paid for) again.
       - name: Skip if the post already exists
         id: exists
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          if [ -e "$BUNDLE/index.md" ] || git ls-remote --exit-code --heads origin "$BRANCH" >/dev/null; then
-            echo "A post or a branch for $TAG already exists. Nothing to do."
+          pr=$(gh pr list -R "$GITHUB_REPOSITORY" --head "$BRANCH" --state all --json number --jq '.[0].number // empty')
+          if [ -e "$BUNDLE/index.md" ]; then
+            echo "The post for $TAG is already published. Nothing to do."
             echo "skip=true" >> "$GITHUB_OUTPUT"
+          elif [ -n "$pr" ]; then
+            echo "PR #$pr already exists for $TAG. Nothing to do."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          elif git ls-remote --exit-code --heads origin "$BRANCH" >/dev/null; then
+            echo "Branch $BRANCH exists without a PR. Opening the PR only."
+            echo "resume=true" >> "$GITHUB_OUTPUT"
           fi
 
       - name: Get release notes
@@ -87,18 +96,18 @@ jobs:
           node-version-file: .nvmrc
 
       - name: Install ffmpeg
-        if: steps.exists.outputs.skip != 'true' && env.AUDIO != 'off'
+        if: steps.exists.outputs.skip != 'true' && steps.exists.outputs.resume != 'true' && env.AUDIO != 'off'
         run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
 
       - name: Write post
-        if: steps.exists.outputs.skip != 'true'
+        if: steps.exists.outputs.skip != 'true' && steps.exists.outputs.resume != 'true'
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           RELEASE_POST_MODEL: ${{ vars.RELEASE_POST_MODEL }}
         run: node release-post/generate-post.mjs "$RUNNER_TEMP/release.json"
 
       - name: Record audio
-        if: steps.exists.outputs.skip != 'true' && env.AUDIO != 'off'
+        if: steps.exists.outputs.skip != 'true' && steps.exists.outputs.resume != 'true' && env.AUDIO != 'off'
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           RELEASE_POST_TTS_ENGINE: ${{ vars.RELEASE_POST_TTS_ENGINE }}
@@ -111,15 +120,19 @@ jobs:
         env:
           GH_TOKEN: ${{ steps.app-token.outputs.token || github.token }}
           PUSH_TOKEN: ${{ steps.app-token.outputs.token || github.token }}
+          RESUME: ${{ steps.exists.outputs.resume }}
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git switch -c "$BRANCH"
-          git add "$BUNDLE"
-          git commit -m "blog: add Navidrome $TAG release post"
-          auth=$(printf 'x-access-token:%s' "$PUSH_TOKEN" | base64 -w0)
-          echo "::add-mask::$auth"
-          git -c http.extraheader="AUTHORIZATION: basic $auth" push origin "$BRANCH"
+          if [ "$RESUME" != "true" ]; then
+            node release-post/check-post.mjs "$BUNDLE/index.md"
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git switch -c "$BRANCH"
+            git add "$BUNDLE"
+            git commit -m "blog: add Navidrome $TAG release post"
+            auth=$(printf 'x-access-token:%s' "$PUSH_TOKEN" | base64 -w0)
+            echo "::add-mask::$auth"
+            git -c http.extraheader="AUTHORIZATION: basic $auth" push origin "$BRANCH"
+          fi
 
           url=$(jq -r .url "$RUNNER_TEMP/release.json")
           node release-post/pr-body.mjs "$TAG" "$url" "$REVIEWER" "$RELEASE_POST_USAGE_FILE" "$RELEASE_POST_WARNINGS_FILE" > "$RUNNER_TEMP/body.md"

@@ -22,8 +22,10 @@ Reviews from other people do nothing.
      hash of `narration.txt`, so audio is only recorded again when the spoken text changes.
    - Then it opens a PR from the `release-post/<tag>` branch.
 3. [`release-post-review.yml`](../.github/workflows/release-post-review.yml) handles reviews.
-   Codex can only change `index.md` and `narration.txt` of that post. It has no Git credentials.
-   The workflow commits and pushes.
+   Codex works on copies of the post files in a folder outside the repo, so it cannot change
+   scripts, workflows or `.git`. The workflow copies back only `index.md` and `narration.txt`,
+   rejects raw HTML and unknown shortcodes (`check-post.mjs`), then commits and pushes.
+   Only the reviewer's own comments are sent to Codex.
 
 You can also start it by hand: Actions, "Release Post", "Run workflow", with a tag like `v0.65.0`.
 

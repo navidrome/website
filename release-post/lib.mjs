@@ -7,6 +7,11 @@ import { fileURLToPath } from "node:url";
 export const REPO_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 export const RELEASES_DIR = "content/en/blog/releases";
 
+// Where content is written. Tests point it at a temporary folder.
+export function contentRoot() {
+  return process.env.RELEASE_POST_CONTENT_ROOT || REPO_ROOT;
+}
+
 // Only stable Navidrome tags. Anything else (prereleases, odd input) is rejected early,
 // because the tag ends up in paths, branch names and shell commands.
 const TAG_RE = /^v(\d+)\.(\d+)\.(\d+)$/;
@@ -56,7 +61,8 @@ export function chunkText(text, maxChars) {
       continue;
     }
     let current = "";
-    for (const sentence of para.match(/[^.!?]+[.!?]+["')\]]*\s*|[^.!?]+$/g) ?? [para]) {
+    // Split after sentence punctuation that is followed by a space, so "0.65.0" stays whole.
+    for (const sentence of para.split(/(?<=[.!?]["')\]]*)\s+/)) {
       const s = sentence.trim();
       if (s.length > maxChars) throw new Error(`A sentence is longer than ${maxChars} characters`);
       if (current && current.length + 1 + s.length > maxChars) {
@@ -104,15 +110,33 @@ export function wordSimilarity(a, b) {
   return (2 * prev[y.length]) / (x.length + y.length);
 }
 
-// Returns the changed paths that are outside the allowed files of a post bundle.
-export function disallowedChanges(paths, dir, editable = ["index.md", "narration.txt"]) {
-  const allowed = new Set(editable.map((f) => path.posix.join(dir, f)));
-  return paths.filter((p) => !allowed.has(p));
+// Checks a post's index.md before it is committed or published. Returns a list of problems.
+export function checkPost(indexMd) {
+  const m = /^---\n[\s\S]*?\n---\n/.exec(String(indexMd).replace(/\r\n/g, "\n"));
+  if (!m) return ["index.md has no front matter"];
+  const body = indexMd.replace(/\r\n/g, "\n").slice(m[0].length);
+  const problems = [];
+  if (hasRawHtml(body)) problems.push("index.md has raw HTML");
+  const shortcodes = [...body.matchAll(/\{\{[<%]\s*\/?\s*([\w/-]+)/g)].map((x) => x[1]);
+  const others = shortcodes.filter((n) => n !== "release-audio");
+  if (others.length) problems.push(`index.md has shortcodes other than release-audio: ${others.join(", ")}`);
+  if (!shortcodes.includes("release-audio")) problems.push("index.md lost the {{< release-audio >}} line");
+  return problems;
+}
+
+// The site renders Markdown with goldmark's unsafe mode, so HTML in a post goes to the page as is.
+// Model output and Codex edits must not add any. Code spans and autolinks are allowed.
+export function hasRawHtml(markdown) {
+  const text = String(markdown)
+    .replace(/^(`{3,}|~{3,})[\s\S]*?^\1/gm, "")
+    .replace(/(`+)[\s\S]*?\1/g, "")
+    .replace(/<(?:https?:\/\/|mailto:)[^>\s]*>/gi, "");
+  return /<\/?[a-z!?][^>]*>/i.test(text);
 }
 
 // Finds the most recent existing release post, to use as a style example.
 export function latestPost(excludeTag) {
-  const root = path.join(REPO_ROOT, RELEASES_DIR);
+  const root = path.join(contentRoot(), RELEASES_DIR);
   if (!existsSync(root)) return null;
   const candidates = readdirSync(root)
     .filter((d) => d !== excludeTag && TAG_RE.test(d) && statSync(path.join(root, d)).isDirectory())

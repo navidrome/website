@@ -13,7 +13,8 @@ Write from the release notes you are given. Rules:
   "exciting"), no emojis.
 - Credit contributors with their GitHub handle when the notes name them, like `@handle`.
 - Link to issues or PRs only with URLs that appear in the notes.
-- Do not copy the full changelog. Summarize. Readers can follow the link to the full notes.
+- Do not copy the full changelog. Summarize. Do not end with a link to the full release notes:
+  the page adds that link itself.
 - Skip the boilerplate at the end of the notes (sponsor text, "Helping out", "Full Changelog").
 - Use Markdown. Do not use a top-level `#` heading (the page has a title). Use `##` sections.
   No raw HTML, no Hugo shortcodes, no images.
