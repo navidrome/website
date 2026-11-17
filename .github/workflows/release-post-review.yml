@@ -193,7 +193,7 @@ jobs:
             [ "$PUSHED" = "true" ] && echo "Pushed the changes to this PR." || echo "No changes were pushed."
             [ "${AUDIO_CHANGED:-}" = "true" ] && echo "The audio was recorded again. Listen before you approve."
             if [ "$AUDIO_OUTCOME" = "failure" ]; then
-              echo "Recording the audio failed, so the audio is out of date. Comment \`/regen-audio\` to try again."
+              echo "Recording the audio failed, so the audio is out of date. Submit a review (Comment, not Approve) with \`/regen-audio\` to try again."
             fi
             if [ -s "$RELEASE_POST_WARNINGS_FILE" ]; then
               echo
@@ -273,7 +273,7 @@ jobs:
             || fail "the post did not pass the checks. See the logs."
           if [ "$AUDIO" != "off" ]; then
             node release-post/generate-audio.mjs "content/en/blog/releases/$tag" --check \
-              || fail "the audio does not match narration.txt. Comment \`/regen-audio\` to record it again."
+              || fail "the audio does not match narration.txt. Submit a review (Comment, not Approve) with \`/regen-audio\` to record it again."
           fi
           GH_TOKEN="$MERGE_TOKEN" gh pr merge "$PR_NUMBER" --squash --delete-branch --match-head-commit "$REVIEWED_SHA" \
             || fail "the merge failed. The PR may have changed after the approval. See the logs."

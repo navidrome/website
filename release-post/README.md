@@ -28,8 +28,8 @@ Reviews from other people do nothing.
    HTML tag (even in code), shortcodes other than the player, front matter keys that
    `generate-post.mjs` does not write, and YAML escapes, tags or aliases that could hide a tag. `--fix` also links bare `@handle`s to their GitHub
    profiles. Then the workflow commits and pushes. Only the reviewer's own comments are sent
-   to Codex. If recording the audio fails, the text is still pushed, and the reply says to
-   comment `/regen-audio`.
+   to Codex. If recording the audio fails, the text is still pushed, and the reply says to submit
+   a review with `/regen-audio`.
 
 You can also start it by hand: Actions, "Release Post", "Run workflow", with a tag like `v0.65.0`.
 
