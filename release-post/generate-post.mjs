@@ -87,8 +87,17 @@ export function thanksMaintainer(text, owner) {
     .some((sentence) => name.test(sentence) && THANKS.test(sentence));
 }
 
-export function validatePost(post, tag, owner = maintainer()) {
+const SECURITY = /\b(security|vulnerabilit(y|ies)|CVE-\d|GHSA-)/i;
+
+export function validatePost(post, tag, owner = maintainer(), notes = "") {
   const problems = [];
+  if (SECURITY.test(notes)) {
+    if (!/^##\s.*security/im.test(post.body)) problems.push('notes mention security fixes, but the post has no "Security fixes" section');
+    if (!/security/i.test(post.narration)) problems.push("notes mention security fixes, but the narration does not");
+  }
+  if (/^##\s+before you upgrade/im.test(post.body) && !/\bpost\b/i.test(post.narration)) {
+    problems.push("the post has upgrade steps, but the narration does not point listeners to the post");
+  }
   if (thanksMaintainer(post.body, owner)) problems.push(`body thanks the maintainer @${owner}`);
   if (thanksMaintainer(post.narration, owner)) problems.push(`narration thanks the maintainer ${owner}`);
   if (!post.title.includes(tag)) problems.push(`title does not contain ${tag}`);
@@ -121,7 +130,8 @@ build:
 
 ${linkHandles(post.body.trim())}
 
-Read the [full release notes on GitHub](${release.url}).
+For technical details, such as API, plugin and command line changes, read the
+[full release notes on GitHub](${release.url}).
 `;
 }
 
@@ -160,7 +170,7 @@ async function main() {
   let problems = [];
   for (let attempt = 1; attempt <= 2; attempt++) {
     post = await callModel(release);
-    problems = validatePost(post, tag);
+    problems = validatePost(post, tag, maintainer(), release.body);
     if (!problems.length) break;
     console.warn(`Attempt ${attempt}: ${problems.join("; ")}`);
   }

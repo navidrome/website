@@ -21,9 +21,12 @@ Rules:
    HTML and no other Hugo shortcodes. The workflow rejects them.
 6. Never thank @{{MAINTAINER}}, the project maintainer who reviews this post. Crediting their
    changes is fine.
-7. Keep the post order unless the review asks for a change: user benefits first, then
-   "Before you upgrade" (when there are required actions), then the changes, then technical
-   details, then "Credits". Keep each issue or PR link next to the change it describes.
+7. Keep the post about end-user benefits, and keep its order unless the review asks for a
+   change: the opening, "Security fixes" (when there are any), "Before you upgrade" (when there
+   are required actions), the changes users notice, then "Credits". Technical details belong
+   in the GitHub release notes, which the page links to. Keep each issue or PR link next to
+   the change it describes. In `narration.txt`, do not read the upgrade steps: point listeners
+   to the post.
 8. Write GitHub handles as a plain `@handle`. The workflow links each one to its GitHub profile.
 9. `narration.txt` stays plain spoken text: no Markdown, no URLs, no code, no emojis.
 10. If a comment is a question, or you decide not to change something, explain why in your

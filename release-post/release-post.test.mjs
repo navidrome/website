@@ -111,6 +111,20 @@ describe("post", () => {
     for (const p of [/title/, /top-level heading/, /shortcodes/, /raw HTML/, /URLs/, /narration has 2 words/]) assert.match(problems, p);
   });
 
+  it("flags a post that hides security fixes or reads upgrade steps aloud", () => {
+    const notes = "### Security\n- Fixed GHSA-xxxx: SQL injection";
+    const check = (body, narration = good.narration) => validatePost({ ...good, body, narration }, "v0.65.0", "deluan", notes).join("\n");
+    const spoken = `${good.narration} This release has security fixes.`;
+    assert.equal(check("## Security fixes\n\n- A fix.", spoken), "");
+    assert.match(check("## New\n\nThings.", spoken), /no "Security fixes" section/);
+    assert.match(check("## Security fixes\n\n- A fix."), /narration does not/);
+    assert.deepEqual(validatePost({ ...good, body: "## New\n\nThings." }, "v0.65.0", "deluan", "### Fixes\n- Faster scans"), [], "no security fixes in the notes");
+
+    const steps = "## Security fixes\n\n- A fix.\n\n## Before you upgrade\n\n- Back up your database.";
+    assert.match(check(steps, spoken), /does not point listeners to the post/);
+    assert.equal(check(steps, `${spoken} The steps to take before upgrading are in the blog post.`), "");
+  });
+
   it("allows crediting the maintainer but flags thanking them", () => {
     const check = (body, narration = good.narration) => validatePost({ ...good, body, narration }, "v0.65.0", "deluan").join();
     assert.equal(check("These changes are by @deluan. Fixed by @deluan and @kgarner7."), "");
