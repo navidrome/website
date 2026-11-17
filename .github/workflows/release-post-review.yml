@@ -88,13 +88,14 @@ jobs:
           git -C "$CODEX_DIR" add -A
           git -C "$CODEX_DIR" -c user.name=bot -c user.email=bot@localhost commit -q -m "post"
 
-      # Codex has its own OpenAI key, so its cost shows in its own OpenAI project.
+      # Codex can have its own OpenAI key, so its cost shows in its own OpenAI project.
+      # Without it, Codex uses the same key as the post and the audio.
       - name: Run Codex
         id: codex
         if: steps.review.outputs.has_feedback == 'true'
         uses: openai/codex-action@v1
         with:
-          openai-api-key: ${{ secrets.CODEX_OPENAI_API_KEY }}
+          openai-api-key: ${{ secrets.CODEX_OPENAI_API_KEY || secrets.OPENAI_API_KEY }}
           prompt-file: ${{ env.PROMPT_FILE }}
           working-directory: ${{ env.CODEX_DIR }}
           permission-profile: ":workspace"

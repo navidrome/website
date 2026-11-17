@@ -47,7 +47,7 @@ Secrets:
 | Name | Needed | What |
 | --- | --- | --- |
 | `OPENAI_API_KEY` | Yes | Writes the post and records the audio. |
-| `CODEX_OPENAI_API_KEY` | Yes | Codex review edits. Use a key from a **different OpenAI project** than `OPENAI_API_KEY`. |
+| `CODEX_OPENAI_API_KEY` | No | Codex review edits. Without it, Codex uses `OPENAI_API_KEY`. Set it to a key from a **different OpenAI project** to see the Codex cost apart. |
 | `RELEASE_POST_APP_PRIVATE_KEY` | Recommended | Private key of a GitHub App. See below. |
 
 Variables (all optional):
@@ -87,12 +87,12 @@ There are three separate cost buckets:
 
 1. **Post and audio** (`OPENAI_API_KEY`). Each run lists its tokens in
    the job summary and on the PR. Prices change, so the scripts do not show money.
-2. **Codex review edits** (`CODEX_OPENAI_API_KEY`). One run per review. `openai/codex-action`
+2. **Codex review edits** (`CODEX_OPENAI_API_KEY`, or `OPENAI_API_KEY` when it is not set). One run per review. `openai/codex-action`
    only works with an API key, so this is API usage, not ChatGPT plan usage.
 3. **GitHub Actions minutes**. Free for this public repo.
 
-Use two OpenAI projects, one per key. Then each project has its own usage page, budget and limits,
-and you can see the Codex cost apart from the rest.
+One key works for both. To see the Codex cost apart from the rest, use two OpenAI projects, one
+per key. Then each project has its own usage page, budget and limits.
 
 About API credits, for example from
 [Codex for Open Source](https://developers.openai.com/codex/codex-for-oss-terms): the terms say the
