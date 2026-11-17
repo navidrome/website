@@ -61,6 +61,10 @@ export function buildInput(release, styleExample) {
 
 // The Responses API returns a list of output items. We want the text of the message item.
 export function extractOutput(response) {
+  // A cut-off response has cut-off JSON. Say why, so the run can try again.
+  if (response.status === "incomplete") {
+    throw new Error(`Response incomplete: ${response.incomplete_details?.reason ?? "unknown reason"}`);
+  }
   for (const item of response.output ?? []) {
     if (item.type !== "message") continue;
     for (const c of item.content ?? []) {
@@ -173,7 +177,13 @@ async function main() {
   let post;
   let problems = [];
   for (let attempt = 1; attempt <= 2; attempt++) {
-    post = await callModel(release);
+    try {
+      post = await callModel(release);
+    } catch (e) {
+      if (attempt === 2) throw e;
+      console.warn(`Attempt ${attempt}: ${e.message}`);
+      continue;
+    }
     problems = validatePost(post, tag, maintainer(), release.body);
     if (!problems.length) break;
     console.warn(`Attempt ${attempt}: ${problems.join("; ")}`);
@@ -195,7 +205,8 @@ async function main() {
   console.log(bundleDir(tag));
 }
 
-if (import.meta.url === `file://${process.argv[1]}`) {
+// import.meta.main also works when the path has spaces or symlinks.
+if (import.meta.main) {
   main().catch((e) => {
     console.error(e.message);
     process.exit(1);

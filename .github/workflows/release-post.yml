@@ -129,10 +129,18 @@ jobs:
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
             git switch -c "$BRANCH"
             git add "$BUNDLE"
-            git commit -m "blog: add Navidrome $TAG release post"
+            # The warnings go in the commit message too, so a resumed run can still show them.
+            if [ -s "$RELEASE_POST_WARNINGS_FILE" ]; then
+              git commit -m "blog: add Navidrome $TAG release post" -m "Warnings:" -m "$(cat "$RELEASE_POST_WARNINGS_FILE")"
+            else
+              git commit -m "blog: add Navidrome $TAG release post"
+            fi
             auth=$(printf 'x-access-token:%s' "$PUSH_TOKEN" | base64 -w0)
             echo "::add-mask::$auth"
             git -c http.extraheader="AUTHORIZATION: basic $auth" push origin "$BRANCH"
+          else
+            git fetch -q origin "$BRANCH"
+            git log -1 --format=%b FETCH_HEAD | sed '1,/^Warnings:$/d' > "$RELEASE_POST_WARNINGS_FILE"
           fi
 
           url=$(jq -r .url "$RUNNER_TEMP/release.json")

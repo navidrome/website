@@ -21,6 +21,7 @@ const SAMPLE_RATE = 24000; // Both engines return 16-bit mono PCM at 24 kHz.
 const BYTES_PER_SECOND = SAMPLE_RATE * 2;
 const PAUSE = Buffer.alloc(Math.round(BYTES_PER_SECOND * 0.6)); // Silence between chunks.
 const MIN_SIMILARITY = 0.9;
+const MAX_ATTEMPTS = 3;
 
 const VOICE_INSTRUCTIONS =
   "You are the narrator of a blog post for Navidrome, an open source music server. " +
@@ -141,23 +142,38 @@ export async function synthesize(narration, opts = {}) {
   const parts = [];
   const similarities = [];
   for (const [i, text] of chunks.entries()) {
-    let result;
-    for (let attempt = 1; ; attempt++) {
-      result =
-        engine === "speech"
-          ? await speechChunk({ text, model, voice, apiKey })
-          : await realtimeChunk({ text, model, voice, apiKey, connect });
-      recordUsage({ step: `audio ${i + 1}/${chunks.length}`, model, usage: result.usage, characters: text.length });
-      if (result.transcript === null) break;
-      const sim = wordSimilarity(text, result.transcript);
-      if (sim >= MIN_SIMILARITY || attempt >= 3) {
-        if (sim < MIN_SIMILARITY) console.warn(`Chunk ${i + 1}: the voice did not follow the script (similarity ${sim.toFixed(2)})`);
-        similarities.push(Number(sim.toFixed(3)));
+    // Up to 3 tries per chunk, for an error or for a voice that did not follow the script.
+    // Keeps the closest take.
+    let best = null;
+    for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
+      let result;
+      try {
+        result =
+          engine === "speech"
+            ? await speechChunk({ text, model, voice, apiKey })
+            : await realtimeChunk({ text, model, voice, apiKey, connect });
+        if (!result.pcm.length) throw new Error("no audio returned");
+      } catch (e) {
+        if (attempt === MAX_ATTEMPTS && !best) throw new Error(`Chunk ${i + 1}: ${e.message}`);
+        console.warn(`Chunk ${i + 1}, attempt ${attempt}: ${e.message}`);
+        continue;
+      } finally {
+        if (result) recordUsage({ step: `audio ${i + 1}/${chunks.length}`, model, usage: result.usage, characters: text.length });
+      }
+      if (result.transcript === null) {
+        best = { result, sim: null };
         break;
       }
-      console.warn(`Chunk ${i + 1}, attempt ${attempt}: similarity ${sim.toFixed(2)}, retrying`);
+      const sim = wordSimilarity(text, result.transcript);
+      if (!best || sim > best.sim) best = { result, sim };
+      if (sim >= MIN_SIMILARITY) break;
+      console.warn(`Chunk ${i + 1}, attempt ${attempt}: similarity ${sim.toFixed(2)}`);
     }
-    if (!result.pcm.length) throw new Error(`Chunk ${i + 1}: no audio returned`);
+    const { result, sim } = best;
+    if (sim !== null) {
+      if (sim < MIN_SIMILARITY) console.warn(`Chunk ${i + 1}: the voice did not follow the script (best similarity ${sim.toFixed(2)})`);
+      similarities.push(Number(sim.toFixed(3)));
+    }
     if (parts.length) parts.push(PAUSE);
     parts.push(result.pcm);
   }
@@ -225,7 +241,8 @@ async function main() {
   }
 }
 
-if (import.meta.url === `file://${process.argv[1]}`) {
+// import.meta.main also works when the path has spaces or symlinks.
+if (import.meta.main) {
   main().catch((e) => {
     console.error(e.message);
     process.exit(1);

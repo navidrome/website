@@ -17,8 +17,9 @@ Rules:
    the post, make the same change in `narration.txt`. If a change is only about formatting, links
    or wording that is not spoken, leave `narration.txt` as it is, so no new audio is paid for.
 4. Use only facts from `release-notes.txt` and from the review. Do not invent anything.
-5. Keep the front matter keys and the `{{< release-audio >}}` line in `index.md`. Add no raw
-   HTML and no other Hugo shortcodes. The workflow rejects them.
+5. Keep the front matter and the `{{< release-audio >}}` line in `index.md`. Add no front
+   matter keys, no other Hugo shortcodes, and no HTML tags, not even inside code. The workflow
+   rejects anything that looks like `<tag>`.
 6. Never thank @{{MAINTAINER}}, the project maintainer who reviews this post. Crediting their
    changes is fine.
 7. Keep the post about end-user benefits, and keep its order unless the review asks for a

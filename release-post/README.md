@@ -24,10 +24,19 @@ Reviews from other people do nothing.
 3. [`release-post-review.yml`](../.github/workflows/release-post-review.yml) handles reviews.
    Codex works on copies of the post files in a folder outside the repo, so it cannot change
    scripts, workflows or `.git`. The workflow copies back only `index.md` and `narration.txt`,
-   rejects raw HTML and unknown shortcodes (`check-post.mjs --fix`, which also links bare `@handle`s to their GitHub profiles), then commits and pushes.
-   Only the reviewer's own comments are sent to Codex.
+   and checks them with `check-post.mjs --fix`. The check rejects anything that looks like an
+   HTML tag (even in code), shortcodes other than the player, and front matter keys that
+   `generate-post.mjs` does not write. `--fix` also links bare `@handle`s to their GitHub
+   profiles. Then the workflow commits and pushes. Only the reviewer's own comments are sent
+   to Codex. If recording the audio fails, the text is still pushed, and the reply says to
+   comment `/regen-audio`.
 
 You can also start it by hand: Actions, "Release Post", "Run workflow", with a tag like `v0.65.0`.
+
+A run does nothing for a tag that already has a post on `master`, or a PR in any state. So
+closing a PR without merging means "no post for this release". To get the post after all,
+reopen the PR. If a run pushed the branch but failed to open the PR, the next run opens the PR
+only, with the first run's warnings.
 
 ## Setup
 

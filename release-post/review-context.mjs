@@ -27,7 +27,8 @@ export function threadsForReview(comments, reviewId, reviewer) {
   }
   return [...threads.values()]
     .filter((t) => t.some((c) => c.pull_request_review_id === reviewId))
-    .map((t) => t.filter((c) => c.user?.login === reviewer))
+    // GitHub logins are case-insensitive, like the workflow's reviewer check.
+    .map((t) => t.filter((c) => c.user?.login?.toLowerCase() === reviewer.toLowerCase()))
     .filter((t) => t.length);
 }
 
@@ -96,7 +97,8 @@ async function main() {
   console.log(outputs.trim());
 }
 
-if (import.meta.url === `file://${process.argv[1]}`) {
+// import.meta.main also works when the path has spaces or symlinks.
+if (import.meta.main) {
   main().catch((e) => {
     console.error(e.message);
     process.exit(1);

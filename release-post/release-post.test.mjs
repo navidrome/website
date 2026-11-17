@@ -7,7 +7,7 @@ import { tmpdir } from "node:os";
 import path from "node:path";
 import { describe, it } from "node:test";
 import { load as loadYaml } from "js-yaml";
-import { realtimeChunk } from "./generate-audio.mjs";
+import { realtimeChunk, synthesize } from "./generate-audio.mjs";
 import { extractOutput, renderIndex, validatePost } from "./generate-post.mjs";
 import {
   REPO_ROOT,
@@ -16,6 +16,7 @@ import {
   hasRawHtml,
   linkHandles,
   linkHandlesInPost,
+  postBody,
   narrationHash,
   parseTag,
   tagFromBranch,
@@ -143,35 +144,54 @@ describe("post", () => {
     const msg = (content) => ({ output: [{ type: "reasoning" }, { type: "message", content: [content] }] });
     assert.deepEqual(extractOutput(msg({ type: "output_text", text: '{"a":1}' })), { a: 1 });
     assert.throws(() => extractOutput(msg({ type: "refusal", refusal: "no" })), /refused/);
-    assert.throws(() => extractOutput({ output: [], status: "incomplete" }), /incomplete/);
+    const cut = { ...msg({ type: "output_text", text: '{"title":"Navi' }), status: "incomplete", incomplete_details: { reason: "max_output_tokens" } };
+    assert.throws(() => extractOutput(cut), /Response incomplete: max_output_tokens/);
   });
 });
 
 describe("raw HTML", () => {
-  it("finds tags but not code or autolinks", () => {
-    assert.equal(hasRawHtml("Use `<audio>` tags and <https://navidrome.org>."), false);
-    assert.equal(hasRawHtml("```html\n<script>x</script>\n```"), false);
+  it("finds tags, but not autolinks or comparisons", () => {
+    assert.equal(hasRawHtml("See <https://navidrome.org> or <mailto:a@b.c>."), false);
     assert.equal(hasRawHtml("Version 2 < 3 and 4 > 1"), false);
     assert.equal(hasRawHtml("Hi <script>alert(1)</script>"), true);
     assert.equal(hasRawHtml("<img src=x onerror=alert(1)>"), true);
     assert.equal(hasRawHtml("<!-- hidden -->"), true);
   });
 
-  it("finds tags that only look like they are in code", () => {
-    assert.equal(hasRawHtml("x `<b>`` y"), true, "backtick runs of different lengths are not a code span");
-    assert.equal(hasRawHtml("x ``<b>`` y"), false);
-    assert.equal(hasRawHtml("`a\n\n<b>bold</b>\n\n`"), true, "a code span does not cross a blank line");
-    assert.equal(hasRawHtml("   ~~~\n<b>\n   ~~~"), false, "an indented fence is code");
+  // Each of these renders HTML on the page with Hugo, though a regex can take it for code.
+  it("finds tags that look like they are in code", () => {
+    for (const text of [
+      "Hello ` <img src=x onerror=alert(1)> `` there",
+      "```x```\n<script>alert(2)</script>\n```x```",
+      "Use the `--flag option.\n\n<img src=x onerror=alert(1)>\n\nThen run `cmd`.",
+      "\\`<img src=x onerror=alert(1)>`",
+      "Use `<audio>` tags.",
+      "```html\n<script>x</script>\n```",
+    ]) {
+      assert.equal(hasRawHtml(text), true, text);
+    }
   });
 
   it("checks a post file before commit and publish", () => {
-    const ok = "---\ntitle: x\n---\n\n{{< release-audio >}}\n\nText with `<b>`.\n";
+    const ok = "---\ntitle: x\nbuild:\n  publishResources: false\n---\n\n{{< release-audio >}}\n\nText.\n";
     assert.deepEqual(checkPost(ok), []);
     assert.match(checkPost(ok.replace("Text", "<b>Text</b>")).join(), /raw HTML/);
     assert.match(checkPost(ok + "{{< youtube x >}}\n").join(), /youtube/);
     assert.match(checkPost(ok.replace("{{< release-audio >}}", "")).join(), /lost/);
     assert.match(checkPost("no front matter").join(), /front matter/);
-    assert.match(checkPost("---\ntitle: x\n---\n\n{{< release-audio\n").join(), /lost/, "an unclosed shortcode is not the player");
+    assert.match(checkPost(ok.replace("{{< release-audio >}}", "{{< release-audio")).join(), /lost/, "an unclosed shortcode is not the player");
+  });
+
+  it("allows only the front matter that renderIndex writes", () => {
+    const post = (fm) => `---\n${fm}\n---\n\n{{< release-audio >}}\n\nText.\n`;
+    const build = "build:\n  publishResources: false";
+    assert.deepEqual(checkPost(post(`title: x\ndescription: >\n  two\n  lines\n${build}`)), []);
+    assert.match(checkPost(post(`title: x\nurl: /docs/\n${build}`)).join(), /must not have: url/);
+    assert.match(checkPost(post(`aliases: ["/docs/"]\n${build}`)).join(), /must not have: aliases/);
+    assert.match(checkPost(post(`${build}\n  publishResources: true`)).join(), /publishResources: true/);
+    assert.match(checkPost(post(`${build}\n  render: always`)).join(), /render: always/);
+    assert.match(checkPost(post("title: x")).join(), /lost build.publishResources/);
+    assert.match(checkPost(post("build: {publishResources: false}")).join(), /must be a block/);
   });
 });
 
@@ -196,9 +216,18 @@ describe("GitHub handles", () => {
       "   ~~~\nOWNER=@alice\n   ~~~",
       "[work by @deluan][change]",
       "[change]: https://example.com/@deluan",
+      "Bumped by @dependabot[bot]",
     ]) {
       assert.equal(linkHandles(text), text);
     }
+  });
+
+  it("gives the style example only the written part of a post", () => {
+    const post = renderIndex(
+      { title: "Navidrome v0.65.0: x", description: "d", body: "## New\n\nBy @kgarner7.", narration: "n" },
+      { tagName: "v0.65.0", url: "https://github.com/navidrome/navidrome/releases/tag/v0.65.0", publishedAt: "2026-11-16T20:00:00Z" },
+    );
+    assert.equal(postBody(post), `## New\n\nBy ${gh("kgarner7")}.`);
   });
 
   it("keeps CRLF front matter and links the body", () => {
@@ -236,6 +265,11 @@ describe("review", () => {
     const threads = threadsForReview(comments, 11, "deluan");
     assert.deepEqual(threads.map((t) => t.map((c) => c.id)), [[2]]);
     assert.doesNotMatch(formatFeedback({ body: "", threads, reviewer: "deluan" }), /script|please/);
+  });
+
+  it("matches the reviewer's login in any case", () => {
+    const comments = [{ id: 1, pull_request_review_id: 11, user: { login: "DeLuan" }, body: "fix" }];
+    assert.deepEqual(threadsForReview(comments, 11, "deluan").map((t) => t.map((c) => c.id)), [[1]]);
   });
 
   it("knows when a review only asks for new audio", () => {
@@ -293,6 +327,48 @@ describe("realtime engine", () => {
     assert.deepEqual(result.pcm, pcm);
     assert.equal(result.transcript, "Hello there.");
     assert.equal(result.usage.output_tokens, 9);
+  });
+
+  // Each call to connect is one take. A take is an error, or audio with what the voice said.
+  const takes = (list) => {
+    let n = 0;
+    const connect = () => {
+      const take = list[n++];
+      return fakeSocket((e) => {
+        if (e.type === "session.update") return take.error ? [{ type: "error", error: { message: take.error } }] : [{ type: "session.updated" }];
+        if (e.type === "response.create")
+          return [
+            { type: "response.output_audio.delta", delta: Buffer.from(take.audio).toString("base64") },
+            { type: "response.output_audio_transcript.done", transcript: take.said },
+            { type: "response.done", response: { status: "completed", usage: {} } },
+          ];
+      });
+    };
+    return { connect, count: () => n };
+  };
+  const script = "Navidrome version one adds smart playlists for everyone today.";
+
+  it("tries a chunk again after an error", async () => {
+    const t = takes([{ error: "server busy" }, { audio: [7, 7], said: script }]);
+    const out = await synthesize(script, { engine: "realtime", model: "m", voice: "v", apiKey: "k", connect: t.connect });
+    assert.deepEqual([...out.pcm], [7, 7]);
+    assert.equal(t.count(), 2);
+  });
+
+  it("keeps the closest take when no take follows the script", async () => {
+    const t = takes([
+      { audio: [1, 1], said: "Something else entirely." },
+      { audio: [2, 2], said: "Navidrome version one adds playlists today." },
+      { audio: [3, 3], said: "Hello." },
+    ]);
+    const out = await synthesize(script, { engine: "realtime", model: "m", voice: "v", apiKey: "k", connect: t.connect });
+    assert.deepEqual([...out.pcm], [2, 2]);
+    assert.equal(t.count(), 3);
+  });
+
+  it("fails when every take of a chunk fails", async () => {
+    const t = takes([{ error: "a" }, { error: "b" }, { error: "c" }]);
+    await assert.rejects(synthesize(script, { engine: "realtime", model: "m", voice: "v", apiKey: "k", connect: t.connect }), /Chunk 1: Realtime API error: c/);
   });
 
   it("fails on API errors and on incomplete responses", async () => {

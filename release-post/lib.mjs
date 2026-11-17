@@ -110,12 +110,46 @@ export function wordSimilarity(a, b) {
   return (2 * prev[y.length]) / (x.length + y.length);
 }
 
+// The front matter keys renderIndex writes. Keys such as url, aliases, layout or outputs change
+// where and how the page is published, so a post may not add them.
+const FRONT_MATTER_KEYS = new Set(["title", "linkTitle", "date", "description", "slug", "author", "release", "release_url", "build"]);
+
+export function splitPost(indexMd) {
+  const text = String(indexMd).replace(/\r\n/g, "\n");
+  const m = /^---\n([\s\S]*?)\n---\n/.exec(text);
+  return m ? { frontMatter: m[1], body: text.slice(m[0].length) } : null;
+}
+
+export function checkFrontMatter(frontMatter) {
+  const problems = [];
+  let key = null;
+  let unpublished = false;
+  for (const line of frontMatter.split("\n")) {
+    if (!line.trim() || /^\s*#/.test(line)) continue;
+    const top = /^([^\s#][^:]*):(.*)$/.exec(line);
+    if (top) {
+      key = top[1].trim();
+      if (!FRONT_MATTER_KEYS.has(key)) problems.push(`front matter has a key it must not have: ${key}`);
+      else if (key === "build" && top[2].trim()) problems.push("front matter build must be a block with only publishResources: false");
+    } else if (/^\s/.test(line) && key) {
+      // Only build has nested keys, and only this one.
+      if (key !== "build") continue;
+      if (/^\s+publishResources:\s*false\s*(#.*)?$/.test(line)) unpublished = true;
+      else problems.push(`front matter build has a setting it must not have: ${line.trim()}`);
+    } else {
+      problems.push(`front matter has a line that is not a key: ${line.trim()}`);
+    }
+  }
+  if (!unpublished) problems.push("front matter lost build.publishResources: false");
+  return problems;
+}
+
 // Checks a post's index.md before it is committed or published. Returns a list of problems.
 export function checkPost(indexMd) {
-  const m = /^---\n[\s\S]*?\n---\n/.exec(String(indexMd).replace(/\r\n/g, "\n"));
-  if (!m) return ["index.md has no front matter"];
-  const body = indexMd.replace(/\r\n/g, "\n").slice(m[0].length);
-  const problems = [];
+  const post = splitPost(indexMd);
+  if (!post) return ["index.md has no front matter"];
+  const { body } = post;
+  const problems = checkFrontMatter(post.frontMatter);
   if (hasRawHtml(body)) problems.push("index.md has raw HTML");
   // Any shortcode opening counts here, complete or not.
   const shortcodes = [...body.matchAll(/\{\{[<%]\s*\/?\s*([\w/-]+)/g)].map((x) => x[1]);
@@ -126,20 +160,21 @@ export function checkPost(indexMd) {
   return problems;
 }
 
-// Fenced code: up to 3 spaces of indent, and it runs to the end when it is not closed.
-const FENCE = String.raw`^ {0,3}(?<fence>\`{3,}|~{3,})[\s\S]*?(?:^ {0,3}\k<fence>[^\n]*$|(?![\s\S]))`;
-// A code span closes only with a backtick run of the same length, in the same paragraph.
-const CODE_SPAN = String.raw`(?<!\`)(?<ticks>\`+)(?!\`)(?:(?!\n[ \t]*\n)[\s\S])*?(?<!\`)\k<ticks>(?!\`)`;
-
 // The site renders Markdown with goldmark's unsafe mode, so HTML in a post goes to the page as is.
-// Model output and Codex edits must not add any. Code spans and autolinks are allowed.
+// Model output and Codex edits must not add any. This check does not try to find code spans or
+// fences: a regex cannot follow CommonMark closely enough, and each gap is a way to put HTML on
+// the page. So it rejects anything that looks like a tag, even inside code. Only URL and email
+// autolinks are allowed.
 export function hasRawHtml(markdown) {
-  const text = String(markdown)
-    .replace(new RegExp(FENCE, "gm"), "")
-    .replace(new RegExp(CODE_SPAN, "g"), "")
-    .replace(/<(?:https?:\/\/|mailto:)[^>\s]*>/gi, "");
-  return /<\/?[a-z!?][^>]*>/i.test(text);
+  const text = String(markdown).replace(/<(?:https?:\/\/|mailto:)[^>\s]*>/gi, "");
+  return /<\/?[a-z!?]/i.test(text);
 }
+
+// Fenced code: up to 3 spaces of indent, and it runs to the end when it is not closed. A backtick
+// fence has no backtick after it on the same line, or it is a code span.
+const FENCE = String.raw`^ {0,3}(?<fence>\`{3,}(?=[^\`\n]*$)|~{3,})[\s\S]*?(?:^ {0,3}\k<fence>[\`~]*[ \t]*$|(?![\s\S]))`;
+// A code span closes only with a backtick run of the same length, in the same paragraph.
+const CODE_SPAN = String.raw`(?<![\`\\])(?<ticks>\`+)(?!\`)(?:(?!\n[ \t]*\n)[\s\S])*?(?<!\`)\k<ticks>(?!\`)`;
 
 // Parts of Markdown where an @ must stay as it is: fenced code, code spans, inline and
 // reference links, link definitions, autolinks and URLs.
@@ -152,8 +187,8 @@ const NO_LINK = [
   String.raw`https?:\/\/[^\s)>\]]+`,
 ].join("|");
 // A GitHub login: letters, digits and single inner hyphens, 39 characters at most. It must not
-// be part of an email ("a@b.c"), a path, or a team ("@org/team").
-const HANDLE = String.raw`(?<![\w@./\`\[-])@(?<login>[A-Za-z0-9](?:[A-Za-z0-9]|-(?=[A-Za-z0-9])){0,38})(?![\w/-])`;
+// be part of an email ("a@b.c"), a path, a team ("@org/team") or a bot ("@dependabot[bot]").
+const HANDLE = String.raw`(?<![\w@./\`\[-])@(?<login>[A-Za-z0-9](?:[A-Za-z0-9]|-(?=[A-Za-z0-9])){0,38})(?![\w/-]|\[bot\])`;
 
 // Turns each bare "@handle" into a link to that GitHub profile.
 export function linkHandles(markdown) {
@@ -169,7 +204,16 @@ export function linkHandlesInPost(indexMd) {
   return m ? m[0] + linkHandles(indexMd.slice(m[0].length)) : linkHandles(indexMd);
 }
 
-// Finds the most recent existing release post, to use as a style example.
+// The written part of a post: no front matter, no audio player line, no footer that the page adds.
+export function postBody(indexMd) {
+  const post = splitPost(indexMd);
+  return (post ? post.body : String(indexMd))
+    .replace(/^\{\{<\s*release-audio\s*>\}\}[ \t]*\n?/m, "")
+    .replace(/\n+(?:For technical details, [^\n]*\n)?\[?[^\n]*full release notes on GitHub\]\([^)]*\)\.?\s*$/, "\n")
+    .trim();
+}
+
+// Finds the most recent existing release post, and returns its body to use as a style example.
 export function latestPost(excludeTag) {
   const root = path.join(contentRoot(), RELEASES_DIR);
   if (!existsSync(root)) return null;
@@ -182,7 +226,7 @@ export function latestPost(excludeTag) {
       return pb.major - pa.major || pb.minor - pa.minor || pb.patch - pa.patch;
     });
   if (!candidates.length) return null;
-  return readFileSync(path.join(root, candidates[0], "index.md"), "utf8");
+  return postBody(readFileSync(path.join(root, candidates[0], "index.md"), "utf8"));
 }
 
 export function yamlString(s) {

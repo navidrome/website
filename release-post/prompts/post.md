@@ -62,7 +62,8 @@ Credits:
 - Plain, friendly and direct. Short paragraphs. No hype words ("revolutionary", "game-changer",
   "exciting"), no emojis.
 - Use Markdown. Do not use a top-level `#` heading (the page has a title). Use `##` sections.
-  No raw HTML, no Hugo shortcodes, no images.
+  No Hugo shortcodes and no images. No HTML tags anywhere, not even inside code: the page
+  rejects any text that looks like `<tag>`. Describe a tag in words instead.
 
 ## Narration
 

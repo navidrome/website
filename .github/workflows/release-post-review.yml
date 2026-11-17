@@ -11,10 +11,6 @@ on:
 permissions:
   contents: read
 
-concurrency:
-  group: release-post-review-${{ github.event.pull_request.number }}
-  cancel-in-progress: false
-
 jobs:
   revise:
     if: >-
@@ -25,6 +21,11 @@ jobs:
       github.event.review.state != 'approved'
     runs-on: ubuntu-latest
     timeout-minutes: 30
+    # Job level, so the many skipped runs (bot reviews) do not join the queue and cancel a
+    # waiting run from the reviewer.
+    concurrency:
+      group: release-post-review-${{ github.event.pull_request.number }}
+      cancel-in-progress: false
     permissions:
       contents: write
       pull-requests: write
@@ -59,6 +60,7 @@ jobs:
           tag=$(node -e 'import("./release-post/lib.mjs").then(l => console.log(l.tagFromBranch(process.argv[1])))' "$BRANCH")
           echo "BUNDLE=content/en/blog/releases/$tag" >> "$GITHUB_ENV"
           echo "RELEASE_POST_USAGE_FILE=$RUNNER_TEMP/usage.jsonl" >> "$GITHUB_ENV"
+          echo "RELEASE_POST_WARNINGS_FILE=$RUNNER_TEMP/warnings.md" >> "$GITHUB_ENV"
           echo "PROMPT_FILE=$RUNNER_TEMP/codex-prompt.md" >> "$GITHUB_ENV"
           echo "CODEX_DIR=$RUNNER_TEMP/codex-post" >> "$GITHUB_ENV"
 
@@ -122,8 +124,12 @@ jobs:
         # --fix links any bare @handle that Codex added to its GitHub profile.
         run: node release-post/check-post.mjs "$BUNDLE/index.md" --fix
 
+      # When this fails, the text edits are still pushed. The publish job does not merge a
+      # post whose audio does not match narration.txt.
       - name: Record audio
+        id: audio
         if: env.AUDIO != 'off'
+        continue-on-error: true
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           RELEASE_POST_TTS_ENGINE: ${{ vars.RELEASE_POST_TTS_ENGINE }}
@@ -138,7 +144,13 @@ jobs:
         id: push
         env:
           PUSH_TOKEN: ${{ steps.app-token.outputs.token || github.token }}
+          AUDIO_OUTCOME: ${{ steps.audio.outcome }}
         run: |
+          if [ "$AUDIO_OUTCOME" = "failure" ]; then
+            # Do not push a half-written recording.
+            git checkout -- "$BUNDLE/narration.mp3" "$BUNDLE/audio.json" 2>/dev/null || true
+            echo "AUDIO_CHANGED=false" >> "$GITHUB_ENV"
+          fi
           git add -A "$BUNDLE"
           if git diff --cached --quiet; then
             echo "pushed=false" >> "$GITHUB_OUTPUT"
@@ -159,6 +171,7 @@ jobs:
           CODEX_MESSAGE: ${{ steps.codex.outputs.final-message }}
           CODEX_OUTCOME: ${{ steps.codex.outcome }}
           PUSHED: ${{ steps.push.outputs.pushed }}
+          AUDIO_OUTCOME: ${{ steps.audio.outcome }}
           JOB_STATUS: ${{ job.status }}
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         run: |
@@ -175,6 +188,15 @@ jobs:
             fi
             [ "$PUSHED" = "true" ] && echo "Pushed the changes to this PR." || echo "No changes were pushed."
             [ "${AUDIO_CHANGED:-}" = "true" ] && echo "The audio was recorded again. Listen before you approve."
+            if [ "$AUDIO_OUTCOME" = "failure" ]; then
+              echo "Recording the audio failed, so the audio is out of date. Comment \`/regen-audio\` to try again."
+            fi
+            if [ -s "$RELEASE_POST_WARNINGS_FILE" ]; then
+              echo
+              echo "**Warnings**"
+              echo
+              cat "$RELEASE_POST_WARNINGS_FILE"
+            fi
             echo
             echo "<details><summary>API usage (generation key)</summary>"
             echo
@@ -183,6 +205,12 @@ jobs:
             echo "</details>"
           } > "$RUNNER_TEMP/reply.md"
           gh pr comment "$PR_NUMBER" --body-file "$RUNNER_TEMP/reply.md"
+
+      - name: Fail if the audio failed
+        if: steps.audio.outcome == 'failure'
+        run: |
+          echo "::error::Recording the audio failed. See the Record audio step."
+          exit 1
 
   publish:
     if: >-
@@ -193,6 +221,11 @@ jobs:
       github.event.review.state == 'approved'
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    # Job level, so the many skipped runs (bot reviews) do not join the queue and cancel a
+    # waiting run from the reviewer.
+    concurrency:
+      group: release-post-review-${{ github.event.pull_request.number }}
+      cancel-in-progress: false
     permissions:
       contents: write
       pull-requests: write
@@ -200,7 +233,6 @@ jobs:
     env:
       BRANCH: ${{ github.event.pull_request.head.ref }}
       PR_NUMBER: ${{ github.event.pull_request.number }}
-      HEAD_SHA: ${{ github.event.pull_request.head.sha }}
       REVIEWED_SHA: ${{ github.event.review.commit_id }}
       AUDIO: ${{ vars.RELEASE_POST_AUDIO || 'on' }}
     steps:
@@ -215,7 +247,7 @@ jobs:
       - name: Checkout PR branch
         uses: actions/checkout@v7
         with:
-          ref: ${{ github.event.pull_request.head.sha }}
+          ref: ${{ github.event.review.commit_id }}
           persist-credentials: false
 
       - name: Setup Node.js
@@ -223,24 +255,24 @@ jobs:
         with:
           node-version-file: .nvmrc
 
-      - name: Check approval and audio
+      - name: Check and merge
         env:
           GH_TOKEN: ${{ github.token }}
+          MERGE_TOKEN: ${{ steps.app-token.outputs.token || github.token }}
         run: |
           fail() { echo "::error::$1"; gh pr comment "$PR_NUMBER" --body "Not published: $1"; exit 1; }
-          [ "$REVIEWED_SHA" = "$HEAD_SHA" ] || fail "the approval is for an older commit. Approve the latest commit."
+          # The head now, not the one in the event: a revise run may have pushed while this job waited.
+          head=$(gh pr view "$PR_NUMBER" --json headRefOid --jq .headRefOid)
+          [ "$REVIEWED_SHA" = "$head" ] || fail "the approval is for an older commit. Approve the latest commit."
           tag=$(node -e 'import("./release-post/lib.mjs").then(l => console.log(l.tagFromBranch(process.argv[1])))' "$BRANCH")
           node release-post/check-post.mjs "content/en/blog/releases/$tag/index.md" \
-            || fail "the post has raw HTML or shortcodes it must not have. See the logs."
+            || fail "the post did not pass the checks. See the logs."
           if [ "$AUDIO" != "off" ]; then
             node release-post/generate-audio.mjs "content/en/blog/releases/$tag" --check \
               || fail "the audio does not match narration.txt. Comment \`/regen-audio\` to record it again."
           fi
-
-      - name: Merge
-        env:
-          GH_TOKEN: ${{ steps.app-token.outputs.token || github.token }}
-        run: gh pr merge "$PR_NUMBER" --squash --delete-branch --match-head-commit "$HEAD_SHA"
+          GH_TOKEN="$MERGE_TOKEN" gh pr merge "$PR_NUMBER" --squash --delete-branch --match-head-commit "$REVIEWED_SHA" \
+            || fail "the merge failed. The PR may have changed after the approval. See the logs."
 
       # A merge made with GITHUB_TOKEN does not start push workflows. A merge made with the
       # app token does, so only start the deploy here when there is no app.
