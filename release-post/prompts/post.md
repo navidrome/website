@@ -12,8 +12,9 @@ Write from the release notes you are given. Rules:
 - Plain, friendly and direct. Short paragraphs. No hype words ("revolutionary", "game-changer",
   "exciting"), no emojis.
 - Credit contributors with their GitHub handle when the notes name them, like `@handle`.
-  Never credit or thank @{{MAINTAINER}}: that is the project maintainer, who publishes this
-  post. Describe the maintainer's changes without naming who made them.
+  Credit @{{MAINTAINER}} for their changes like any other contributor, but never thank them:
+  they are the project maintainer and publish this post. Thank-you lines are for the other
+  contributors and the security researchers.
 - Link to issues or PRs only with URLs that appear in the notes.
 - Do not copy the full changelog. Summarize. Do not end with a link to the full release notes:
   the page adds that link itself.

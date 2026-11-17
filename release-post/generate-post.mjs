@@ -74,11 +74,22 @@ export function maintainer() {
   return env("RELEASE_POST_REVIEWER", "deluan");
 }
 
+const THANKS = /\b(thank(s|ed|ing)?|grateful|gratitude|kudos|shout-?outs?)\b/i;
+
+// True when a sentence both names the maintainer and thanks someone. Crediting the
+// maintainer ("by @deluan") is fine. Thanking them is not, as they publish the post.
+export function thanksMaintainer(text, owner) {
+  // GitHub logins are case-insensitive. "deluan" must not match "deluan2" or "deluan-fan".
+  const name = new RegExp(`(^|[^\\w-])@?${owner.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}(?![\\w-])`, "i");
+  return String(text)
+    .split(/(?<=[.!?])\s+|\n+/)
+    .some((sentence) => name.test(sentence) && THANKS.test(sentence));
+}
+
 export function validatePost(post, tag, owner = maintainer()) {
   const problems = [];
-  // GitHub logins are case-insensitive. "@deluan" must not match "@deluan2".
-  const mention = new RegExp(`@${owner.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}(?![\\w-])`, "i");
-  if (mention.test(post.body)) problems.push(`body credits the maintainer @${owner}`);
+  if (thanksMaintainer(post.body, owner)) problems.push(`body thanks the maintainer @${owner}`);
+  if (thanksMaintainer(post.narration, owner)) problems.push(`narration thanks the maintainer ${owner}`);
   if (!post.title.includes(tag)) problems.push(`title does not contain ${tag}`);
   if (/^#\s/m.test(post.body)) problems.push("body has a top-level heading");
   if (/\{\{[<%]/.test(post.body)) problems.push("body has Hugo shortcodes");

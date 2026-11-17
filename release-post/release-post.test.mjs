@@ -104,11 +104,15 @@ describe("post", () => {
     for (const p of [/title/, /top-level heading/, /shortcodes/, /raw HTML/, /URLs/, /narration has 2 words/]) assert.match(problems, p);
   });
 
-  it("flags a post that credits the maintainer", () => {
-    const credit = (body) => validatePost({ ...good, body }, "v0.65.0", "deluan");
-    assert.match(credit("Fixed by @deluan.").join(), /maintainer @deluan/);
-    assert.match(credit("Thanks @Deluan!").join(), /maintainer/);
-    assert.deepEqual(credit("Fixed by @deluan2 and @deluan-fan."), []);
+  it("allows crediting the maintainer but flags thanking them", () => {
+    const check = (body, narration = good.narration) => validatePost({ ...good, body, narration }, "v0.65.0", "deluan").join();
+    assert.equal(check("These changes are by @deluan. Fixed by @deluan and @kgarner7."), "");
+    assert.match(check("Thanks to @deluan and @kgarner7 for this work."), /body thanks the maintainer/);
+    assert.match(check("Big thanks, @Deluan!"), /body thanks/);
+    assert.equal(check("By @deluan. Thanks to @kgarner7 for the plugin work."), "", "thanks in another sentence");
+    assert.equal(check("Thanks to @deluan2 and @deluan-fan."), "");
+    const spoken = `${good.narration} Thank you to Deluan and all contributors.`;
+    assert.match(check("ok", spoken), /narration thanks/);
   });
 
   it("reads structured output and refusals", () => {
@@ -290,7 +294,8 @@ describe("command line", () => {
     assert.equal(req.path, "/v1/responses");
     assert.equal(req.auth, "Bearer test");
     assert.equal(req.json.text.format.type, "json_schema");
-    assert.match(req.json.instructions, /Never credit or thank @deluan:/);
+    assert.match(req.json.instructions, /never thank them/);
+    assert.match(req.json.instructions, /Credit @deluan for their changes/);
     assert.doesNotMatch(req.json.instructions, /\{\{MAINTAINER\}\}/);
     assert.match(req.json.input, /thing by @someone/);
     assert.match(readFileSync(path.join(dir, "index.md"), "utf8"), /title: "Navidrome v0.0.1: tests"/);
