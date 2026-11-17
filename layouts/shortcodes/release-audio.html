@@ -1,0 +1,9 @@
+{{- /* Audio player for a release post. Renders nothing until narration.mp3 exists. */ -}}
+{{- with .Page.Resources.Get "narration.mp3" -}}
+<figure class="release-audio my-4">
+  <figcaption class="small text-body-secondary mb-2">Listen to this post. The voice is AI-generated.</figcaption>
+  <audio controls preload="none" src="{{ .RelPermalink }}" class="w-100">
+    <a href="{{ .RelPermalink }}">Download the audio</a>
+  </audio>
+</figure>
+{{- end -}}

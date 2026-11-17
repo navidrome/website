@@ -1,0 +1,288 @@
+name: Release Post Review
+
+# Reviews on a release post PR (branch release-post/<tag>), from the reviewer only:
+# - Comment or Request changes: Codex edits the post in the same PR, and the audio is recorded
+#   again when narration.txt changed (or the review says /regen-audio).
+# - Approve, on the latest commit: the PR is merged and the site is deployed.
+on:
+  pull_request_review:
+    types: [submitted]
+
+permissions:
+  contents: read
+
+jobs:
+  revise:
+    if: >-
+      github.event.pull_request.head.repo.full_name == github.repository &&
+      startsWith(github.event.pull_request.head.ref, 'release-post/') &&
+      github.event.pull_request.state == 'open' &&
+      github.event.review.user.login == (vars.RELEASE_POST_REVIEWER || 'deluan') &&
+      github.event.review.state != 'approved'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    # Job level, so the many skipped runs (bot reviews) do not join the queue and cancel a
+    # waiting run from the reviewer.
+    concurrency:
+      group: release-post-review-${{ github.event.pull_request.number }}
+      cancel-in-progress: false
+    permissions:
+      contents: write
+      pull-requests: write
+    env:
+      BRANCH: ${{ github.event.pull_request.head.ref }}
+      PR_NUMBER: ${{ github.event.pull_request.number }}
+      REVIEWER: ${{ vars.RELEASE_POST_REVIEWER || 'deluan' }}
+      AUDIO: ${{ vars.RELEASE_POST_AUDIO || 'on' }}
+    steps:
+      - name: Get app token
+        id: app-token
+        if: vars.RELEASE_POST_APP_ID != ''
+        uses: actions/create-github-app-token@v3
+        with:
+          app-id: ${{ vars.RELEASE_POST_APP_ID }}
+          private-key: ${{ secrets.RELEASE_POST_APP_PRIVATE_KEY }}
+
+      # No saved credentials: Codex runs in this checkout and must not be able to push.
+      - name: Checkout PR branch
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+          persist-credentials: false
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+
+      - name: Find post
+        run: |
+          tag=$(node -e 'import("./release-post/lib.mjs").then(l => console.log(l.tagFromBranch(process.argv[1])))' "$BRANCH")
+          echo "BUNDLE=content/en/blog/releases/$tag" >> "$GITHUB_ENV"
+          echo "RELEASE_POST_USAGE_FILE=$RUNNER_TEMP/usage.jsonl" >> "$GITHUB_ENV"
+          echo "RELEASE_POST_WARNINGS_FILE=$RUNNER_TEMP/warnings.md" >> "$GITHUB_ENV"
+          echo "PROMPT_FILE=$RUNNER_TEMP/codex-prompt.md" >> "$GITHUB_ENV"
+          echo "CODEX_DIR=$RUNNER_TEMP/codex-post" >> "$GITHUB_ENV"
+
+      - name: Read review
+        id: review
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          REVIEW_ID: ${{ github.event.review.id }}
+          REVIEW_BODY: ${{ github.event.review.body }}
+        run: node release-post/review-context.mjs
+
+      # Before Codex: its drop-sudo safety strategy removes sudo for the rest of the job.
+      - name: Install ffmpeg
+        if: env.AUDIO != 'off'
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+
+      # Codex works on copies in a folder outside the repo. Its sandbox can only write there,
+      # so it cannot change the scripts that run after it, the workflows or .git.
+      - name: Prepare Codex folder
+        if: steps.review.outputs.has_feedback == 'true'
+        run: |
+          mkdir -p "$CODEX_DIR"
+          cp "$BUNDLE/index.md" "$BUNDLE/narration.txt" "$BUNDLE/release-notes.txt" "$CODEX_DIR/"
+          git -C "$CODEX_DIR" init -q
+          git -C "$CODEX_DIR" add -A
+          git -C "$CODEX_DIR" -c user.name=bot -c user.email=bot@localhost commit -q -m "post"
+
+      # Codex can have its own OpenAI key, so its cost shows in its own OpenAI project.
+      # Without it, Codex uses the same key as the post and the audio.
+      - name: Run Codex
+        id: codex
+        if: steps.review.outputs.has_feedback == 'true'
+        uses: openai/codex-action@v1
+        with:
+          openai-api-key: ${{ secrets.CODEX_OPENAI_API_KEY || secrets.OPENAI_API_KEY }}
+          prompt-file: ${{ env.PROMPT_FILE }}
+          working-directory: ${{ env.CODEX_DIR }}
+          permission-profile: ":workspace"
+          safety-strategy: drop-sudo
+          model: ${{ vars.CODEX_MODEL }}
+          effort: ${{ vars.CODEX_EFFORT }}
+
+      # Shell only: nothing from the repo runs until the post files are checked.
+      - name: Copy Codex edits back
+        if: steps.review.outputs.has_feedback == 'true'
+        run: |
+          for f in index.md narration.txt; do
+            src="$CODEX_DIR/$f"
+            if [ -L "$src" ] || [ ! -f "$src" ]; then
+              echo "::error::Codex left $f missing or as a link."
+              exit 1
+            fi
+            cp "$src" "$BUNDLE/$f"
+          done
+          bad=$(git status --porcelain --untracked-files=all | cut -c4- | grep -vxF -e "$BUNDLE/index.md" -e "$BUNDLE/narration.txt" || true)
+          if [ -n "$bad" ]; then
+            echo "::error::Unexpected changes in the repo: $bad"
+            exit 1
+          fi
+
+      - name: Check post
+        # --fix links any bare @handle that Codex added to its GitHub profile.
+        run: node release-post/check-post.mjs "$BUNDLE/index.md" --fix
+
+      # When this fails, the text edits are still pushed. The publish job does not merge a
+      # post whose audio does not match narration.txt.
+      - name: Record audio
+        id: audio
+        if: env.AUDIO != 'off'
+        continue-on-error: true
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          RELEASE_POST_TTS_ENGINE: ${{ vars.RELEASE_POST_TTS_ENGINE }}
+          RELEASE_POST_TTS_MODEL: ${{ vars.RELEASE_POST_TTS_MODEL }}
+          RELEASE_POST_VOICE: ${{ vars.RELEASE_POST_VOICE }}
+          FORCE: ${{ steps.review.outputs.force_audio == 'true' && '--force' || '' }}
+        run: |
+          node release-post/generate-audio.mjs "$BUNDLE" $FORCE
+          git status --porcelain -- "$BUNDLE/narration.mp3" | grep -q . && echo "AUDIO_CHANGED=true" >> "$GITHUB_ENV" || true
+
+      - name: Commit and push
+        id: push
+        env:
+          PUSH_TOKEN: ${{ steps.app-token.outputs.token || github.token }}
+          AUDIO_OUTCOME: ${{ steps.audio.outcome }}
+        run: |
+          if [ "$AUDIO_OUTCOME" = "failure" ]; then
+            # Do not push a half-written recording. A file that is not in the last commit is removed.
+            for f in narration.mp3 audio.json; do
+              git checkout -- "$BUNDLE/$f" 2>/dev/null || rm -f "$BUNDLE/$f"
+            done
+            echo "AUDIO_CHANGED=false" >> "$GITHUB_ENV"
+          fi
+          git add -A "$BUNDLE"
+          if git diff --cached --quiet; then
+            echo "pushed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "blog: address review on release post"
+          auth=$(printf 'x-access-token:%s' "$PUSH_TOKEN" | base64 -w0)
+          echo "::add-mask::$auth"
+          git -c http.extraheader="AUTHORIZATION: basic $auth" push origin "HEAD:$BRANCH"
+          echo "pushed=true" >> "$GITHUB_OUTPUT"
+
+      - name: Reply on PR
+        if: always() && steps.review.outcome == 'success'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          CODEX_MESSAGE: ${{ steps.codex.outputs.final-message }}
+          CODEX_OUTCOME: ${{ steps.codex.outcome }}
+          PUSHED: ${{ steps.push.outputs.pushed }}
+          AUDIO_OUTCOME: ${{ steps.audio.outcome }}
+          JOB_STATUS: ${{ job.status }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          {
+            if [ "$JOB_STATUS" != "success" ]; then
+              echo "The review run failed. See [the logs]($RUN_URL)."
+              echo
+            fi
+            if [ "$CODEX_OUTCOME" = "success" ]; then
+              echo "### Codex"
+              echo
+              # A zero-width space (UTF-8 bytes, so the locale does not matter) after each @, so the reply does not notify the people it names.
+              # Emails ("a@b.com") are left alone.
+              printf '%s\n' "$CODEX_MESSAGE" | sed "s/\(^\|[^A-Za-z0-9_.]\)@\([A-Za-z0-9]\)/\1@$(printf '\342\200\213')\2/g"
+              echo
+            fi
+            [ "$PUSHED" = "true" ] && echo "Pushed the changes to this PR." || echo "No changes were pushed."
+            [ "${AUDIO_CHANGED:-}" = "true" ] && echo "The audio was recorded again. Listen before you approve."
+            if [ "$AUDIO_OUTCOME" = "failure" ]; then
+              echo "Recording the audio failed, so the audio is out of date. Submit a review (Comment, not Approve) with \`/regen-audio\` to try again."
+            fi
+            if [ -s "$RELEASE_POST_WARNINGS_FILE" ]; then
+              echo
+              echo "**Warnings**"
+              echo
+              cat "$RELEASE_POST_WARNINGS_FILE"
+            fi
+            echo
+            echo "<details><summary>API usage (generation key)</summary>"
+            echo
+            node -e 'import("./release-post/lib.mjs").then(l => console.log(l.usageMarkdown(l.readUsage(process.argv[1]))))' "$RELEASE_POST_USAGE_FILE"
+            echo
+            echo "</details>"
+          } > "$RUNNER_TEMP/reply.md"
+          gh pr comment "$PR_NUMBER" --body-file "$RUNNER_TEMP/reply.md"
+
+      - name: Fail if the audio failed
+        if: steps.audio.outcome == 'failure'
+        run: |
+          echo "::error::Recording the audio failed. See the Record audio step."
+          exit 1
+
+  publish:
+    if: >-
+      github.event.pull_request.head.repo.full_name == github.repository &&
+      startsWith(github.event.pull_request.head.ref, 'release-post/') &&
+      github.event.pull_request.state == 'open' &&
+      github.event.review.user.login == (vars.RELEASE_POST_REVIEWER || 'deluan') &&
+      github.event.review.state == 'approved'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    # Job level, so the many skipped runs (bot reviews) do not join the queue and cancel a
+    # waiting run from the reviewer.
+    concurrency:
+      group: release-post-review-${{ github.event.pull_request.number }}
+      cancel-in-progress: false
+    permissions:
+      contents: write
+      pull-requests: write
+      actions: write # To start the deploy workflow.
+    env:
+      BRANCH: ${{ github.event.pull_request.head.ref }}
+      PR_NUMBER: ${{ github.event.pull_request.number }}
+      REVIEWED_SHA: ${{ github.event.review.commit_id }}
+      AUDIO: ${{ vars.RELEASE_POST_AUDIO || 'on' }}
+    steps:
+      - name: Get app token
+        id: app-token
+        if: vars.RELEASE_POST_APP_ID != ''
+        uses: actions/create-github-app-token@v3
+        with:
+          app-id: ${{ vars.RELEASE_POST_APP_ID }}
+          private-key: ${{ secrets.RELEASE_POST_APP_PRIVATE_KEY }}
+
+      - name: Checkout PR branch
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.review.commit_id }}
+          persist-credentials: false
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+
+      - name: Check and merge
+        env:
+          GH_TOKEN: ${{ github.token }}
+          MERGE_TOKEN: ${{ steps.app-token.outputs.token || github.token }}
+        run: |
+          fail() { echo "::error::$1"; gh pr comment "$PR_NUMBER" --body "Not published: $1"; exit 1; }
+          # The head now, not the one in the event: a revise run may have pushed while this job waited.
+          head=$(gh pr view "$PR_NUMBER" --json headRefOid --jq .headRefOid)
+          [ "$REVIEWED_SHA" = "$head" ] || fail "the approval is for an older commit. Approve the latest commit."
+          tag=$(node -e 'import("./release-post/lib.mjs").then(l => console.log(l.tagFromBranch(process.argv[1])))' "$BRANCH")
+          node release-post/check-post.mjs "content/en/blog/releases/$tag/index.md" \
+            || fail "the post did not pass the checks. See the logs."
+          if [ "$AUDIO" != "off" ]; then
+            node release-post/generate-audio.mjs "content/en/blog/releases/$tag" --check \
+              || fail "the audio does not match narration.txt. Submit a review (Comment, not Approve) with \`/regen-audio\` to record it again."
+          fi
+          GH_TOKEN="$MERGE_TOKEN" gh pr merge "$PR_NUMBER" --squash --delete-branch --match-head-commit "$REVIEWED_SHA" \
+            || fail "the merge failed. The PR may have changed after the approval. See the logs."
+
+      # A merge made with GITHUB_TOKEN does not start push workflows. A merge made with the
+      # app token does, so only start the deploy here when there is no app.
+      - name: Deploy
+        if: steps.app-token.outputs.token == ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run prod-build-deploy.yml --ref master

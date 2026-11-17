@@ -35,6 +35,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v7
         with:
+          node-version-file: .nvmrc
           cache: "npm"
 
       - name: Install npm dependencies
@@ -47,6 +48,9 @@ jobs:
           key: hugo-resources-${{ runner.os }}-${{ hashFiles('assets/apps/*/index.yaml') }}
           restore-keys: |
             hugo-resources-${{ runner.os }}-
+
+      - name: Test release post scripts
+        run: npm run test:release-post
 
       - name: Detect changed app entries
         id: detect-apps
