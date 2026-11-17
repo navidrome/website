@@ -82,7 +82,11 @@ const THANKS = /\b(thank(s|ed|ing)?|grateful|gratitude|kudos|shout-?outs?)\b/i;
 export function thanksMaintainer(text, owner) {
   // GitHub logins are case-insensitive. "deluan" must not match "deluan2" or "deluan-fan".
   const name = new RegExp(`(^|[^\\w-])@?${owner.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}(?![\\w-])`, "i");
+  // A single line break inside a paragraph does not end the sentence. A blank line, a list
+  // item or a heading does.
   return String(text)
+    .replace(/\r\n/g, "\n")
+    .replace(/\n(?![ \t]*(?:\n|[-*+][ \t]|\d+[.)][ \t]|#))/g, " ")
     .split(/(?<=[.!?])\s+|\n+/)
     .some((sentence) => name.test(sentence) && THANKS.test(sentence));
 }

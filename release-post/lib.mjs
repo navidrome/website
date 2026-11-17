@@ -117,39 +117,55 @@ export function checkPost(indexMd) {
   const body = indexMd.replace(/\r\n/g, "\n").slice(m[0].length);
   const problems = [];
   if (hasRawHtml(body)) problems.push("index.md has raw HTML");
+  // Any shortcode opening counts here, complete or not.
   const shortcodes = [...body.matchAll(/\{\{[<%]\s*\/?\s*([\w/-]+)/g)].map((x) => x[1]);
   const others = shortcodes.filter((n) => n !== "release-audio");
   if (others.length) problems.push(`index.md has shortcodes other than release-audio: ${others.join(", ")}`);
-  if (!shortcodes.includes("release-audio")) problems.push("index.md lost the {{< release-audio >}} line");
+  // The player needs the complete shortcode, not only its opening.
+  if (!/\{\{<\s*release-audio\s*>\}\}/.test(body)) problems.push("index.md lost the {{< release-audio >}} line");
   return problems;
 }
+
+// Fenced code: up to 3 spaces of indent, and it runs to the end when it is not closed.
+const FENCE = String.raw`^ {0,3}(?<fence>\`{3,}|~{3,})[\s\S]*?(?:^ {0,3}\k<fence>[^\n]*$|(?![\s\S]))`;
+// A code span closes only with a backtick run of the same length, in the same paragraph.
+const CODE_SPAN = String.raw`(?<!\`)(?<ticks>\`+)(?!\`)(?:(?!\n[ \t]*\n)[\s\S])*?(?<!\`)\k<ticks>(?!\`)`;
 
 // The site renders Markdown with goldmark's unsafe mode, so HTML in a post goes to the page as is.
 // Model output and Codex edits must not add any. Code spans and autolinks are allowed.
 export function hasRawHtml(markdown) {
   const text = String(markdown)
-    .replace(/^(`{3,}|~{3,})[\s\S]*?^\1/gm, "")
-    .replace(/(`+)[\s\S]*?\1/g, "")
+    .replace(new RegExp(FENCE, "gm"), "")
+    .replace(new RegExp(CODE_SPAN, "g"), "")
     .replace(/<(?:https?:\/\/|mailto:)[^>\s]*>/gi, "");
   return /<\/?[a-z!?][^>]*>/i.test(text);
 }
 
-// Parts of Markdown where an @ must stay as it is: fenced code, code spans, links, autolinks, URLs.
-const NO_LINK = String.raw`^(\`{3,}|~{3,})[\s\S]*?^\1[^\n]*$|(\`+)[\s\S]*?\2|!?\[[^\]\n]*\]\([^)\n]*\)|<[^>\s]+>|https?:\/\/[^\s)>\]]+`;
+// Parts of Markdown where an @ must stay as it is: fenced code, code spans, inline and
+// reference links, link definitions, autolinks and URLs.
+const NO_LINK = [
+  FENCE,
+  CODE_SPAN,
+  String.raw`!?\[[^\]\n]*\](?:\([^)\n]*\)|\[[^\]\n]*\])`,
+  String.raw`^ {0,3}\[[^\]\n]+\]:[^\n]*$`,
+  String.raw`<[^>\s]+>`,
+  String.raw`https?:\/\/[^\s)>\]]+`,
+].join("|");
 // A GitHub login: letters, digits and single inner hyphens, 39 characters at most. It must not
 // be part of an email ("a@b.c"), a path, or a team ("@org/team").
-const HANDLE = String.raw`(?<![\w@./\`\[-])@([A-Za-z0-9](?:[A-Za-z0-9]|-(?=[A-Za-z0-9])){0,38})(?![\w/-])`;
+const HANDLE = String.raw`(?<![\w@./\`\[-])@(?<login>[A-Za-z0-9](?:[A-Za-z0-9]|-(?=[A-Za-z0-9])){0,38})(?![\w/-])`;
 
 // Turns each bare "@handle" into a link to that GitHub profile.
 export function linkHandles(markdown) {
-  return String(markdown).replace(new RegExp(`${NO_LINK}|${HANDLE}`, "gm"), (match, _f, _c, login) =>
-    login ? `[@${login}](https://github.com/${login})` : match,
-  );
+  return String(markdown).replace(new RegExp(`${NO_LINK}|${HANDLE}`, "gm"), (...args) => {
+    const { login } = args.at(-1);
+    return login ? `[@${login}](https://github.com/${login})` : args[0];
+  });
 }
 
 // Same as linkHandles, for a whole index.md. The front matter is left as it is.
 export function linkHandlesInPost(indexMd) {
-  const m = /^---\n[\s\S]*?\n---\n/.exec(indexMd);
+  const m = /^---\r?\n[\s\S]*?\r?\n---\r?\n/.exec(indexMd);
   return m ? m[0] + linkHandles(indexMd.slice(m[0].length)) : linkHandles(indexMd);
 }
 

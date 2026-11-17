@@ -132,6 +132,9 @@ describe("post", () => {
     assert.match(check("Big thanks, @Deluan!"), /body thanks/);
     assert.equal(check("By @deluan. Thanks to @kgarner7 for the plugin work."), "", "thanks in another sentence");
     assert.equal(check("Thanks to @deluan2 and @deluan-fan."), "");
+    assert.match(check("Thanks to\n@deluan for this fix."), /body thanks/, "a soft line break does not end the sentence");
+    assert.equal(check("- Thanks to @kgarner7 for the plugin work\n- @deluan added the API"), "", "list items are separate");
+    assert.equal(check("## Thanks\n\n@deluan added the API"), "", "a heading is separate");
     const spoken = `${good.narration} Thank you to Deluan and all contributors.`;
     assert.match(check("ok", spoken), /narration thanks/);
   });
@@ -154,6 +157,13 @@ describe("raw HTML", () => {
     assert.equal(hasRawHtml("<!-- hidden -->"), true);
   });
 
+  it("finds tags that only look like they are in code", () => {
+    assert.equal(hasRawHtml("x `<b>`` y"), true, "backtick runs of different lengths are not a code span");
+    assert.equal(hasRawHtml("x ``<b>`` y"), false);
+    assert.equal(hasRawHtml("`a\n\n<b>bold</b>\n\n`"), true, "a code span does not cross a blank line");
+    assert.equal(hasRawHtml("   ~~~\n<b>\n   ~~~"), false, "an indented fence is code");
+  });
+
   it("checks a post file before commit and publish", () => {
     const ok = "---\ntitle: x\n---\n\n{{< release-audio >}}\n\nText with `<b>`.\n";
     assert.deepEqual(checkPost(ok), []);
@@ -161,6 +171,7 @@ describe("raw HTML", () => {
     assert.match(checkPost(ok + "{{< youtube x >}}\n").join(), /youtube/);
     assert.match(checkPost(ok.replace("{{< release-audio >}}", "")).join(), /lost/);
     assert.match(checkPost("no front matter").join(), /front matter/);
+    assert.match(checkPost("---\ntitle: x\n---\n\n{{< release-audio\n").join(), /lost/, "an unclosed shortcode is not the player");
   });
 });
 
@@ -182,9 +193,17 @@ describe("GitHub handles", () => {
       "Thanks [@deluan](https://github.com/deluan)",
       "Read [what @deluan said](https://example.com)",
       "Not a handle: @-x or @x- or foo@bar",
+      "   ~~~\nOWNER=@alice\n   ~~~",
+      "[work by @deluan][change]",
+      "[change]: https://example.com/@deluan",
     ]) {
       assert.equal(linkHandles(text), text);
     }
+  });
+
+  it("keeps CRLF front matter and links the body", () => {
+    const post = '---\r\ntitle: "By @deluan"\r\n---\r\n\r\nBy @deluan.\r\n';
+    assert.equal(linkHandlesInPost(post), `---\r\ntitle: "By @deluan"\r\n---\r\n\r\nBy ${gh("deluan")}.\r\n`);
   });
 
   it("keeps the front matter and links the body", () => {
