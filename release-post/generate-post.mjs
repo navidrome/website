@@ -70,8 +70,15 @@ export function extractOutput(response) {
   throw new Error(`No message in response (status: ${response.status})`);
 }
 
-export function validatePost(post, tag) {
+export function maintainer() {
+  return env("RELEASE_POST_REVIEWER", "deluan");
+}
+
+export function validatePost(post, tag, owner = maintainer()) {
   const problems = [];
+  // GitHub logins are case-insensitive. "@deluan" must not match "@deluan2".
+  const mention = new RegExp(`@${owner.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}(?![\\w-])`, "i");
+  if (mention.test(post.body)) problems.push(`body credits the maintainer @${owner}`);
   if (!post.title.includes(tag)) problems.push(`title does not contain ${tag}`);
   if (/^#\s/m.test(post.body)) problems.push("body has a top-level heading");
   if (/\{\{[<%]/.test(post.body)) problems.push("body has Hugo shortcodes");
@@ -108,7 +115,10 @@ Read the [full release notes on GitHub](${release.url}).
 
 async function callModel(release) {
   const model = env("RELEASE_POST_MODEL", "gpt-6.1-sol");
-  const instructions = readFileSync(path.join(REPO_ROOT, "release-post/prompts/post.md"), "utf8");
+  const instructions = readFileSync(path.join(REPO_ROOT, "release-post/prompts/post.md"), "utf8").replaceAll(
+    "{{MAINTAINER}}",
+    maintainer(),
+  );
   const res = await fetch(`${apiBase()}/responses`, {
     method: "POST",
     headers: { Authorization: `Bearer ${requireKey()}`, "Content-Type": "application/json" },

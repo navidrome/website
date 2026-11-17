@@ -88,7 +88,7 @@ async function main() {
   const hasFeedback = !audioOnly && reviewerTexts.some((t) => t.trim());
 
   const template = readFileSync(path.join(REPO_ROOT, "release-post/prompts/revise.md"), "utf8");
-  const prompt = template.replaceAll("{{BUNDLE_DIR}}", dir).replace("{{FEEDBACK}}", () => formatFeedback({ body, threads, reviewer }));
+  const prompt = template.replaceAll("{{BUNDLE_DIR}}", dir).replaceAll("{{MAINTAINER}}", reviewer).replace("{{FEEDBACK}}", () => formatFeedback({ body, threads, reviewer }));
   writeFileSync(promptFile, prompt);
 
   const outputs = `has_feedback=${hasFeedback}\nforce_audio=${forceAudio}\n`;

@@ -104,6 +104,13 @@ describe("post", () => {
     for (const p of [/title/, /top-level heading/, /shortcodes/, /raw HTML/, /URLs/, /narration has 2 words/]) assert.match(problems, p);
   });
 
+  it("flags a post that credits the maintainer", () => {
+    const credit = (body) => validatePost({ ...good, body }, "v0.65.0", "deluan");
+    assert.match(credit("Fixed by @deluan.").join(), /maintainer @deluan/);
+    assert.match(credit("Thanks @Deluan!").join(), /maintainer/);
+    assert.deepEqual(credit("Fixed by @deluan2 and @deluan-fan."), []);
+  });
+
   it("reads structured output and refusals", () => {
     const msg = (content) => ({ output: [{ type: "reasoning" }, { type: "message", content: [content] }] });
     assert.deepEqual(extractOutput(msg({ type: "output_text", text: '{"a":1}' })), { a: 1 });
@@ -283,6 +290,8 @@ describe("command line", () => {
     assert.equal(req.path, "/v1/responses");
     assert.equal(req.auth, "Bearer test");
     assert.equal(req.json.text.format.type, "json_schema");
+    assert.match(req.json.instructions, /Never credit or thank @deluan:/);
+    assert.doesNotMatch(req.json.instructions, /\{\{MAINTAINER\}\}/);
     assert.match(req.json.input, /thing by @someone/);
     assert.match(readFileSync(path.join(dir, "index.md"), "utf8"), /title: "Navidrome v0.0.1: tests"/);
     assert.equal(readFileSync(path.join(dir, "narration.txt"), "utf8").trim(), post.narration);

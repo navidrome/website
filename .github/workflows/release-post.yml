@@ -104,6 +104,7 @@ jobs:
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           RELEASE_POST_MODEL: ${{ vars.RELEASE_POST_MODEL }}
+          RELEASE_POST_REVIEWER: ${{ env.REVIEWER }}
         run: node release-post/generate-post.mjs "$RUNNER_TEMP/release.json"
 
       - name: Record audio

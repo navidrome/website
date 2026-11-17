@@ -19,8 +19,9 @@ Rules:
 4. Use only facts from `release-notes.txt` and from the review. Do not invent anything.
 5. Keep the front matter keys and the `{{< release-audio >}}` line in `index.md`. Add no raw
    HTML and no other Hugo shortcodes. The workflow rejects them.
-6. `narration.txt` stays plain spoken text: no Markdown, no URLs, no code, no emojis.
-7. If a comment is a question, or you decide not to change something, explain why in your
+6. Never credit or thank @{{MAINTAINER}}, the project maintainer who reviews this post.
+7. `narration.txt` stays plain spoken text: no Markdown, no URLs, no code, no emojis.
+8. If a comment is a question, or you decide not to change something, explain why in your
    final message.
 
 Your final message is posted on the pull request. Keep it short: a list of what you changed,
