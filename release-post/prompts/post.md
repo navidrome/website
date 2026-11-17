@@ -57,13 +57,30 @@ Credits:
   they are the project maintainer and publish this post. Thank-you lines are for the other
   contributors and the security researchers.
 
+## Media
+
+You may also get a list of screenshots and screen recordings from the PRs that the notes link
+to, with a preview image of each one. Use them to show changes that users see:
+
+- Show a media item only when seeing it helps a reader understand a change. Most posts need 1
+  to 4 items, and none is fine. Show each change at most once.
+- Skip media that shows the old or broken state, debug output, code, a terminal, or anything
+  that looks like private data. The preview and the "text before it" tell you which is which.
+- Put each item on its own line, right after the paragraph about that change, in this exact
+  form: `{{< release-media id="pr1234-1" alt="Short description of what it shows" >}}`
+- Use only ids from the list. Write your own alt text: say in plain words what the picture
+  shows. No quotes and no `<`, `>`, `{`, `}` or `\` in it.
+- No media in the opening, "Security fixes", "Before you upgrade" or "Credits".
+- The narration does not mention the media.
+
 ## Style
 
 - Plain, friendly and direct. Short paragraphs. No hype words ("revolutionary", "game-changer",
   "exciting"), no emojis.
 - Use Markdown. Do not use a top-level `#` heading (the page has a title). Use `##` sections.
-  No Hugo shortcodes and no images. No HTML tags anywhere, not even inside code: the page
-  rejects any text that looks like `<tag>`. Describe a tag in words instead.
+  No Hugo shortcodes other than the release-media lines, and no Markdown images. No HTML tags
+  anywhere, not even inside code: the page rejects any text that looks like `<tag>`. Describe
+  a tag in words instead.
 
 ## Narration
 

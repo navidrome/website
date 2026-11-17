@@ -1,0 +1,32 @@
+{{- /* A screenshot or screen recording in a release post, from the post's media/ folder.
+  Usage: {{< release-media id="pr1234-1" alt="What it shows" >}}
+  release-post/media.mjs writes media/<id>.jpg for an image, or media/<id>.mp4 and
+  media/<id>-poster.jpg for a video. The JPEGs are served as WebP. */ -}}
+{{- $id := .Get "id" -}}
+{{- $alt := .Get "alt" -}}
+{{- if not (findRE `^[a-z0-9-]{1,40}$` $id) -}}
+  {{- errorf "release-media: bad id %q in %s" $id .Page.File.Path -}}
+{{- end -}}
+{{- $video := .Page.Resources.Get (printf "media/%s.mp4" $id) -}}
+{{- $image := .Page.Resources.Get (printf "media/%s.jpg" $id) -}}
+{{- /* The width and height attributes give the browser the shape before the file loads. The
+  width is at most the column, and small enough that a tall phone picture stays under 75% of
+  the screen height. */ -}}
+{{- $fit := "width: min(100%%, calc(75vh * %d / %d)); height: auto;" -}}
+{{- if $video -}}
+  {{- $poster := .Page.Resources.Get (printf "media/%s-poster.jpg" $id) -}}
+<figure class="release-media my-4 text-center">
+  <video controls preload="none" playsinline class="rounded border" aria-label="{{ $alt }}"
+    {{- with $poster }}{{ $p := .Process "webp q80" }} poster="{{ $p.RelPermalink }}" width="{{ $p.Width }}" height="{{ $p.Height }}" style="{{ printf $fit $p.Width $p.Height | safeCSS }}"{{ else }} style="width: 100%; height: auto;"{{ end }}>
+    <source src="{{ $video.RelPermalink }}" type="video/mp4">
+    <a href="{{ $video.RelPermalink }}">Download the video: {{ $alt }}</a>
+  </video>
+</figure>
+{{- else if $image -}}
+  {{- $img := $image.Process "webp q82" -}}
+<figure class="release-media my-4 text-center">
+  <a href="{{ $img.RelPermalink }}"><img src="{{ $img.RelPermalink }}" alt="{{ $alt }}" width="{{ $img.Width }}" height="{{ $img.Height }}" loading="lazy" decoding="async" class="rounded border" style="{{ printf $fit $img.Width $img.Height | safeCSS }}"></a>
+</figure>
+{{- else -}}
+  {{- errorf "release-media: no file for %q in %s" $id .Page.File.Path -}}
+{{- end -}}

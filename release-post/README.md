@@ -1,7 +1,7 @@
 # Release posts
 
 When a Navidrome release is published, this repo writes a draft blog post and an audio version
-from the release notes, and opens a PR. The reviewer (default `deluan`) reviews the PR:
+from the release notes, adds screenshots and videos from the linked PRs, and opens a PR. The reviewer (default `deluan`) reviews the PR:
 
 | Reviewer action | What happens |
 | --- | --- |
@@ -16,8 +16,12 @@ Reviews from other people do nothing.
 1. `navidrome/navidrome` runs [`navidrome-release-dispatch.yml`](navidrome-release-dispatch.yml)
    when a release is published. It sends a `navidrome-release` repository dispatch to this repo.
 2. [`release-post.yml`](../.github/workflows/release-post.yml) reads the release notes and runs:
+   - `media.mjs collect`: downloads the screenshots and videos of the linked PRs into `media/`
+     and lists them in `media.json`. See "Media".
    - `generate-post.mjs`: writes `content/en/blog/releases/<tag>/index.md`, `narration.txt` and
-     `release-notes.txt` with the OpenAI Responses API.
+     `release-notes.txt` with the OpenAI Responses API. The model also sees a small preview of
+     each media item, and picks the ones the post shows.
+   - `media.mjs sync`: deletes the media that the post does not show.
    - `generate-audio.mjs`: records `narration.mp3` and writes `audio.json`. `audio.json` keeps a
      hash of `narration.txt`, so audio is only recorded again when the spoken text changes.
    - Then it opens a PR from the `release-post/<tag>` branch.
@@ -25,7 +29,7 @@ Reviews from other people do nothing.
    Codex works on copies of the post files in a folder outside the repo, so it cannot change
    scripts, workflows or `.git`. The workflow copies back only `index.md` and `narration.txt`,
    and checks them with `check-post.mjs --fix`. The check rejects anything that looks like an
-   HTML tag (even in code), shortcodes other than the player, front matter keys that
+   HTML tag (even in code), shortcodes other than the player and media lines, front matter keys that
    `generate-post.mjs` does not write, and YAML escapes, tags or aliases that could hide a tag. `--fix` also links bare `@handle`s to their GitHub
    profiles. Then the workflow commits and pushes. Only the reviewer's own comments are sent
    to Codex. If recording the audio fails, the text is still pushed, and the reply says to submit
@@ -58,6 +62,7 @@ Variables (all optional):
 | `RELEASE_POST_REVIEWER` | `deluan` | The only user whose reviews count. |
 | `RELEASE_POST_MODEL` | `gpt-6.1-sol` | Model that writes the post. |
 | `RELEASE_POST_AUDIO` | `on` | Set to `off` to skip audio. The post then has no player. |
+| `RELEASE_POST_MEDIA` | `on` | Set to `off` to skip screenshots and videos. |
 | `RELEASE_POST_TTS_ENGINE` | `realtime` | `realtime` or `speech`. See "Audio models". |
 | `RELEASE_POST_TTS_MODEL` | per engine | `gpt-realtime-2.1-mini` or `gpt-4o-mini-tts`. |
 | `RELEASE_POST_VOICE` | `marin` | Voice name. |
@@ -119,13 +124,43 @@ to the audio before you approve.
 The `speech` engine is a plain text-to-speech model, so it does not improvise. Use it until 2027-01-06 if the realtime voice
 drifts too much.
 
+## Media
+
+`media.mjs collect` reads the PRs that the release notes link to, and takes the files GitHub
+hosts for them (`github.com/user-attachments/...`): images, GIFs and videos. Other URLs are
+ignored. It keeps at most 3 items per PR and 16 in all, UI features first. Then ffmpeg makes them
+small:
+
+| Source | Saved as | Size |
+| --- | --- | --- |
+| Image, or a GIF with one frame | `media/<id>.jpg` | Longest side at most 1600 px. The site serves it as WebP. |
+| Video, or an animated GIF | `media/<id>.mp4` (H.264) and `media/<id>-poster.jpg` | Longest side at most 1280 px, 30 fps. Videos over 3 minutes are skipped. |
+
+A file over 20 MB is made smaller once, and then skipped. Cloudflare Pages rejects files over
+25 MiB. An item that fails is skipped with a warning in the log. If the whole step fails, the
+post is written without media.
+
+The post shows an item with a line of its own:
+
+```markdown
+{{< release-media id="pr5835-1" alt="The Catppuccin Frappé theme" >}}
+```
+
+[`release-media.html`](../layouts/shortcodes/release-media.html) shows it as an image, or as a
+video player with the poster. The id must be in `media.json`, and its files must be in
+`media/`. `check-post.mjs` checks this, and the line's exact form. To change the media in a
+review, ask for it: Codex can move, remove or add media lines with ids from `media.json`. The
+workflow downloads the files it needs again, and deletes the ones that are no longer shown.
+
 ## Local use
 
 ```bash
 npm run test:release-post   # Unit tests and a fake-API end-to-end test. Needs ffmpeg for the audio test.
 
 gh release view v0.65.0 -R navidrome/navidrome --json tagName,name,body,url,publishedAt > /tmp/release.json
+node release-post/media.mjs collect /tmp/release.json content/en/blog/releases/v0.65.0
 OPENAI_API_KEY=... node release-post/generate-post.mjs /tmp/release.json
+node release-post/media.mjs sync content/en/blog/releases/v0.65.0
 OPENAI_API_KEY=... node release-post/generate-audio.mjs content/en/blog/releases/v0.65.0
 ```
 

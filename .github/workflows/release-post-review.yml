@@ -73,8 +73,8 @@ jobs:
         run: node release-post/review-context.mjs
 
       # Before Codex: its drop-sudo safety strategy removes sudo for the rest of the job.
+      # The audio and the media both need it.
       - name: Install ffmpeg
-        if: env.AUDIO != 'off'
         run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
 
       # Codex works on copies in a folder outside the repo. Its sandbox can only write there,
@@ -84,6 +84,8 @@ jobs:
         run: |
           mkdir -p "$CODEX_DIR"
           cp "$BUNDLE/index.md" "$BUNDLE/narration.txt" "$BUNDLE/release-notes.txt" "$CODEX_DIR/"
+          # Read only for Codex: it is not copied back.
+          if [ -f "$BUNDLE/media.json" ]; then cp "$BUNDLE/media.json" "$CODEX_DIR/"; fi
           git -C "$CODEX_DIR" init -q
           git -C "$CODEX_DIR" add -A
           git -C "$CODEX_DIR" -c user.name=bot -c user.email=bot@localhost commit -q -m "post"
@@ -120,6 +122,11 @@ jobs:
             echo "::error::Unexpected changes in the repo: $bad"
             exit 1
           fi
+
+      # Downloads the media that Codex added from media.json, and removes the media it took out.
+      # media.json comes from the branch, not from Codex.
+      - name: Sync media
+        run: node release-post/media.mjs sync "$BUNDLE"
 
       - name: Check post
         # --fix links any bare @handle that Codex added to its GitHub profile.
