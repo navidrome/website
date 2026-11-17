@@ -1,0 +1,13 @@
+Navidrome version 0.64.0 is here. This release includes security fixes, so please upgrade. There are steps to take before upgrading, including a database backup, and you will find those in the blog post.
+
+The biggest addition is experimental support for Jellyfin music clients, including Finamp and Jellify. Once enabled, you can use compatible clients to browse and search your library, manage playlists, view lyrics, and use favourites and ratings. Instant Mix can start from an album, playlist or genre. If you have a sonic similarity plugin installed, compatible clients can also offer similar tracks and sonic paths.
+
+Playlists are easier to keep close at hand. You can mark them as favourites, filter the playlist list, and show only favourites in the sidebar. Each user's favourites and ratings stay separate. Playlist imports are also much faster on large libraries.
+
+Artwork now shows a blurred preview while the full image loads. New Refresh Metadata actions let you request updates from album and artist pages.
+
+Browsing gets faster artist and genre filtering, optional natural sorting that puts Track 2 before Track 10, and more choices for your starting page. There are also two new Catppuccin themes.
+
+Several everyday annoyances are fixed, too. Going back restores your scroll position, closing the disc-cover viewer no longer starts playback, and playlists refresh after you rate or love a track. Streaming and scrobbling also receive reliability fixes.
+
+Thank you to the contributors, translators and security researchers who helped with this release.

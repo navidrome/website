@@ -1,0 +1,12 @@
+{
+  "narration_sha256": "0f17fed594ebca3d32748aa2bd63812484189c45f657d8a1775275fa78c3520d",
+  "engine": "realtime",
+  "model": "gpt-realtime-2.1-mini",
+  "voice": "marin",
+  "duration_seconds": 91,
+  "chunks": 1,
+  "transcript_similarity": [
+    1
+  ],
+  "generated_at": "2026-11-17T18:33:19.522Z"
+}
