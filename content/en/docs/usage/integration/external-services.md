@@ -27,7 +27,16 @@ Last.fm provides the broadest set of metadata among the built-in agents.
 
 **Configuration:** Requires API keys. Set the
 [config options](/docs/usage/configuration/options/#:~:text=LastFM.ApiKey*-,ND_LASTFM_APIKEY,-Last.fm%20API)
-`LastFM.ApiKey` and `LastFM.Secret`. You can obtain these values by creating a free API account in Last.fm:
+`LastFM.ApiKey` and `LastFM.Secret`. You can obtain these values by creating an API account in Last.fm.
+
+{{% alert color="warning" title="Last.fm Pro required for API keys" %}}
+Starting December 1, 2026, the Last.fm account that owns your Navidrome server’s API key must have Last.fm Pro.
+Without a valid key, Navidrome can’t fetch new metadata from Last.fm or send scrobbles to it.
+Listeners can still use free Last.fm accounts if the server’s key is backed by Pro.
+See the [official announcement](https://support.last.fm/t/api-keys-will-require-pro-from-1st-december/121030).
+{{% /alert %}}
+
+To create the API account:
 
 1. Go to https://www.last.fm/api/account/create and create an API account. Only the _Application Name_ field is mandatory:
 <p align="center">
