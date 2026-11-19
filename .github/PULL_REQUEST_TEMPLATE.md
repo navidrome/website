@@ -10,6 +10,7 @@ Thanks for contributing to the Navidrome website! 🎉
 
 - [ ] App catalog entry (new app or update) — fill in the section below
 - [ ] Documentation
+- [ ] Blog post
 - [ ] Bug fix
 - [ ] Styling / layout
 - [ ] Other

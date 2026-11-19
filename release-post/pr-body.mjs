@@ -2,6 +2,7 @@
 // Prints the body of a release post PR.
 // Usage: node release-post/pr-body.mjs <tag> <release-url> <reviewer> [usage.jsonl] [warnings.md]
 import { existsSync, readFileSync } from "node:fs";
+import path from "node:path";
 import { bundleDir, readUsage, usageMarkdown } from "./lib.mjs";
 
 const [tag, url, reviewer, usageFile, warningsFile] = process.argv.slice(2);
@@ -15,7 +16,7 @@ Draft blog post and audio for [Navidrome ${tag}](${url}), written from the relea
 - Post: \`${dir}/index.md\`
 - Narration script: \`${dir}/narration.txt\`
 - Audio: \`${dir}/narration.mp3\`
-${warnings ? `\n> [!WARNING]\n> Checks found problems. Fix them before you approve:\n${warnings.split("\n").map((l) => `> ${l}`).join("\n")}\n` : ""}
+${existsSync(path.join(dir, "media")) ? `- Screenshots and videos from the linked PRs: \`${dir}/media/\`\n` : ""}${warnings ? `\n> [!WARNING]\n> Checks found problems. Fix them before you approve:\n${warnings.split("\n").map((l) => `> ${l}`).join("\n")}\n` : ""}
 ## How to review (@${reviewer} only)
 
 - **Comment** or **Request changes**: Codex edits the post in this PR. If the spoken text changes, the audio is recorded again.
@@ -32,9 +33,10 @@ Codex review edits are not in this table. They use \`CODEX_OPENAI_API_KEY\`, or 
 
 - [ ] App catalog entry (new app or update)
 - [ ] Documentation
+- [x] Blog post
 - [ ] Bug fix
 - [ ] Styling / layout
-- [x] Other
+- [ ] Other
 
 ## Checklist
 

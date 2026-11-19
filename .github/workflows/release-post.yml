@@ -2,7 +2,8 @@ name: Release Post
 
 # A published navidrome/navidrome release sends a repository_dispatch here
 # (see release-post/navidrome-release-dispatch.yml). This workflow writes a blog post and its
-# audio from the release notes, and opens a PR for review. Nothing is published until the
+# audio from the release notes, adds screenshots and videos from the linked PRs, and opens a PR
+# for review. Nothing is published until the
 # reviewer approves the PR (see release-post-review.yml).
 on:
   repository_dispatch:
@@ -26,11 +27,12 @@ jobs:
   create:
     if: github.repository == 'navidrome/website' && vars.RELEASE_POST_ENABLED != 'false'
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 40
     env:
       TAG: ${{ github.event.client_payload.tag || inputs.tag }}
       REVIEWER: ${{ vars.RELEASE_POST_REVIEWER || 'deluan' }}
       AUDIO: ${{ vars.RELEASE_POST_AUDIO || 'on' }}
+      MEDIA: ${{ vars.RELEASE_POST_MEDIA || 'on' }}
     steps:
       - name: Check tag
         run: |
@@ -96,8 +98,17 @@ jobs:
           node-version-file: .nvmrc
 
       - name: Install ffmpeg
-        if: steps.exists.outputs.skip != 'true' && steps.exists.outputs.resume != 'true' && env.AUDIO != 'off'
+        if: steps.exists.outputs.skip != 'true' && steps.exists.outputs.resume != 'true' && (env.AUDIO != 'off' || env.MEDIA != 'off')
         run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+
+      # A post without media is still a post, so a failure here does not stop the run.
+      - name: Collect media
+        id: media
+        if: steps.exists.outputs.skip != 'true' && steps.exists.outputs.resume != 'true' && env.MEDIA != 'off'
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: node release-post/media.mjs collect "$RUNNER_TEMP/release.json" "$BUNDLE"
 
       - name: Write post
         if: steps.exists.outputs.skip != 'true' && steps.exists.outputs.resume != 'true'
@@ -105,7 +116,13 @@ jobs:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           RELEASE_POST_MODEL: ${{ vars.RELEASE_POST_MODEL }}
           RELEASE_POST_REVIEWER: ${{ env.REVIEWER }}
-        run: node release-post/generate-post.mjs "$RUNNER_TEMP/release.json"
+          MEDIA_OUTCOME: ${{ steps.media.outcome }}
+        run: |
+          # Half-collected media is not offered to the model.
+          if [ "$MEDIA_OUTCOME" = "failure" ]; then rm -rf "$BUNDLE/media" "$BUNDLE/media.json"; fi
+          node release-post/generate-post.mjs "$RUNNER_TEMP/release.json"
+          # Keeps only the media that the post shows.
+          node release-post/media.mjs sync "$BUNDLE"
 
       - name: Record audio
         if: steps.exists.outputs.skip != 'true' && steps.exists.outputs.resume != 'true' && env.AUDIO != 'off'

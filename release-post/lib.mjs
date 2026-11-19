@@ -150,8 +150,43 @@ export function checkFrontMatter(frontMatter) {
   return problems;
 }
 
+// A screenshot or video in a post: one line, an id from media.json and plain alt text. The
+// shortcode escapes the alt text, and this form keeps quotes, tags and other shortcodes out.
+export const MEDIA_LINE = /^\{\{< release-media id="([a-z0-9-]{1,40})" alt="([^"<>{}\\\n]{1,200})" >\}\}$/;
+
+// The media lines of a post body. Lines that name release-media but do not have the exact
+// form go to bad.
+export function mediaRefs(body) {
+  const refs = [];
+  const bad = [];
+  for (const line of String(body).replace(/\r\n/g, "\n").split("\n")) {
+    if (!line.includes("release-media")) continue;
+    const m = MEDIA_LINE.exec(line);
+    if (m) refs.push({ id: m[1], alt: m[2] });
+    else bad.push(line.trim());
+  }
+  return { refs, bad };
+}
+
+// Removes media lines that are malformed or name an id that is not in ids. Returns the new
+// body and the lines it removed.
+export function dropBadMedia(body, ids) {
+  const dropped = [];
+  const kept = String(body)
+    .split("\n")
+    .filter((line) => {
+      if (!line.includes("release-media")) return true;
+      const m = MEDIA_LINE.exec(line);
+      if (m && ids.has(m[1])) return true;
+      dropped.push(line.trim());
+      return false;
+    });
+  return { body: kept.join("\n").replace(/\n{3,}/g, "\n\n"), dropped };
+}
+
 // Checks a post's index.md before it is committed or published. Returns a list of problems.
-export function checkPost(indexMd) {
+// mediaIds is the set of media ids that have a file, or null when the post has no media.json.
+export function checkPost(indexMd, mediaIds = null) {
   const post = splitPost(indexMd);
   if (!post) return ["index.md has no front matter"];
   const { body } = post;
@@ -161,8 +196,14 @@ export function checkPost(indexMd) {
   if (hasRawHtml(body)) problems.push("index.md has raw HTML");
   // Any shortcode opening counts here, complete or not.
   const shortcodes = [...body.matchAll(/\{\{[<%]\s*\/?\s*([\w/-]+)/g)].map((x) => x[1]);
-  const others = shortcodes.filter((n) => n !== "release-audio");
-  if (others.length) problems.push(`index.md has shortcodes other than release-audio: ${others.join(", ")}`);
+  const others = shortcodes.filter((n) => n !== "release-audio" && n !== "release-media");
+  if (others.length) problems.push(`index.md has shortcodes other than release-audio and release-media: ${others.join(", ")}`);
+  const media = mediaRefs(body);
+  for (const line of media.bad) problems.push(`index.md has a release-media line in the wrong form: ${line}`);
+  const unknown = media.refs.map((r) => r.id).filter((id) => !mediaIds?.has(id));
+  if (unknown.length) problems.push(`index.md shows media that has no file in media/: ${[...new Set(unknown)].join(", ")}`);
+  // Images come only from media/, through release-media.
+  if (/!\[[^\]\n]*\]\s*[([]/.test(body)) problems.push("index.md has a Markdown image. Use release-media instead.");
   // The player needs the complete shortcode, not only its opening.
   if (!/\{\{<\s*release-audio\s*>\}\}/.test(body)) problems.push("index.md lost the {{< release-audio >}} line");
   return problems;
@@ -185,9 +226,10 @@ const FENCE = String.raw`^ {0,3}(?<fence>\`{3,}(?=[^\`\n]*$)|~{3,})[\s\S]*?(?:^ 
 const CODE_SPAN = String.raw`(?<![\`\\])(?<ticks>\`+)(?!\`)(?:(?!\n[ \t]*\n)[\s\S])*?(?<!\`)\k<ticks>(?!\`)`;
 
 // Parts of Markdown where an @ must stay as it is: fenced code, code spans, inline and
-// reference links, link definitions, autolinks and URLs.
+// reference links, link definitions, autolinks, URLs and media lines.
 const NO_LINK = [
   FENCE,
+  String.raw`^\{\{< release-media [^\n]*$`,
   CODE_SPAN,
   String.raw`!?\[[^\]\n]*\](?:\([^)\n]*\)|\[[^\]\n]*\])`,
   String.raw`^ {0,3}\[[^\]\n]+\]:[^\n]*$`,
@@ -217,6 +259,8 @@ export function postBody(indexMd) {
   const post = splitPost(indexMd);
   return (post ? post.body : String(indexMd))
     .replace(/^\{\{<\s*release-audio\s*>\}\}[ \t]*\n?/m, "")
+    // Media ids belong to their own post. The next post must not copy them.
+    .replace(/^\{\{< release-media [^\n]*(?:\n[ \t]*(?=\n))?\n?/gm, "")
     .replace(/\n+(?:For technical details, [^\n]*\n)?\[?[^\n]*full release notes on GitHub\]\([^)]*\)\.?\s*$/, "\n")
     .trim();
 }
