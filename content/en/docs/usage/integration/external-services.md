@@ -19,6 +19,24 @@ The default is `"deezer,lastfm,listenbrainz"`, meaning Deezer is tried first, th
 
 To disable a specific agent, either remove it from the `Agents` list or set its individual `*.Enabled` option to `false`. To disable **all** external integrations at once, set `EnableExternalServices` to `false`.
 
+## ListenBrainz
+
+ListenBrainz provides metadata based on MusicBrainz data and community listening statistics. It works best when your music files have MusicBrainz IDs in their tags.
+
+**Provides:** Artist URLs, similar artists, top songs, similar songs
+
+**Configuration:** Enabled by default, no setup required for metadata. To disable it, set `ListenBrainz.Enabled` to `false`.
+
+ListenBrainz also supports [scrobbling](/docs/usage/features/scrobbling#listenbrainz), which requires per-user authorization.
+
+## Deezer
+
+Deezer's public API doesn't require API keys or authentication, making it the simplest external integration.
+
+**Provides:** Artist images, artist biographies, similar artists, top songs
+
+**Configuration:** Enabled by default, no setup required. To disable it, set `Deezer.Enabled` to `false` in your [configuration file](/docs/usage/configuration/options#configuration-file) or set the environment variable `ND_DEEZER_ENABLED` to `false`.
+
 ## Last.fm
 
 Last.fm provides the broadest set of metadata among the built-in agents.
@@ -52,24 +70,6 @@ To create the API account:
 4. After the configuration is done, you can set up [scrobbling](/docs/usage/features/scrobbling/#lastfm) for your user.
 
 Last.fm can be completely disabled by setting `LastFM.Enabled` to `false`.
-
-## Deezer
-
-Deezer's public API doesn't require API keys or authentication, making it the simplest external integration.
-
-**Provides:** Artist images, artist biographies, similar artists, top songs
-
-**Configuration:** Enabled by default, no setup required. To disable it, set `Deezer.Enabled` to `false` in your [configuration file](/docs/usage/configuration/options#configuration-file) or set the environment variable `ND_DEEZER_ENABLED` to `false`.
-
-## ListenBrainz
-
-ListenBrainz provides metadata based on MusicBrainz data and community listening statistics. It works best when your music files have MusicBrainz IDs in their tags.
-
-**Provides:** Artist URLs, similar artists, top songs, similar songs
-
-**Configuration:** Enabled by default, no setup required for metadata. To disable it, set `ListenBrainz.Enabled` to `false`.
-
-ListenBrainz also supports [scrobbling](/docs/usage/features/scrobbling#listenbrainz), which requires per-user authorization.
 
 ## Local Agent
 

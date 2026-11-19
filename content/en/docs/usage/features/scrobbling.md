@@ -3,12 +3,32 @@ title: "Scrobbling"
 linkTitle: "Scrobbling"
 weight: 50
 description: >-
-     Information on setting up scrobbling with Last.fm and ListenBrainz.
+     Information on setting up scrobbling with ListenBrainz and Last.fm.
 aliases:
   - /docs/usage/scrobbling/
 ---
 
-Navidrome allows you to easily scrobble your played songs to Last.fm and ListenBrainz.
+Navidrome allows you to easily scrobble your played songs to ListenBrainz and Last.fm.
+
+## ListenBrainz
+
+1) Go to your user profile's Personal Settings.
+2) Toggle the option `Scrobble to ListenBrainz`. If you already have a User key generated, skip to step 5.
+3) Click on the appropriate link in the pop-up that opens.
+
+<p align="center">
+<img width="500" src="/screenshots/listenbrainz-popup.webp">
+</p>
+
+4) On the ListenBrainz website, either generate a new token or copy your existing one, then go back to your Navidrome tab.
+
+<p align="center">
+<img width="500" src="/screenshots/listenbrainz-token.webp">
+</p>
+
+5) Paste the token in the pop-up and save.
+
+If you are using a self-hosted ListenBrainz-compatible server (e.g., [Maloja](https://github.com/krateng/maloja)), you can change the `ListenBrainz.BaseURL` [config option](/docs/usage/configuration/options/#:~:text=ListenBrainz.BaseURL) to point to your instance.
 
 ## Last.fm
 
@@ -38,25 +58,6 @@ See [External Integrations](/docs/usage/integration/external-services#lastfm) an
 <p align="center">
 <img width="500" src="/screenshots/lastfm-allow-access.webp">
 </p>
-
-## ListenBrainz
-
-1) Toggle the option `Scrobble to ListenBrainz`. If you already have a User key generated, skip to step 4.
-2) Click on the appropriate link in the pop-up that opens.
-
-<p align="center">
-<img width="500" src="/screenshots/listenbrainz-popup.webp">
-</p>
-
-3) On the ListenBrainz website, either generate a new token or copy your existing one, then go back to your Navidrome tab.
-
-<p align="center">
-<img width="500" src="/screenshots/listenbrainz-token.webp">
-</p>
-
-4) Paste the token in the pop-up and save.
-
-If you are using a self-hosted ListenBrainz-compatible server (e.g., [Maloja](https://github.com/krateng/maloja)), you can change the `ListenBrainz.BaseURL` [config option](/docs/usage/configuration/options/#:~:text=ListenBrainz.BaseURL) to point to your instance.
 
 ## Scrobble Filter
 
