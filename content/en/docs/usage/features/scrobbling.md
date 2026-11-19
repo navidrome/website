@@ -12,6 +12,13 @@ Navidrome allows you to easily scrobble your played songs to Last.fm and ListenB
 
 ## Last.fm
 
+{{% alert color="warning" title="Last.fm Pro required for API keys" %}}
+Starting December 1, 2026, the Last.fm account that owns your Navidrome server’s API key must have Last.fm Pro.
+Without a valid key, Navidrome can’t send scrobbles to Last.fm.
+Listeners can still use free Last.fm accounts if the server’s key is backed by Pro.
+See [External Integrations](/docs/usage/integration/external-services#lastfm) and the [official announcement](https://support.last.fm/t/api-keys-will-require-pro-from-1st-december/121030).
+{{% /alert %}}
+
 1) Ensure you have the API Key and API Secret set according to the instructions in [External Integrations](/docs/usage/integration/external-services#lastfm).
 2) Go to your user profile's Personal Settings.
 3) Toggle the option `Scrobble to Last.fm`, a new browser tab will open directing you to Last.fm.
