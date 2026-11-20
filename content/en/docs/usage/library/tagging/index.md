@@ -369,7 +369,6 @@ Here are some recommendations and tips on workflow:
   extra tags that can help Navidrome organize your library:
     ```shell
     # Multiple artists
-    $setmulti(albumartists,%_albumartists%)
     $setmulti(albumartistssort,%_albumartists_sort%)
     $setmulti(artistssort,%_artists_sort%)
     ```
@@ -382,8 +381,6 @@ Here are some recommendations and tips on workflow:
     # Release and Original dates
     $set(releasedate,%date%)
     $set(date,%_recording_firstreleasedate%)
-    $set(originaldate,%originaldate%)
-    $delete(originalyear)
     ```
 
 ## Final Tips and Recap
