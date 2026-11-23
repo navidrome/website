@@ -1,0 +1,26 @@
+name: Rufin
+url: https://github.com/rufin-app/rufin
+repoUrl: https://github.com/rufin-app/rufin
+platforms:
+  linux: true
+  windows: true
+  macos: true
+  android: true
+api: Navidrome
+description: "A fast, native cross-platform music player with gapless playback and crossfade, ReplayGain, a parametric equalizer, synced (and karaoke) lyrics, smart playlists, radio and offline downloads. It also offers deep customization options, on-device audio fingerprinting, Japanese transliteration, custom mixes and cross-device sync."
+screenshots:
+  thumbnail: thumbnail.webp
+  gallery:
+    - screen1.webp
+    - screen2.webp
+    - screen3.webp
+    - screen4.webp
+    - screen5.webp
+pricing: free
+keywords:
+  - gapless
+  - equalizer
+  - lyrics
+  - offline
+  - replaygain
+  - gtk
