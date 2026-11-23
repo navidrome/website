@@ -1,0 +1,33 @@
+# See: https://www.navidrome.org/docs/developers/adding-apps/
+
+name: Chilpa
+
+url: https://chilpa.app
+
+repoUrl: https://github.com/vicrodh/chilpa
+
+platforms:
+  linux: true
+  macos: true
+
+api: OpenSubsonic
+
+description: "A native Hi-Fi music player for Linux and macOS, written in Rust and Qt, that plays bit-perfect to your DAC. It brings local files, self-hosted servers like Navidrome and streaming services (through plugins) into one library whose database is optimized to stay fast with large collections, and Refine narrows it by artist, genre, year, label, rating, quality or source, with saved queries."
+
+screenshots:
+  thumbnail: thumbnail.webp
+  gallery:
+    - refine.webp
+    - immersive.webp
+    - hifi-wizard.webp
+    - artist.webp
+
+pricing: free
+
+keywords:
+  - bit-perfect
+  - hifi
+  - multi-source
+  - native
+  - qt6
+  - rust
