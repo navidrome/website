@@ -20,6 +20,7 @@ description: >-
 screenshots:
   thumbnail: thumbnail.webp
   gallery:
+    - desktop.webp
     - android-album.webp
     - android-player.webp
     - terminal.webp
