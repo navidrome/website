@@ -1,0 +1,35 @@
+name: nori
+url: https://norifm.com
+repoUrl: https://github.com/norifm/nori
+pricing: free
+api: OpenSubsonic
+
+platforms:
+  android: true
+  linux: true
+  macos: true
+  windows: true
+  other: true
+
+description: >-
+  Open-source, battery-first music player sharing one Rust core across Android,
+  Android TV, desktop (Linux, macOS, Windows), terminal, and iPod touch.
+  Features gapless playback, AutoMix, parametric EQ with AutoEQ curves,
+  synced lyrics, offline downloads, LAN handoff and Jams, and a plugin system.
+
+screenshots:
+  thumbnail: thumbnail.webp
+  gallery:
+    - desktop.webp
+    - android-album.webp
+    - android-player.webp
+    - terminal.webp
+    - ipod.webp
+
+keywords:
+  - rust
+  - automix
+  - equalizer
+  - lyrics
+  - offline
+  - cli
