@@ -1,0 +1,23 @@
+name: iCanHazMusic
+url: https://icanhazapps.d7.wtf/music
+repoUrl: https://github.com/deseven/iCanHazMusic
+isOpenSource: true
+platforms:
+  macos: true
+api: Subsonic
+description: "Old-school music player for macOS 15.4+ with gapless playback, CUE sheets, native WV/APE support and playlists of hundreds of thousands of entries. Plays local collections and Subsonic-compatible servers, with scrobbling, lyrics and a separate queue view."
+pricing: free
+screenshots:
+  thumbnail: thumbnail.webp
+  gallery:
+    - gallery1.webp
+    - gallery2.webp
+    - gallery3.webp
+    - gallery4.webp
+keywords:
+  - foobar2000
+  - gapless
+  - cue sheets
+  - flac
+  - last.fm
+  - navidrome
