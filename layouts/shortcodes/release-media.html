@@ -1,0 +1,40 @@
+{{- /* A screenshot or screen recording in a release post.
+  Usage: {{< release-media id="pr1234-1" alt="What it shows" >}}
+  The files are in a GitHub release (release-post/assets.mjs). media.json has their URLs and
+  sizes, in the item with this id. */ -}}
+{{- $id := .Get "id" -}}
+{{- $alt := .Get "alt" -}}
+{{- $item := dict -}}
+{{- with .Page.Resources.Get "media.json" -}}
+  {{- range (transform.Unmarshal .).items -}}
+    {{- if eq .id $id -}}{{- $item = . -}}{{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- $main := index ($item.files | default dict) "main" -}}
+{{- if not $main -}}
+  {{- errorf "release-media: %q is not uploaded (no files in media.json) in %s" $id .Page.File.Path -}}
+{{- end -}}
+{{- $url := `^https://github\.com/[\w.-]+/[\w.-]+/releases/download/blog-media-v[\d.]+/[\w.-]+$` -}}
+{{- if not (findRE $url $main.url) -}}
+  {{- errorf "release-media: bad URL for %q in %s" $id .Page.File.Path -}}
+{{- end -}}
+{{- /* The width and height attributes give the browser the shape before the file loads. The
+  width is at most the column, and small enough that a tall phone picture stays under 75% of
+  the screen height. */ -}}
+{{- $w := int $main.width -}}
+{{- $h := int $main.height -}}
+{{- $style := printf "width: min(100%%, calc(75vh * %d / %d)); height: auto;" $w $h -}}
+<figure class="release-media my-4 text-center">
+{{- if eq $item.kind "video" -}}
+  {{- $poster := index $item.files "poster" -}}
+  {{- /* GitHub serves release files as application/octet-stream. Safari plays a video only
+    when the source says its type. */ -}}
+  <video controls preload="none" playsinline class="rounded border" aria-label="{{ $alt }}" width="{{ $w }}" height="{{ $h }}" style="{{ $style | safeCSS }}"
+    {{- with $poster }}{{ if findRE $url .url }} poster="{{ .url }}"{{ end }}{{ end }}>
+    <source src="{{ $main.url }}" type="video/mp4">
+    <a href="{{ $main.url }}">Download the video: {{ $alt }}</a>
+  </video>
+{{- else -}}
+  <img src="{{ $main.url }}" alt="{{ $alt }}" width="{{ $w }}" height="{{ $h }}" loading="lazy" decoding="async" class="rounded border" style="{{ $style | safeCSS }}">
+{{- end -}}
+</figure>
