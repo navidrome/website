@@ -1,0 +1,22 @@
+name: Make a Wrapped
+url: https://wrapped.devmatei.com
+repoUrl: https://github.com/DevMatei/make-a-wrapped
+platforms:
+  web:
+    url: https://wrapped.devmatei.com/navidrome-wrapped
+  docker:
+    store: https://github.com/DevMatei/make-a-wrapped/pkgs/container/make-a-wrapped
+api: Navidrome
+description: "Spotify Wrapped style posters from your Navidrome play history: top artists, top tracks, top genre and listening time for any time frame. Talks to your server straight from the browser, so your password never leaves your device. Free, with lots of templates, or self-host it with Docker."
+screenshots:
+  thumbnail: thumbnail.webp
+  gallery:
+    - screen1.webp
+    - screen2.webp
+pricing: free
+keywords:
+  - wrapped
+  - year in review
+  - stats
+  - poster
+  - listenbrainz
