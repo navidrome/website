@@ -41,7 +41,9 @@ You can also start it by hand: Actions, "Release Post", "Run workflow", with a t
 
 A run does nothing for a tag that already has a post on `master`, or a PR in any state. So
 closing a PR without merging means "no post for this release". To get the post after all,
-reopen the PR. If a run pushed the branch but failed to open the PR, the next run opens the PR
+reopen the PR. To get a new post instead, run it by hand with "regenerate" on. That ignores PRs
+closed without merging, writes a new post, replaces the `release-post/<tag>` branch and opens a
+new PR. It still does nothing if the post is on `master` or a PR is open or merged. If a run pushed the branch but failed to open the PR, the next run opens the PR
 only, with the first run's warnings.
 
 ## Setup
