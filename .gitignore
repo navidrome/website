@@ -11,3 +11,6 @@ tmp/*
 !.claude
 .claude/settings.local.json
 AGENTS.md
+# Release post audio and media live in GitHub releases (release-post/assets.mjs), not in git.
+content/en/blog/releases/*/narration.mp3
+content/en/blog/releases/*/media/

@@ -1,9 +1,18 @@
-{{- /* Audio player for a release post. Renders nothing until narration.mp3 exists. */ -}}
-{{- with .Page.Resources.Get "narration.mp3" -}}
+{{- /* Audio player for a release post. The MP3 is in a GitHub release (release-post/assets.mjs),
+  and audio.json has its URL. Renders nothing until then.
+  GitHub serves release files as application/octet-stream. Safari plays them only when the
+  source says its type, so the URL goes in a source tag. */ -}}
+{{- with .Page.Resources.Get "audio.json" -}}
+  {{- with (transform.Unmarshal .).url -}}
+    {{- if not (findRE `^https://github\.com/[\w.-]+/[\w.-]+/releases/download/blog-media-v[\d.]+/[\w.-]+$` .) -}}
+      {{- errorf "release-audio: bad audio URL %q in %s" . $.Page.File.Path -}}
+    {{- end -}}
 <figure class="release-audio my-4">
   <figcaption class="small text-body-secondary mb-2">Listen to this post. The voice is AI-generated.</figcaption>
-  <audio controls preload="none" src="{{ .RelPermalink }}" class="w-100">
-    <a href="{{ .RelPermalink }}">Download the audio</a>
+  <audio controls preload="none" class="w-100">
+    <source src="{{ . }}" type="audio/mpeg">
+    <a href="{{ . }}">Download the audio</a>
   </audio>
 </figure>
+  {{- end -}}
 {{- end -}}

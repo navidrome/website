@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 // Records narration.txt of a release post bundle as narration.mp3, and writes audio.json.
+// assets.mjs then uploads the MP3 and adds its URL to audio.json.
 //
 // Usage:
 //   node release-post/generate-audio.mjs <bundle-dir>           record if narration.txt changed
@@ -15,7 +16,7 @@ import { execFileSync } from "node:child_process";
 import { existsSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import path from "node:path";
-import { REPO_ROOT, apiBase, chunkText, env, narrationHash, recordUsage, requireKey, wordSimilarity } from "./lib.mjs";
+import { RELEASE_ASSET_URL, REPO_ROOT, apiBase, chunkText, env, narrationHash, recordUsage, requireKey, wordSimilarity } from "./lib.mjs";
 
 const SAMPLE_RATE = 24000; // Both engines return 16-bit mono PCM at 24 kHz.
 const BYTES_PER_SECOND = SAMPLE_RATE * 2;
@@ -36,7 +37,9 @@ export function readState(dir) {
   const metaFile = path.join(dir, "audio.json");
   const meta = existsSync(metaFile) ? JSON.parse(readFileSync(metaFile, "utf8")) : null;
   const hash = narrationHash(narration);
-  const fresh = Boolean(meta && meta.narration_sha256 === hash && existsSync(path.join(dir, "narration.mp3")));
+  // The audio is either uploaded (a URL in audio.json) or recorded and not uploaded yet.
+  const recorded = RELEASE_ASSET_URL.test(meta?.url ?? "") || existsSync(path.join(dir, "narration.mp3"));
+  const fresh = Boolean(meta && meta.narration_sha256 === hash && recorded);
   return { narration, hash, meta, fresh };
 }
 

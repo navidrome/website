@@ -133,6 +133,13 @@ jobs:
           RELEASE_POST_VOICE: ${{ vars.RELEASE_POST_VOICE }}
         run: node release-post/generate-audio.mjs "$BUNDLE"
 
+      # The MP3 and the media go to the "blog-media-<tag>" release, not to git.
+      - name: Upload audio and media
+        if: steps.exists.outputs.skip != 'true' && steps.exists.outputs.resume != 'true'
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token || github.token }}
+        run: node release-post/assets.mjs publish "$BUNDLE"
+
       - name: Open PR
         if: steps.exists.outputs.skip != 'true'
         env:
@@ -141,7 +148,7 @@ jobs:
           RESUME: ${{ steps.exists.outputs.resume }}
         run: |
           if [ "$RESUME" != "true" ]; then
-            node release-post/check-post.mjs "$BUNDLE/index.md"
+            node release-post/check-post.mjs "$BUNDLE/index.md" --published
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
             git switch -c "$BRANCH"

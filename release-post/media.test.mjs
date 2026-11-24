@@ -6,8 +6,10 @@ import http from "node:http";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import { describe, it } from "node:test";
+import { publishAssets, publishProblems } from "./assets.mjs";
+import { readState } from "./generate-audio.mjs";
 import { buildRequestInput, validatePost } from "./generate-post.mjs";
-import { REPO_ROOT, checkPost, dropBadMedia, linkHandles, postBody } from "./lib.mjs";
+import { REPO_ROOT, badLinks, checkPost, dropBadMedia, linkHandles, narrationHash, postBody } from "./lib.mjs";
 import { collectMedia, convertMedia, mediaInBody, mediaWithFiles, prLinks, readMedia, syncMedia } from "./media.mjs";
 
 const hasFfmpeg = spawnSync("ffmpeg", ["-version"]).status === 0;
@@ -62,8 +64,8 @@ describe("media lines", () => {
   it("accepts only the exact form, with an id that has a file", () => {
     const ids = new Set(["pr1-1"]);
     assert.deepEqual(checkPost(post(line("pr1-1")), ids), []);
-    assert.match(checkPost(post(line("pr1-1")), null).join(), /no file in media\/: pr1-1/);
-    assert.match(checkPost(post(line("pr2-1")), ids).join(), /no file in media\/: pr2-1/);
+    assert.match(checkPost(post(line("pr1-1")), null).join(), /not in media\/ or uploaded: pr1-1/);
+    assert.match(checkPost(post(line("pr2-1")), ids).join(), /not in media\/ or uploaded: pr2-1/);
     for (const bad of [
       `{{< release-media id="pr1-1" >}}`,
       `{{< release-media id="pr1-1" alt="a "quoted" word" >}}`,
@@ -122,6 +124,125 @@ describe("media lines", () => {
     assert.deepEqual(readMedia(dir).map((i) => i.id), ["pr1-1"]);
     assert.equal(readMedia(path.join(dir, "none")), null);
     assert.deepEqual([...mediaWithFiles(dir)], [], "no file yet");
+  });
+});
+
+const release = (name) => `https://github.com/navidrome/website/releases/download/blog-media-v1.2.3/${name}`;
+
+describe("links", () => {
+  it("rejects link targets that are not web or mail links", () => {
+    assert.deepEqual(badLinks("[a](https://x/y?a=1&b=2) [b](/docs/) [c](#top) [d](mailto:a@b.c)\n[r]: https://x"), []);
+    const bad = ["javascript:alert(1)", "JavaScript:x", "&#106;avascript:x", "javascript&#58;x", "javascript\\:x", "data:text/html,x"];
+    for (const dest of bad) assert.equal(badLinks(`[a](${dest})`).length, 1, dest);
+    assert.equal(badLinks("[r]: vbscript:x").length, 1);
+    assert.match(checkPost(post("[a](javascript:alert(1))"), new Set()).join(), /not http, https or mailto/);
+  });
+});
+
+describe("uploading audio and media", () => {
+  // A fake gh CLI with one release and its assets.
+  function fakeGh(assets = null) {
+    const calls = [];
+    const gh = (args) => {
+      calls.push(args.join(" "));
+      const [cmd, sub] = args;
+      if (cmd !== "release") throw new Error(`unexpected ${args}`);
+      if (sub === "view") {
+        if (!assets) throw new Error("release not found");
+        return JSON.stringify({ assets: assets.map((name) => ({ name })) });
+      }
+      if (sub === "create") assets = [];
+      else if (sub === "upload") assets.push(path.basename(args.at(-1)));
+      else if (sub === "delete-asset") assets = assets.filter((a) => a !== args[3]);
+      return "";
+    };
+    return { gh, calls, assets: () => assets };
+  }
+
+  function bundleWith(t, { audio = true, media = [], body = "Text." } = {}) {
+    const root = tmp(t, "assets-");
+    const bundle = path.join(root, "v1.2.3");
+    mkdirSync(path.join(bundle, "media"), { recursive: true });
+    writeFileSync(path.join(bundle, "index.md"), post(body));
+    if (audio) {
+      writeFileSync(path.join(bundle, "narration.mp3"), "mp3 bytes");
+      writeFileSync(path.join(bundle, "audio.json"), JSON.stringify({ narration_sha256: "h" }));
+    }
+    writeFileSync(path.join(bundle, "media.json"), JSON.stringify({ items: media }));
+    return bundle;
+  }
+
+  it("creates the release, uploads with hashed names, and leaves only URLs behind", { skip: noFfmpeg }, (t) => {
+    const bundle = bundleWith(t, { media: [{ id: "pr1-1", kind: "image", url: asset(1) }], body: line("pr1-1") });
+    ffmpeg("-f", "lavfi", "-i", "testsrc=size=64x48", "-frames:v", "1", path.join(bundle, "media", "pr1-1.jpg"));
+    const fake = fakeGh();
+    publishAssets(bundle, { repo: "navidrome/website", gh: fake.gh, log: () => {} });
+
+    assert.match(fake.calls[1], /^release create blog-media-v1\.2\.3 -R navidrome\/website --prerelease --latest=false/);
+    const audio = JSON.parse(readFileSync(path.join(bundle, "audio.json"), "utf8"));
+    assert.match(audio.file, /^narration-[0-9a-f]{10}\.mp3$/);
+    assert.equal(audio.url, release(audio.file));
+    const [item] = readMedia(bundle);
+    assert.match(item.files.main.name, /^pr1-1-[0-9a-f]{10}\.jpg$/);
+    assert.deepEqual([item.files.main.width, item.files.main.height], [64, 48]);
+    assert.deepEqual(fake.assets().sort(), [audio.file, item.files.main.name].sort());
+    assert.equal(existsSync(path.join(bundle, "narration.mp3")), false);
+    assert.equal(existsSync(path.join(bundle, "media")), false);
+    assert.deepEqual(publishProblems(bundle), []);
+    assert.deepEqual(checkPost(readFileSync(path.join(bundle, "index.md"), "utf8"), new Set(["pr1-1"])), []);
+  });
+
+  it("deletes old uploads, keeps the ones in use, and does not upload a file twice", (t) => {
+    const bundle = bundleWith(t);
+    const fake = fakeGh(["narration-0000000000.mp3", "pr9-1-0000000000.jpg"]);
+    publishAssets(bundle, { repo: "navidrome/website", gh: fake.gh, log: () => {} });
+    const { file } = JSON.parse(readFileSync(path.join(bundle, "audio.json"), "utf8"));
+    assert.deepEqual(fake.assets(), [file]);
+
+    // The same recording again: already uploaded, so no new upload.
+    writeFileSync(path.join(bundle, "narration.mp3"), "mp3 bytes");
+    const uploads = fake.calls.filter((c) => c.includes(" upload ")).length;
+    publishAssets(bundle, { repo: "navidrome/website", gh: fake.gh, log: () => {} });
+    assert.equal(fake.calls.filter((c) => c.includes(" upload ")).length, uploads);
+  });
+
+  it("does nothing without a release and without files", (t) => {
+    const bundle = bundleWith(t, { audio: false });
+    const fake = fakeGh();
+    publishAssets(bundle, { repo: "navidrome/website", gh: fake.gh, log: () => {} });
+    assert.deepEqual(fake.calls, ["release view blog-media-v1.2.3 -R navidrome/website --json assets"]);
+  });
+
+  it("reports local copies and shown media that is not uploaded", (t) => {
+    const bundle = bundleWith(t, { media: [{ id: "pr1-1", kind: "image", url: asset(1) }], body: line("pr1-1") });
+    writeFileSync(path.join(bundle, "media", "pr1-1.jpg"), "x");
+    const problems = publishProblems(bundle).join("\n");
+    assert.match(problems, /narration.mp3 is not uploaded/);
+    assert.match(problems, /media\/ has files/);
+    assert.match(problems, /audio.json has no uploaded audio URL/);
+    assert.match(problems, /not uploaded: pr1-1/);
+  });
+
+  it("drops uploaded file entries whose URL is not a blog-media release file", (t) => {
+    const bundle = bundleWith(t, { audio: false, media: [
+      { id: "pr1-1", kind: "image", url: asset(1), files: { main: { url: "https://evil.example/x.jpg", name: "x.jpg", width: 1, height: 1 } } },
+      { id: "pr2-1", kind: "image", url: asset(2), files: { main: { url: release("pr2-1-abc.jpg"), name: "pr2-1-abc.jpg", width: 1, height: 1 } } },
+    ] });
+    const items = readMedia(bundle);
+    assert.equal(items[0].files, undefined);
+    assert.ok(items[1].files);
+  });
+
+  it("counts uploaded audio as recorded, until the narration changes", (t) => {
+    const dir = tmp(t, "audio-state-");
+    writeFileSync(path.join(dir, "narration.txt"), "Hello.\n");
+    writeFileSync(path.join(dir, "audio.json"), JSON.stringify({ narration_sha256: narrationHash("Hello.\n"), url: release("narration-abc.mp3") }));
+    assert.equal(readState(dir).fresh, true);
+    writeFileSync(path.join(dir, "audio.json"), JSON.stringify({ narration_sha256: narrationHash("Hello.\n"), url: "https://evil.example/a.mp3" }));
+    assert.equal(readState(dir).fresh, false);
+    writeFileSync(path.join(dir, "audio.json"), JSON.stringify({ narration_sha256: narrationHash("Hello.\n"), url: release("narration-abc.mp3") }));
+    writeFileSync(path.join(dir, "narration.txt"), "Changed.\n");
+    assert.equal(readState(dir).fresh, false);
   });
 });
 
@@ -200,6 +321,20 @@ describe("converting media", { skip: noFfmpeg }, () => {
     writeFileSync(path.join(bundle, "index.md"), post("No media."));
     await syncMedia(bundle, { downloader });
     assert.equal(existsSync(path.join(bundle, "media")), false);
+  });
+
+  it("sync does not download uploaded media, and forgets the uploads of media it no longer shows", async (t) => {
+    const bundle = tmp(t, "media-bundle-");
+    const files = (id) => ({ main: { url: release(`${id}-abc.jpg`), name: `${id}-abc.jpg`, width: 10, height: 10 } });
+    writeFileSync(path.join(bundle, "media.json"), JSON.stringify({ items: [
+      { id: "pr1-1", kind: "image", url: asset(1), files: files("pr1-1") },
+      { id: "pr2-1", kind: "image", url: asset(2), files: files("pr2-1") },
+    ] }));
+    writeFileSync(path.join(bundle, "index.md"), post(line("pr1-1")));
+    await syncMedia(bundle, { downloader: async () => assert.fail("must not download") });
+    const items = readMedia(bundle);
+    assert.ok(items[0].files);
+    assert.equal(items[1].files, undefined);
   });
 
   it("generate-post shows the model the previews and keeps only good media lines", async (t) => {

@@ -146,21 +146,26 @@ jobs:
           FORCE: ${{ steps.review.outputs.force_audio == 'true' && '--force' || '' }}
         run: |
           node release-post/generate-audio.mjs "$BUNDLE" $FORCE
-          git status --porcelain -- "$BUNDLE/narration.mp3" | grep -q . && echo "AUDIO_CHANGED=true" >> "$GITHUB_ENV" || true
+          # A new recording is a local narration.mp3, which the next step uploads.
+          [ -f "$BUNDLE/narration.mp3" ] && echo "AUDIO_CHANGED=true" >> "$GITHUB_ENV" || true
 
       - name: Commit and push
         id: push
         env:
           PUSH_TOKEN: ${{ steps.app-token.outputs.token || github.token }}
+          GH_TOKEN: ${{ steps.app-token.outputs.token || github.token }}
           AUDIO_OUTCOME: ${{ steps.audio.outcome }}
         run: |
           if [ "$AUDIO_OUTCOME" = "failure" ]; then
-            # Do not push a half-written recording. A file that is not in the last commit is removed.
+            # Do not upload a half-written recording. A file that is not in the last commit is removed.
             for f in narration.mp3 audio.json; do
               git checkout -- "$BUNDLE/$f" 2>/dev/null || rm -f "$BUNDLE/$f"
             done
             echo "AUDIO_CHANGED=false" >> "$GITHUB_ENV"
           fi
+          # The MP3 and the media go to the "blog-media-<tag>" release, not to git.
+          node release-post/assets.mjs publish "$BUNDLE"
+          node release-post/check-post.mjs "$BUNDLE/index.md" --published
           git add -A "$BUNDLE"
           if git diff --cached --quiet; then
             echo "pushed=false" >> "$GITHUB_OUTPUT"
@@ -277,7 +282,7 @@ jobs:
           head=$(gh pr view "$PR_NUMBER" --json headRefOid --jq .headRefOid)
           [ "$REVIEWED_SHA" = "$head" ] || fail "the approval is for an older commit. Approve the latest commit."
           tag=$(node -e 'import("./release-post/lib.mjs").then(l => console.log(l.tagFromBranch(process.argv[1])))' "$BRANCH")
-          node release-post/check-post.mjs "content/en/blog/releases/$tag/index.md" \
+          node release-post/check-post.mjs "content/en/blog/releases/$tag/index.md" --published \
             || fail "the post did not pass the checks. See the logs."
           if [ "$AUDIO" != "off" ]; then
             node release-post/generate-audio.mjs "content/en/blog/releases/$tag" --check \

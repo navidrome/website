@@ -13,6 +13,7 @@ import {
   apiBase,
   bundleDir,
   contentRoot,
+  badLinks,
   dropBadMedia,
   hasRawHtml,
   env,
@@ -24,7 +25,7 @@ import {
   slugFor,
   yamlString,
 } from "./lib.mjs";
-import { mediaWithFiles, previewImage, readMedia } from "./media.mjs";
+import { hasLocalFiles, mediaWithFiles, previewImage, readMedia } from "./media.mjs";
 
 const SCHEMA = {
   type: "object",
@@ -147,6 +148,8 @@ export function validatePost(post, tag, owner = maintainer(), notes = "", mediaI
   if (media.dropped.length) problems.push(`body has media lines that are wrong or name unknown media: ${media.dropped.join(" | ")}`);
   if (/\{\{[<%]/.test(media.body.replace(/^\{\{< release-media [^\n]*$/gm, ""))) problems.push("body has Hugo shortcodes");
   if (/!\[[^\]\n]*\]\s*[([]/.test(post.body)) problems.push("body has a Markdown image");
+  const links = badLinks(post.body);
+  if (links.length) problems.push(`body has links that are not http, https or mailto: ${links.join(", ")}`);
   if (hasRawHtml(post.body)) problems.push("body has raw HTML");
   if (hasRawHtml(post.title) || hasRawHtml(post.description)) problems.push("title or description has raw HTML");
   if (/https?:\/\/|[`*#@]/.test(post.narration)) problems.push("narration has URLs or Markdown");
@@ -212,7 +215,7 @@ async function main() {
   if (existsSync(path.join(dir, "index.md"))) throw new Error(`${bundleDir(tag)}/index.md already exists`);
   // Only items whose files are there. media.mjs sync removes the ones the post does not show.
   const withFiles = mediaWithFiles(dir) ?? new Set();
-  const media = (readMedia(dir) ?? []).filter((i) => withFiles.has(i.id));
+  const media = (readMedia(dir) ?? []).filter((i) => hasLocalFiles(dir, i));
 
   let post;
   let problems = [];
@@ -237,7 +240,7 @@ async function main() {
   }
 
   // These would put the model's output on the page unescaped, or fail check-post later, so they stop the run.
-  const blocking = problems.filter((p) => /raw HTML|shortcodes|Markdown image/.test(p));
+  const blocking = problems.filter((p) => /raw HTML|shortcodes|Markdown image|not http, https or mailto/.test(p));
   if (blocking.length) throw new Error(`Refusing to write the post: ${blocking.join("; ")}`);
 
   mkdirSync(dir, { recursive: true });

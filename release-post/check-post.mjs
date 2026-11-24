@@ -1,11 +1,13 @@
 #!/usr/bin/env node
-// Exits 1 when a post has raw HTML, unknown shortcodes, media without a file, or lost its audio
-// player line.
+// Exits 1 when a post has raw HTML, unknown shortcodes, bad links, media without a file, or lost
+// its audio player line. With --published, the audio and media must also be uploaded, with no
+// local copies left (see assets.mjs): this is what may be committed and merged.
 // With --fix, it first turns bare @handles into links to their GitHub profiles.
-// Usage: node release-post/check-post.mjs <path/to/index.md> [--fix]
+// Usage: node release-post/check-post.mjs <path/to/index.md> [--fix] [--published]
 import { readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { checkPost, linkHandlesInPost } from "./lib.mjs";
+import { publishProblems } from "./assets.mjs";
 import { mediaWithFiles } from "./media.mjs";
 
 const args = process.argv.slice(2);
@@ -15,6 +17,9 @@ if (args.includes("--fix")) {
   const fixed = linkHandlesInPost(text);
   if (fixed !== text) writeFileSync(file, (text = fixed));
 }
-const problems = checkPost(text, mediaWithFiles(path.dirname(file)));
+const dir = path.dirname(file);
+const published = args.includes("--published");
+const problems = checkPost(text, mediaWithFiles(dir, { local: !published }));
+if (published) problems.push(...publishProblems(dir));
 for (const p of problems) console.error(`::error file=${file}::${p}`);
 process.exit(problems.length ? 1 : 0);

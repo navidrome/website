@@ -34,6 +34,15 @@ export function tagFromBranch(branch) {
   return parseTag(branch.slice(prefix.length)).tag;
 }
 
+// The GitHub release that holds the audio and media of a post (see assets.mjs). Big files stay
+// out of git this way.
+export function mediaReleaseTag(tag) {
+  return `blog-media-${parseTag(tag).tag}`;
+}
+
+// A file in one of those releases. The page links to these URLs, so nothing else is accepted.
+export const RELEASE_ASSET_URL = /^https:\/\/github\.com\/[\w.-]+\/[\w.-]+\/releases\/download\/blog-media-v\d+\.\d+\.\d+\/[\w.-]+$/;
+
 export function slugFor(tag) {
   return `navidrome-${parseTag(tag).tag.replaceAll(".", "-")}`;
 }
@@ -184,6 +193,16 @@ export function dropBadMedia(body, ids) {
   return { body: kept.join("\n").replace(/\n{3,}/g, "\n\n"), dropped };
 }
 
+// Link destinations that are not a web, mail or site link. goldmark's unsafe mode writes a
+// destination as it is, so a "javascript:" link would run when clicked. Hugo's link render hook
+// catches these today; this check does not depend on it.
+export function badLinks(markdown) {
+  const dests = [...String(markdown).matchAll(/\]\(\s*<?([^)\s>]*)|^ {0,3}\[[^\]\n]+\]:[ \t]*<?([^\s>]*)/gm)].map((m) => m[1] ?? m[2]);
+  // Any colon or entity counts: "&#106;avascript:", "javascript&#58;" and "javascript\\:" all
+  // become a javascript: link.
+  return dests.filter((d) => /[:&]/.test(d) && !/^(https?:\/\/|mailto:)/i.test(d));
+}
+
 // Checks a post's index.md before it is committed or published. Returns a list of problems.
 // mediaIds is the set of media ids that have a file, or null when the post has no media.json.
 export function checkPost(indexMd, mediaIds = null) {
@@ -201,7 +220,9 @@ export function checkPost(indexMd, mediaIds = null) {
   const media = mediaRefs(body);
   for (const line of media.bad) problems.push(`index.md has a release-media line in the wrong form: ${line}`);
   const unknown = media.refs.map((r) => r.id).filter((id) => !mediaIds?.has(id));
-  if (unknown.length) problems.push(`index.md shows media that has no file in media/: ${[...new Set(unknown)].join(", ")}`);
+  if (unknown.length) problems.push(`index.md shows media that is not in media/ or uploaded: ${[...new Set(unknown)].join(", ")}`);
+  const links = [...badLinks(body), ...badLinks(post.frontMatter)];
+  if (links.length) problems.push(`index.md has links that are not http, https or mailto: ${[...new Set(links)].join(", ")}`);
   // Images come only from media/, through release-media.
   if (/!\[[^\]\n]*\]\s*[([]/.test(body)) problems.push("index.md has a Markdown image. Use release-media instead.");
   // The player needs the complete shortcode, not only its opening.

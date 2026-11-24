@@ -1,32 +1,40 @@
-{{- /* A screenshot or screen recording in a release post, from the post's media/ folder.
+{{- /* A screenshot or screen recording in a release post.
   Usage: {{< release-media id="pr1234-1" alt="What it shows" >}}
-  release-post/media.mjs writes media/<id>.jpg for an image, or media/<id>.mp4 and
-  media/<id>-poster.jpg for a video. The JPEGs are served as WebP. */ -}}
+  The files are in a GitHub release (release-post/assets.mjs). media.json has their URLs and
+  sizes, in the item with this id. */ -}}
 {{- $id := .Get "id" -}}
 {{- $alt := .Get "alt" -}}
-{{- if not (findRE `^[a-z0-9-]{1,40}$` $id) -}}
-  {{- errorf "release-media: bad id %q in %s" $id .Page.File.Path -}}
+{{- $item := dict -}}
+{{- with .Page.Resources.Get "media.json" -}}
+  {{- range (transform.Unmarshal .).items -}}
+    {{- if eq .id $id -}}{{- $item = . -}}{{- end -}}
+  {{- end -}}
 {{- end -}}
-{{- $video := .Page.Resources.Get (printf "media/%s.mp4" $id) -}}
-{{- $image := .Page.Resources.Get (printf "media/%s.jpg" $id) -}}
+{{- $main := index ($item.files | default dict) "main" -}}
+{{- if not $main -}}
+  {{- errorf "release-media: %q is not uploaded (no files in media.json) in %s" $id .Page.File.Path -}}
+{{- end -}}
+{{- $url := `^https://github\.com/[\w.-]+/[\w.-]+/releases/download/blog-media-v[\d.]+/[\w.-]+$` -}}
+{{- if not (findRE $url $main.url) -}}
+  {{- errorf "release-media: bad URL for %q in %s" $id .Page.File.Path -}}
+{{- end -}}
 {{- /* The width and height attributes give the browser the shape before the file loads. The
   width is at most the column, and small enough that a tall phone picture stays under 75% of
   the screen height. */ -}}
-{{- $fit := "width: min(100%%, calc(75vh * %d / %d)); height: auto;" -}}
-{{- if $video -}}
-  {{- $poster := .Page.Resources.Get (printf "media/%s-poster.jpg" $id) -}}
+{{- $w := int $main.width -}}
+{{- $h := int $main.height -}}
+{{- $style := printf "width: min(100%%, calc(75vh * %d / %d)); height: auto;" $w $h -}}
 <figure class="release-media my-4 text-center">
-  <video controls preload="none" playsinline class="rounded border" aria-label="{{ $alt }}"
-    {{- with $poster }}{{ $p := .Process "webp q80" }} poster="{{ $p.RelPermalink }}" width="{{ $p.Width }}" height="{{ $p.Height }}" style="{{ printf $fit $p.Width $p.Height | safeCSS }}"{{ else }} style="width: 100%; height: auto;"{{ end }}>
-    <source src="{{ $video.RelPermalink }}" type="video/mp4">
-    <a href="{{ $video.RelPermalink }}">Download the video: {{ $alt }}</a>
+{{- if eq $item.kind "video" -}}
+  {{- $poster := index $item.files "poster" -}}
+  {{- /* GitHub serves release files as application/octet-stream. Safari plays a video only
+    when the source says its type. */ -}}
+  <video controls preload="none" playsinline class="rounded border" aria-label="{{ $alt }}" width="{{ $w }}" height="{{ $h }}" style="{{ $style | safeCSS }}"
+    {{- with $poster }}{{ if findRE $url .url }} poster="{{ .url }}"{{ end }}{{ end }}>
+    <source src="{{ $main.url }}" type="video/mp4">
+    <a href="{{ $main.url }}">Download the video: {{ $alt }}</a>
   </video>
-</figure>
-{{- else if $image -}}
-  {{- $img := $image.Process "webp q82" -}}
-<figure class="release-media my-4 text-center">
-  <a href="{{ $img.RelPermalink }}"><img src="{{ $img.RelPermalink }}" alt="{{ $alt }}" width="{{ $img.Width }}" height="{{ $img.Height }}" loading="lazy" decoding="async" class="rounded border" style="{{ printf $fit $img.Width $img.Height | safeCSS }}"></a>
-</figure>
 {{- else -}}
-  {{- errorf "release-media: no file for %q in %s" $id .Page.File.Path -}}
+  <img src="{{ $main.url }}" alt="{{ $alt }}" width="{{ $w }}" height="{{ $h }}" loading="lazy" decoding="async" class="rounded border" style="{{ $style | safeCSS }}">
 {{- end -}}
+</figure>

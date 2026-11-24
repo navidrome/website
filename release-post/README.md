@@ -24,6 +24,8 @@ Reviews from other people do nothing.
    - `media.mjs sync`: deletes the media that the post does not show.
    - `generate-audio.mjs`: records `narration.mp3` and writes `audio.json`. `audio.json` keeps a
      hash of `narration.txt`, so audio is only recorded again when the spoken text changes.
+   - `assets.mjs publish`: uploads the MP3 and the media to a GitHub release. See "Where the
+     audio and media live".
    - Then it opens a PR from the `release-post/<tag>` branch.
 3. [`release-post-review.yml`](../.github/workflows/release-post-review.yml) handles reviews.
    Codex works on copies of the post files in a folder outside the repo, so it cannot change
@@ -32,8 +34,8 @@ Reviews from other people do nothing.
    HTML tag (even in code), shortcodes other than the player and media lines, front matter keys that
    `generate-post.mjs` does not write, and YAML escapes, tags or aliases that could hide a tag. `--fix` also links bare `@handle`s to their GitHub
    profiles. Then the workflow commits and pushes. Only the reviewer's own comments are sent
-   to Codex. If recording the audio fails, the text is still pushed, and the reply says to submit
-   a review with `/regen-audio`.
+   to Codex. New audio and media are uploaded before the push. If recording the audio fails,
+   the text is still pushed, and the reply says to submit a review with `/regen-audio`.
 
 You can also start it by hand: Actions, "Release Post", "Run workflow", with a tag like `v0.65.0`.
 
@@ -133,11 +135,11 @@ small:
 
 | Source | Saved as | Size |
 | --- | --- | --- |
-| Image, or a GIF with one frame | `media/<id>.jpg` | Longest side at most 1600 px. The site serves it as WebP. |
+| Image, or a GIF with one frame | `media/<id>.jpg` | Longest side at most 1600 px. |
 | Video, or an animated GIF | `media/<id>.mp4` (H.264) and `media/<id>-poster.jpg` | Longest side at most 1280 px, 30 fps. Videos over 3 minutes are skipped. |
 
-A file over 20 MB is made smaller once, and then skipped. Cloudflare Pages rejects files over
-25 MiB. An item that fails is skipped with a warning in the log. If the whole step fails, the
+A video over 20 MB is made smaller once, and then skipped, so readers do not download huge
+files. An item that fails is skipped with a warning in the log. If the whole step fails, the
 post is written without media.
 
 The post shows an item with a line of its own:
@@ -147,10 +149,28 @@ The post shows an item with a line of its own:
 ```
 
 [`release-media.html`](../layouts/shortcodes/release-media.html) shows it as an image, or as a
-video player with the poster. The id must be in `media.json`, and its files must be in
-`media/`. `check-post.mjs` checks this, and the line's exact form. To change the media in a
-review, ask for it: Codex can move, remove or add media lines with ids from `media.json`. The
-workflow downloads the files it needs again, and deletes the ones that are no longer shown.
+video player with the poster. The id must be in `media.json`, with uploaded files.
+`check-post.mjs` checks this, and the line's exact form. To change the media in a review, ask
+for it: Codex can move, remove or add media lines with ids from `media.json`. The workflow
+downloads and uploads the files it needs, and deletes the ones that are no longer shown.
+
+## Where the audio and media live
+
+Audio and video are big, and git keeps every version of a file forever. So they are not in
+git. `assets.mjs publish` uploads them to a pre-release of this repo named
+`blog-media-<tag>` (for example `blog-media-v0.65.0`), and writes their URLs in `audio.json`
+(`url`) and `media.json` (`files`). The page links to those URLs. `.gitignore` keeps
+`narration.mp3` and `media/` out of commits, and `check-post.mjs --published` fails if a
+local copy is left or a shown file is not uploaded.
+
+- File names end with a hash of the content, for example `narration-1a2b3c4d5e.mp3`. GitHub
+  caches a "not found" answer for a while, so a URL is never reused for another file.
+- When the audio is recorded again, or media is removed from the post, the old files are
+  deleted from the release.
+- GitHub serves these files as `application/octet-stream`. Browsers still play them because the
+  page says the type in a `<source>` tag. Chromium, WebKit (Safari) and Firefox were tested.
+- Do not delete these releases: published posts link to them. A post that was closed without
+  merging leaves its release behind, which you can delete.
 
 ## Local use
 
@@ -162,6 +182,8 @@ node release-post/media.mjs collect /tmp/release.json content/en/blog/releases/v
 OPENAI_API_KEY=... node release-post/generate-post.mjs /tmp/release.json
 node release-post/media.mjs sync content/en/blog/releases/v0.65.0
 OPENAI_API_KEY=... node release-post/generate-audio.mjs content/en/blog/releases/v0.65.0
+# Uploads to a real release. Skip it to only look at the files locally.
+GH_TOKEN=... GITHUB_REPOSITORY=navidrome/website node release-post/assets.mjs publish content/en/blog/releases/v0.65.0
 ```
 
 The prompts are in [`prompts/`](prompts). Edit them to change the style. The newest existing post

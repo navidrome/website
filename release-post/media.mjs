@@ -7,15 +7,17 @@
 //     Downloads the media of the linked PRs into <bundle-dir>/media/, makes them small, and
 //     writes <bundle-dir>/media.json. The model then picks which ones the post shows.
 //   node release-post/media.mjs sync <bundle-dir>
-//     Keeps only the media that index.md shows. Downloads again any shown item that has no file.
+//     Keeps only the media that index.md shows. Downloads again any shown item that is neither
+//     uploaded nor in media/.
 //
-// Files: media/<id>.jpg for an image, media/<id>.mp4 and media/<id>-poster.jpg for a video.
-// The site turns the JPEGs into WebP when it builds (layouts/shortcodes/release-media.html).
+// Local files: media/<id>.jpg for an image, media/<id>.mp4 and media/<id>-poster.jpg for a
+// video. They never go in git: assets.mjs uploads them to a GitHub release and writes their
+// URLs in media.json ("files"), and layouts/shortcodes/release-media.html shows them from there.
 import { execFileSync } from "node:child_process";
 import { existsSync, mkdirSync, mkdtempSync, readdirSync, readFileSync, rmSync, statSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import path from "node:path";
-import { env, mediaRefs } from "./lib.mjs";
+import { RELEASE_ASSET_URL, env, mediaRefs } from "./lib.mjs";
 
 const SOURCE_REPO = "navidrome/navidrome";
 export const MEDIA_DIR = "media";
@@ -102,6 +104,14 @@ function run(cmd, args) {
   return execFileSync(cmd, args, { stdio: ["ignore", "pipe", "pipe"], maxBuffer: 64 * 1024 * 1024 });
 }
 
+// The width and height of a picture or video, for the page layout.
+export function probeSize(file) {
+  const out = run("ffprobe", ["-v", "error", "-select_streams", "v:0", "-show_entries", "stream=width,height", "-of", "json", file]);
+  const s = JSON.parse(out.toString()).streams?.[0];
+  if (!s?.width || !s?.height) throw new Error(`no picture in ${path.basename(file)}`);
+  return { width: s.width, height: s.height };
+}
+
 // Counting frames decodes the whole file, so it is done only for GIF and APNG.
 function probe(file) {
   const read = (extra) =>
@@ -165,25 +175,48 @@ export function previewImage(bundle, item) {
   return run("ffmpeg", ["-v", "error", "-i", file, "-frames:v", "1", "-vf", fit(768), "-f", "image2pipe", "-c:v", "mjpeg", "-q:v", "5", "-"]);
 }
 
+// The local files of an item, by role: "main" (the picture or the video) and "poster".
 export function mediaFiles(id, kind) {
-  return kind === "video" ? [`${id}.mp4`, `${id}-poster.jpg`] : [`${id}.jpg`];
+  return kind === "video" ? { main: `${id}.mp4`, poster: `${id}-poster.jpg` } : { main: `${id}.jpg` };
 }
 
-// The ids name files, and the URLs are downloaded again by sync, so both are checked.
+export function hasLocalFiles(bundle, item) {
+  return Object.values(mediaFiles(item.id, item.kind)).every((f) => existsSync(path.join(bundle, MEDIA_DIR, f)));
+}
+
+// True when every file of the item is uploaded, with a URL and a size.
+export function isUploaded(item) {
+  return Object.keys(mediaFiles(item.id, item.kind)).every((role) => {
+    const f = item.files?.[role];
+    return Boolean(f && RELEASE_ASSET_URL.test(f.url) && Number.isInteger(f.width) && Number.isInteger(f.height));
+  });
+}
+
+// The ids name files, and the URLs are downloaded again by sync or put on the page, so all of
+// them are checked. An item with bad "files" loses them, so it is not shown until uploaded again.
 export function readMedia(bundle) {
   const file = path.join(bundle, "media.json");
   if (!existsSync(file)) return null;
   const asset = new RegExp(`^${ASSET}$`);
-  return (JSON.parse(readFileSync(file, "utf8")).items ?? []).filter(
-    (i) => /^[a-z0-9-]{1,40}$/.test(i.id) && (i.kind === "image" || i.kind === "video") && asset.test(i.url),
-  );
+  return (JSON.parse(readFileSync(file, "utf8")).items ?? [])
+    .filter((i) => /^[a-z0-9-]{1,40}$/.test(i.id) && (i.kind === "image" || i.kind === "video") && asset.test(i.url))
+    .map((i) => {
+      if (!i.files || isUploaded(i)) return i;
+      const { files, ...rest } = i;
+      return rest;
+    });
 }
 
-// The ids whose files are all in media/. check-post accepts only these.
-export function mediaWithFiles(bundle) {
+export function writeMedia(bundle, items) {
+  writeFileSync(path.join(bundle, "media.json"), `${JSON.stringify({ source: SOURCE_REPO, items }, null, 2)}\n`);
+}
+
+// The ids that the post can show: uploaded ones, and with local: true also the ones in media/.
+// null when there is no media.json.
+export function mediaWithFiles(bundle, { local = true } = {}) {
   const items = readMedia(bundle);
   if (!items) return null;
-  return new Set(items.filter((i) => mediaFiles(i.id, i.kind).every((f) => existsSync(path.join(bundle, MEDIA_DIR, f)))).map((i) => i.id));
+  return new Set(items.filter((i) => isUploaded(i) || (local && hasLocalFiles(bundle, i))).map((i) => i.id));
 }
 
 async function download(url, file) {
@@ -263,28 +296,36 @@ export async function collectMedia({ prs, bundle, fetchPr = githubPr, downloader
     }
   }
   mkdirSync(bundle, { recursive: true });
-  writeFileSync(path.join(bundle, "media.json"), `${JSON.stringify({ source: SOURCE_REPO, items }, null, 2)}\n`);
+  writeMedia(bundle, items);
   console.log(`Collected ${items.length} media items from ${prs.length} PRs.`);
   return items;
 }
 
-// Keeps only the files of the media that index.md shows, and downloads any that are missing.
-// Without media.json, the media folder goes away.
+// Keeps only the media that index.md shows. A shown item that is neither uploaded nor in media/
+// is downloaded again. An item that is not shown loses its local files and its uploaded URLs;
+// assets.mjs then deletes those uploads. Without media.json, the media folder goes away.
 export async function syncMedia(bundle, { downloader = download } = {}) {
   const mediaDir = path.join(bundle, MEDIA_DIR);
   const items = readMedia(bundle);
   const body = readFileSync(path.join(bundle, "index.md"), "utf8");
   const shown = new Set(mediaRefs(body).refs.map((r) => r.id));
   const keep = new Set();
+  const next = [];
   for (const item of items ?? []) {
-    if (!shown.has(item.id)) continue;
-    const files = mediaFiles(item.id, item.kind);
-    if (!files.every((f) => existsSync(path.join(mediaDir, f)))) {
+    if (!shown.has(item.id)) {
+      const { files, ...rest } = item;
+      next.push(rest);
+      continue;
+    }
+    next.push(item);
+    if (isUploaded(item)) continue;
+    if (!hasLocalFiles(bundle, item)) {
       console.log(`Downloading ${item.id} again.`);
       await fetchItem(item, mediaDir, downloader);
     }
-    files.forEach((f) => keep.add(f));
+    Object.values(mediaFiles(item.id, item.kind)).forEach((f) => keep.add(f));
   }
+  if (items) writeMedia(bundle, next);
   if (!existsSync(mediaDir)) return;
   for (const f of readdirSync(mediaDir)) if (!keep.has(f)) rmSync(path.join(mediaDir, f), { recursive: true, force: true });
   if (!readdirSync(mediaDir).length) rmSync(mediaDir, { recursive: true, force: true });
