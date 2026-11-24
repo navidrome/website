@@ -1,0 +1,28 @@
+name: Macissimo
+url: https://macissimo.com/
+isOpenSource: false
+
+platforms:
+  ios:
+    store: https://apps.apple.com/us/app/macissimo/id6826908773
+  macos:
+    store: https://apps.apple.com/us/app/macissimo/id6826908773?platform=mac
+  tvos:
+    store: https://apps.apple.com/us/app/macissimo/id6826908773?platform=tv
+
+api: OpenSubsonic
+description: >-
+  Browse and stream your Navidrome library on Mac, iPhone, iPad, and Apple TV.
+  On Mac, iPhone, and iPad, search your library offline, download albums, songs, and playlists for offline listening,
+  and share matching Apple Music links.
+
+screenshots:
+  thumbnail: thumbnail.webp
+  gallery:
+    - mac-songs.webp
+    - iphone-library.webp
+    - iphone-now-playing.webp
+    - ipad-library.webp
+    - apple-tv.webp
+
+pricing: free
