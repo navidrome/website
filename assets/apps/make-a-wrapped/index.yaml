@@ -7,7 +7,7 @@ platforms:
   docker:
     store: https://github.com/DevMatei/make-a-wrapped/pkgs/container/make-a-wrapped
 api: Navidrome
-description: "Spotify Wrapped style posters from your Navidrome play history: top artists, top tracks, top genre and listening time for any time frame. Talks to your server straight from the browser, so your password never leaves your device. Free, with lots of templates, or self-host it with Docker."
+description: "Spotify Wrapped style posters from your Navidrome play history: top artists, top tracks, top genre and listening time for any time frame. Runs in your browser and talks straight to your own server, so your password only goes to your Navidrome, never to the app's backend. Free, with lots of templates, or self-host it with Docker."
 screenshots:
   thumbnail: thumbnail.webp
   gallery:
