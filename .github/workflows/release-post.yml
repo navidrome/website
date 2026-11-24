@@ -13,6 +13,10 @@ on:
       tag:
         description: "Navidrome release tag, for example v0.65.0"
         required: true
+      regenerate:
+        description: "Write a new post even if an earlier PR for this tag was closed without merging"
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -33,6 +37,7 @@ jobs:
       REVIEWER: ${{ vars.RELEASE_POST_REVIEWER || 'deluan' }}
       AUDIO: ${{ vars.RELEASE_POST_AUDIO || 'on' }}
       MEDIA: ${{ vars.RELEASE_POST_MEDIA || 'on' }}
+      REGENERATE: ${{ inputs.regenerate == true }}
     steps:
       - name: Check tag
         run: |
@@ -62,18 +67,23 @@ jobs:
 
       # A branch without a PR means an earlier run failed after the push. Then only the PR
       # is opened, and nothing is generated (or paid for) again.
+      # With "regenerate", PRs closed without merging are ignored, and the branch is replaced.
       - name: Skip if the post already exists
         id: exists
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          pr=$(gh pr list -R "$GITHUB_REPOSITORY" --head "$BRANCH" --state all --json number --jq '.[0].number // empty')
+          if [ "$REGENERATE" = "true" ]; then filter='map(select(.state != "CLOSED"))'; else filter='.'; fi
+          pr=$(gh pr list -R "$GITHUB_REPOSITORY" --head "$BRANCH" --state all --json number,state --jq "$filter | .[0].number // empty")
           if [ -e "$BUNDLE/index.md" ]; then
             echo "The post for $TAG is already published. Nothing to do."
             echo "skip=true" >> "$GITHUB_OUTPUT"
           elif [ -n "$pr" ]; then
             echo "PR #$pr already exists for $TAG. Nothing to do."
+            if [ "$REGENERATE" != "true" ]; then echo "If it was closed, run again with \"regenerate\" to write a new post."; fi
             echo "skip=true" >> "$GITHUB_OUTPUT"
+          elif [ "$REGENERATE" = "true" ]; then
+            echo "Writing a new post for $TAG. The branch $BRANCH is replaced."
           elif git ls-remote --exit-code --heads origin "$BRANCH" >/dev/null; then
             echo "Branch $BRANCH exists without a PR. Opening the PR only."
             echo "resume=true" >> "$GITHUB_OUTPUT"
@@ -161,7 +171,8 @@ jobs:
             fi
             auth=$(printf 'x-access-token:%s' "$PUSH_TOKEN" | base64 -w0)
             echo "::add-mask::$auth"
-            git -c http.extraheader="AUTHORIZATION: basic $auth" push origin "$BRANCH"
+            force=(); if [ "$REGENERATE" = "true" ]; then force=(--force); fi
+            git -c http.extraheader="AUTHORIZATION: basic $auth" push "${force[@]}" origin "$BRANCH"
           else
             git fetch -q origin "$BRANCH"
             # Keeps the lines after "Warnings:". That line can be the first one of the body.
@@ -171,9 +182,11 @@ jobs:
           url=$(jq -r .url "$RUNNER_TEMP/release.json")
           node release-post/pr-body.mjs "$TAG" "$url" "$REVIEWER" "$RELEASE_POST_USAGE_FILE" "$RELEASE_POST_WARNINGS_FILE" > "$RUNNER_TEMP/body.md"
           gh label create release-post --color 5319e7 --description "Generated release blog post" 2>/dev/null || true
-          gh pr create --base master --head "$BRANCH" --label release-post \
-            --title "blog: Navidrome $TAG release post" --body-file "$RUNNER_TEMP/body.md"
-          gh pr edit "$BRANCH" --add-reviewer "$REVIEWER" || echo "::warning::Could not request a review from $REVIEWER"
+          # The URL, not the branch name: a closed PR can have the same branch name.
+          pr_url=$(gh pr create --base master --head "$BRANCH" --label release-post \
+            --title "blog: Navidrome $TAG release post" --body-file "$RUNNER_TEMP/body.md")
+          echo "Opened $pr_url"
+          gh pr edit "$pr_url" --add-reviewer "$REVIEWER" || echo "::warning::Could not request a review from $REVIEWER"
 
       - name: Usage summary
         if: always() && steps.exists.outputs.skip != 'true'
