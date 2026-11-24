@@ -1,0 +1,14 @@
+{
+  "narration_sha256": "2258a1142e5cbccabf8be720c26bc7dc6552696fbb13758fd18240bc3b916b3e",
+  "engine": "realtime",
+  "model": "gpt-realtime-2.1-mini",
+  "voice": "marin",
+  "duration_seconds": 93,
+  "chunks": 1,
+  "transcript_similarity": [
+    1
+  ],
+  "generated_at": "2026-11-24T03:59:36.131Z",
+  "url": "https://github.com/navidrome/website/releases/download/blog-media-v0.64.0/narration-b1d8e64193.mp3",
+  "file": "narration-b1d8e64193.mp3"
+}

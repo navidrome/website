@@ -1,0 +1,131 @@
+{
+  "source": "navidrome/navidrome",
+  "items": [
+    {
+      "id": "pr5805-1",
+      "pr": 5805,
+      "pr_title": "feat(ui): playlist favourites (heart, list filter, sidebar favourites-only toggle)",
+      "url": "https://github.com/user-attachments/assets/bd979adf-9f82-492c-b85c-51959f059d13",
+      "alt": "",
+      "context": "Screenshots",
+      "kind": "video",
+      "files": {
+        "main": {
+          "url": "https://github.com/navidrome/website/releases/download/blog-media-v0.64.0/pr5805-1-a33d7a95e5.mp4",
+          "name": "pr5805-1-a33d7a95e5.mp4",
+          "width": 1280,
+          "height": 706
+        },
+        "poster": {
+          "url": "https://github.com/navidrome/website/releases/download/blog-media-v0.64.0/pr5805-1-poster-d53c837b4a.jpg",
+          "name": "pr5805-1-poster-d53c837b4a.jpg",
+          "width": 1280,
+          "height": 706
+        }
+      }
+    },
+    {
+      "id": "pr6125-1",
+      "pr": 6125,
+      "pr_title": "fix(ui): prevent Safari album grid resize when top menus open",
+      "url": "https://github.com/user-attachments/assets/d79a7e87-93b2-4f97-b950-de2c08cd5b8f",
+      "alt": "Before",
+      "context": "| Before | After |",
+      "kind": "video"
+    },
+    {
+      "id": "pr6125-2",
+      "pr": 6125,
+      "pr_title": "fix(ui): prevent Safari album grid resize when top menus open",
+      "url": "https://github.com/user-attachments/assets/196ac62f-5a62-41a9-846c-952b4c35c61c",
+      "alt": "After",
+      "context": "| Before | After |",
+      "kind": "video"
+    },
+    {
+      "id": "pr5730-1",
+      "pr": 5730,
+      "pr_title": "feat(server): experimental Jellyfin Music API",
+      "url": "https://github.com/user-attachments/assets/7409a9b8-994c-47b7-a974-8421c9657a33",
+      "alt": "",
+      "context": "Screenshots",
+      "kind": "video",
+      "files": {
+        "main": {
+          "url": "https://github.com/navidrome/website/releases/download/blog-media-v0.64.0/pr5730-1-998afeabe7.mp4",
+          "name": "pr5730-1-998afeabe7.mp4",
+          "width": 574,
+          "height": 1280
+        },
+        "poster": {
+          "url": "https://github.com/navidrome/website/releases/download/blog-media-v0.64.0/pr5730-1-poster-d104555a43.jpg",
+          "name": "pr5730-1-poster-d104555a43.jpg",
+          "width": 574,
+          "height": 1280
+        }
+      }
+    },
+    {
+      "id": "pr5730-2",
+      "pr": 5730,
+      "pr_title": "feat(server): experimental Jellyfin Music API",
+      "url": "https://github.com/user-attachments/assets/5dca618a-f883-44ef-b4d3-08c3c26958aa",
+      "alt": "",
+      "context": "Screenshots",
+      "kind": "video"
+    },
+    {
+      "id": "pr5730-3",
+      "pr": 5730,
+      "pr_title": "feat(server): experimental Jellyfin Music API",
+      "url": "https://github.com/user-attachments/assets/ac987426-fa6c-4ba0-9374-76eb9a279457",
+      "alt": "Screenshot 2026-07-06 at 7 07 56 PM",
+      "context": "Screenshots",
+      "kind": "image"
+    },
+    {
+      "id": "pr5835-1",
+      "pr": 5835,
+      "pr_title": "feat(themes): added catppuccin mocha and frappé themes, updated macchiato theme to better reflect the official palette",
+      "url": "https://github.com/user-attachments/assets/c5f9ce54-97ab-4086-9e3d-82f23de0a1aa",
+      "alt": "frappe",
+      "context": "Frappé:",
+      "kind": "image",
+      "files": {
+        "main": {
+          "url": "https://github.com/navidrome/website/releases/download/blog-media-v0.64.0/pr5835-1-5546e0ff8a.jpg",
+          "name": "pr5835-1-5546e0ff8a.jpg",
+          "width": 1600,
+          "height": 866
+        }
+      }
+    },
+    {
+      "id": "pr5835-2",
+      "pr": 5835,
+      "pr_title": "feat(themes): added catppuccin mocha and frappé themes, updated macchiato theme to better reflect the official palette",
+      "url": "https://github.com/user-attachments/assets/dd9f2343-071e-4c65-823d-048766a0c317",
+      "alt": "macchiato",
+      "context": "Macchiato:",
+      "kind": "image"
+    },
+    {
+      "id": "pr5835-3",
+      "pr": 5835,
+      "pr_title": "feat(themes): added catppuccin mocha and frappé themes, updated macchiato theme to better reflect the official palette",
+      "url": "https://github.com/user-attachments/assets/5d130136-595c-4c91-a7cf-0147abbeffc8",
+      "alt": "mocha",
+      "context": "Mocha:",
+      "kind": "image"
+    },
+    {
+      "id": "pr5767-1",
+      "pr": 5767,
+      "pr_title": "fix(serve index): Set Cache-Control: no-cache on index.html - 5766",
+      "url": "https://github.com/user-attachments/assets/b0bc40ff-5496-4030-a4d4-92e7b18f4ea0",
+      "alt": "image",
+      "context": "Screenshots / Demos (if applicable)",
+      "kind": "image"
+    }
+  ]
+}
