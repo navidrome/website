@@ -1,0 +1,22 @@
+name: Hydrophone
+url: https://hydrophone.app
+repoUrl: https://github.com/thijsw/hydrophone
+platforms:
+  macos:
+    store: https://apps.apple.com/app/id6795956982
+api: OpenSubsonic
+description: "A native macOS player with gapless playback, an iTunes-style Genre → Artist → Album column browser, bit-perfect sample-rate switching, and a menu-bar mini player. Swift and Apple frameworks only — no Electron."
+screenshots:
+  thumbnail: thumbnail.webp
+  gallery:
+    - screen1.webp
+    - screen2.webp
+    - screen3.webp
+    - screen4.webp
+isFree: true
+keywords:
+  - gapless
+  - audiophile
+  - column browser
+  - menu bar
+  - native
