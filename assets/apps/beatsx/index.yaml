@@ -1,0 +1,36 @@
+# BeatsX - Navidrome Client App Entry
+# See: https://www.navidrome.org/docs/developers/adding-apps/
+
+name: BeatsX
+
+url: https://beatsx.jatcloud.com
+
+platforms:
+  ios:
+    store: https://apps.apple.com/ca/app/beatsx/id6834966722
+  macos:
+    store: https://apps.apple.com/ca/app/beatsx/id6834966722?platform=mac
+
+api: OpenSubsonic
+
+description: >-
+  Meet BeatsX — Your Music, Reimagined.
+
+  Experience your personal Navidrome or Subsonic music library in a beautifully crafted, Apple-inspired Glass UI, with powerful playback, lightning-fast sync, a 10-band EQ, offline downloads, CarPlay, Siri and Shortcuts.
+
+  Take it further with DJ-style Smart Mix: intelligent beatmatching, phrase-aware mixing and 9 DJ-inspired transitions for seamless, professional-sounding mixes.
+
+  Your music. Your server. Your style. Beautifully played with BeatsX.
+
+screenshots:
+  thumbnail: search_results_preview.webp
+
+pricing: trial
+
+keywords:
+  - navidrome
+  - subsonic
+  - offline
+  - carplay
+  - equalizer
+  - downloads
