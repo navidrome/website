@@ -22,7 +22,7 @@ This page explains what data is collected, how it is used, and how to opt out if
 - **What’s Collected**: See [Collected Data](#what-will-be-collected).
 - **What’s NOT Collected**: No emails, IP addresses, usernames, or other identifiable data. See [Excluded Data](#what-will-not-be-collected).
 - **Opt-Out Available**: Enabled by default, but you can disable it anytime.
-- **In-House Data Handling**: Collected data goes to an [open-source server](https://github.com/navidrome/insights) hosted by the project—no third-party services.
+- **In-House Data Handling**: Collected data goes to an [open-source server](https://github.com/navidrome/insights) hosted by the project: no third-party services.
 - **Full Transparency**: Logs and UI indicators show when data is sent and what it contains.
 
 ---
@@ -246,7 +246,7 @@ Check it out: [Navidrome Insights Server](https://github.com/navidrome/insights)
 ## Thank You for Your Support
 
 By allowing anonymous usage statistics, you’re contributing to the future of Navidrome. Your trust is invaluable,
-and if you’re uncomfortable, you can always opt out—no questions asked.
+and if you’re uncomfortable, you can always opt out, no questions asked.
 
 For questions or concerns, feel free to reach out via:
 
