@@ -1,0 +1,30 @@
+name: Veya
+url: https://veya.e775.com/
+
+platforms:
+  android:
+    store: https://play.google.com/store/apps/details?id=com.tf.uniplayer&referrer=utm_source%3Dnavidrome_apps%26utm_campaign%3Ddirectory
+  ios:
+    store: https://apps.apple.com/app/veya-nas-media-player/id6837163350
+
+api: OpenSubsonic
+
+description: "A video and music player for your own media library. Browse albums, artists and songs from Navidrome or other Subsonic servers and view lyrics (synced lyrics with Veya Pro), with your Jellyfin, Emby, Plex and NAS media in the same app."
+
+screenshots:
+  thumbnail: thumbnail.webp
+  gallery:
+    - screen1.webp
+    - screen2.webp
+    - screen3.webp
+    - screen4.webp
+
+pricing: freemium
+
+keywords:
+  - jellyfin
+  - emby
+  - plex
+  - nas
+  - smb
+  - video
